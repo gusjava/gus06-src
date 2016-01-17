@@ -1,0 +1,25 @@
+package gus06.entity.gus.sys.webserver1.web2.zdyn.module.pathtofile;
+
+import gus06.framework.*;
+import java.io.File;
+
+public class EntityImpl implements Entity, R {
+
+	public String creationDate() {return "20141129";}
+
+	public static final String S = File.separator;
+
+	private File rootDir;
+
+	public EntityImpl() throws Exception
+	{
+		rootDir = (File) Outside.resource(this,"path#path.web2.dir.spaces");
+		rootDir.mkdirs();
+	}
+	
+	public Object r(String key) throws Exception
+	{
+		key = key.replace("\\",S).replace("/",S);
+		return new File(rootDir,key);
+	}
+}

@@ -1,0 +1,34 @@
+package gus06.entity.gus.appli.gusdbmanager.execute.config;
+
+import java.io.File;
+import javax.swing.JOptionPane;
+import gus06.framework.*;
+
+public class EntityImpl implements Entity, E {
+
+	public String creationDate() {return "20150613";}
+
+	private Service dataHolder;
+	private Service getFile;
+	
+	
+	public EntityImpl() throws Exception
+	{
+		dataHolder = Outside.service(this,"gus.appli.gusdbmanager.data.holder");
+		getFile = Outside.service(this,"gus.appli.gusdbmanager.execute.config.choosefile");
+	}
+	
+
+	public void e() throws Exception
+	{
+		File f = (File) getFile.g();
+		if(f==null || !f.exists()) return;
+		
+		boolean loaded = dataHolder.f(f);
+		if(loaded) return;
+
+		JOptionPane.showMessageDialog(null,"Le chargement du fichier a échoué:\n"+f,
+				"Configuration des serveurs en échec",
+				JOptionPane.WARNING_MESSAGE);
+	}
+}

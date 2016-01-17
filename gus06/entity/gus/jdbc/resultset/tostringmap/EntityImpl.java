@@ -1,0 +1,26 @@
+package gus06.entity.gus.jdbc.resultset.tostringmap;
+
+import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.HashMap;
+import gus06.framework.*;
+
+public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20150625";}
+
+
+	public Object t(Object obj) throws Exception
+	{
+		ResultSet rs = (ResultSet) obj;
+		HashMap map = new HashMap();
+		while(rs.next())
+		{
+			String key = rs.getString(1);
+			String value = rs.getString(2);
+			map.put(key,value);
+		}
+		rs.close();
+		return map;
+	}
+}

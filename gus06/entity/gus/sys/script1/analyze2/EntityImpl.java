@@ -1,0 +1,91 @@
+package gus06.entity.gus.sys.script1.analyze2;
+
+import gus06.framework.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class EntityImpl implements Entity, T {
+	
+	public static final String T_ROOT = "root";
+	
+	public static final String K_TYPE = "type";
+	public static final String K_VALUE = "value";
+	public static final String K_CONTENT = "content";
+	public static final String K_UNTIL = "until";
+	public static final String K_PARENT = "parent";
+	public static final String K_INDEX = "index";
+
+
+	public String creationDate() {return "20150829";}
+	
+
+
+
+	private Service prepare;
+
+	public EntityImpl() throws Exception
+	{prepare = Outside.service(this,"gus.sys.script1.analyze2.preparetag");}
+	
+	
+	
+	public Object t(Object obj) throws Exception
+	{
+		List list = new ArrayList((List) obj);
+		
+		Map root = new HashMap();
+		root.put(K_TYPE,T_ROOT);
+		
+		handleTag(root,list);
+		return root;
+	}
+	
+	
+	
+	
+	private void handleTag(Map tag, List list) throws Exception
+	{
+		prepare.p(tag);
+		String until = get(tag,K_UNTIL);
+		if(until!=null) fillTag(tag,list,until);
+	}
+	
+	
+	
+	private void fillTag(Map tag, List list, String until) throws Exception
+	{
+		List content = new ArrayList();
+		tag.put(K_CONTENT,content);
+		
+		boolean endReached = false;
+		while(!list.isEmpty() && !endReached)
+		{
+			Map next = nextTag(list);
+			content.add(next);
+			next.put(K_PARENT,tag);
+			next.put(K_INDEX,""+(content.size()-1));
+			handleTag(next,list);
+			
+			endReached = isEnd(next,until);
+		}
+	}
+	
+	
+	
+	
+	
+	private boolean isEnd(Map tag, String until)
+	{
+		String value = get(tag,K_VALUE);
+		return value!=null && value.equals(until);
+	}
+	
+	
+	private Map nextTag(List list)
+	{return (Map) list.remove(0);}
+	
+	
+	private String get(Map map, String key)
+	{return map.containsKey(key)?(String) map.get(key):null;}
+}

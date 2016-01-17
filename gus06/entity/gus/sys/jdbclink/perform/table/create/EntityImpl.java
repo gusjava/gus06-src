@@ -1,0 +1,42 @@
+package gus06.entity.gus.sys.jdbclink.perform.table.create;
+
+import gus06.framework.*;
+import java.sql.Connection;
+
+public class EntityImpl implements Entity, F {
+
+	public String creationDate() {return "20150625";}
+	
+	
+	public final static String F_EL1 = "el1";
+	public final static String F_EL2 = "el2";
+	
+	public final static String T_EL1 = "CHAR(100)";
+	public final static String T_EL2 = "CHAR(100)";
+
+	
+
+	private Service create;
+
+	public EntityImpl() throws Exception
+	{
+		create = Outside.service(this,"gus.jdbc.mysql.perform.table.create");
+	}
+	
+	
+	public boolean f(Object obj) throws Exception
+	{
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		
+		Connection cx = (Connection) o[0];
+		String path = (String) o[1];
+		
+		String[] col = new String[]{F_EL1,F_EL2};
+		String[] type = new String[]{T_EL1,T_EL2};
+		String[] primary = new String[]{F_EL1,F_EL2};
+		
+		create.p(new Object[]{cx,path,col,type,primary});
+		return true;
+	}
+}
