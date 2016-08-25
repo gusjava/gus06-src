@@ -24,7 +24,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		ioTransfer = Outside.service(this,"gus.io.transfer");
-		autoRename = Outside.service(this,"gus.file.newfile.autorename");
+		autoRename = Outside.service(this,"gus.file.newfile.autorename2");
 	}
 	
 	

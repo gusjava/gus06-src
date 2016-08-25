@@ -18,7 +18,7 @@ public class EntityImpl implements Entity, T {
 		public Filter(String s)
 		{
 			if(s==null || s.equals("")) return;
-			n = s.toLowerCase().split(" ");
+			n = s.toLowerCase().split(" +");
 		}
 		
 		public boolean f(Object obj) throws Exception

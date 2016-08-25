@@ -7,41 +7,31 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151111";}
 	
-	public static final String K_WHILE = "while";
-	public static final String K_ARGS = "args";
-	public static final String K_REDIRECT = "redirect";
 	public static final String K_UNTIL = "until";
 	public static final String K_SKIP = "skip";
-	public static final String K_IF = "if";
+	public static final String K_KEEP = "keep";
 	public static final String K_MIN = "min";
 	public static final String K_MAX = "max";
+	
+	public static final int LIMIT = 100000;
 
 	
-	private Service getParams;
-	private Service getOutput;
-	private Service stackManager;
-	private Service buildData;
 	private Service evalAsBoolean;
-	
 	private Service executePart1;
 	private Service executePart2;
-
-
+	private Service wrapping1;
+	private Service getMain;
 
 	public EntityImpl() throws Exception
 	{
-		getParams = Outside.service(this,"gus.sys.script1.access.tag.params1");
-		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
-		stackManager = Outside.service(this,"gus.sys.script1.context.stack.manager");
-		buildData = Outside.service(this,"gus.sys.script1.executor.type.el.r.while1.params");
 		evalAsBoolean = Outside.service(this,"gus.sys.script1.context.evaluate.boolean1");
-		
 		executePart1 = Outside.service(this,"gus.sys.script1.tool.execute.content.part1");
 		executePart2 = Outside.service(this,"gus.sys.script1.tool.execute.content.part2");
+		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
+		getMain = Outside.service(this,"gus.sys.script1.tool.execute.params.handler1.a.main");
 	}
 	
 	
-
 	
 	public Object t(Object obj) throws Exception
 	{return new Executor((Map) obj);}
@@ -57,31 +47,33 @@ public class EntityImpl implements Entity, T {
 		public void p(Object obj) throws Exception
 		{
 			Map context = (Map) obj;
-			String params = (String) getParams.t(tag);
-			V output = (V) getOutput.t(context);
-			Object p0 = ((R) output).r("p0");
+			wrapping1.p(new Object[]{context,tag,new Wrap()});
+		}
+	}
+	
+	
+	private class Wrap implements P
+	{
+		public void p(Object obj) throws Exception
+		{
+			Object[] o = (Object[]) obj;
+			if(o.length!=5) throw new Exception("Wrong data number: "+o.length);
 			
-			Map data = (Map) buildData.t(new Object[]{context,params});
+			Map context = (Map) o[0];
+			Map tag = (Map) o[1];
+			Map pool1 = (Map) o[2];
+			Object main = o[3];
+			Map data = (Map) o[4];
 			
-			Boolean while1 = (Boolean) get(data,K_WHILE);
-			Map args = (Map) get(data,K_ARGS);
 			
-			Object redirect = get(data,K_REDIRECT);
+			Boolean while1 = (Boolean) main;
 			String until1 = (String) get(data,K_UNTIL);
 			String skip1 = (String) get(data,K_SKIP);
-			Boolean if1 = (Boolean) get(data,K_IF);
+			String keep = (String) get(data,K_KEEP);
 			Integer min = (Integer) get(data,K_MIN);
 			Integer max = (Integer) get(data,K_MAX);
 			
-			
-			if(if1!=null && !if1.booleanValue()) return;
-			
-			if(redirect!=null) output.v("redirect",redirect);
-			
-			E stack = stack(context,tag);
-			Map pool1 = pool1(stack);
-			
-			if(args!=null) pool1.putAll(args);
+			int limit = max!=null ? max.intValue() : LIMIT;
 			
 			int k = 0;
 			
@@ -92,23 +84,22 @@ public class EntityImpl implements Entity, T {
 				k++;
 			}
 			
-			if(k>0)	while1 = eval(context,params);
+			if(k>0)	while1 = evalMain(context,tag);
 			
-			while(while1.booleanValue() && (max==null || k<=max.intValue()))
+			while(while1.booleanValue() && k<=limit)
 			{
 				if(until1!=null && isTrue(context,until1)) break;
+				
 				if(skip1==null || !isTrue(context,skip1))
+				if(keep==null || isTrue(context,keep))
 				executePart1.p(new Map[]{tag,context});
 				
 				k++;
-				while1 = eval(context,params);
+				while1 = evalMain(context,tag);
 			}
 			
 			if(k==0) executePart2.p(new Map[]{tag,context});
-			
-			stack.e();
-			
-			if(redirect!=null) output.v("redirect",p0);
+			else if(k>LIMIT && max==null) throw new Exception("Infinite loop detected");
 		}
 	}
 	
@@ -119,12 +110,6 @@ public class EntityImpl implements Entity, T {
 		return map.get(key);
 	}
 	
-	private E stack(Map context, Map tag) throws Exception
-	{return (E) stackManager.t(new Map[]{context,tag});}
-	
-	private Map pool1(Object stack) throws Exception
-	{return (Map) ((G) stack).g();}
-	
 	
 	private boolean isTrue(Map context, String rule) throws Exception
 	{
@@ -133,9 +118,8 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private Boolean eval(Map context, String params) throws Exception
+	private Boolean evalMain(Map context, Map tag) throws Exception
 	{
-		Map data = (Map) buildData.t(new Object[]{context,params});
-		return (Boolean) get(data,K_WHILE);
+		return (Boolean) getMain.t(new Object[]{context,tag});
 	}
 }

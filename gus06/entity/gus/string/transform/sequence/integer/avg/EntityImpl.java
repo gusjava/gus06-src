@@ -33,7 +33,7 @@ public class EntityImpl implements Entity, T {
 	private int sum(int[] array)
 	{
 		int sum = 0;
-		for(int n:array) sum =+ n;
+		for(int n:array) sum += n;
 		return sum;
 	}
 }

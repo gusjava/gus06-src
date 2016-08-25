@@ -15,25 +15,13 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof String) return new Boolean(toDouble(obj)==0);
-		
-		if(obj instanceof Integer) return new Boolean(toInt(obj)==0);
-		if(obj instanceof Double) return new Boolean(toDouble(obj)==0);
-		if(obj instanceof Float) return new Boolean(toFloat(obj)==0);
-		if(obj instanceof Long) return new Boolean(toLong(obj)==0);
+		if(obj instanceof Integer) return zero((Integer) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
-	
-	private double toDouble(Object obj)
-	{return Double.parseDouble(""+obj);}
-	
-	private float toFloat(Object obj)
-	{return Float.parseFloat(""+obj);}
-	
-	private long toLong(Object obj)
-	{return Long.parseLong(""+obj);}
+	private Boolean zero(Integer n)
+	{
+		return new Boolean(n.intValue()==0);
+	}
 }

@@ -8,21 +8,21 @@ public class EntityImpl implements Entity, T {
 
 
 	public Object t(Object obj) throws Exception
-	{return new F_unicodeEquals((String)obj);}
+	{return new Filter((String) obj);}
 	
 	
 	
-	private class F_unicodeEquals implements F
+	private class Filter implements F
 	{
 		private CharTools.CharType charType;
 		
-		public F_unicodeEquals(String value)
+		public Filter(String value)
 		{charType = CharTools.buildCharType(value);}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = (String)obj;
+			String str = (String) obj;
 			if(str.equals("")) return false;
 			
 			for(int i=0;i<str.length();i++)

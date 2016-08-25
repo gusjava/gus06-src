@@ -1,0 +1,78 @@
+package gus06.entity.gus.appli.gusgadgets.manager;
+
+import gus06.framework.*;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import java.util.Map;
+import java.util.HashMap;
+import java.awt.Dimension;
+
+public class EntityImpl extends S1 implements Entity, R, G, V, P {
+
+	public String creationDate() {return "20160605";}
+
+
+	private Service onTop;
+	private Service draggable;
+	private Service locationPersister;
+
+	private Map map;
+
+
+	public EntityImpl() throws Exception
+	{
+		onTop = Outside.service(this,"gus.swing.dialog.build.dialogontop");
+		draggable = Outside.service(this,"gus.swing.comp.cust.dragframe");
+		locationPersister = Outside.service(this,"gus.swing.dialog.persister.position");
+		
+		map = new HashMap();
+	}
+	
+	
+	private void init(Service s) throws Exception
+	{
+		String name = (String) s.r("name");
+		Dimension size = (Dimension) s.r("size");
+		
+		map.put(name,s);
+		
+		JComponent gui = (JComponent) s.i();
+		JDialog dialog = (JDialog) onTop.t(gui);
+		
+		if(size==null) size = gui.getPreferredSize();
+		
+		dialog.setMinimumSize(size);
+		dialog.setMaximumSize(size);
+		dialog.setPreferredSize(size);
+		
+		draggable.p(dialog);
+		locationPersister.v("GADGET_POSITION_"+name,dialog);
+		
+		updated();
+	}
+	
+	
+	
+	public Object g() throws Exception
+	{return map;}
+	
+	
+	public void p(Object obj) throws Exception
+	{init((Service) obj);}
+	
+	
+	
+	public Object r(String key) throws Exception
+	{
+		return null;
+	}
+	
+	
+	public void v(String key, Object obj) throws Exception
+	{
+		
+	}
+	
+	private void updated()
+	{send(this,"updated()");}
+}

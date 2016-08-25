@@ -9,13 +9,11 @@ public class EntityImpl implements Entity, P {
 
 	
 	private Service custComp;
-	private Service autoEdit;
 
 
 	public EntityImpl() throws Exception
 	{
 		custComp = Outside.service(this,"gus.file.editor.ext.txt.custcomp");
-		autoEdit = Outside.service(this,"gus.swing.textcomp.cust.autoedit.javaediting1");
 	}
 	
 	
@@ -25,6 +23,5 @@ public class EntityImpl implements Entity, P {
 		JTextComponent comp = (JTextComponent) obj;
 
 		custComp.p(comp);
-		autoEdit.p(comp);
 	}
 }

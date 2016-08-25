@@ -5,18 +5,20 @@ import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151114";}
 
 
-	private Service builder;
+	private Service builderT;
+	private Service builderH;
 	private Service perform;
 	
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.t");
+		builderT = Outside.service(this,"gus.sys.expression1.builder2.t");
+		builderH = Outside.service(this,"gus.sys.expression1.builder2.h");
 		perform = Outside.service(this,"gus.data.perform.collect");
 	}
 
@@ -36,14 +38,12 @@ public class EntityImpl implements Entity, T, R {
 		if(value instanceof Map) return new T1(value,opMap);
 		if(value instanceof Object[]) return new T1(value,opMap);
 		
+		if(value instanceof double[]) return new T2(value,opMap);
+		if(value instanceof float[]) return new T2(value,opMap);
+		if(value instanceof int[]) return new T2(value,opMap);
+		if(value instanceof long[]) return new T2(value,opMap);
+		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{List.class,Set.class,Map.class,Object[].class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	
@@ -60,8 +60,27 @@ public class EntityImpl implements Entity, T, R {
 		
 		public Object t(Object obj) throws Exception
 		{
-			T t = (T) builder.t(new Object[]{obj,opMap});
+			T t = (T) builderT.t(new Object[]{obj,opMap});
 			return perform.t(new Object[]{value,t});
+		}
+	}
+	
+	
+	private class T2 implements T
+	{
+		private Object value;
+		private Map opMap;
+		
+		public T2(Object value, Map opMap)
+		{
+			this.value = value;
+			this.opMap = opMap;
+		}
+		
+		public Object t(Object obj) throws Exception
+		{
+			H h = (H) builderH.t(new Object[]{obj,opMap});
+			return perform.t(new Object[]{value,h});
 		}
 	}
 }

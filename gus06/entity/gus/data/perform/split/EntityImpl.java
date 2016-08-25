@@ -27,6 +27,6 @@ public class EntityImpl implements Entity, T {
 	
 	private String[] split(String s, String cut)
 	{
-		return s.split(Pattern.quote(cut));
+		return s.split(Pattern.quote(cut),-1);
 	}
 }

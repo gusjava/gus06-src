@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151122";}
 
@@ -25,12 +25,5 @@ public class EntityImpl implements Entity, T, R {
 		obj = o[0];
 		
 		return desc.t(obj);
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Object.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

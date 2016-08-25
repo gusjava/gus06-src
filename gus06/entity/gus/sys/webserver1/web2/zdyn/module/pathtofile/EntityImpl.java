@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.webserver1.web2.zdyn.module.pathtofile;
 import gus06.framework.*;
 import java.io.File;
 
-public class EntityImpl implements Entity, R {
+public class EntityImpl implements Entity, R, T {
 
 	public String creationDate() {return "20141129";}
 
@@ -22,4 +22,7 @@ public class EntityImpl implements Entity, R {
 		key = key.replace("\\",S).replace("/",S);
 		return new File(rootDir,key);
 	}
+	
+	public Object t(Object obj) throws Exception
+	{return r((String) obj);}
 }

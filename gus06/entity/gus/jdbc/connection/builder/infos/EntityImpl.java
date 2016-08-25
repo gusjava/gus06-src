@@ -3,6 +3,7 @@ package gus06.entity.gus.jdbc.connection.builder.infos;
 import gus06.framework.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -18,6 +19,7 @@ public class EntityImpl implements Entity, T {
 	{
 		if(obj instanceof G) return fromG((G) obj);
 		if(obj instanceof Map) return fromMap((Map) obj);
+		if(obj instanceof List) return fromList((List) obj);
 		if(obj instanceof String[]) return fromArray((String[]) obj);
 		if(obj instanceof String) return fromString((String) obj);
 		
@@ -49,6 +51,15 @@ public class EntityImpl implements Entity, T {
 		String url = get1(array,0);
 		String user = get0(array,1);
 		String pwd = get0(array,2);
+		
+		return build(url,user,pwd);
+	}
+	
+	private Map fromList(List list) throws Exception
+	{
+		String url = get1(list,0);
+		String user = get0(list,1);
+		String pwd = get0(list,2);
 		
 		return build(url,user,pwd);
 	}
@@ -98,6 +109,21 @@ public class EntityImpl implements Entity, T {
 		if(!map.containsKey(key)) throw new Exception("Key not found: "+key);
 		return (String) map.get(key);
 	}
+	
+	
+	
+	private String get0(List list, int index) throws Exception
+	{
+		if(list.size() <= index) return null;
+		return (String) list.get(index);
+	}
+	
+	private String get1(List list, int index) throws Exception
+	{
+		if(list.size() <= index)throw new Exception("Element not found at index: "+index);
+		return (String) list.get(index);
+	}
+	
 	
 	
 	private String get0(String[] array, int index) throws Exception

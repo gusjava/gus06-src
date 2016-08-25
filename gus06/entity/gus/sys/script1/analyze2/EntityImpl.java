@@ -8,9 +8,6 @@ import java.util.HashMap;
 
 public class EntityImpl implements Entity, T {
 	
-	public static final String T_ROOT = "root";
-	
-	public static final String K_TYPE = "type";
 	public static final String K_VALUE = "value";
 	public static final String K_CONTENT = "content";
 	public static final String K_UNTIL = "until";
@@ -23,10 +20,14 @@ public class EntityImpl implements Entity, T {
 
 
 
+	private Service buildTagRoot;
 	private Service prepare;
 
 	public EntityImpl() throws Exception
-	{prepare = Outside.service(this,"gus.sys.script1.analyze2.preparetag");}
+	{
+		buildTagRoot = Outside.service(this,"gus.sys.script1.analyze2.buildtag.root");
+		prepare = Outside.service(this,"gus.sys.script1.analyze2.preparetag");
+	}
 	
 	
 	
@@ -34,9 +35,7 @@ public class EntityImpl implements Entity, T {
 	{
 		List list = new ArrayList((List) obj);
 		
-		Map root = new HashMap();
-		root.put(K_TYPE,T_ROOT);
-		
+		Map root = (Map) buildTagRoot.g();
 		handleTag(root,list);
 		return root;
 	}

@@ -14,11 +14,17 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151030";}
 
 
-	private Service longest;
+	private Service str_longest;
+	private Service list_longest;
+	private Service array_longest;
+	private Service function_power;
 
 	public EntityImpl() throws Exception
 	{
-		longest = Outside.service(this,"gus.data.compare.string.common.longest1");
+		str_longest = Outside.service(this,"gus.data.compare.string.common.longest1");
+		list_longest = Outside.service(this,"gus.data.compare.list.common.longest1");
+		array_longest = Outside.service(this,"gus.data.compare.array.common.longest1");
+		function_power = Outside.service(this,"gus.feature.op.function.power");
 	}
 
 	
@@ -28,14 +34,13 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		List[] cut = (List[]) o[0];
+		List cut = (List) o[0];
 		T t = (T) o[1];
 		
-		if(cut.length!=2) throw new Exception("Invalid split for equals operation: "+cut.length);
+		if(cut.size()!=2) throw new Exception("Invalid split for equals operation: "+cut.size());
 		
-		
-		Object o1 = t.t(cut[0]);
-		Object o2 = t.t(cut[1]);
+		Object o1 = t.t(cut.get(0));
+		Object o2 = t.t(cut.get(1));
 		
 		if(o1 instanceof Boolean && o2 instanceof Boolean)
 			return bool_xor((Boolean)o1,(Boolean)o2);
@@ -45,15 +50,34 @@ public class EntityImpl implements Entity, T {
 			
 		if(o1 instanceof Number && o2 instanceof Number)
 			return num_power((Number)o1,(Number)o2);
+		
+		
+		if(o1 instanceof H && o2 instanceof H)
+			return function_power1((H)o1,(H)o2);
 			
+		if(o1 instanceof Number && o2 instanceof H)
+			return function_power2(o1,o2);
+			
+		if(o1 instanceof H && o2 instanceof Number)
+			return function_power2(o1,o2);
+		
+		
 		if(o1 instanceof Set && o2 instanceof Set)
 			return set_inter((Set)o1,(Set)o2);
 			
 		if(o1 instanceof Map && o2 instanceof Map)
 			return map_inter((Map)o1,(Map)o2);
-			
+		
+		
 		if(o1 instanceof String && o2 instanceof String)
 			return str_longest((String)o1,(String)o2);
+			
+		if(o1 instanceof List && o2 instanceof List)
+			return list_longest((List)o1,(List)o2);
+			
+		if(o1 instanceof Object[] && o2 instanceof Object[])
+			return array_longest((Object[])o1,(Object[])o2);
+		
 		
 		throw new Exception("Invalid power operation");
 	}
@@ -101,7 +125,19 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private String str_longest(String s1, String s2) throws Exception
-	{return (String) longest.t(new String[]{s1,s2});}
 	
+	private H function_power1(H h1, H h2) throws Exception
+	{return (H) function_power.t(new H[]{h1,h2});}
+	
+	private H function_power2(Object o1, Object o2) throws Exception
+	{return (H) function_power.t(new Object[]{o1,o2});}
+	
+	private String str_longest(String s1, String s2) throws Exception
+	{return (String) str_longest.t(new String[]{s1,s2});}
+	
+	private List list_longest(List s1, List s2) throws Exception
+	{return (List) list_longest.t(new List[]{s1,s2});}
+	
+	private Object[] array_longest(Object[] s1, Object[] s2) throws Exception
+	{return (Object[]) array_longest.t(new Object[]{s1,s2});}
 }

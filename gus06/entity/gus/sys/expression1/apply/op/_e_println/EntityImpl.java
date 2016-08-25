@@ -2,10 +2,21 @@ package gus06.entity.gus.sys.expression1.apply.op._e_println;
 
 import gus06.framework.*;
 import java.io.PrintStream;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151204";}
+	
+	
+	private Service getContext;
+	private Service getOutput;
+
+	public EntityImpl() throws Exception
+	{
+		getContext = Outside.service(this,"gus.sys.script1.access.opmap.context");
+		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
+	}
 
 	
 	public Object t(Object obj) throws Exception
@@ -14,11 +25,13 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Object value = o[0];
+		Map opMap = (Map) o[1];
 		
 		if(value==null) return null;
-		if(value instanceof PrintStream) return new T1((PrintStream) value);
 		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		if(value instanceof PrintStream)
+			return new T1((PrintStream) value);
+		return new E2(output(opMap),""+value);
 	}
 	
 	
@@ -44,5 +57,27 @@ public class EntityImpl implements Entity, T {
 		}
 		public void e() throws Exception
 		{p.println(s);}
+	}
+	
+	
+	private class E2 implements E
+	{
+		private P p;
+		private String s;
+		
+		public E2(P p, String s)
+		{
+			this.p = p;
+			this.s = s;
+		}
+		public void e() throws Exception
+		{p.p(s+"\n");}
+	}
+	
+	
+	private P output(Map opMap) throws Exception
+	{
+		Map context = (Map) getContext.t(opMap);
+		return (P) getOutput.t(context);
 	}
 }

@@ -1,18 +1,17 @@
 package gus06.entity.gus.sys.expression1.apply.op._binary;
 
 import gus06.framework.*;
-import java.io.File;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 
 
-	private Service readBinary;
-	
+	private Service bytesToBinary;
+
 	public EntityImpl() throws Exception
 	{
-		readBinary = Outside.service(this,"gus.file.read.raw");
+		bytesToBinary = Outside.service(this,"gus.tostring.bytetobinary");
 	}
 
 	
@@ -23,26 +22,11 @@ public class EntityImpl implements Entity, T, R {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof File)
-		{
-			File file = (File) obj;
-			return file.isFile()?readBinary.t(file):null;
-		}
-		if(obj instanceof Integer)
-		{
-			return Integer.toBinaryString(toInt(obj));
-		}
+		if(obj instanceof Integer) return Integer.toBinaryString(toInt(obj));
+		if(obj instanceof byte[]) return bytesToBinary.t(obj);
+		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Integer.class,File.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
-	
 	
 	private int toInt(Object obj)
 	{return Integer.parseInt(""+obj);}

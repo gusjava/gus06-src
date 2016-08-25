@@ -28,6 +28,10 @@ public class EntityImpl implements Entity, T, G {
 		put("lines_to_seq",Outside.service(this,"gus.string.transform.split.lines.tosequence"));
 		put("words_to_lines",Outside.service(this,"gus.string.transform.split.words.tolines"));
 		put("words_to_seq",Outside.service(this,"gus.string.transform.split.words.tosequence"));
+		
+		put("len10_to_lines",Outside.service(this,"gus.string.transform.split.length10.tolines"));
+		put("len10_to_seq",Outside.service(this,"gus.string.transform.split.length10.tosequence"));
+		//...
 	}
 	
 	public Object t(Object obj) throws Exception

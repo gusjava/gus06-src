@@ -25,7 +25,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof ResultSet) return get.t((ResultSet) obj);
+		if(obj instanceof ResultSet) return get.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

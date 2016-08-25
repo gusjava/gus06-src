@@ -6,7 +6,7 @@ public class EntityImpl implements Entity, T
 {
 	public String creationDate() {return "20150702";}
 	
-	public static char CHAR_DELIM = ';';
+	public static final char CHAR_DELIM = ';';
 
 	private Generator1 generator;
 	

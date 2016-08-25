@@ -13,10 +13,10 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		Object[] oo = (Object[]) obj;
-		int number = oo.length;
+		int length = oo.length;
 		
-		String[] yy = new String[number];
-		for(int i=0;i<number;i++)
+		String[] yy = new String[length];
+		for(int i=0;i<length;i++)
 		{
 			if(!(oo[i] instanceof String)) return null;
 			yy[i] = (String) oo[i];

@@ -2,12 +2,14 @@ package gus06.entity.gus.sys.expression1.apply.op._join_n;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151122";}
+	
+	public static final String GLUE = "\n";
 
 
 	private Service perform;
@@ -29,12 +31,13 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof String[]) return join(obj);
 		if(obj instanceof List) return join(obj);
-		if(obj instanceof Set) return join(new ArrayList((Set) obj));
+		if(obj instanceof Set) return join(obj);
+		if(obj instanceof Map) return join(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
 	private Object join(Object obj) throws Exception
-	{return perform.t(new Object[]{obj,"\n"});}
+	{return perform.t(new Object[]{obj,GLUE});}
 }

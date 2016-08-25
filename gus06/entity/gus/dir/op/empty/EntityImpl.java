@@ -1,7 +1,6 @@
 package gus06.entity.gus.dir.op.empty;
 
 import java.io.File;
-
 import gus06.framework.*;
 
 public class EntityImpl implements Entity, P {

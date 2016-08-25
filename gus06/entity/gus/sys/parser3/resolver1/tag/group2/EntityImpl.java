@@ -20,7 +20,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		cutMethod = Outside.service(this,"gus.sys.parser3.resolver1.cut.d.symbol1");
+		cutMethod = Outside.service(this,"gus.sys.parser3.cut.symbol.b1");
 		handleList = Outside.service(this,"gus.sys.parser3.resolver1.tag.group2.list");
 		handleArray = Outside.service(this,"gus.sys.parser3.resolver1.tag.group2.array");
 	}
@@ -43,7 +43,7 @@ public class EntityImpl implements Entity, T {
 			return handleArray.t(new Object[]{l.subList(0,1),new ArrayList(),t});
 		}
 		
-		List[] cut = (List[]) cutMethod.t(new Object[]{l,":"});
+		List cut = (List) cutMethod.t(new Object[]{l,":"});
 		
 		if(cut==null)
 		{
@@ -51,7 +51,7 @@ public class EntityImpl implements Entity, T {
 		}
 		else
 		{
-			return handleArray.t(new Object[]{cut[0],cut[1],t});
+			return handleArray.t(new Object[]{cut.get(0),cut.get(1),t});
 		}
 	}
 	

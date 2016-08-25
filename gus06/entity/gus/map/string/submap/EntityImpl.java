@@ -17,6 +17,7 @@ public class EntityImpl implements Entity, T {
 		
 		Map map = (Map) o[0];
 		String start = (String) o[1];
+		
 		int length = start.length();
 		
 		Map map1 = new HashMap();
@@ -28,7 +29,6 @@ public class EntityImpl implements Entity, T {
 			if(key.startsWith(start))
 			map1.put(key.substring(length),map.get(key));
 		}
-		
 		return map1;
 	}
 }

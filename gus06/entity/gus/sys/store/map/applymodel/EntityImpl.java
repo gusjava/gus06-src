@@ -72,7 +72,7 @@ public class EntityImpl implements Entity, T {
 	private Map getMap(String id) throws Exception
 	{
 		Map map = (Map) getMap.r(id);
-		if(map==null || map.isEmpty()) throw new Exception("Map not found for id: "+id);
+		if(map==null) throw new Exception("Map not found for id: "+id);
 		return map;
 	}
 }

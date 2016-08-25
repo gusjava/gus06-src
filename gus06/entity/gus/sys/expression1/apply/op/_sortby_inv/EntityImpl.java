@@ -3,7 +3,6 @@ package gus06.entity.gus.sys.expression1.apply.op._sortby_inv;
 import gus06.framework.*;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class EntityImpl implements Entity, T {
@@ -13,12 +12,14 @@ public class EntityImpl implements Entity, T {
 
 	private Service builder;
 	private Service perform;
+	private Service findList;
 	
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.t");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.t");
 		perform = Outside.service(this,"gus.list.sortby.inv");
+		findList = Outside.service(this,"gus.find.list");
 	}
 
 	
@@ -33,7 +34,16 @@ public class EntityImpl implements Entity, T {
 		if(value==null) return null;
 		
 		if(value instanceof List) return new T1(value,opMap);
-		if(value instanceof Set) return new T1(new ArrayList((Set) value),opMap);
+		
+		if(value instanceof Set) return new T1(findList.t(value),opMap);
+		if(value instanceof Object[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof int[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof short[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof long[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof double[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof float[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof boolean[]) return new T1(findList.t(value),opMap);
+		if(obj instanceof char[]) return new T1(findList.t(value),opMap);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -51,9 +61,9 @@ public class EntityImpl implements Entity, T {
 		}
 		
 		public Object t(Object obj) throws Exception
-		{
-			T t = (T) builder.t(new Object[]{obj,opMap});
-			return perform.t(new Object[]{value,t});
-		}
+		{return perform.t(new Object[]{value,toT(obj)});}
+		
+		private T toT(Object obj) throws Exception
+		{return (T) builder.t(new Object[]{obj,opMap});}
 	}
 }

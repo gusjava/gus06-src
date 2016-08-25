@@ -3,6 +3,7 @@ package gus06.entity.gus.sys.script1.tool.execute.code.block;
 import gus06.framework.*;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
 public class EntityImpl implements Entity, P {
 
@@ -23,12 +24,24 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String code = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String code = (String) o[1];
 		
 		String[] lines = code.split("\n");
 		
+		List list = new ArrayList();
+		
 		for(String line:lines)
-		execute.p(new Object[]{line,context});
+		{
+			String s = line.trim();
+			if(!s.equals("") && !s.startsWith("!"))
+			list.add(line);
+		}
+		
+		while(!list.isEmpty())
+		{
+			String line = (String) list.remove(0);
+			execute.p(new Object[]{context,line});
+		}
 	}
 }

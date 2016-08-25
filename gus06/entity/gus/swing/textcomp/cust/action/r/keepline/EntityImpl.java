@@ -26,15 +26,26 @@ public class EntityImpl implements Entity, P {
 
 
 
-	private class Holder extends AbstractAction
+	private class Holder extends AbstractAction implements Runnable
 	{
 		private JTextComponent comp;
+		private Thread t;
+		
 		public Holder(JTextComponent comp)
 		{
 			this.comp = comp;
 			comp.getInputMap().put(KEYSTROKE,this);
 		}
 		public void actionPerformed(ActionEvent e)
+		{
+			//if(t!=null && t.isAlive()) return;
+			//t = new Thread(this,"THREAD_"+getClass().getName());
+			//t.start();
+			
+			perform(comp);
+		}
+		
+		public void run()
 		{perform(comp);}
 	}
 	

@@ -10,12 +10,12 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20141026";}
 
 
-	private Service emptyDir;
+	private Service emptyDirFile;
 
 
 	public EntityImpl() throws Exception
 	{
-		emptyDir = Outside.service(this,"gus.dir.op.empty");
+		emptyDirFile = Outside.service(this,"gus.dirfile.op.empty");
 	}
 	
 	
@@ -47,8 +47,5 @@ public class EntityImpl implements Entity, P {
 	{m.clear();}
 	
 	private void empty(File f) throws Exception
-	{
-		if(f.isFile()) f.createNewFile();
-		else if(f.isDirectory()) emptyDir.p(f);
-	}
+	{emptyDirFile.p(f);}
 }

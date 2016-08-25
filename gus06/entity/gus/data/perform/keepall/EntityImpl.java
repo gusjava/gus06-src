@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P {
 
@@ -13,12 +14,14 @@ public class EntityImpl implements Entity, P {
 	private Service performList;
 	private Service performSet;
 	private Service performMap;
+	private Service performFile;
 	
 	public EntityImpl() throws Exception
 	{
 		performList = Outside.service(this,"gus.list.keepall");
 		performSet = Outside.service(this,"gus.set.keepall");
-		performMap = Outside.service(this,"gus.map.entry.keepall");
+		performMap = Outside.service(this,"gus.map.key.keepall");
+		performFile = Outside.service(this,"gus.dirfile.perform.keepall");
 	}
 
 	
@@ -44,6 +47,12 @@ public class EntityImpl implements Entity, P {
 		if(input instanceof Map)
 		{
 			performMap.p(obj);
+			return;
+		}
+		
+		if(input instanceof File)
+		{
+			performFile.p(obj);
 			return;
 		}
 		

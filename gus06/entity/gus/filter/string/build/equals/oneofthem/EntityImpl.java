@@ -24,20 +24,20 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		List l = parse((String)obj);
-		return new F_oneOfThem(l);
+		return new FiltereOfThem(l);
 	}
 	
 	
-	private class F_oneOfThem implements F
+	private class FiltereOfThem implements F
 	{
 		private List elements;
-		public F_oneOfThem(List elements)
+		public FiltereOfThem(List elements)
 		{this.elements = elements;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString();
+			String str = (String) obj;
 			return elements.contains(str);
 		}
 	}

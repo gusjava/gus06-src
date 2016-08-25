@@ -23,18 +23,23 @@ public class EntityImpl implements Entity, T, G {
 	{
 		map = new HashMap();
 		
+		put("double",Outside.service(this,"gus.string.transform.str.double1"));
+		put("empty",Outside.service(this,"gus.string.transform.str.empty"));
+		put("length",Outside.service(this,"gus.string.transform.str.length"));
+		put("lower",Outside.service(this,"gus.string.transform.str.lower"));
+		put("now",Outside.service(this,"gus.string.transform.str.now"));
+		put("same",Outside.service(this,"gus.string.transform.str.same"));
+		put("spacing",Outside.service(this,"gus.string.transform.str.spacing"));
+		put("titled",Outside.service(this,"gus.string.transform.str.titled"));
+		put("titled_inv",Outside.service(this,"gus.string.transform.str.titled.inv"));
 		put("trim",Outside.service(this,"gus.string.transform.str.trim"));
 		put("trimf",Outside.service(this,"gus.string.transform.str.trimfirst"));
 		put("triml",Outside.service(this,"gus.string.transform.str.trimlast"));
-		put("trimw",Outside.service(this,"gus.string.transform.str.trim.ifwhite"));
 		put("trimnw",Outside.service(this,"gus.string.transform.str.trim.ifnotwhite"));
-		put("length",Outside.service(this,"gus.string.transform.str.length"));
-		put("empty",Outside.service(this,"gus.string.transform.str.empty"));
-		put("same",Outside.service(this,"gus.string.transform.str.same"));
+		put("trimw",Outside.service(this,"gus.string.transform.str.trim.ifwhite"));
+		put("triple",Outside.service(this,"gus.string.transform.str.triple"));
 		put("upper",Outside.service(this,"gus.string.transform.str.upper"));
-		put("lower",Outside.service(this,"gus.string.transform.str.lower"));
-		put("titled",Outside.service(this,"gus.string.transform.str.titled"));
-		put("now",Outside.service(this,"gus.string.transform.str.now"));
+		put("whiten",Outside.service(this,"gus.string.transform.str.whiten"));
 	}
 	
 	public Object t(Object obj) throws Exception

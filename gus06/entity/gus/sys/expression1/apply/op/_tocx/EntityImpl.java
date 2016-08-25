@@ -1,6 +1,7 @@
 package gus06.entity.gus.sys.expression1.apply.op._tocx;
 
 import gus06.framework.*;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -22,7 +23,9 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof String) return buildCx.t((String) obj);
+		if(obj instanceof String) return buildCx.t(obj);
+		if(obj instanceof String[]) return buildCx.t(obj);
+		if(obj instanceof List) return buildCx.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

@@ -23,8 +23,8 @@ public class EntityImpl implements Entity, G {
 	public static final String KEY_JARTIME = "jar_time";
 	public static final String KEY_JARMD5 = "jar_md5";
 	
-	public static final String PROP_BUILDID = "jar_buildid";
-	public static final String PROP_BUILDTIME = "jar_buildtime";
+	public static final String PROP_BUILDID = "jar.buildid";
+	public static final String PROP_BUILDTIME = "jar.buildtime";
 	
 	
 	

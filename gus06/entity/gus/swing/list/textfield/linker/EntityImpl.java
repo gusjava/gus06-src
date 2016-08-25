@@ -39,8 +39,12 @@ public class EntityImpl implements Entity, P {
 			this.field = field;
 			
 			list.addKeyListener(this);
+			
 			field.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0),new AbstractAction() {
-				public void actionPerformed(ActionEvent e) {focusList();}
+				public void actionPerformed(ActionEvent e) {focusListTop();}
+			});
+			field.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP,0),new AbstractAction() {
+				public void actionPerformed(ActionEvent e) {focusListBottom();}
 			});
 		}
 		
@@ -48,17 +52,33 @@ public class EntityImpl implements Entity, P {
 		public void keyPressed(KeyEvent e)
 		{
 			int code = e.getKeyCode();
+			int nb = list.getModel().getSize();
 			
-			if(code==KeyEvent.VK_UP && list.getSelectedIndex()==0) focusField();
-			else if(code==KeyEvent.VK_ESCAPE) focusField();
+			if(code==KeyEvent.VK_UP && list.getSelectedIndex()==0) {focusField();return;}
+			if(code==KeyEvent.VK_DOWN && list.getSelectedIndex()==nb-1) {focusField();return;}
+			if(code==KeyEvent.VK_ESCAPE) {focusField();return;}
 		}
 		
 		
-		private void focusList()
+		private void focusListTop()
 		{
 			list.requestFocusInWindow();
-			if(list.getModel().getSize()>0)
+			int nb = list.getModel().getSize();
+			if(nb==0) return;
+			
 			list.getSelectionModel().setSelectionInterval(0,0);
+			list.ensureIndexIsVisible(list.getSelectedIndex());
+		}
+
+
+		private void focusListBottom()
+		{
+			list.requestFocusInWindow();
+			int nb = list.getModel().getSize();
+			if(nb==0) return;
+			
+			list.getSelectionModel().setSelectionInterval(nb-1,nb-1);
+			list.ensureIndexIsVisible(list.getSelectedIndex());
 		}
 
 

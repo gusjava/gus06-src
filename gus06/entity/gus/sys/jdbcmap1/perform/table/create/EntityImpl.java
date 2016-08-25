@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.jdbcmap1.perform.table.create;
 import gus06.framework.*;
 import java.sql.Connection;
 
-public class EntityImpl implements Entity, F {
+public class EntityImpl implements Entity, F, P {
 
 	public String creationDate() {return "20150625";}
 	
@@ -21,6 +21,9 @@ public class EntityImpl implements Entity, F {
 		toArray = Outside.service(this,"gus.find.stringarray");
 	}
 	
+	public void p(Object obj) throws Exception
+	{f(obj);}
+	
 	
 	public boolean f(Object obj) throws Exception
 	{
@@ -29,7 +32,7 @@ public class EntityImpl implements Entity, F {
 		
 		Connection cx = (Connection) o[0];
 		String path = (String) o[1];
-		String[] fields = (String[]) toArray.t(o[2]);
+		String[] fields = toArray(o[2]);
 		
 		String[] col = buildCol(fields);
 		String[] type = buildType(fields);
@@ -37,6 +40,12 @@ public class EntityImpl implements Entity, F {
 		
 		create.p(new Object[]{cx,path,col,type,primary});
 		return true;
+	}
+	
+	private String[] toArray(Object obj) throws Exception
+	{
+		if(obj instanceof String) return ((String) obj).split("[ ,;]");
+		return (String[]) toArray.t(obj);
 	}
 	
 	

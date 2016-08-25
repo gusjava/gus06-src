@@ -8,37 +8,28 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20150902";}
 
-	public static final String K_TIMES = "times";
-	public static final String K_ARGS = "args";
 	public static final String K_VAR = "var";
-	public static final String K_REDIRECT = "redirect";
 	public static final String K_WHILE = "while";
 	public static final String K_UNTIL = "until";
 	public static final String K_SKIP = "skip";
-	public static final String K_IF = "if";
+	public static final String K_KEEP = "keep";
+	public static final String K_MIN = "min";
+	public static final String K_MAX = "max";
 	
 	
-	private Service getParams;
-	private Service getOutput;
-	private Service stackManager;
-	private Service buildData;
 	private Service evalAsBoolean;
-	
 	private Service executePart1;
 	private Service executePart2;
+	private Service wrapping1;
 	
 
 
 	public EntityImpl() throws Exception
 	{
-		getParams = Outside.service(this,"gus.sys.script1.access.tag.params1");
-		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
-		stackManager = Outside.service(this,"gus.sys.script1.context.stack.manager");
-		buildData = Outside.service(this,"gus.sys.script1.executor.type.el.r.repeat.params");
 		evalAsBoolean = Outside.service(this,"gus.sys.script1.context.evaluate.boolean1");
-		
 		executePart1 = Outside.service(this,"gus.sys.script1.tool.execute.content.part1");
 		executePart2 = Outside.service(this,"gus.sys.script1.tool.execute.content.part2");
+		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
 	}
 	
 	
@@ -58,36 +49,40 @@ public class EntityImpl implements Entity, T {
 		public void p(Object obj) throws Exception
 		{
 			Map context = (Map) obj;
-			String params = (String) getParams.t(tag);
-			V output = (V) getOutput.t(context);
-			Object p0 = ((R) output).r("p0");
+			wrapping1.p(new Object[]{context,tag,new Wrap()});
+		}
+	}
+	
+	
+	private class Wrap implements P
+	{
+		public void p(Object obj) throws Exception
+		{
+			Object[] o = (Object[]) obj;
+			if(o.length!=5) throw new Exception("Wrong data number: "+o.length);
 			
-			Map data = (Map) buildData.t(new Object[]{context,params});
+			Map context = (Map) o[0];
+			Map tag = (Map) o[1];
+			Map pool1 = (Map) o[2];
+			Object main = o[3];
+			Map data = (Map) o[4];
 			
-			Integer times = (Integer) get(data,K_TIMES);
-			Map args = (Map) get(data,K_ARGS);
+			
+			Integer times = (Integer) main;
 			String var = (String) get(data,K_VAR);
-			
-			Object redirect = get(data,K_REDIRECT);
 			String while1 = (String) get(data,K_WHILE);
 			String until1 = (String) get(data,K_UNTIL);
 			String skip1 = (String) get(data,K_SKIP);
-			Boolean if1 = (Boolean) get(data,K_IF);
-			
-			
-			if(if1!=null && !if1.booleanValue()) return;
-			
-			if(redirect!=null) output.v("redirect",redirect);
-			
-			E stack = stack(context,tag);
-			Map pool1 = pool1(stack);
-			
-			if(args!=null) pool1.putAll(args);
+			String keep = (String) get(data,K_KEEP);
+			Integer min = (Integer) get(data,K_MIN);
+			Integer max = (Integer) get(data,K_MAX);
 			
 			int n = times.intValue();
 			String mName1 = var!=null?var:"i";
 			String mName2 = mName1 + "_";
 			
+			if(min!=null) n = Math.max(n,min.intValue());
+			if(max!=null) n = Math.min(n,max.intValue());
 			
 			if(n>0)
 			{
@@ -106,6 +101,7 @@ public class EntityImpl implements Entity, T {
 					if(until1!=null && isTrue(context,until1)) break;
 					
 					if(skip1==null || !isTrue(context,skip1))
+					if(keep==null || isTrue(context,keep))
 					executePart1.p(new Map[]{tag,context});
 				}
 			}
@@ -123,12 +119,11 @@ public class EntityImpl implements Entity, T {
 				executePart2.p(new Map[]{tag,context});
 			}
 			else throw new Exception("Invalid repeat time value: "+n);
-			
-			stack.e();
-			
-			if(redirect!=null) output.v("redirect",p0);
 		}
 	}
+	
+	
+	
 	
 	
 	private Object get(Map map, String key)
@@ -136,12 +131,6 @@ public class EntityImpl implements Entity, T {
 		if(!map.containsKey(key)) return null;
 		return map.get(key);
 	}
-	
-	private E stack(Map context, Map tag) throws Exception
-	{return (E) stackManager.t(new Map[]{context,tag});}
-	
-	private Map pool1(Object stack) throws Exception
-	{return (Map) ((G) stack).g();}
 	
 	
 	private boolean isTrue(Map context, String rule) throws Exception

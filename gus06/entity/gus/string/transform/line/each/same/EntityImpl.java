@@ -17,10 +17,9 @@ public class EntityImpl implements Entity, T {
 		String[] nn = s.split(DELIM,-1);
 		if(nn.length==0) return "false";
 		
-		String n0 = nn[0].trim();
+		String n0 = nn[0];
 		for(String n:nn)
 		{
-			n = n.trim();
 			if(!n.equals(n0)) return "false";
 		}
 		return "true";

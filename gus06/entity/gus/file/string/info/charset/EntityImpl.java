@@ -30,14 +30,18 @@ public class EntityImpl implements Entity, T {
 		fis.close();
 
 		String name = detector.getDetectedCharset();
+		
 		detector.reset();
 		if(name==null) return Charset.defaultCharset();
+		
+		// BUG de détection quand on a un fichier texte windows-1252 avec des éé
+		if(name.equals("WINDOWS-1255")) name = "WINDOWS-1252";
 		
 		try{return Charset.forName(name);}
 		catch(Exception e)
 		{
     			String message = "Charset not found for name: "+name;
-    			Outside.err(this,"transform(Object)",new Exception(message,e));
+    			Outside.err(this,"t(Object)",new Exception(message,e));
     			return Charset.defaultCharset();
 		}
 	}

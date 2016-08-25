@@ -24,21 +24,21 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		F filter = (F) intF.t(obj);
-		return new F_length(filter);
+		return new Filter(filter);
 	}
 
 
 
-	private class F_length implements F
+	private class Filter implements F
 	{
 		private F filter;
-		public F_length(F filter)
+		public Filter(F filter)
 		{this.filter = filter;}
 
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			int length = (obj.toString()).length();
+			int length = ((String) obj).length();
 			return filter.f(""+length);
 		}
 	}

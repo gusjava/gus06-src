@@ -7,7 +7,7 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151123";}
 	
-	public static final String C_EXP_OPERATORS = "exp_operators";
+	public static final String C_OPERATORS = "operators";
 
 
 	
@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	{
 		Map context = (Map) obj;
 		
-		Map opMap = (Map) get(context,C_EXP_OPERATORS);
+		Map opMap = (Map) get(context,C_OPERATORS);
 		return opMap;
 	}
 	

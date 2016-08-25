@@ -2,7 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._is_array;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151115";}
 	
@@ -14,13 +14,15 @@ public class EntityImpl implements Entity, T, R {
 		obj = o[0];
 		
 		if(obj==null) return Boolean.FALSE;
-		return new Boolean(obj instanceof Object[]);
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Object.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
+		
+		if(obj instanceof Object[]) return  Boolean.TRUE;
+		if(obj instanceof int[]) return  Boolean.TRUE;
+		if(obj instanceof long[]) return  Boolean.TRUE;
+		if(obj instanceof boolean[]) return  Boolean.TRUE;
+		if(obj instanceof double[]) return  Boolean.TRUE;
+		if(obj instanceof float[]) return  Boolean.TRUE;
+		if(obj instanceof char[]) return  Boolean.TRUE;
+		
+		return Boolean.FALSE;
 	}
 }

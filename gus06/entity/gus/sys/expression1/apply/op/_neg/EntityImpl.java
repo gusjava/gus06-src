@@ -9,7 +9,12 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		obj = o[0];
+		
 		if(obj==null) return null;
+		
 		if(obj instanceof Integer) return new Boolean(toInt(obj)<0);
 		if(obj instanceof Double) return new Boolean(toDouble(obj)<0);
 		if(obj instanceof Float) return new Boolean(toFloat(obj)<0);

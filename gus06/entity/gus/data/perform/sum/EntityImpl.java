@@ -4,11 +4,34 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.Icon;
+import java.io.PrintStream;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151205";}
 
+
+	private Service toArray_bool;
+	private Service toArray_int;
+	private Service toArray_double;
+	private Service toArray_float;
+	private Service toArray_long;
+	
+	private Service toArray_string;
+	private Service toArray_list;
+	private Service toArray_set;
+	private Service toArray_map;
+	
+	private Service toArray_e;
+	private Service toArray_h;
+	private Service toArray_p;
+	private Service toArray_f;
+	private Service toArray_t;
+	
+	private Service toArray_icon;
+	private Service toArray_printstream;
+	
 
 	private Service sum_bool;
 	private Service sum_int;
@@ -26,9 +49,34 @@ public class EntityImpl implements Entity, T {
 	private Service sum_p;
 	private Service sum_f;
 	
+	private Service sum_icon;
+	private Service sum_printstream;
+	
+	private Service sum_motley;
+	
 	
 	public EntityImpl() throws Exception
 	{
+		toArray_bool = Outside.service(this,"gus.convert.objarraytoboolarray.strict");
+		toArray_int = Outside.service(this,"gus.convert.objarraytointarray.strict");
+		toArray_double = Outside.service(this,"gus.convert.objarraytodoublearray.strict");
+		toArray_float = Outside.service(this,"gus.convert.objarraytofloatarray.strict");
+		toArray_long = Outside.service(this,"gus.convert.objarraytolongarray.strict");
+		
+		toArray_string = Outside.service(this,"gus.convert.objarraytostringarray.strict");
+		toArray_list = Outside.service(this,"gus.convert.objarraytolistarray.strict");
+		toArray_set = Outside.service(this,"gus.convert.objarraytosetarray.strict");
+		toArray_map = Outside.service(this,"gus.convert.objarraytomaparray.strict");
+		
+		toArray_e = Outside.service(this,"gus.convert.objarraytoearray.strict");
+		toArray_h = Outside.service(this,"gus.convert.objarraytoharray.strict");
+		toArray_p = Outside.service(this,"gus.convert.objarraytoparray.strict");
+		toArray_f = Outside.service(this,"gus.convert.objarraytofarray.strict");
+		toArray_t = Outside.service(this,"gus.convert.objarraytotarray.strict");
+		
+		toArray_icon = Outside.service(this,"gus.convert.objarraytoiconarray.strict");
+		toArray_printstream = Outside.service(this,"gus.convert.objarraytoprintstreamarray.strict");
+		
 		sum_bool = Outside.service(this,"gus.math.tabboolean.and");
 		sum_int = Outside.service(this,"gus.math.tabint.sum");
 		sum_double = Outside.service(this,"gus.math.tabdouble.sum");
@@ -44,6 +92,11 @@ public class EntityImpl implements Entity, T {
 		sum_h = Outside.service(this,"gus.feature.op.sum.h");
 		sum_p = Outside.service(this,"gus.feature.op.sum.p");
 		sum_f = Outside.service(this,"gus.feature.op.filter.and");
+		
+		sum_icon = Outside.service(this,"gus.convert.iconstoicon");
+		sum_printstream = Outside.service(this,"gus.io.printstream.sum");
+		
+		sum_motley = Outside.service(this,"gus.data.perform.sum.motley");
 	}
 
 	
@@ -66,6 +119,70 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof P[]) return sum_p.t(obj);
 		if(obj instanceof F[]) return sum_f.t(obj);
 		
+		if(obj instanceof Icon[]) return sum_icon.t(obj);
+		if(obj instanceof PrintStream[]) return sum_printstream.t(obj);
+		
+		if(obj instanceof Object[]) return arraySum((Object[]) obj);
+		if(obj instanceof List) return arraySum(listToArray((List) obj));
+		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
+	
+	
+	private Object arraySum(Object[] oo) throws Exception
+	{
+		boolean[] bb = (boolean[]) toArray_bool.t(oo);
+		if(bb!=null) return sum_bool.t(bb);
+		
+		int[] nn = (int[]) toArray_int.t(oo);
+		if(nn!=null) return sum_int.t(nn);
+		
+		double[] dd = (double[]) toArray_double.t(oo);
+		if(dd!=null) return sum_double.t(dd);
+		
+		float[] xx = (float[]) toArray_float.t(oo);
+		if(xx!=null) return sum_float.t(xx);
+		
+		long[] yy = (long[]) toArray_long.t(oo);
+		if(yy!=null) return sum_long.t(yy);
+		
+		
+		String[] aa = (String[]) toArray_string.t(oo);
+		if(aa!=null) return sum_string.t(aa);
+		
+		List[] ll = (List[]) toArray_list.t(oo);
+		if(ll!=null) return sum_list.t(ll);
+		
+		Set[] ss = (Set[]) toArray_set.t(oo);
+		if(ss!=null) return sum_set.t(ss);
+		
+		Map[] mm = (Map[]) toArray_map.t(oo);
+		if(mm!=null) return sum_map.t(mm);
+		
+		
+		E[] ee = (E[]) toArray_e.t(oo);
+		if(ee!=null) return sum_e.t(ee);
+		
+		H[] hh = (H[]) toArray_h.t(oo);
+		if(hh!=null) return sum_h.t(hh);
+		
+		P[] pp = (P[]) toArray_p.t(oo);
+		if(pp!=null) return sum_p.t(pp);
+		
+		F[] ff = (F[]) toArray_f.t(oo);
+		if(ff!=null) return sum_f.t(ff);
+		
+		
+		Icon[] ii = (Icon[]) toArray_icon.t(oo);
+		if(ii!=null) return sum_icon.t(ii);
+		
+		PrintStream[] kk = (PrintStream[]) toArray_printstream.t(oo);
+		if(kk!=null) return sum_printstream.t(kk);
+		
+		return sum_motley.t(oo);
+	}
+	
+	
+	private Object[] listToArray(List l)
+	{return l.toArray();}
 }

@@ -72,9 +72,13 @@ public class EntityImpl implements Entity, T {
 				{
 					if(isEscape)
 					{
-						b.append(meta);
-						b.append(c);
-						isEscape = false;
+						//LENIENT WAY
+						//b.append(meta);
+						//b.append(c);
+						//isEscape = false;
+						
+						//STRICT WAY
+						throw new Exception("Invalid syntax (escap character found alone)");
 					}
 					else
 					{

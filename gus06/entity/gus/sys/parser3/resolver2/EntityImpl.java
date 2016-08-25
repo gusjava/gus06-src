@@ -1,130 +1,62 @@
 package gus06.entity.gus.sys.parser3.resolver2;
 
 import gus06.framework.*;
-import java.util.Map;
 import java.util.List;
-import java.util.HashMap;
 import java.util.ArrayList;
 
-public class EntityImpl implements Entity, T, V {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151119";}
 	
-	public static final String VALUE = "value";
 
 
 	private Service resolver1;
-
-	private T external;
+	private Service handleCase;
+	private Service listToString;
 
 	public EntityImpl() throws Exception
 	{
 		resolver1 = Outside.service(this,"gus.sys.parser3.resolver1");
+		handleCase = Outside.service(this,"gus.sys.parser3.resolver2.handlecase");
+		listToString = Outside.service(this,"gus.sys.parser3.resolver1.list.tostring");
 	}
 	
-	
-	public void v(String key, Object obj) throws Exception
-	{
-		if(key.equals("external")) {external = (T) obj;return;}
-		throw new Exception("Unknown key: "+key);
-	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
 		
-		List list = (List) o[0];
-		String rule = (String) o[1];
+		T external = (T) o[0];
+		List list = (List) o[1];
+		Object rule = o[2];
 		
-		String[] rr = rule.split("\\|");
+		T t = (T) resolver1.t(external);
+		String[] rr = handleRule(rule);
+		
+		Exception e1 = null;
+		
 		for(String r:rr)
 		{
-			Map value = build(list,r);
-			if(value!=null) return value;
-		}
-		return null;
-	}
-	
-	
-	private Map build(List list, String r) throws Exception
-	{
-		List list1 = new ArrayList(list);
-		String[] nn = r.split(" ");
-		Map map = new HashMap();
-		
-		String key = null;
-		List buff = null;
-		
-		for(String n:nn)
-		{
-			if(b(n))
+			try
 			{
-				key = bb(n);
-				buff = new ArrayList();
+				List list1 = new ArrayList(list);
+				return handleCase.t(new Object[]{t,list1,r});
 			}
-			else
-			{
-				if(buff==null)
-				{
-					Map tag = nextTag(list1);
-					if(!value(tag).equals(n)) return null;
-				}
-				else
-				{
-					Map tag = nextTag(list1);
-					while(tag!=null && !value(tag).equals(n))
-					{
-						buff.add(tag);
-						tag = nextTag(list1);
-					}
-				
-					if(tag==null) return null;
-					if(buff.isEmpty()) return null;
-				
-					map.put(key,resolve(buff));
-				}
-			}
+			catch(Exception e)
+			{e1 = e;}
 		}
 		
-		if(buff==null) return null;
-		
-		Map tag = nextTag(list1);
-		while(tag!=null)
-		{
-			buff.add(tag);
-			tag = nextTag(list1);
-		}
-		
-		if(!buff.isEmpty()) map.put(key,resolve(buff));
-		return map;
+		throw new Exception("No rule could be applied to expression: "+listToString.t(list),e1);
 	}
 	
 	
-	
-	
-	
-	private Object resolve(Object list) throws Exception
+	private String[] handleRule(Object obj) throws Exception
 	{
-		resolver1.v("external",external);
-		return resolver1.t(list);
+		if(obj instanceof String[]) return (String[]) obj;
+		if(obj instanceof String) return ((String) obj).split("\\|");
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
-	
-	
-	private boolean b(String s)
-	{return s.startsWith("[") && s.endsWith("]");}
-	
-	private String bb(String s)
-	{return s.substring(1,s.length()-1);}
-	
-	
-	private Map nextTag(List l)
-	{
-		if(l.isEmpty()) return null;
-		return (Map) l.remove(0);
-	}
-	
-	private Object value(Map m)
-	{return m.get(VALUE);}
 }

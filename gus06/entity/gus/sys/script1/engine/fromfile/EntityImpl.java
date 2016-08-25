@@ -8,18 +8,22 @@ import java.util.Map;
 public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20151103";}
+	
+	public static final String X_SCRIPT = "script";
+	public static final String C_EXECUTION = "execution";
 
-	private Service engine;
 	private Service readText;
-	private Service setScript;
-	private Service modifyUserDir;
+	private Service retrieveBuilder;
+	private Service retrieveExecutor;
+	
+	
+	
 
 	public EntityImpl() throws Exception
 	{
-		engine = Outside.service(this,"gus.sys.script1.engine.fromtext");
 		readText = Outside.service(this,"gus.file.read.string.autodetect");
-		setScript = Outside.service(this,"gus.sys.script1.tool.context.setscript");
-		modifyUserDir = Outside.service(this,"gus.system.prop.userdir.modify");
+		retrieveBuilder = Outside.service(this,"gus.sys.script1.access.context.builder");
+		retrieveExecutor = Outside.service(this,"gus.sys.script1.access.context.executor");
 	}
 
 	
@@ -37,21 +41,33 @@ public class EntityImpl implements Entity, P, T {
 		
 		File file = (File) o[0];
 		Map context = (Map) o[1];
-		Map tag = null;
 		
-		File dir0 = (File) modifyUserDir.t(file.getParentFile());
+		Map execution = (Map) get(context,C_EXECUTION);
+		execution.put(X_SCRIPT,file);
+		
+		Map tag = null;
 		
 		try
 		{
-			setScript.p(new Object[]{context,file});
-			String text = (String) readText.t(file);
-			tag = (Map) engine.t(new Object[]{text,context});
+			T builder = (T) retrieveBuilder.t(context);
+			P executor = (P) retrieveExecutor.t(context);
+			String input = (String) readText.t(file);
+			
+			tag = (Map) builder.t(input);
+			executor.p(new Map[]{tag,context});
 		}
-		finally
+		catch(Exception e)
 		{
-			modifyUserDir.p(dir0);
+			String message = "Failed to execute gus script: "+file;
+			throw new Exception(message,e);
 		}
 		
 		return tag;
 	}
+	
+	
+	
+	
+	private Object get(Map map, String key)
+	{return map.containsKey(key)?map.get(key):null;}
 }

@@ -24,7 +24,6 @@ public class EntityImpl implements Entity, T {
 		    set.add(n[i]);
 		    b.append(n[i]+DELIM);
 		}
-		
 		if(b.length()>0) b.deleteCharAt(b.length()-1);
 		return b.toString();
 	}

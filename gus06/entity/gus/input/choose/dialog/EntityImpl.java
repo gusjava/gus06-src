@@ -6,7 +6,15 @@ import javax.swing.JOptionPane;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20140830";}
+
+
+	private Service findStringArray;
 	
+	public EntityImpl() throws Exception
+	{
+		findStringArray = Outside.service(this,"gus.find.stringarray");
+	}
+
 	
 	public Object t(Object obj) throws Exception
 	{
@@ -18,7 +26,7 @@ public class EntityImpl implements Entity, T {
 		{
 			String message = (String) o[0];
 			String title = (String) o[1];
-			String[] values = (String[]) o[2];
+			String[] values = (String[]) findStringArray.t(o[2]);
 		
 			return JOptionPane.showInputDialog(null,message,title,JOptionPane.PLAIN_MESSAGE,null,values,values[0]);
 		}
@@ -26,7 +34,7 @@ public class EntityImpl implements Entity, T {
 		{
 			String message = (String) o[0];
 			String title = (String) o[1];
-			String[] values = (String[]) o[2];
+			String[] values = (String[]) findStringArray.t(o[2]);
 			String selected = (String) o[3];
 		
 			return JOptionPane.showInputDialog(null,message,title,JOptionPane.PLAIN_MESSAGE,null,values,selected);

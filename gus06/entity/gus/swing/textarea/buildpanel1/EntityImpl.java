@@ -38,7 +38,8 @@ public class EntityImpl implements Entity, T {
 		
 		S1 highSup = (S1) buildHighSup.t(comp);
 		
-		JScrollPane scroll = (JScrollPane) buildScroll.t(comp);
+		//JScrollPane scroll = (JScrollPane) buildScroll.t(comp);
+		JScrollPane scroll = new JScrollPane(comp);
 		JComponent countBar = (JComponent) buildHighCount.t(comp);
 		
 		custComp.p(comp);

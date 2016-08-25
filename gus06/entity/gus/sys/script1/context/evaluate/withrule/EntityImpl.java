@@ -9,13 +9,13 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151120";}
 
 
-	private Service retrievePools;
+	private Service retrievePool;
 	private Service retrieveEvaluator;
 	private Service retrieveOpMap;
 	
 	public EntityImpl() throws Exception
 	{
-		retrievePools = Outside.service(this,"gus.sys.script1.access.context.pool1.all");
+		retrievePool = Outside.service(this,"gus.sys.script1.access.context.pool.latest");
 		retrieveEvaluator = Outside.service(this,"gus.sys.script1.access.context.evaluator");
 		retrieveOpMap = Outside.service(this,"gus.sys.script1.access.context.opmap");
 	}
@@ -27,13 +27,13 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
 		
 		Map context = (Map) o[0];
-		String exp = (String) o[1];
-		String rule = (String) o[2];
+		Object exp = o[1];
+		Object rule = o[2];
 		
-		List pools = (List) retrievePools.t(context);
+		Map pool = (Map) retrievePool.t(context);
 		T evaluator = (T) retrieveEvaluator.t(context);
 		Map opMap = (Map) retrieveOpMap.t(context);
 		
-		return evaluator.t(new Object[]{pools,opMap,exp,rule});
+		return evaluator.t(new Object[]{pool,opMap,exp,rule});
 	}
 }

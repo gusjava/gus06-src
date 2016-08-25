@@ -39,14 +39,14 @@ public class EntityImpl implements Entity, T {
 	private double sum1(int[] array)
 	{
 		double sum = 0;
-		for(int n:array) sum =+ n;
+		for(int n:array) sum += n;
 		return sum;
 	}
 	
 	private double sum2(int[] array, double avg)
 	{
 		double sum = 0;
-		for(int n:array) sum =+ (n-avg)*(n-avg);
+		for(int n:array) sum += (n-avg)*(n-avg);
 		return sum;
 	}
 }

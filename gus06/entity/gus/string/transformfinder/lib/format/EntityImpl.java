@@ -24,10 +24,15 @@ public class EntityImpl implements Entity, T, G {
 		map = new HashMap();
 		
 		put("brackets_curly",Outside.service(this,"gus.string.transform.format.brackets.curly"));
-		put("datasize_fr",Outside.service(this,"gus.string.transform.format.datasize.fr"));
+		put("char_special",Outside.service(this,"gus.string.transform.format.character.special"));
 		put("datasize_en",Outside.service(this,"gus.string.transform.format.datasize.en"));
+		put("datasize_fr",Outside.service(this,"gus.string.transform.format.datasize.fr"));
 		put("duration_fr",Outside.service(this,"gus.string.transform.format.duration.fr"));
 		put("html_encode",Outside.service(this,"gus.string.transform.format.html.encode"));
+		put("html_encode_diag",Outside.service(this,"gus.string.transform.format.html.encode.diacritics"));
+		put("decimal2",Outside.service(this,"gus.string.transform.format.number.decimal2"));
+		put("percent",Outside.service(this,"gus.string.transform.format.percent.valuetodisplay"));
+		put("tel_fr",Outside.service(this,"gus.string.transform.format.telephone.fr"));
 	}
 	
 	public Object t(Object obj) throws Exception

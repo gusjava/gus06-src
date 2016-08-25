@@ -11,8 +11,8 @@ public class EntityImpl implements Entity, T {
 	private Service readString_txt;
 	private Service readString_pdf;
 	private Service readString_prop;
-	
-	private Service default0;
+	private Service readString_docx;
+	private Service isOfTypeTextPlain;
 	
 
 	
@@ -21,6 +21,8 @@ public class EntityImpl implements Entity, T {
 		readString_txt = Outside.service(this,"gus.file.read.string.from.txt");
 		readString_pdf = Outside.service(this,"gus.file.read.string.from.pdf");
 		readString_prop = Outside.service(this,"gus.file.read.string.from.properties");
+		readString_docx = Outside.service(this,"gus.file.read.string.from.docx");
+		isOfTypeTextPlain = Outside.service(this,"gus.file.filter.mime.isoftype.text.plain");
 	}
 	
 
@@ -35,11 +37,14 @@ public class EntityImpl implements Entity, T {
 	{
 		String s = file.getName().toLowerCase();
 		
-		if(en(s,"txt")) return readString_txt;
-		if(en(s,"pdf")) return readString_pdf;
 		if(en(s,"properties")) return readString_prop;
+		if(en(s,"pdf")) return readString_pdf;
+		if(en(s,"docx")) return readString_docx;
 		
-		return null;
+		if(isOfTypeTextPlain.f(file))
+			return readString_txt;
+		
+		throw new Exception("File type not supported yet: "+file);
 	}
 	
 	

@@ -38,7 +38,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private class Holder implements R, V, F, G
+	private class Holder implements T, R, V, F, G
 	{
 		private File dir;
 		
@@ -56,6 +56,9 @@ public class EntityImpl implements Entity, T {
 	
 		public Object r(String key) throws Exception
 		{return readFile(file(key));}
+		
+		public Object t(Object obj) throws Exception
+		{return readFile(file((String) obj));}
 	
 		public void v(String key, Object obj) throws Exception
 		{

@@ -79,13 +79,13 @@ public class EntityImpl implements Entity, V {
 		feature = feature.toLowerCase();
 		
 		if(feature.equals("e"))
-			return "\tpublic void e() throws Exception\n\t{}";
+			return "\tpublic void e() throws Exception\n\t{\n\t\t\n}";
 		if(feature.equals("p"))
-			return "\tpublic void p(Object obj) throws Exception\n\t{}";
+			return "\tpublic void p(Object obj) throws Exception\n\t{\n\t\t\n}";
 		if(feature.equals("g"))
 			return "\tpublic Object g() throws Exception\n\t{return null;}";
 		if(feature.equals("v"))
-			return "\tpublic void v(String key, Object obj) throws Exception\n\t{}";
+			return "\tpublic void v(String key, Object obj) throws Exception\n\t{\n\t\t\n}";
 		if(feature.equals("r"))
 			return "\tpublic Object r(String key) throws Exception\n\t{return null;}";
 		if(feature.equals("t"))
@@ -95,7 +95,7 @@ public class EntityImpl implements Entity, V {
 		if(feature.equals("h"))
 			return "\tpublic double h(double value) throws Exception\n\t{return 0;}";
 		if(feature.equals("x"))
-			return "\tpublic void run()\n\t{}";
+			return "\tpublic void run()\n\t{\n\t\t\n}";
 		if(feature.equals("i"))
 			return "\tpublic Object i() throws Exception\n\t{return null;}";
 		if(feature.equals("s"))

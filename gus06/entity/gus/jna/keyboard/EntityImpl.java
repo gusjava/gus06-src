@@ -82,6 +82,7 @@ public class EntityImpl extends S1 implements Entity, G, F, Runnable {
 			if(nCode>=0)
 			{
 				code = convert(info.vkCode);
+			
 				switch(wParam.intValue())
 				{
 					case K_PRESSED:

@@ -28,6 +28,8 @@ public class EntityImpl implements Entity, P {
 		String user = (String) o[1];
 		String host = (String) o[2];
 		
+		if(user.equals("root")) throw new Exception("Attempt to drop user: "+user);
+		
 		String sql = (String) buildSql.t(new String[]{user,host});
 		executeSql.p(new Object[]{cx,sql});
 	}

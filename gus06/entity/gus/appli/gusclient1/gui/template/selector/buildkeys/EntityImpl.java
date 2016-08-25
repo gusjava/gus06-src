@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.appli.gusclient1.template.manager");
-		listFilter = Outside.service(this,"gus.list.filter2");
+		listFilter = Outside.service(this,"gus.list.filter.rule.one");
 	}
 	
 	

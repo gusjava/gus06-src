@@ -32,7 +32,7 @@ public class EntityImpl implements Entity, T {
 		{
 			Map context = (Map) obj;
 			String value = (String) getContent.t(tag);
-			executeCode.p(new Object[]{value,context});
+			executeCode.p(new Object[]{context,value});
 		}
 	}
 }

@@ -8,22 +8,22 @@ public class EntityImpl implements Entity, T {
 
 
 	public Object t(Object obj) throws Exception
-	{return new F_unicodeStartsWith((String)obj);}
+	{return new Filter((String) obj);}
 	
 	
 	
 	
-	private class F_unicodeStartsWith implements F
+	private class Filter implements F
 	{
 		private CharTools.CharType charType;
 		
-		public F_unicodeStartsWith(String value)
+		public Filter(String value)
 		{charType = CharTools.buildCharType(value);}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString();
+			String str = (String) obj;
 			if(str.equals("")) return false;
 			
 			char c = str.charAt(0);

@@ -4,7 +4,6 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -46,25 +45,23 @@ public class EntityImpl implements Entity, T {
 			
 			if(obj instanceof String) return elementAt((String) obj,number);
 			if(obj instanceof List) return elementAt((List) obj,number);
-			
 			if(obj instanceof Object[]) return elementAt((Object[]) obj,number);
-			if(obj instanceof String[]) return elementAt((String[]) obj,number);
-			if(obj instanceof File[]) return elementAt((File[]) obj,number);
 			
 			if(obj instanceof boolean[]) return elementAt((boolean[]) obj,number);
 			if(obj instanceof byte[]) return elementAt((byte[]) obj,number);
 			if(obj instanceof int[]) return elementAt((int[]) obj,number);
 			if(obj instanceof double[]) return elementAt((double[]) obj,number);
+			if(obj instanceof float[]) return elementAt((float[]) obj,number);
 			if(obj instanceof long[]) return elementAt((long[]) obj,number);
 			
 			if(obj instanceof Map) return elementAt((Map) obj,number);
 			if(obj instanceof Set) return contains((Set) obj,number);
 			
-			if(obj instanceof R) return retrieve((R) obj,""+number);
-			if(obj instanceof T) return retrieve((T) obj,""+number);
-			if(obj instanceof F) return retrieve((F) obj,""+number);
+			if(obj instanceof R) return retrieve((R) obj,number);
+			if(obj instanceof T) return retrieve((T) obj,number);
+			if(obj instanceof F) return retrieve((F) obj,number);
 			if(obj instanceof H) return retrieve((H) obj,number);
-			if(obj instanceof P) return retrieve((P) obj,""+number);
+			if(obj instanceof P) return retrieve((P) obj,number);
 			
 			throw new Exception("Invalid operator  ["+number+"] for object "+obj.getClass().getName());
 		}
@@ -77,6 +74,7 @@ public class EntityImpl implements Entity, T {
 	
 	private double toDouble(Object obj)
 	{return Double.parseDouble(""+obj);}
+	
 	
 	
 	
@@ -103,7 +101,6 @@ public class EntityImpl implements Entity, T {
 		if(n<0 || n>=size) return null;
 		return a[n];
 	}
-	
 	
 	private Object elementAt(boolean[] a, int n)
 	{
@@ -137,6 +134,14 @@ public class EntityImpl implements Entity, T {
 		return new Double(a[n]);
 	}
 	
+	private Object elementAt(float[] a, int n)
+	{
+		int size = a.length;
+		if(n<0) n += size;
+		if(n<0 || n>=size) return null;
+		return new Float(a[n]);
+	}
+	
 	private Object elementAt(long[] a, int n)
 	{
 		int size = a.length;
@@ -144,8 +149,6 @@ public class EntityImpl implements Entity, T {
 		if(n<0 || n>=size) return null;
 		return new Long(a[n]);
 	}
-	
-	
 	
 	private Object elementAt(Map m, int n)
 	{
@@ -163,18 +166,33 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private Object retrieve(R r, String k) throws Exception
-	{return r.r(k);}
 	
-	private Object retrieve(T t, Object k) throws Exception
-	{return t.t(k);}
+	private Object retrieve(R r, int k) throws Exception
+	{
+		return r.r(""+k);
+	}
 	
-	private Object retrieve(F f, Object k) throws Exception
-	{return new Boolean(f.f(k));}
+	private Object retrieve(T t, int k) throws Exception
+	{
+		try{return t.t(new Integer(k));} catch(Exception e){}
+		try{return t.t(new Double(k));} catch(Exception e){}
+		return t.t(""+k);
+	}
+	
+	private Object retrieve(F f, int k) throws Exception
+	{
+		try{return new Boolean(f.f(new Integer(k)));} catch(Exception e){}
+		try{return new Boolean(f.f(new Double(k)));} catch(Exception e){}
+		return new Boolean(f.f(""+k));
+	}
 	
 	private Object retrieve(H h, int k) throws Exception
-	{return new Double(h.h(toDouble(k)));}
+	{
+		return new Double(h.h(toDouble(k)));
+	}
 	
-	private Object retrieve(P p, Object k) throws Exception
-	{return pWrap.t(new Object[]{p,k});}
+	private Object retrieve(P p, int k) throws Exception
+	{
+		return pWrap.t(new Object[]{p,new Integer(k)});
+	}
 }

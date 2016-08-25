@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.io.File;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151202";}
 
@@ -45,13 +45,6 @@ public class EntityImpl implements Entity, T, R {
 		if(value instanceof Map[]) return new R_map(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Set[].class,Map[].class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

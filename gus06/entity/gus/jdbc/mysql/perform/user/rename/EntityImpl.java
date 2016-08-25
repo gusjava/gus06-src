@@ -30,6 +30,8 @@ public class EntityImpl implements Entity, P {
 		String user2 = (String) o[3];
 		String host2 = (String) o[4];
 		
+		if(user1.equals("root")) throw new Exception("Attempt to rename user: "+user1);
+		
 		String sql = (String) buildSql.t(new String[]{user1,host1,user2,host2});
 		executeSql.p(new Object[]{cx,sql});
 	}

@@ -5,7 +5,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 	
@@ -23,14 +23,6 @@ public class EntityImpl implements Entity, T, R {
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Entity.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
 	
 	private Date creationDate(Entity entity) throws Exception
 	{

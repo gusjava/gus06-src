@@ -19,18 +19,18 @@ public class EntityImpl implements Entity, G, T {
 		put("alias",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.alias"));
 		put("comment",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.comment"));
 		put("execute",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.execute"));
-		put("mouse",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.mouse"));
 		put("output",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.output"));
 		put("print",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.print"));
 		put("set",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.set"));
 		put("set0",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.set0"));
 		put("set1",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.set1"));
-		put("wait",		Outside.service(this,"gus.sys.script1.tool.execute.code.op.wait"));
 		
 		put("p",		get("print"));
 		put("e",		get("execute"));
 		put("c",		get("comment"));
 		put("s",		get("set"));
+		put("s0",		get("set0"));
+		put("s1",		get("set1"));
 	}
 	
 	

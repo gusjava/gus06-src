@@ -2,17 +2,19 @@ package gus06.entity.gus.sys.expression1.apply.op._sha1;
 
 import gus06.framework.*;
 import java.io.File;
+import java.net.URL;
+import java.io.InputStream;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 
 
-	private Service buildSha1;
+	private Service build;
 	
 	public EntityImpl() throws Exception
 	{
-		buildSha1 = Outside.service(this,"gus.crypto.hash.sha1");
+		build = Outside.service(this,"gus.crypto.hash.sha1");
 	}
 
 	
@@ -23,11 +25,13 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof File)
-		{
-			File file = (File) obj;
-			return file.isFile()?buildSha1.t(file):null;
-		}
+		
+		if(obj instanceof byte[]) return build.t(obj);
+		if(obj instanceof String) return build.t(obj);
+		if(obj instanceof InputStream) return build.t(obj);
+		if(obj instanceof File) return build.t(obj);
+		if(obj instanceof URL) return build.t(obj);
+		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 }

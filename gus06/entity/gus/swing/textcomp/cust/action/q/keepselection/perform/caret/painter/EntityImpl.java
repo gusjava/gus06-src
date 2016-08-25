@@ -28,7 +28,6 @@ public class EntityImpl implements Entity, P {
 		PlainDocument document = (PlainDocument) comp.getDocument();
 		int length = document.getLength();
 		
-		
 		((V) comp).v("undoable","true");
 		
 		int offset = length;

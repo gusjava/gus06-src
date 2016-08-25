@@ -8,8 +8,9 @@ public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20150607";}
 
-	public static final String EXTENSION = "lnk";
 
+	public static final String EXTENSION = "lnk";
+	
 
 
 	public void p(Object obj) throws Exception

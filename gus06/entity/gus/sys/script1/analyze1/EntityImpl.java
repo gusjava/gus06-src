@@ -54,7 +54,7 @@ public class EntityImpl implements Entity, T {
 			int textStart = textPos;
 			int textEnd = textPos + valueLength;
 			int tagPos = output.size()-1;
-				
+			
 			if(isElementTag) textEnd += 2;
 				
 			tag.put(K_TEXTSTART,""+textStart);

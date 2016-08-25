@@ -10,7 +10,6 @@ public class EntityImpl implements Entity, T {
 
 	private Service perform;
 	
-	
 	public EntityImpl() throws Exception
 	{
 		perform = Outside.service(this,"gus.data.perform.reverse");
@@ -27,6 +26,14 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof List) return new E1(obj);
 		if(obj instanceof StringBuffer) return new E1(obj);
+		if(obj instanceof Object[]) return new E1(obj);
+		
+		if(obj instanceof double[]) return new E1(obj);
+		if(obj instanceof int[]) return new E1(obj);
+		if(obj instanceof long[]) return new E1(obj);
+		if(obj instanceof float[]) return new E1(obj);
+		if(obj instanceof byte[]) return new E1(obj);
+		if(obj instanceof boolean[]) return new E1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

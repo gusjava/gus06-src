@@ -7,9 +7,11 @@ import java.util.Collection;
 import java.awt.Image;
 import java.util.List;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151129";}
+
+	public static final String T = "constant";
 
 
 	private Service perform;
@@ -28,12 +30,5 @@ public class EntityImpl implements Entity, T, R {
 		obj = o[0];
 		
 		return perform.g();
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Object.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

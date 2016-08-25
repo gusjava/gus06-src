@@ -10,14 +10,11 @@ public class EntityImpl implements Entity, P {
 
 	private Service moveDir;
 	private Service moveFile;
-	private Service autoRename;
-
 
 	public EntityImpl() throws Exception
 	{
-		moveDir = Outside.service(this,"gus.dir.op.move");
-		moveFile = Outside.service(this,"gus.file.op.move");
-		autoRename = Outside.service(this,"gus.file.newfile.autorename");
+		moveDir = Outside.service(this,"gus.dir.op.move.autorename");
+		moveFile = Outside.service(this,"gus.file.op.move.autorename");
 	}
 	
 	
@@ -31,10 +28,7 @@ public class EntityImpl implements Entity, P {
 		
 		if(!in.exists()) throw new Exception("Input not found: "+in);
 		
-		out = (File) autoRename.t(out);
-		File[] data = new File[]{in,out};
-		
-		if(in.isDirectory()) moveDir.p(data);
-		else moveFile.p(data);
+		if(in.isDirectory()) moveDir.p(obj);
+		else moveFile.p(obj);
 	}
 }

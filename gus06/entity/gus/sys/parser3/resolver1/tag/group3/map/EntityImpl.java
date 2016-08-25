@@ -15,8 +15,8 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		cutMethod1 = Outside.service(this,"gus.sys.parser3.resolver1.cut.symbol1");
-		cutMethod2 = Outside.service(this,"gus.sys.parser3.resolver1.cut.d.symbol1");
+		cutMethod1 = Outside.service(this,"gus.sys.parser3.cut.symbol.a1");
+		cutMethod2 = Outside.service(this,"gus.sys.parser3.cut.symbol.b1");
 	}
 
 	
@@ -51,11 +51,18 @@ public class EntityImpl implements Entity, T {
 	
 	private void addToMap(Map map, List l, T t) throws Exception
 	{
-		List[] cut = (List[]) cutMethod2.t(new Object[]{l,":"});
+		List cut = (List) cutMethod2.t(new Object[]{l,":"});
 		if(cut==null) throw new Exception("Invalid element inside map");
 		
-		Object key = t.t(cut[0]);
-		Object value = t.t(cut[1]);
-		map.put(key,value);
+		Object key = t.t(cut.get(0));
+		Object value = t.t(cut.get(1));
+		put(map,key,value);
+	}
+	
+	
+	
+	private void put(Map map, Object key, Object value)
+	{
+		if(key!=null && value!=null) map.put(key,value);
 	}
 }

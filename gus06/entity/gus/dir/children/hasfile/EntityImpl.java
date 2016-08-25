@@ -17,6 +17,7 @@ public class EntityImpl implements Entity, F {
 		if(!dir.isDirectory()) throw new Exception("Dir expected: "+dir);
 		
 		File[] ff = dir.listFiles();
+		if(ff==null) return false;
 		for(File f:ff) if(f.isFile()) return true;
 		return false;
 	}

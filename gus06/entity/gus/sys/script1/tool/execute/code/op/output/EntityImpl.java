@@ -9,6 +9,7 @@ public class EntityImpl implements Entity, P {
 	
 	
 	public static final String ENABLED = "enabled";
+	public static final String MODE = "mode";
 	public static final String CLEAR = "clear";
 	public static final String ADD = "add";
 	public static final String REMOVE = "remove";
@@ -17,6 +18,11 @@ public class EntityImpl implements Entity, P {
 	public static final String ENABLE = "enable";
 	public static final String DISABLE = "disable";
 	
+	public static final String MODE_ONLYPRINT = "onlyprint";
+	public static final String MODE_ONLYTEXT = "onlytext";
+	public static final String MODE_ALL = "all";
+	
+
 
 	private Service getOutput;
 	private Service evalAsObject;
@@ -36,16 +42,20 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
 		V output = (V) getOutput.t(context);
 		if(output==null) return;
 		
 		
-		if(line.equals(DISABLE)) {output.v(ENABLED,"false");return;}
-		if(line.equals(ENABLE)) {output.v(ENABLED,"true");return;}
-		if(line.equals(CLEAR)) {output.v(CLEAR,null);return;}
+		if(line.equals(DISABLE)) 	{output.v(ENABLED,"false");return;}
+		if(line.equals(ENABLE)) 	{output.v(ENABLED,"true");return;}
+		if(line.equals(CLEAR)) 		{output.v(CLEAR,null);return;}
+		if(line.equals(MODE_ONLYPRINT)) {output.v(MODE,MODE_ONLYPRINT);return;}
+		if(line.equals(MODE_ONLYTEXT))	{output.v(MODE,MODE_ONLYTEXT);return;}
+		if(line.equals(MODE_ALL)) 	{output.v(MODE,MODE_ALL);return;}
+		
 		
 		String[] n = line.split(" ",2);
 		String action = n[0];

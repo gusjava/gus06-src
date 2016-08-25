@@ -72,7 +72,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Short) names.put("Short",NUMBER);
 		if(obj instanceof Boolean) names.put("Boolean",BOOLEAN);
 		if(obj instanceof Date) names.put("Date",DATE);
-		if(obj instanceof Color) names.put("Date",COLOR);
+		if(obj instanceof Color) names.put("Color",COLOR);
 		if(obj instanceof Icon) names.put("Icon",ICON);
 		if(obj instanceof Action) names.put("Action",ACTION);
 		if(obj instanceof File) names.put("File",FILE);

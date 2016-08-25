@@ -1,13 +1,18 @@
 package gus06.entity.gus.sys.expression1.apply.op._co_i;
 
 import gus06.framework.*;
-import java.util.Map;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151124";}
+
+	private Service readText;
+	
+	public EntityImpl() throws Exception
+	{
+		readText = Outside.service(this,"gus.file.read.string.generic");
+	}
 
 
 	
@@ -20,15 +25,9 @@ public class EntityImpl implements Entity, T, R {
 		
 		if(obj==null) return null;
 		if(obj instanceof String) return new F1((String) obj);
+		if(obj instanceof File) return new F1((String) readText.t(obj));
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{String.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

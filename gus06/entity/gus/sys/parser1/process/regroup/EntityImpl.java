@@ -43,7 +43,7 @@ public class EntityImpl implements Entity, T {
 				}
 				else if(step==1)
 				{
-					if(!elem.equals(start)) throw new Exception("Invalid syntax (opening character "+start+")");
+					if(!elem.equals(start)) throw new Exception("Invalid syntax (opening character "+elem+" instead of "+start+")");
 					step = 2;
 				}
 				else if(step==2)
@@ -53,7 +53,7 @@ public class EntityImpl implements Entity, T {
 				}
 				else if(step==3)
 				{
-					if(!elem.equals(end)) throw new Exception("Invalid syntax (closing character "+end+")");
+					if(!elem.equals(end)) throw new Exception("Invalid syntax (closing character "+elem+" instead of "+end+")");
 					step = 0;
 				}
 			}

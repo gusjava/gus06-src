@@ -17,7 +17,8 @@ public class EntityImpl implements Entity, T {
 		int count = rsmd.getColumnCount();
 		
 		String[] col = new String[count];
-		for(int i=0;i<count;i++) col[i] = rsmd.getColumnName(i+1);
+		for(int i=0;i<count;i++)
+		col[i] = rsmd.getColumnName(i+1);
 		
 		return col;
 	}

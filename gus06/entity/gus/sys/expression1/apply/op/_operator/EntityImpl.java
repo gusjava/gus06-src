@@ -2,8 +2,6 @@ package gus06.entity.gus.sys.expression1.apply.op._operator;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.List;
-import java.util.Set;
 
 public class EntityImpl implements Entity, T {
 

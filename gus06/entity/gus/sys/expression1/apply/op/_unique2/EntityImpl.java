@@ -2,8 +2,6 @@ package gus06.entity.gus.sys.expression1.apply.op._unique2;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Collections;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
@@ -27,7 +25,7 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof List) return perform.t((List) obj);
+		if(obj instanceof List) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

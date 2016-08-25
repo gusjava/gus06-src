@@ -40,7 +40,7 @@ public class EntityImpl implements Entity, I, P, ActionListener, ListSelectionLi
 		findEntries = Outside.service(this,"gus.file.zip.findentriesarray");
 		listRenderer = Outside.service(this,"gus.file.editor.ext.jar.listrenderer");
 		entryViewer = Outside.service(this,"*gus.file.editor.ext.zip.entryviewer");
-		listFilter = Outside.service(this,"gus.list.filter2");
+		listFilter = Outside.service(this,"gus.list.filter.rule.one");
 		linkerListField = Outside.service(this,"gus.swing.list.textfield.linker");
 		splitCust = Outside.service(this,"gus.swing.splitpane.cust.cust1");
 		

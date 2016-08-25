@@ -28,7 +28,7 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		String s = (String)obj;
+		String s = (String) obj;
 		
 		m = p_equals.matcher(s);
 		if(m.matches())

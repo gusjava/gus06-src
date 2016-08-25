@@ -33,7 +33,16 @@ public class EntityImpl implements Entity, T {
 		String op = findOp(o[2]);
 		
 		T opT = findOpT(op,opMap);
-		return opT.t(new Object[]{value,opMap});
+		
+		try
+		{
+			return opT.t(new Object[]{value,opMap});
+		}
+		catch(Exception e)
+		{
+			String message = "failed to apply operator "+op;
+			throw new Exception(message,e);
+		}
 	}
 	
 	

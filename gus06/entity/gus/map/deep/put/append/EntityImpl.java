@@ -4,16 +4,20 @@ import gus06.framework.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.Iterator;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20151204";}
 
 	private Service perform;
+	private Service nextData;
 
 	public EntityImpl() throws Exception
 	{
 		perform = Outside.service(this,"gus.data.perform.append");
+		nextData = Outside.service(this,"gus.map.deep.nextdata0");
 	}
 	
 	
@@ -31,52 +35,13 @@ public class EntityImpl implements Entity, P {
 		for(int i=0;i<n.length;i++)
 		data = nextData(data,n[i]);
 		
-		perform.p(new Object[]{data,value});
+		if(data!=null) perform(data,value);
 	}
 	
 	
+	private Object nextData(Object data, String key) throws Exception
+	{return nextData.t(new Object[]{data,key});}
 	
-	
-	private Object nextData(Object data, String k) throws Exception
-	{
-		if(data instanceof Map)
-		{
-			Map m = (Map) data;
-			if(!m.containsKey(k)) m.put(k,new HashMap());
-			return m.get(k);
-		}
-		if(data instanceof List)
-		{
-			List l = (List) data;
-			if(k.equals("after"))
-			{
-				Map m = new HashMap();
-				l.add(m);
-				return m;
-			}
-			if(k.equals("before"))
-			{
-				Map m = new HashMap();
-				l.add(0,m);
-				return m;
-			}
-			int index = Integer.parseInt(k);
-			if(index<0) index += l.size();
-			
-			if(index>=0 && index<l.size()) return l.get(index);
-			throw new Exception("Index "+index+" out of range for list with size="+l.size());
-		}
-		if(data instanceof R)
-		{
-			R r = (R) data;
-			return r.r(k);
-		}
-		if(data instanceof G)
-		{
-			G g = (G) data;
-			if(k.equals("g")) return g.g();
-			throw new Exception("g is expected for G object");
-		}
-		throw new Exception("Invalid data type: "+data.getClass().getName());
-	}
+	private void perform(Object data, Object value) throws Exception
+	{perform.p(new Object[]{data,value});}
 }

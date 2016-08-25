@@ -24,7 +24,6 @@ public class EntityImpl implements Entity, I, P {
 
 	private Service compHolder;
 	private Service engine;
-	private Service contextBuilder;
 	private Service readText;
 	
 
@@ -43,8 +42,7 @@ public class EntityImpl implements Entity, I, P {
 	public EntityImpl() throws Exception
 	{
 		compHolder = Outside.service(this,"*gus.swing.textpane.holder.printstreamcomp");
-		engine = Outside.service(this,"gus.sys.script1.engine");
-		contextBuilder = Outside.service(this,"gus.sys.script1.context.builder1");
+		engine = Outside.service(this,"gus.sys.script1.main.main1");
 		readText = Outside.service(this,"gus.file.read.string.autodetect");
 		
 		console = (JTextComponent) compHolder.i();
@@ -96,7 +94,7 @@ public class EntityImpl implements Entity, I, P {
 		try
 		{
 			PrintStream p_out = p_out();
-			engine.p(new Object[]{inputFile,context(p_out)});
+			engine.p(new Object[]{inputFile,p_out});
 			p_out.close();
 			
 			output = console.getText().trim();
@@ -113,9 +111,6 @@ public class EntityImpl implements Entity, I, P {
 		}
 	}
 	
-	
-	private Map context(PrintStream p) throws Exception
-	{return (Map) contextBuilder.t(p);}
 	
 	private PrintStream p_out() throws Exception
 	{return (PrintStream) compHolder.r("white");}

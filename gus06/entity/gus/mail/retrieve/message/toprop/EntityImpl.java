@@ -1,16 +1,16 @@
 package gus06.entity.gus.mail.retrieve.message.toprop;
 
-
+import gus06.framework.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
+import java.util.Enumeration;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
-
-import gus06.framework.*;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Header;
 
 public class EntityImpl implements Entity, T {
 
@@ -60,6 +60,21 @@ public class EntityImpl implements Entity, T {
 		prop.setProperty(KEY_SUBJECT,subject);
 		prop.setProperty(KEY_CONTENT,content);
 		prop.setProperty(KEY_TYPE,type);
+		
+		prop.setProperty("DEBUG_messageClass",message.getClass().getName());
+		prop.setProperty("DEBUG_contentClass",message.getContent().getClass().getName());
+		
+		if(message instanceof MimeMessage)
+		{
+			MimeMessage mime = (MimeMessage) message;
+			
+			Enumeration headers = mime.getAllHeaders();
+			while(headers.hasMoreElements())
+			{
+				Header h = (Header) headers.nextElement();
+				prop.setProperty("HEADER_"+h.getName(),h.getValue());
+			}
+		}
 		
 		return prop;
 	}

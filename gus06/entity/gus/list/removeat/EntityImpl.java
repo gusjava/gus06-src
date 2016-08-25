@@ -18,10 +18,15 @@ public class EntityImpl implements Entity, P, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		List list = (List) o[0];
-		int index = ((Integer) o[1]).intValue();
+		int index = toInt(o[1]);
 		
 		int nb = list.size();
+		if(index<0) index += nb;
+		
 		if(index<0 || index>=nb) return null;
 		return list.remove(index);
 	}
+	
+	private int toInt(Object obj)
+	{return Integer.parseInt(""+obj);}
 }

@@ -16,15 +16,15 @@ public class EntityImpl implements Entity, T {
 	
 
 	public Object t(Object obj) throws Exception
-	{return new F1((String) obj);}
+	{return new Filter((String) obj);}
 
 	
 	
 	
-	private class F1 implements F
+	private class Filter implements F
 	{
 		private String rule;
-		public F1(String rule)
+		public Filter(String rule)
 		{this.rule = rule;}
 		
 		public boolean f(Object obj) throws Exception

@@ -3,6 +3,7 @@ package gus06.entity.gus.sys.expression1.apply.op._e_keepall_st_i;
 import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -30,6 +31,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof List) return new T1(obj);
 		if(obj instanceof Set) return new T1(obj);
+		if(obj instanceof File) return new T1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

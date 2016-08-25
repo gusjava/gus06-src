@@ -1,6 +1,8 @@
 package gus06.entity.gus.math.tabdouble.product;
 
 import gus06.framework.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class EntityImpl implements Entity, T {
 

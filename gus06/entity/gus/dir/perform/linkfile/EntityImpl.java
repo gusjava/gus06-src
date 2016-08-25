@@ -14,8 +14,8 @@ public class EntityImpl implements Entity, P {
 
 	public EntityImpl() throws Exception
 	{
-		autoRename = Outside.service(this,"gus.file.newfile.autorename");
-		createLnk = Outside.service(this,"gus.file.lnk.create.shortcut1");
+		autoRename = Outside.service(this,"gus.file.newfile.autorename2");
+		createLnk = Outside.service(this,"gus.file.lnk.create.shortcut2");
 	}
 	
 	

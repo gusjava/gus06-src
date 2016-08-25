@@ -40,7 +40,7 @@ public class EntityImpl extends S1 implements Entity, I, P, G, V, TableModelList
 	
 	public EntityImpl() throws Exception
 	{
-		columnsToClipboard = Outside.service(this,"gus.data.transform.string2.columnstoclipboard");
+		columnsToClipboard = Outside.service(this,"gus.data.string2.columnstoclipboard");
 		tableTooltip = Outside.service(this,"gus.swing.table.cust.tooltip1");
 		modelToData = Outside.service(this,"gus.find.stringtable");
 		

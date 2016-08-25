@@ -9,21 +9,21 @@ public class EntityImpl implements Entity, T {
 	
 	
 	public Object t(Object obj) throws Exception
-	{return new F_containsregexp((String)obj);}
+	{return new Filter((String)obj);}
 	
 	
 	
 	
-	private class F_containsregexp implements F
+	private class Filter implements F
 	{
 		private Pattern p;
-		public F_containsregexp(String regexp)
+		public Filter(String regexp)
 		{p = Pattern.compile(regexp, Pattern.DOTALL);}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString().toLowerCase();
+			String str = ((String) obj).toLowerCase();
 			return p.matcher(str).find();
 		}
 	}

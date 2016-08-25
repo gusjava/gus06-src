@@ -57,9 +57,7 @@ public class EntityImpl implements Entity, P {
 			int end = m.end();
 			String group = m.group();
 			
-			if(group.equals(selection))
-				high.addHighlight(start,end,painter1);
-			else high.addHighlight(start,end,painter2);
+			high.addHighlight(start,end,painter2);
                 }
 	}
 	

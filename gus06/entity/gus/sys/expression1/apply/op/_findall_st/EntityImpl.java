@@ -42,9 +42,9 @@ public class EntityImpl implements Entity, T {
 		public T1(Object data) {this.data = data;}
 		
 		public Object t(Object obj) throws Exception
-		{
-			F f = (F) builder.t(obj);
-			return perform.t(new Object[]{data,f});
-		}
+		{return perform.t(new Object[]{data,toF(obj)});}
+		
+		private F toF(Object obj) throws Exception
+		{return (F) builder.t(obj);}
 	}
 }

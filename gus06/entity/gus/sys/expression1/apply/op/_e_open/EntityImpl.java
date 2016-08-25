@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		perform = Outside.service(this,"gus.awt.desktop.open");
+		perform = Outside.service(this,"gus.data.perform.open");
 	}
 
 	
@@ -26,6 +26,7 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		if(obj instanceof File) return new E1(obj);
+		if(obj instanceof File[]) return new E1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

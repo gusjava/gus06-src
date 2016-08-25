@@ -13,11 +13,12 @@ public class EntityImpl implements Entity, T {
 	
 
 
-
 	private Service newMap;
 	
 	public EntityImpl() throws Exception
-	{newMap = Outside.service(this,"gus.sys.script1.analyze1.buildtag.newmap");}
+	{
+		newMap = Outside.service(this,"gus.sys.script1.analyze1.buildtag.newmap");
+	}
 
 	
 	

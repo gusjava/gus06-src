@@ -28,11 +28,11 @@ public class EntityImpl implements Entity, T {
 	{
 		if(line.contains(" "))
 		{
-			String[] n = line.split(" ");
+			String[] n = line.split(" ",2);
 			int number = number(n[0]);
 			if(number>0)
 			{
-				String line0 = line.substring(n[0].length()+1);
+				String line0 = n[1];
 				for(int j=0;j<number;j++)
 				b.append(formatJ(line0,j));
 				b.append("\n");
@@ -41,11 +41,11 @@ public class EntityImpl implements Entity, T {
 		}
 		if(line.contains("\t"))
 		{
-			String[] n = line.split("\t");
+			String[] n = line.split("\t",2);
 			int number = number(n[0]);
 			if(number>0)
 			{
-				String line0 = line.substring(n[0].length()+1);
+				String line0 = n[1];
 				for(int j=0;j<number;j++)
 				b.append(formatI(line0,j)+"\n");
 				return;

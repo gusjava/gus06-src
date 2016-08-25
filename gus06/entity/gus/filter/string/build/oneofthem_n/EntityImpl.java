@@ -1,29 +1,24 @@
 package gus06.entity.gus.filter.string.build.oneofthem_n;
 
-
 import gus06.framework.*;
 
-
-
 public class EntityImpl implements Entity, T {
-
-
 
 	public String creationDate() {return "20150529";}
 
 
-	private Service charNormalize;
+	private Service normalize;
 	private Service cuttingMethod;
 	
 	public EntityImpl() throws Exception
 	{
-		charNormalize = Outside.service(this,"gus.string.transform.normalize.diacritics.lower");
+		normalize = Outside.service(this,"gus.string.transform.normalize.diacritics.lower");
 		cuttingMethod = Outside.service(this,"gus.string.split.method1");
 	}
 
 
 	private String normalize(String s) throws Exception
-	{return (String) charNormalize.t(s);}
+	{return (String) normalize.t(s);}
 
 	
 	public Object t(Object obj) throws Exception
@@ -44,7 +39,7 @@ public class EntityImpl implements Entity, T {
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = normalize(obj.toString());
+			String str = normalize((String) obj);
 			for(int i=0;i<words.length;i++)
 				if(str.contains(words[i])) return true;
 			return false;

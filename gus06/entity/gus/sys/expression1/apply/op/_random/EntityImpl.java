@@ -9,6 +9,15 @@ import java.util.Iterator;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.random");
+	}
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -19,42 +28,14 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof Integer) return new Integer(random(toInt(obj)));
-		if(obj instanceof Boolean) return new Boolean(Math.random()<0.5);
-		if(obj instanceof List) return random((List) obj);
-		if(obj instanceof Set) return random((Set) obj);
-		if(obj instanceof Map) return random((Map) obj);
-		if(obj instanceof Object[]) return random((Object[]) obj);
+		if(obj instanceof Integer) return perform.t(obj);
+		if(obj instanceof Boolean) return perform.t(obj);
+		if(obj instanceof String) return perform.t(obj);
+		if(obj instanceof List) return perform.t(obj);
+		if(obj instanceof Set) return perform.t(obj);
+		if(obj instanceof Map) return perform.t(obj);
+		if(obj instanceof Object[]) perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
-	
-	
-	private int random(int n)
-	{return (int) (Math.random()*n);}
-	
-	
-	private Object random(List list)
-	{return list.get(random(list.size()));}
-	
-	
-	private Object random(Object[] array)
-	{return array[random(array.length)];}
-	
-	
-	private Object random(Map m)
-	{return m.get(random(m.keySet()));}
-	
-	
-	private Object random(Set s)
-	{
-		int n = random(s.size());
-		Iterator it = s.iterator();
-		for(int i=0;i<n;i++) it.next();
-		return it.next();
 	}
 }

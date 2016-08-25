@@ -14,6 +14,7 @@ public class EntityImpl implements Entity, I, P, G, ListSelectionListener {
 
 
 	private Service viewer;
+	private Service splitCust;
 
 	private JSplitPane split;
 	private JList list;
@@ -25,6 +26,7 @@ public class EntityImpl implements Entity, I, P, G, ListSelectionListener {
 	public EntityImpl() throws Exception
 	{
 		viewer = Outside.service(this,"*gus.data.viewer.object");
+		splitCust = Outside.service(this,"gus.swing.splitpane.cust.cust1");
 	
 		list = new JList();
 		list.addListSelectionListener(this);
@@ -36,6 +38,8 @@ public class EntityImpl implements Entity, I, P, G, ListSelectionListener {
 		p.add(label,BorderLayout.SOUTH);
         
 		split = new JSplitPane();
+		splitCust.p(split);
+		
 		split.setLeftComponent(p);
 		split.setRightComponent((JComponent) viewer.i());
 	}

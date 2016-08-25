@@ -1,8 +1,6 @@
 package gus06.entity.gus.data.perform.delete;
 
 import gus06.framework.*;
-import java.io.IOException;
-import java.io.Closeable;
 import java.io.File;
 import java.util.Iterator;
 
@@ -26,6 +24,9 @@ public class EntityImpl implements Entity, P {
 		if(obj instanceof File)
 		{delete((File) obj);return;}
 		
+		if(obj instanceof File[])
+		{delete((File[]) obj);return;}
+		
 		if(obj instanceof Iterator)
 		{delete((Iterator) obj);return;}
 		
@@ -34,6 +35,12 @@ public class EntityImpl implements Entity, P {
 	
 	private void delete(File f) throws Exception
 	{
+		deleteFile.p(f);
+	}
+	
+	private void delete(File[] ff) throws Exception
+	{
+		for(File f:ff)
 		deleteFile.p(f);
 	}
 	

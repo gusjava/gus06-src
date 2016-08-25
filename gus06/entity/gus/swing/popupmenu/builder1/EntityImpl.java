@@ -3,8 +3,8 @@ package gus06.entity.gus.swing.popupmenu.builder1;
 import gus06.framework.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
+import java.awt.Component;
 
 
 public class EntityImpl implements Entity, T {
@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		JComponent comp = (JComponent) obj;
+		Component comp = (Component) obj;
 		JPopupMenu menu = new JPopupMenu();
 		comp.addMouseListener(new PopupAdapter(menu));
 		return menu;

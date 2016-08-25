@@ -66,7 +66,7 @@ public class EntityImpl implements Entity, T {
 			String key = (String) l.get(i);
 			Object value = m.get(key);
 			
-			handleString(b,key);
+			handleObj(c,b,key);
 			b.append(":");
 			handleObj(c,b,value);
 			if(i<l.size()-1) b.append(",");

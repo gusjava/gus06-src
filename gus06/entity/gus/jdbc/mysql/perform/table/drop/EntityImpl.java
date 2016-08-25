@@ -8,14 +8,15 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20141009";}
 
 
-
 	private Service buildSql;
 	private Service executeSql;
+	private Service protectedPath;
 
 	public EntityImpl() throws Exception
 	{
 		buildSql = Outside.service(this,"gus.jdbc.mysql.sql.table.drop");
 		executeSql = Outside.service(this,"gus.jdbc.mysql.perform.sqlexecute");
+		protectedPath = Outside.service(this,"gus.jdbc.mysql.check.protectedpath");
 	}
 	
 	
@@ -26,6 +27,8 @@ public class EntityImpl implements Entity, P {
 		
 		Connection cx = (Connection) o[0];
 		String path = (String) o[1];
+		
+		if(protectedPath.f(path)) throw new Exception("Attempt to drop table: "+path);
 		
 		String sql = (String) buildSql.t(path);
 		executeSql.p(new Object[]{cx,sql});

@@ -48,14 +48,14 @@ public class EntityImpl implements Entity, T {
 				if(number0<2) throw new Exception("Invalid operation: ENU");
 				value = new ArrayList();
 				for(int j=0;j<number0-1;j++) value.add(l.get(j));
-				map.put(key,t.t(value));
+				put(map,key,t.t(value));
 				key = value((Map) l.get(number0-1));
 			}
 			else
 			{
 				value = new ArrayList();
 				for(int j=0;j<number0;j++) value.add(l.get(j));
-				map.put(key,t.t(value));
+				put(map,key,t.t(value));
 			}
 		}
 		
@@ -70,5 +70,10 @@ public class EntityImpl implements Entity, T {
 		if(!m.get(TYPE).equals(ELEMENT))
 			throw new Exception("Invalid operation: ENU");
 		return (String) m.get(VALUE);
+	}
+	
+	private void put(Map map, String key, Object value)
+	{
+		if(key!=null && value!=null) map.put(key,value);
 	}
 }

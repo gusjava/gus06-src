@@ -22,7 +22,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		cutMethod = Outside.service(this,"gus.sys.parser3.resolver1.cut.symbol1");
+		cutMethod = Outside.service(this,"gus.sys.parser3.cut.symbol.a1");
 		handleSet = Outside.service(this,"gus.sys.parser3.resolver1.tag.group3.set");
 		handleMap = Outside.service(this,"gus.sys.parser3.resolver1.tag.group3.map");
 	}

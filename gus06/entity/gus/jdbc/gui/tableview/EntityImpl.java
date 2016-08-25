@@ -53,7 +53,7 @@ public class EntityImpl implements Entity, I, P {
 	public EntityImpl() throws Exception
 	{
 		selectAll = Outside.service(this,"gus.jdbc.mysql.perform.select.all");
-		rsToList = Outside.service(this,"gus.jdbc.resultset.toobjectlist");
+		rsToList = Outside.service(this,"gus.jdbc.resultset.toobjectarraylist");
 		tooltip = Outside.service(this,"gus.swing.table.cust.tooltip1");
 		adjuster = Outside.service(this,"gus.swing.table.cust.columnsize.adjuster");
 		

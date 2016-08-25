@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.expression1.apply.op._flip_d;
 import gus06.framework.*;
 import java.awt.image.RenderedImage;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151115";}
 
@@ -26,12 +26,5 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof RenderedImage) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{RenderedImage.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

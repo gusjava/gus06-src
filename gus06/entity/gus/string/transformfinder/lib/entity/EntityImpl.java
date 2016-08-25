@@ -24,7 +24,9 @@ public class EntityImpl implements Entity, T, G {
 		map = new HashMap();
 		
 		put("co",Outside.service(this,"gus.string.transform.app.entity.listing.co"));
+		put("en",Outside.service(this,"gus.string.transform.app.entity.listing.en"));
 		put("st",Outside.service(this,"gus.string.transform.app.entity.listing.st"));
+		put("srccode",Outside.service(this,"gus.string.transform.app.entity.srccode"));
 	}
 	
 	public Object t(Object obj) throws Exception

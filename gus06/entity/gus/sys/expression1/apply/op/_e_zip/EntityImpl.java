@@ -1,0 +1,68 @@
+package gus06.entity.gus.sys.expression1.apply.op._e_zip;
+
+import gus06.framework.*;
+import java.io.File;
+
+public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20160817";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.file.zip.perform.zip");
+	}
+
+	
+	public Object t(Object obj) throws Exception
+	{
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		obj = o[0];
+		
+		if(obj==null) return null;
+		
+		if(obj instanceof File) return new T1(obj);
+		if(obj instanceof File[]) return new T1(obj);
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private class T1 implements T
+	{
+		private Object input;
+		public T1(Object input) {this.input = input;}
+		
+		public Object t(Object obj) throws Exception
+		{return new E1(input,toFile(obj));}
+	}
+	
+	private class E1 implements E
+	{
+		private Object input;
+		private File zipFile;
+		
+		public E1(Object input, File zipFile)
+		{
+			this.input = input;
+			this.zipFile = zipFile;
+		}
+		
+		public void e() throws Exception
+		{perform.p(new Object[]{input,zipFile});}
+	}
+	
+	
+	
+	private File toFile(Object obj) throws Exception
+	{
+		if(obj instanceof File) return (File) obj;
+		if(obj instanceof String) return new File((String) obj).getCanonicalFile();
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+		
+}

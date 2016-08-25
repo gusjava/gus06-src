@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.jdbcblob.perform.table.create;
 import gus06.framework.*;
 import java.sql.Connection;
 
-public class EntityImpl implements Entity, F {
+public class EntityImpl implements Entity, F, P {
 
 	public String creationDate() {return "20150625";}
 	
@@ -22,7 +22,7 @@ public class EntityImpl implements Entity, F {
 	public final static String T_SIZE = "INT";
 	public final static String T_TIME = "DATETIME";
 	public final static String T_PREVIEW = "MEDIUMBLOB";
-	public final static String T_DATA = "LONGBLOG";
+	public final static String T_DATA = "LONGBLOB";
 
 	
 
@@ -32,6 +32,9 @@ public class EntityImpl implements Entity, F {
 	{
 		create = Outside.service(this,"gus.jdbc.mysql.perform.table.create");
 	}
+	
+	public void p(Object obj) throws Exception
+	{f(obj);}
 	
 	
 	public boolean f(Object obj) throws Exception

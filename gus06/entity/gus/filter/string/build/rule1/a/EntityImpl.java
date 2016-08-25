@@ -2,10 +2,7 @@ package gus06.entity.gus.filter.string.build.rule1.a;
 
 import gus06.framework.*;
 
-
 public class EntityImpl implements Entity, T {
-
-
 
 	public String creationDate() {return "20150529";}
 
@@ -54,10 +51,18 @@ public class EntityImpl implements Entity, T {
 	private Service f_mask;
 	private Service f_mask_i;
 	private Service f_mask_n;
+	
+	private Service f_mask2;
+	private Service f_mask2_i;
+	private Service f_mask2_n;
 
 	private Service f_matches;
 	private Service f_matches_i;
 	private Service f_matches_n;
+
+	private Service f_mstars;
+	private Service f_mstars_i;
+	private Service f_mstars_n;
 
 	private Service f_containsregexp;
 	private Service f_containsregexp_i;
@@ -126,9 +131,17 @@ public class EntityImpl implements Entity, T {
 		f_mask_i = Outside.service(this,"gus.filter.string.build.mask_i");
 		f_mask_n = Outside.service(this,"gus.filter.string.build.mask_n");
 
+		f_mask2 = Outside.service(this,"gus.filter.string.build.mask2");
+		f_mask2_i = Outside.service(this,"gus.filter.string.build.mask2_i");
+		f_mask2_n = Outside.service(this,"gus.filter.string.build.mask2_n");
+
 		f_matches = Outside.service(this,"gus.filter.string.build.matches");
 		f_matches_i = Outside.service(this,"gus.filter.string.build.matches_i");
 		f_matches_n = Outside.service(this,"gus.filter.string.build.matches_n");
+
+		f_mstars = Outside.service(this,"gus.filter.string.build.mstars");
+		f_mstars_i = Outside.service(this,"gus.filter.string.build.mstars_i");
+		f_mstars_n = Outside.service(this,"gus.filter.string.build.mstars_n");
 
 		f_containsregexp = Outside.service(this,"gus.filter.string.build.containsregexp");
 		f_containsregexp_i = Outside.service(this,"gus.filter.string.build.containsregexp_i");
@@ -207,10 +220,18 @@ public class EntityImpl implements Entity, T {
 		if(type.equals(FILTER.MASK)) 		return build(f_mask,info);
 		if(type.equals(FILTER.MASK_I)) 		return build(f_mask_i,info);
 		if(type.equals(FILTER.MASK_N)) 		return build(f_mask_n,info);
+		
+		if(type.equals(FILTER.MASK2)) 		return build(f_mask2,info);
+		if(type.equals(FILTER.MASK2_I)) 	return build(f_mask2_i,info);
+		if(type.equals(FILTER.MASK2_N)) 	return build(f_mask2_n,info);
 
 		if(type.equals(FILTER.EQEXP)) 		return build(f_matches,info);
 		if(type.equals(FILTER.EQEXP_I)) 	return build(f_matches_i,info);
 		if(type.equals(FILTER.EQEXP_N)) 	return build(f_matches_n,info);
+
+		if(type.equals(FILTER.MSTARS)) 		return build(f_mstars,info);
+		if(type.equals(FILTER.MSTARS_I)) 	return build(f_mstars_i,info);
+		if(type.equals(FILTER.MSTARS_N)) 	return build(f_mstars_n,info);
 
 		if(type.equals(FILTER.COEXP)) 		return build(f_containsregexp,info);
 		if(type.equals(FILTER.COEXP_I)) 	return build(f_containsregexp_i,info);

@@ -4,12 +4,19 @@ import gus06.framework.*;
 import javax.swing.text.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20151105";}
 
 
+	private Service findForPainter;
+
+	public EntityImpl() throws Exception
+	{
+		findForPainter = Outside.service(this,"gus.swing.textcomp.highlight.find.forpainter");
+	}
 	
 	
 	public void p(Object obj) throws Exception
@@ -20,22 +27,20 @@ public class EntityImpl implements Entity, P {
 		JTextComponent comp = (JTextComponent) o[0];
 		Highlighter.HighlightPainter painter = (Highlighter.HighlightPainter) o[1];
 		
-		
 		PlainDocument document = (PlainDocument) comp.getDocument();
 		Element root = document.getDefaultRootElement();
 		int length = document.getLength();
 		int number = root.getElementCount();
 		
-		
 		Set<Integer> indexes = new HashSet<>();
-		Highlighter high = comp.getHighlighter();
-		Highlighter.Highlight[] ht = high.getHighlights();
+		List l = (List) findForPainter.t(new Object[]{comp,painter});
 		
-		for(int i=ht.length-1;i>=0;i--)
-		if(ht[i].getPainter()==painter)
+		for(int i=l.size()-1;i>=0;i--)
 		{
-			int start = ht[i].getStartOffset();
-			int end = ht[i].getEndOffset();
+			Highlighter.Highlight ht = (Highlighter.Highlight) l.get(i);
+			
+			int start = ht.getStartOffset();
+			int end = ht.getEndOffset();
 			
 			int startLine = root.getElementIndex(start);
 			int endLine = root.getElementIndex(end);

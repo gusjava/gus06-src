@@ -30,20 +30,25 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		createImage = Outside.service(this,"gus.awt.bufferedimage.create");
-		baToImage = Outside.service(this,"gus.convert.bytearraytoimage");
+		baToImage = Outside.service(this,"gus.convert.bytearraytobufferedimage");
 		iconToImage = Outside.service(this,"gus.convert.icontoimage");
 	}
 
 	
 	
 	public Object t(Object obj) throws Exception
+	{return toBufferedImage(obj);}
+	
+	
+	
+	private BufferedImage toBufferedImage(Object obj) throws Exception
 	{
 		if(obj==null) return null;
 		if(obj instanceof BufferedImage) return (BufferedImage) obj;
 		if(obj instanceof RenderedImage) return toBufferedImage((RenderedImage) obj);
 		if(obj instanceof Image) return toBufferedImage((Image) obj);
-		if(obj instanceof Icon) return iconToImage.t(obj);
-		if(obj instanceof byte[]) return baToImage.t(obj);
+		if(obj instanceof Icon) return toBufferedImage((Image) iconToImage.t(obj));
+		if(obj instanceof byte[]) return toBufferedImage((Image) baToImage.t(obj));
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -53,6 +58,8 @@ public class EntityImpl implements Entity, T {
 	
 	private BufferedImage toBufferedImage(Image image) throws Exception
 	{
+		if(image instanceof BufferedImage) return (BufferedImage) image;
+		
 		int w = image.getWidth(null);
 		int h = image.getHeight(null);
 		BufferedImage buffImg = createImage(w,h);
@@ -64,6 +71,8 @@ public class EntityImpl implements Entity, T {
 	
 	private BufferedImage toBufferedImage(RenderedImage image) throws Exception
 	{
+		if(image instanceof BufferedImage) return (BufferedImage) image;
+		
 		int w = image.getWidth();
 		int h = image.getHeight();
 		BufferedImage buffImg = createImage(w,h);

@@ -27,7 +27,7 @@ public class EntityImpl implements Entity, P {
 	
 	public EntityImpl() throws Exception
 	{
-		listing = Outside.service(this,"gus.dir.listing.dirtopaths");
+		listing = Outside.service(this,"gus.dir.listing.topaths");
 	}
 		
 	
@@ -36,7 +36,7 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=4) throw new Exception("Wrong data number: "+o.length);
 		
-		File input = (File) o[0];
+		Object input = o[0];
 		File zipFile = (File) o[1];
 		Object progress = o[2];
 		Set interrupt = (Set) o[3];
@@ -44,13 +44,14 @@ public class EntityImpl implements Entity, P {
 		List l = buildListing(input);
 		
 		int number = l.size();
-		File parent = input.getParentFile();
+		File parent = getParent(input);
 		int rootLength = parent.getAbsolutePath().length();
 		
 		ZipOutputStream zos = null;
 		
 		try
 		{
+			zipFile.getParentFile().mkdirs();
 			FileOutputStream fos = new FileOutputStream(zipFile);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			zos = new ZipOutputStream(bos,CHARSET);
@@ -97,13 +98,20 @@ public class EntityImpl implements Entity, P {
 	
 	
 	
-	private List buildListing(File input) throws Exception
-	{
-		List l = input.isFile()?new ArrayList():(List) listing.t(input);
-		l.add(input);
-		return l;
-	}
+	private List buildListing(Object input) throws Exception
+	{return (List) listing.t(input);}
 	
+	
+	
+	private File getParent(Object input) throws Exception
+	{
+		if(input instanceof File)
+			return ((File) input).getParentFile();
+		if(input instanceof File[])
+			return ((File[]) input)[0].getParentFile();
+			
+		throw new Exception("Invalid data type: "+input.getClass().getName());
+	}
 	
 	
 	

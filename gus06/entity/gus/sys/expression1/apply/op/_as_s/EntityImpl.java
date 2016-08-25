@@ -4,7 +4,7 @@ import gus06.framework.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151111";}
 	
@@ -19,13 +19,6 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof S) return new S1((S) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{S.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

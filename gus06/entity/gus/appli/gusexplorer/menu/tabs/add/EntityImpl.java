@@ -17,6 +17,7 @@ public class EntityImpl implements Entity, I {
 
 	
 	private Service addFromClipboard;
+	private Service addFromClipboardAsPath;
 	private Service addTxtFile;
 	private Service addTempDir;
 	
@@ -29,6 +30,7 @@ public class EntityImpl implements Entity, I {
 	public EntityImpl() throws Exception
 	{
 		addFromClipboard = Outside.service(this,"gus.appli.gusexplorer.action.tabs.add.temp.fromclipboard");
+		addFromClipboardAsPath = Outside.service(this,"gus.appli.gusexplorer.action.tabs.add.temp.fromclipboard.aspath");
 		addTxtFile = Outside.service(this,"gus.appli.gusexplorer.action.tabs.add.temp.emptytxtfile");
 		addTempDir = Outside.service(this,"gus.appli.gusexplorer.action.tabs.add.temp.dir");
 		
@@ -38,6 +40,7 @@ public class EntityImpl implements Entity, I {
 		menu = new JMenu("Add new tabs");
 		
 		add(addFromClipboard);
+		add(addFromClipboardAsPath);
 		add(addTxtFile);
 		add(addTempDir);
 		

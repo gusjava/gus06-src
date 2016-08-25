@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.appli.convertisseurgus05.data.gus05.listing");
-		listFilter = Outside.service(this,"gus.list.filter2");
+		listFilter = Outside.service(this,"gus.list.filter.rule.one");
 	}
 	
 	

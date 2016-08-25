@@ -33,19 +33,17 @@ public class EntityImpl implements Entity, T {
 		String id = (String) o[1];
 		Map map = (Map) o[2];
 		
-		String p = formatName(path);
-		String k = formatName(KEY_KEY);
-		String v = formatName(KEY_VALUE);
-		String lastPart = sql_lastPart(id,map);
+		String fieldsBlock = "("+KEY_ID+", "+formatName(KEY_KEY)+", "+formatName(KEY_VALUE)+")";
+		String valuesBlock = valuesBlock(id,map);
 		
-		return "INSERT INTO "+p+" ("+KEY_ID+", "+k+", "+v+") VALUES "+lastPart;
+		return "INSERT INTO "+formatName(path)+" "+fieldsBlock+" VALUES "+valuesBlock;
 	}
 	
 	
 	
 	
 	
-	private String sql_lastPart(String id, Map map) throws Exception
+	private String valuesBlock(String id, Map map) throws Exception
 	{
 		StringBuffer b = new StringBuffer();
 		Iterator it = map.keySet().iterator();

@@ -11,16 +11,23 @@ public class EntityImpl implements Entity, T {
 	
 	public static final String K_TYPE = "type";
 	public static final String K_NAME = "name";
+	public static final String K_VALUE = "value";
+	public static final String K_ID = "id";
+	
+	public static final int TRUNC_LIMIT = 40;
+	
 	
 	public String creationDate() {return "20150830";}
 
 
 	private Service buildMap;
+	private Service generateId;
 
 	
 	public EntityImpl() throws Exception
 	{
 		buildMap = Outside.service(this,"gus.map.map2");
+		generateId = Outside.service(this,"gus.data.generate.string.random.number8");
 	}
 
 	
@@ -29,7 +36,10 @@ public class EntityImpl implements Entity, T {
 	{
 		String type = (String) obj;
 		Map map = (Map) buildMap.t(new T1());
+		
 		map.put(K_TYPE,type);
+		map.put(K_ID,generateId.g());
+		
 		return map;
 	}
 	
@@ -43,10 +53,11 @@ public class EntityImpl implements Entity, T {
 			
 			String type = getString(map,K_TYPE);
 			String name = getString(map,K_NAME);
+			String value = getString(map,K_VALUE);
 		
 			if(type.equals(T_ROOT)) return "root";
-			if(type.equals(T_TEXT)) return "text";
-			if(type.equals(T_ELEMENT)) return "element:"+name;
+			if(type.equals(T_TEXT)) return "text["+format(value)+"]";
+			if(type.equals(T_ELEMENT)) return "element:"+name+"["+format(value)+"]";
 		
 			return "?"+type;
 		}
@@ -55,6 +66,13 @@ public class EntityImpl implements Entity, T {
 		{
 			if(!map.containsKey(key)) return "null";
 			return (String) map.get(key);
+		}
+		
+		private String format(String s)
+		{
+			s = s.replace("\n","\\n").replace("\t","\\t");
+			if(s.length()<=TRUNC_LIMIT) return s;
+			return s.substring(0,TRUNC_LIMIT)+"...";
 		}
 	}
 }

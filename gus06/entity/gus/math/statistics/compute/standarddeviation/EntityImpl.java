@@ -10,19 +10,18 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		double[] t = (double[]) obj;
-		double sum = 0;
 		int count = t.length;
 		
+		double sum = 0;
 		for(int i=0;i<count;i++) sum += t[i];
 		double mean = sum/count;
 		
-		double variance = 0;
+		sum = 0;
 		for(int i=0;i<count;i++)
 		{
 			double d = t[i]-mean;
-			variance += d*d;
+			sum += d*d;
 		}
-		double sd = Math.sqrt(variance);
-		return new Double(sd);
+		return new Double(Math.sqrt(sum/count));
 	}
 }

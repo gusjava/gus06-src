@@ -58,6 +58,7 @@ public class EntityImpl implements Entity, T {
 		if(name.endsWith(".xhtml")) return TXT;
 		if(name.endsWith(".css")) return TXT;
 		if(name.endsWith(".js")) return TXT;
+		if(name.endsWith(".sql")) return TXT;
 		if(name.endsWith(".xml")) return TXT;
 		if(name.endsWith(".yml")) return TXT;
 		if(name.endsWith(".twig")) return TXT;

@@ -17,7 +17,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		previousFile = Outside.service(this,"gus.file.perform.iterate.previous.listing0");
-		previousDay = Outside.service(this,"gus.time.date.day.previous");
+		previousDay = Outside.service(this,"gus.time.date.previous.day");
 	}
 
 

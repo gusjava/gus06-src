@@ -25,10 +25,15 @@ public class EntityImpl implements Entity, T {
 		Object value = o[0];
 		
 		if(value==null) return null;
+		
+		if(value instanceof String) return new T1(file((String) value));
 		if(value instanceof File) return new T1(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
+	
+	private File file(String s) throws Exception
+	{return new File(s).getCanonicalFile();}
 	
 	
 	private class T1 implements T

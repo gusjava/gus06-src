@@ -2,13 +2,14 @@ package gus06.entity.gus.sys.script1.analyze2.preparetag;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.util.HashMap;
 
 public class EntityImpl implements Entity, P {
 	
 	public static final String K_TYPE = "type";
 	public static final String K_VALUE = "value";
-	public static final String K_UNTIL = "until";
 	public static final String K_NAME = "name";
+	public static final String K_UNTIL = "until";
 	public static final String K_PARAMS = "params";
 	public static final String K_EXECUTOR = "executor";
 	

@@ -38,29 +38,13 @@ public class EntityImpl implements Entity, T {
 		if(map.isEmpty()) throw new Exception("Insert SQL impossible with empty map");
 		if(map.containsKey(PRIMARY_KEY)) throw new Exception(PRIMARY_KEY+" cannot be a field since it is the primary key");
 		
-		String values = valuesPart(map,id);
-		String update = updatePart(map);
-		
-		return "INSERT INTO "+formatName(path)+" "+values+" ON DUPLICATE KEY UPDATE "+update;
-	}
-
-
-	private String formatValue(String value) throws Exception
-	{return (String) formatValue.t(value);}
-	
-	private String formatName(String name) throws Exception
-	{return (String) formatName.t(name);}
-	
-	
-	
-	
-	
-	
-	private String valuesPart(Map map, String id) throws Exception
-	{
 		List fields = sortedList(map.keySet());
-		return fieldsBlock(fields)+" VALUES "+valuesBlock(fields,map,id);
+		
+		return "INSERT INTO "+formatName(path)+" "+
+			fieldsBlock(fields)+" VALUES "+valuesBlock(fields,map,id)+
+			" ON DUPLICATE KEY UPDATE "+updateBlock(map);
 	}
+	
 	
 	
 	private String fieldsBlock(List fields) throws Exception
@@ -92,10 +76,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	
-	
-	
-	private String updatePart(Map map) throws Exception
+	private String updateBlock(Map map) throws Exception
 	{
 		StringBuffer b = new StringBuffer();
 		List fields = sortedList(map.keySet());
@@ -110,10 +91,18 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
+	
 	private List sortedList(Set set)
 	{
 		ArrayList list = new ArrayList(set);
 		Collections.sort(list);
 		return list;
 	}
+
+
+	private String formatValue(String value) throws Exception
+	{return (String) formatValue.t(value);}
+	
+	private String formatName(String name) throws Exception
+	{return (String) formatName.t(name);}
 }

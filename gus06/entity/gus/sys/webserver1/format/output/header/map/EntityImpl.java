@@ -9,7 +9,7 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20141107";}
 	
-	public static final String SERVERNAME = "GusWebServer 1.0";
+	public static final String SERVERNAME = "GusWebServer_v1";
 
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_VERSION = "version";

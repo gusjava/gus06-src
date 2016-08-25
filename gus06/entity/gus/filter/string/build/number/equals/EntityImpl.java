@@ -11,23 +11,23 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		String s = (String)obj;
+		String s = (String) obj;
 		Double value = toDouble(s);
-		return new F_equals(value);
+		return new Filter(value);
 	}
 	
 	
-	private class F_equals implements F
+	private class Filter implements F
 	{
 		private Double value;
-		public F_equals(Double value)
+		public Filter(Double value)
 		{this.value = value;}
 
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
 			if(value==null) return false;
-			String str = obj.toString();
+			String str = (String) obj;
 
 			Double v = toDouble(str);
 			if(v==null) return false;

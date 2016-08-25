@@ -20,6 +20,7 @@ public class EntityImpl implements Entity {
 		menuBar = (JMenuBar) bar.i();
 		
 		add("gus.appli.gusexplorer.menu.menu1");
+		//add("gus.appli.gusexplorer.menu.config");
 		add("gus.appli.gusexplorer.menu.tabs");
 		
 		menuBar.repaint();

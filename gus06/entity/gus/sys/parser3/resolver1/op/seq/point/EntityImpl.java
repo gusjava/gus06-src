@@ -39,7 +39,7 @@ public class EntityImpl implements Entity, T {
 	
 	private Object combine(Object base, List l, T t) throws Exception
 	{
-		if(l.size()!=1) throw new Exception("Invalid combine operation");
+		if(l.size()!=1) throw new Exception("Invalid combine operation: (l.size=" + l.size() + ")");
 		Map m = (Map) l.get(0);
 		return combine(base,m,t);
 	}
@@ -51,7 +51,7 @@ public class EntityImpl implements Entity, T {
 		Object value = mapToValue(m,t);
 		if(value==null) return null;
 		
-		T external = (T) ((R) t).r("external");
+		T external = (T) ((G) t).g();
 		if(external==null) return null;
 		
 		return external.t(new Object[]{base,value});

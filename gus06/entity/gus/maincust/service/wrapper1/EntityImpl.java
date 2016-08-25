@@ -1,10 +1,8 @@
 package gus06.entity.gus.maincust.service.wrapper1;
 
 import gus06.framework.*;
-import javax.swing.JComponent;
 import java.util.List;
 import java.awt.event.ActionListener;
-
 
 public class EntityImpl implements Entity, T {
 
@@ -107,8 +105,8 @@ public class EntityImpl implements Entity, T {
 	    public Object t(Object obj) throws Exception
 	    {check(t,T.class); return t.t(obj);}
 	    
-	    public JComponent i() throws Exception
-	    {check(i,I.class); return (JComponent) i.i();}
+	    public Object i() throws Exception
+	    {check(i,I.class); return i.i();}
 	    
 	    
 	    public void addActionListener(ActionListener listener)

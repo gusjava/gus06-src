@@ -2,9 +2,10 @@ package gus06.entity.gus.sys.expression1.apply.op._hexa;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
+	
 	
 	private Service byteToHexa;
 	
@@ -23,15 +24,9 @@ public class EntityImpl implements Entity, T, R {
 		if(obj==null) return null;
 		if(obj instanceof Integer) return Integer.toHexString(toInt(obj)).toUpperCase();
 		if(obj instanceof byte[]) return byteToHexa.t((byte[]) obj);
+		if(obj instanceof String) return byteToHexa.t(((String) obj).getBytes("UTF8"));
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Integer.class,byte[].class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	private int toInt(Object obj)

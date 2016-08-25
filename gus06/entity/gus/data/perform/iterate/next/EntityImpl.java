@@ -19,7 +19,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		nextFile = Outside.service(this,"gus.file.perform.iterate.next.listing0");
-		nextDay = Outside.service(this,"gus.time.date.day.next");
+		nextDay = Outside.service(this,"gus.time.date.next.day");
 	}
 
 

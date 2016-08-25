@@ -40,15 +40,15 @@ public class EntityImpl implements Entity, G {
 		public void println(Object val)   	{for(PrintStream p:l) p.println(val);}
 		public void println(String val)		{for(PrintStream p:l) p.println(val);}
 	    
-		public void print(char[] val)    		{for(PrintStream p:l) p.print(val);}
-		public void print(boolean val)    		{for(PrintStream p:l) p.print(val);}
-		public void print(char val)     		{for(PrintStream p:l) p.print(val);}
-		public void print(double val)      		{for(PrintStream p:l) p.print(val);}
-		public void print(float val)      		{for(PrintStream p:l) p.print(val);}
-		public void print(int val)      		{for(PrintStream p:l) p.print(val);}
-		public void print(long val)     		{for(PrintStream p:l) p.print(val);}
-		public void print(Object val)    		{for(PrintStream p:l) p.print(val);}
-		public void print(String val)    		{for(PrintStream p:l) p.print(val);}
+		public void print(char[] val)    	{for(PrintStream p:l) p.print(val);}
+		public void print(boolean val)    	{for(PrintStream p:l) p.print(val);}
+		public void print(char val)     	{for(PrintStream p:l) p.print(val);}
+		public void print(double val)      	{for(PrintStream p:l) p.print(val);}
+		public void print(float val)      	{for(PrintStream p:l) p.print(val);}
+		public void print(int val)      	{for(PrintStream p:l) p.print(val);}
+		public void print(long val)     	{for(PrintStream p:l) p.print(val);}
+		public void print(Object val)    	{for(PrintStream p:l) p.print(val);}
+		public void print(String val)    	{for(PrintStream p:l) p.print(val);}
 	}
 		
 		

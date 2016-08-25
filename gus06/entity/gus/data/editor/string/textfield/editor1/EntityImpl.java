@@ -42,7 +42,7 @@ public class EntityImpl extends S1 implements Entity, I, G, P, ActionListener {
 	
 	
 	public void p(Object obj) throws Exception
-	{field.setText(obj==null?null:(String) obj);}
+	{field.setText(obj==null?"":(String) obj);}
 
 
 

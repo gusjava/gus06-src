@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.Map;
+import java.io.IOException;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -62,8 +63,12 @@ public class EntityImpl implements Entity, P, T {
 	
 	private Object handleString(String s, Map context) throws Exception
 	{
-		File f = new File(s).getCanonicalFile();
-		if(f.isFile()) return handleFile(f,context);
+		try
+		{
+			File f = new File(s).getCanonicalFile();
+			if(f.isFile()) return handleFile(f,context);
+		}
+		catch(IOException e){}
 		return engineFromText.t(new Object[]{s,context});
 	}
 }

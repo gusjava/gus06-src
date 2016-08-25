@@ -17,6 +17,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Map) return fromMap((Map) obj);
 		if(obj instanceof Object[]) return fromArray((Object[]) obj);
 		if(obj instanceof int[]) return fromInts((int[]) obj);
+		if(obj instanceof String) return fromString((String) obj);
 		
 		throw new Exception("Invalid range type: "+obj.getClass().getName());
 	}
@@ -110,10 +111,20 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
+	private int[] fromString(String s) throws Exception
+	{
+		String[] n = s.replace("..",":").split(":");
+		int[] k = new int[n.length];
+		for(int i=0;i<n.length;i++) k[i] = int_(n[i]);
+		return fromInts(k);
+	}
+	
+	
+	
 	
 	
 	private int int_(Object o)
-	{return ((Integer) o).intValue();}
+	{return Integer.parseInt(""+o);}
 	
 	private boolean has(Map m, String key)
 	{return m.containsKey(key);}

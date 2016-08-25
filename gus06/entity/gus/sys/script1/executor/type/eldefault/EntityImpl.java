@@ -37,19 +37,18 @@ public class EntityImpl implements Entity, T {
 		public void p(Object obj) throws Exception
 		{
 			Map context = (Map) obj;
-			String info = getAliasInfo(context);
+			String aliasInfo = getAliasInfo(context);
 			
-			String[] n = info.split("[ \n\t]+",2);
+			String[] n = aliasInfo.split("[ \n\t]+",2);
 			
-			String name1 = n[0];
-			String params1 = n.length==2?n[1]:null;
+			String aliasName = n[0];
+			String aliasParams = n.length==2?n[1]:null;
 			
-			T builder = (T) elMap.t(name1);
-			if(builder==null) throw new Exception("Unknown alias name for element tag: "+name1);
-			
+			T builder = (T) elMap.t(aliasName);
+			if(builder==null) throw new Exception("Unknown alias name for element tag: "+aliasName);
 			
 			String oldParams = (String) get(tag,K_PARAMS);
-			String newParams = buildNewParams(params1,oldParams);
+			String newParams = buildNewParams(aliasParams,oldParams);
 			
 			setParams(newParams);
 			
@@ -61,13 +60,21 @@ public class EntityImpl implements Entity, T {
 		
 		
 		
-		private String buildNewParams(String params1, String oldParams)
+		private String buildNewParams(String aliasParams, String oldParams)
 		{
-			if(params1==null) return oldParams;
-			if(oldParams==null) return params1;
-			return params1+" "+oldParams;
+			if(aliasParams==null) return oldParams;
+			if(oldParams==null) return aliasParams;
 			
+			aliasParams = aliasParams.replace("<?>",oldParams);
+			
+			String[] n = oldParams.split(" ");
+			if(n.length>1) for(int i=0;i<n.length;i++)
+			aliasParams = aliasParams.replace("<?"+i+">",n[i]);
+			
+			return aliasParams;
 		}
+		
+		
 		
 		private void setParams(String s)
 		{

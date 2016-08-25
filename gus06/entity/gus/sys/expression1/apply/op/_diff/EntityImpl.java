@@ -13,22 +13,30 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof Integer) return new F_diff(toInt(obj));
-		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		return new F1(obj);
 	}
 	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
 	
 	
-	private class F_diff implements F
+	private class F1 implements F
 	{
-		private int value;
-		public F_diff(int value) {this.value = value;}
+		private Object value;
+		public F1(Object value) {this.value = value;}
 		
 		public boolean f(Object obj) throws Exception
-		{return value != toInt(obj);}
+		{
+			if(value==null && obj==null) return false;
+			if(value==null || obj==null) return true;
+			
+			if(value instanceof Number && obj instanceof Number)
+				return toDouble((Number) value) != toDouble((Number) obj);
+			
+			return !value.equals(obj);
+		}
 	}
+	
+	
+	
+	private double toDouble(Number n)
+	{return n.doubleValue();}
 }

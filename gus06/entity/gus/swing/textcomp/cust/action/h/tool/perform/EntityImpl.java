@@ -13,12 +13,16 @@ public class EntityImpl implements Entity, P {
 
 	private Service transformText;
 	private Service chooseTrans;
+	private Service findPainter;
+	private Service highlight;
 
 
 	public EntityImpl() throws Exception
 	{
 		transformText = Outside.service(this,"gus.swing.textcomp.perform3.transformtext");
 		chooseTrans = Outside.service(this,"gus.swing.textcomp.cust.action.h.tool.chooser");
+		findPainter = Outside.service(this,"gus.swing.textcomp.highlight.painter.findatposition");
+		highlight = Outside.service(this,"gus.swing.textcomp.cust.action.h.tool.perform.highlightpainter");
 	}
 	
 	
@@ -32,6 +36,28 @@ public class EntityImpl implements Entity, P {
 		T t = (T) chooseTrans.g();
 		if(t==null) return;
 		
+		if(hasSelection(comp))
+		{
+			transformText.p(new Object[]{comp,t});
+			return;
+		}
+		
+		Object painter = findPainter.t(comp);
+		if(painter!=null)
+		{
+			highlight.p(new Object[]{comp,painter,t});
+			return;
+		}
+		
 		transformText.p(new Object[]{comp,t});
+	}
+	
+	
+	
+	
+	private boolean hasSelection(JTextComponent comp)
+	{
+		String s = comp.getSelectedText();
+		return s!=null && !s.equals("");
 	}
 }

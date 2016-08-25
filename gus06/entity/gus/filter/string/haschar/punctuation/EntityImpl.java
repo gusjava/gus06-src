@@ -11,20 +11,6 @@ public class EntityImpl implements Entity, F {
 		if(obj==null) return false;
 
 		String str = (String) obj;
-		for(int i=0;i<str.length();i++)
-			if(isPunctuation(str.charAt(i))) return true;
-		return false;
+		return str.matches(".*\\p{Punct}.*");
 	}
-
-	private boolean isPunctuation(char c)
-	{
-		for(char a:PUNC) if(a==c) return true;
-		return false;
-	}
-
-	public static final char[] PUNC = new char[]{
-		'&','~','"','#','\'','{','(','[','-',
-		'|','`','_','\\','^','@','°',')',']',
-		'=','+','}','<','>',',','?',';','.',
-		':','/','!','§','*','%','$','£','€'};
 }

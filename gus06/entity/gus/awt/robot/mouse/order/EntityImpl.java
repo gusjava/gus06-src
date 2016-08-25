@@ -39,6 +39,7 @@ public class EntityImpl implements Entity, P {
 		if(s.equals("pressright")) {pressright();return;}
 		if(s.equals("releaseright")) {releaseright();return;}
 		if(s.equals("clickright")) {clickright();return;}
+		if(s.equals("clickright2")) {clickright2();return;}
 		
 		if(s.equals("pressleft")) {pressleft();return;}
 		if(s.equals("releaseleft")) {releaseleft();return;}
@@ -105,7 +106,8 @@ public class EntityImpl implements Entity, P {
 	private void clickleft()
 	{pressleft();releaseleft();}
 	
-	
+	private void clickright2()
+	{clickright();clickright();}
 	
 	
 	

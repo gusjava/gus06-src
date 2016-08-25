@@ -10,14 +10,10 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service builder;
-	private Service mapToF;
-	private Service colToF;
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.f");
-		mapToF = Outside.service(this,"gus.convert.maptof");
-		colToF = Outside.service(this,"gus.convert.coltof");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.f");
 	}
 
 	
@@ -31,13 +27,18 @@ public class EntityImpl implements Entity, T {
 		Map opMap = (Map) o[1];
 		
 		if(value==null) return null;
-		
 		if(value instanceof F) return value;
-		if(value instanceof Map) return mapToF.t(value);
-		if(value instanceof Collection) return colToF.t(value);
 		
 		if(value instanceof String)
-			return builder.t(new Object[]{value,opMap});
+			return builder.t(obj);
+		if(value instanceof Map)
+			return builder.t(obj);
+		if(value instanceof Collection)
+			return builder.t(obj);
+		if(value instanceof Number)
+			return builder.t(obj);
+		if(value instanceof T)
+			return builder.t(obj);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

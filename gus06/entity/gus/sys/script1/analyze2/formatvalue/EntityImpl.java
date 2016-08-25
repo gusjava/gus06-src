@@ -13,10 +13,14 @@ public class EntityImpl implements Entity, T {
 		String value = (String) obj;
 		value = value.trim();
 		
+		if(value.startsWith("!!")) return "ignore "+value.substring(1);
+		if(value.startsWith("!")) return "c "+value.substring(1);
 		if(value.startsWith(">")) return "p "+value.substring(1);
 		if(value.startsWith("*")) return "e "+value.substring(1);
-		if(value.startsWith("!")) return "c "+value.substring(1);
-		if(value.startsWith("$")) return "s "+value.substring(1);
+		
+		if(value.startsWith("$")) return "s "+value.substring(1);	//regional
+		if(value.startsWith("&")) return "s0 "+value.substring(1);	//global
+		if(value.startsWith("£")) return "s1 "+value.substring(1);	//local
 		
 		return value;
 	}

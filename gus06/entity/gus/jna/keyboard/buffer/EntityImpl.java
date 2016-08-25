@@ -8,21 +8,24 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityImpl extends S1 implements Entity, ActionListener, G {
+public class EntityImpl extends S1 implements Entity, ActionListener, G, F {
 
 	public String creationDate() {return "20141217";}
 
 
 	private Service keyboard;
+	private Service getDisplay;
+	
 	private List list;
 
 
 	public EntityImpl() throws Exception
 	{
 		keyboard = Outside.service(this,"gus.jna.keyboard");
-		keyboard.addActionListener(this);
+		getDisplay = Outside.service(this,"gus.jna.keyboard.display");
 		
 		list = new ArrayList();
+		keyboard.addActionListener(this);
 	}
 	
 	
@@ -32,6 +35,12 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G {
 		for(int i=0;i<list.size();i++) b.append(list.get(i)+" ");
 		if(b.length()>0) b.deleteCharAt(b.length()-1);
 		return b.toString();
+	}
+	
+	
+	public boolean f(Object obj) throws Exception
+	{
+		return list.contains(obj);
 	}
 
 
@@ -51,9 +60,7 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G {
 	{
 		try
 		{
-			String code = (String) keyboard.g();
-			String display = display(code);
-			
+			String display = display();
 			if(!list.contains(display)) list.add(display);
 			modified();
 		}
@@ -66,9 +73,7 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G {
 	{
 		try
 		{
-			String code = (String) keyboard.g();
-			String display = display(code);
-			
+			String display = display();
 			list.remove(display);
 			modified();
 		}
@@ -78,28 +83,14 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G {
 	
 	
 	
+	private String display() throws Exception
+	{
+		String code = (String) keyboard.g();
+		return (String) getDisplay.t(code);
+	}
+	
+	
+	
 	private void modified()
 	{send(this,"modified()");}
-	
-	
-	
-	
-	
-	
-	
-	
-	private String display(String code) throws Exception
-	{
-		String d = display_(code);
-		if(d==null) return null;
-		return d.replace("CONTROL","CTRL");
-	}
-	
-	private String display_(String code) throws Exception
-	{
-		Field[] f = KeyEvent.class.getFields();
-		for(int i=0;i<f.length;i++)
-		if(f[i].get(null).toString().equals(code)) return f[i].getName().replace("VK_","");
-		return null;
-	}
 }

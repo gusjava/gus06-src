@@ -47,11 +47,11 @@ public class EntityImpl implements Entity, T {
 			if(obj instanceof Map) return elementAt((Map) obj,number);
 			if(obj instanceof Set) return contains((Set) obj,number);
 			
-			if(obj instanceof R) return retrieve((R) obj,""+number);
-			if(obj instanceof T) return retrieve((T) obj,""+number);
-			if(obj instanceof F) return retrieve((F) obj,""+number);
+			if(obj instanceof R) return retrieve((R) obj,number);
+			if(obj instanceof T) return retrieve((T) obj,number);
+			if(obj instanceof F) return retrieve((F) obj,number);
 			if(obj instanceof H) return retrieve((H) obj,number);
-			if(obj instanceof P) return retrieve((P) obj,""+number);
+			if(obj instanceof P) return retrieve((P) obj,number);
 			
 			throw new Exception("Invalid operator  ["+number+"] for object "+obj.getClass().getName());
 		}
@@ -89,18 +89,31 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private Object retrieve(R r, String k) throws Exception
-	{return r.r(k);}
 	
-	private Object retrieve(T t, Object k) throws Exception
-	{return t.t(k);}
+	private Object retrieve(R r, double k) throws Exception
+	{
+		return r.r(""+k);
+	}
 	
-	private Object retrieve(F f, Object k) throws Exception
-	{return new Boolean(f.f(k));}
+	private Object retrieve(T t, double k) throws Exception
+	{
+		try{return t.t(new Double(k));} catch(Exception e){}
+		return t.t(""+k);
+	}
 	
-	private Object retrieve(H h, double v) throws Exception
-	{return new Double(h.h(v));}
+	private Object retrieve(F f, double k) throws Exception
+	{
+		try{return new Boolean(f.f(new Double(k)));} catch(Exception e){}
+		return new Boolean(f.f(""+k));
+	}
 	
-	private Object retrieve(P p, Object k) throws Exception
-	{return pWrap.t(new Object[]{p,k});}
+	private Object retrieve(H h, double k) throws Exception
+	{
+		return new Double(h.h(k));
+	}
+	
+	private Object retrieve(P p, double k) throws Exception
+	{
+		return pWrap.t(new Object[]{p,new Double(k)});
+	}
 }

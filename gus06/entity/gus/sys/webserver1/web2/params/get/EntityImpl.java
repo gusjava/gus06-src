@@ -11,7 +11,7 @@ public class EntityImpl implements Entity, T {
 	private Service stringToMap;
 
 	public EntityImpl() throws Exception
-	{stringToMap = Outside.service(this,"gus.map.string.stringtomap.builder3");}
+	{stringToMap = Outside.service(this,"gus.map.string.stringtomap.builder3.urldecoding");}
 
 	
 	public Object t(Object obj) throws Exception
@@ -20,7 +20,6 @@ public class EntityImpl implements Entity, T {
 		
 		String[] n = url.split("\\?",2);
 		if(n.length==1) return new HashMap();
-		
 		return stringToMap.t(n[1]);
 	}
 }

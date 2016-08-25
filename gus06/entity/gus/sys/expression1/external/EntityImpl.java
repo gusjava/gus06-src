@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		findValue = Outside.service(this,"gus.sys.expression1.findvalue");
+		findValue = Outside.service(this,"gus.sys.expression1.external.findvalue");
 		apply = Outside.service(this,"gus.sys.expression1.apply");
 	}
 	
@@ -24,10 +24,10 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		List pools = (List) o[0];
+		Map pool = (Map) o[0];
 		Map opMap = (Map) o[1];
-			
-		return new External(pools,opMap);
+		
+		return new External(pool,opMap);
 	}
 	
 	
@@ -35,12 +35,12 @@ public class EntityImpl implements Entity, T {
 	
 	private class External implements T
 	{
-		private List pools;
+		private Map pool;
 		private Map opMap;
 		
-		public External(List pools, Map opMap)
+		public External(Map pool, Map opMap)
 		{
-			this.pools = pools;
+			this.pool = pool;
 			this.opMap = opMap;
 		}
 		
@@ -49,9 +49,9 @@ public class EntityImpl implements Entity, T {
 			if(obj instanceof String)
 			{
 				String key = (String) obj;
-				return findValue.t(new Object[]{pools,key});
+				return findValue.t(new Object[]{pool,key});
 			}
-			else if(obj instanceof Object[])
+			if(obj instanceof Object[])
 			{
 				Object[] o = (Object[]) obj;
 				if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
@@ -61,7 +61,7 @@ public class EntityImpl implements Entity, T {
 		
 				return apply.t(new Object[]{opMap,value,op});
 			}
-			else throw new Exception("Invalid data type: "+obj.getClass().getName());
+			throw new Exception("Invalid data type: "+obj.getClass().getName());
 		}
 	}
 }

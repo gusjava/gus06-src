@@ -17,5 +17,6 @@ public class EntityImpl implements Entity, P {
 	{
 		JSplitPane split = (JSplitPane) obj;
 		split.setDividerSize(3);
+		split.setDividerLocation(250);
 	}
 }

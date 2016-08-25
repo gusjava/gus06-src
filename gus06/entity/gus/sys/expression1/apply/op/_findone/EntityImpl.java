@@ -5,23 +5,18 @@ import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151114";}
 
 
 	private Service builder;
-	private Service performList;
-	private Service performSet;
-	private Service performMap;
-	
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.f");
-		performList = Outside.service(this,"gus.list.filterfirst");
-		performSet = Outside.service(this,"gus.set.filterone");
-		performMap = Outside.service(this,"gus.map.filterone.value");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.f");
+		perform = Outside.service(this,"gus.data.perform.findone");
 	}
 
 	
@@ -42,13 +37,6 @@ public class EntityImpl implements Entity, T, R {
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{List.class,Set.class,Map.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
 	
 	private class T1 implements T
 	{
@@ -62,21 +50,9 @@ public class EntityImpl implements Entity, T, R {
 		}
 		
 		public Object t(Object obj) throws Exception
-		{
-			F f = toF(obj);
-			
-			if(value instanceof List) return performList.t(new Object[]{value,f});
-			if(value instanceof Set) return performSet.t(new Object[]{value,f});
-			if(value instanceof Map) return performMap.t(new Object[]{value,f});
-		
-			throw new Exception("Invalid data type: "+value.getClass().getName());
-		}
+		{return perform.t(new Object[]{value,toF(obj)});}
 		
 		private F toF(Object obj) throws Exception
-		{
-			if(obj instanceof F) return (F) obj;
-			if(obj instanceof String) return (F) builder.t(new Object[]{obj,opMap});
-			throw new Exception("Invalid data type: "+obj.getClass().getName());
-		}
+		{return (F) builder.t(new Object[]{obj,opMap});}
 	}
 }

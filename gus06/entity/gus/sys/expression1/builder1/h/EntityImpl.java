@@ -11,14 +11,12 @@ public class EntityImpl implements Entity, T {
 	private Service prepare;
 	private Service resolver1;
 	private Service buildExternal;
-	private Service buildPools;
 
 	public EntityImpl() throws Exception
 	{
 		prepare = Outside.service(this,"gus.sys.parser3.prepare");
 		resolver1 = Outside.service(this,"gus.sys.parser3.resolver1");
-		buildExternal = Outside.service(this,"gus.sys.expression1.external");
-		buildPools = Outside.service(this,"gus.sys.expression1.builder1.pools");
+		buildExternal = Outside.service(this,"gus.sys.expression1.external.c1");
 	}
 	
 	
@@ -49,18 +47,13 @@ public class EntityImpl implements Entity, T {
 		
 		public double h(double value) throws Exception
 		{
-			List pools = buildPools(new Double(value));
-			T external = buildExternal(pools,opMap);
-			
-			resolver1.v("external",external);
-			Double r = (Double) resolver1.t(list);
+			T external = buildExternal(new Double(value),opMap);
+			T t = (T) resolver1.t(external);
+			Double r = (Double) t.t(list);
 			return r.doubleValue();
 		}
 	}
 	
-	private List buildPools(Object obj) throws Exception
-	{return (List) buildPools.t(obj);}
-	
-	private T buildExternal(List pools, Map opMap) throws Exception
-	{return (T) buildExternal.t(new Object[]{pools,opMap});}
+	private T buildExternal(Object obj, Map opMap) throws Exception
+	{return (T) buildExternal.t(new Object[]{obj,opMap});}
 }

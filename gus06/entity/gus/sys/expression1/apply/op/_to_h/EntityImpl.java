@@ -12,7 +12,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.h");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.h");
 	}
 
 	
@@ -26,11 +26,16 @@ public class EntityImpl implements Entity, T {
 		Map opMap = (Map) o[1];
 		
 		if(value==null) return null;
-		
 		if(value instanceof H) return value;
 		
 		if(value instanceof String)
-			return builder.t(new Object[]{value,opMap});
+			return builder.t(obj);
+		if(value instanceof Number)
+			return builder.t(obj);
+		if(value instanceof T)
+			return builder.t(obj);
+		if(value instanceof R)
+			return builder.t(obj);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

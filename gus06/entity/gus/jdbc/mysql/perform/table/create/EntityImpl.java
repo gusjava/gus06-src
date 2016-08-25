@@ -10,12 +10,14 @@ public class EntityImpl implements Entity, P {
 
 	private Service buildSql;
 	private Service executeSql;
+	private Service protectedPath;
 
 
 	public EntityImpl() throws Exception
 	{
 		buildSql = Outside.service(this,"gus.jdbc.mysql.sql.table.create");
 		executeSql = Outside.service(this,"gus.jdbc.mysql.perform.sqlexecute");
+		protectedPath = Outside.service(this,"gus.jdbc.mysql.check.protectedpath");
 	}
 	
 	
@@ -29,6 +31,8 @@ public class EntityImpl implements Entity, P {
 		String[] col = (String[]) o[2];
 		String[] type = (String[]) o[3];
 		String[] primary = (String[]) o[4];
+		
+		if(protectedPath.f(path)) throw new Exception("Attempt to create table: "+path);
 		
 		String sql = (String) buildSql.t(new Object[]{path,col,type,primary});
 		executeSql.p(new Object[]{cx,sql});

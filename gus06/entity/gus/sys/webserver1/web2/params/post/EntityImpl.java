@@ -17,9 +17,8 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String body = (String) obj;
-		if(body.equals("")) return new HashMap();
 		
-		body = body.trim().replace("+"," ");
+		if(body.equals("")) return new HashMap();
 		return stringToMap.t(body);
 	}
 }

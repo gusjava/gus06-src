@@ -22,6 +22,10 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		obj = o[0];
+		
 		if(obj==null) return null;
 		
 		if(obj instanceof List) return new T1(obj);
@@ -38,9 +42,9 @@ public class EntityImpl implements Entity, T {
 		public T1(Object data) {this.data = data;}
 		
 		public Object t(Object obj) throws Exception
-		{
-			F f = (F) builder.t(obj);
-			return perform.t(new Object[]{data,f});
-		}
+		{return perform.t(new Object[]{data,toF(obj)});}
+		
+		private F toF(Object obj) throws Exception
+		{return (F) builder.t(obj);}
 	}
 }

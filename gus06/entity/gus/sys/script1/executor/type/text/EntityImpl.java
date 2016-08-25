@@ -6,6 +6,8 @@ import java.util.Map;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20150829";}
+	
+	public static final String TRANS_TEXT = "trans_text";
 
 
 	private Service getValue;
@@ -33,9 +35,24 @@ public class EntityImpl implements Entity, T {
 			Map context = (Map) obj;
 			
 			String value = (String) getValue.t(tag);
-			P output = (P) getOutput.t(context);
 			
-			if(output!=null) output.p(value);
+			P output = (P) getOutput.t(context);
+			if(output==null) return;
+			
+			boolean enabled = ((F) output).f("text");
+			if(!enabled) return;
+			
+			T t = (T) get(context,TRANS_TEXT);
+			if(t!=null) value = (String) t.t(value);
+			
+			output.p(value);
 		}
+	}
+	
+	
+	private Object get(Map map, String key)
+	{
+		if(!map.containsKey(key)) return null;
+		return map.get(key);
 	}
 }

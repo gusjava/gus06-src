@@ -2,7 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._cause;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151124";}
 	
@@ -17,12 +17,5 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof Exception) return ((Exception) obj).getCause();
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Exception.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

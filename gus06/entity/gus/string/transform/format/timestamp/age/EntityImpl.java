@@ -36,8 +36,8 @@ public class EntityImpl implements Entity, T {
 		
 		String birthday0 = MMdd(birthDate);
 		Date thisBirthDate = yyyyMMdd.parse(thisYear+birthday0);
+		if(thisBirthDate.after(new Date())) thisAge--;
 		
-		if(thisBirthDate.after(new Date())) return ""+(thisAge-1);
 		return ""+thisAge;
 	}
 	

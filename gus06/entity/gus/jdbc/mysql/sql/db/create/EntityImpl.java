@@ -11,6 +11,7 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String name = (String) obj;
-		return "CREATE DATABASE IF NOT EXISTS "+name;
+		return "CREATE DATABASE IF NOT EXISTS "+name+
+			" DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci";
 	}
 }

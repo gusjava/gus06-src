@@ -8,6 +8,8 @@ import java.awt.Shape;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Graphics2D;
+import java.awt.Composite;
+import java.awt.AlphaComposite;
 
 
 public class EntityImpl implements Entity, T {
@@ -15,6 +17,8 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151107";}
 	
 	public static final int EDGE = 8;
+
+	public static final Composite ALPHA1 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1.0f);
 	
 	
 	public Object t(Object obj) throws Exception
@@ -22,8 +26,10 @@ public class EntityImpl implements Entity, T {
 
 
 	
-	private class HPainter extends DefaultHighlighter.DefaultHighlightPainter
+	private class HPainter extends DefaultHighlighter.DefaultHighlightPainter implements V
 	{
+		private Composite alpha;
+		
 		public HPainter(Color c)
 		{super(c);}
 		
@@ -33,6 +39,7 @@ public class EntityImpl implements Entity, T {
 			
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,	RenderingHints.VALUE_ANTIALIAS_ON);
 			g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,	RenderingHints.VALUE_STROKE_PURE);
+			if(alpha!=null) g2.setComposite(alpha);
 		
 			Color color = getColor();
 			if(color != null) g.setColor(color);
@@ -60,7 +67,16 @@ public class EntityImpl implements Entity, T {
 				g.fillRoundRect(r.x, r.y, r.width, r.height,EDGE,EDGE);
 			}
 
+			g2.setComposite(ALPHA1);
 			return r;
+		}
+		
+		
+		
+		public void v(String key, Object obj) throws Exception
+		{
+			if(key.equals("alpha")) {alpha = (Composite) obj;return;}
+			throw new Exception("Unknown key: "+key);
 		}
 	}
 }

@@ -18,20 +18,20 @@ public class EntityImpl implements Entity, T {
 	{
 		String s = ((String)obj).toLowerCase();
 		String[] words = (String[]) splitMethod.t(s);
-		return new F_allOfThem(words);
+		return new Filter(words);
 	}
 	
 	
-	private class F_allOfThem implements F
+	private class Filter implements F
 	{
 		private String[] words;
-		public F_allOfThem(String[] words)
+		public Filter(String[] words)
 		{this.words = words;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString().toLowerCase();
+			String str = ((String) obj).toLowerCase();
 			for(int i=0;i<words.length;i++)
 				if(!str.contains(words[i])) return false;
 			return true;

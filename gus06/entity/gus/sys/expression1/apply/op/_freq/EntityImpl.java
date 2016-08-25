@@ -4,7 +4,7 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Collections;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 	
@@ -19,13 +19,6 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof List) return new T_freq((List) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{List.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

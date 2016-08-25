@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		formatInfo = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.template.span.formatinfo");
-		eval = Outside.service(this,"gus.string.transform.bool.eval1");
+		eval = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval1");
 	}
 	
 	

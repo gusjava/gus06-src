@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.parser3.evaluate;
 import gus06.framework.*;
 import java.util.List;
 
-public class EntityImpl implements Entity, V, T {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151031";}
 
@@ -11,9 +11,6 @@ public class EntityImpl implements Entity, V, T {
 	private Service prepare;
 	private Service resolver1;
 	private Service resolver2;
-	
-	private T external;
-	private String rule;
 	
 	public EntityImpl() throws Exception
 	{
@@ -25,26 +22,67 @@ public class EntityImpl implements Entity, V, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		if(rule!=null)
-		{
-			resolver2.v("external",external);
-			return resolver2.t(new Object[]{toList(obj),rule});
-		}
+		if(obj instanceof String) return resolve1(obj);
+		if(obj instanceof List) return resolve1(obj);
+			
+		Object[] o = (Object[]) obj;
+		if(o.length==2) return resolve2((T) o[0],o[1]);
+		if(o.length==3) return resolve3((T) o[0],o[1],o[2]);
 		
-		resolver1.v("external",external);
-		return resolver1.t(toList(obj));
+		throw new Exception("Wrong data number: "+o.length);
 	}
 	
 	
-	public void v(String key, Object obj) throws Exception
+	
+	
+	private Object resolve1(Object obj) throws Exception
 	{
-		if(key.equals("external")) {external = (T) obj;return;}
-		if(key.equals("rule")) {rule = (String) obj;return;}
-		
-		throw new Exception("Unknown key: "+key);
+		try
+		{
+			T t = (T) resolver1.t(null);
+			return t.t(toList(obj));
+		}
+		catch(Exception e)
+		{
+			String message = "Failed to resolve: "+obj;
+			throw new Exception(message,e);
+		}
 	}
+	
+	
+	private Object resolve2(T external, Object obj) throws Exception
+	{
+		try
+		{
+			T t = (T) resolver1.t(external);
+			return t.t(toList(obj));
+		}
+		catch(Exception e)
+		{
+			String message = "Failed to resolve: "+obj;
+			throw new Exception(message,e);
+		}
+	}
+	
+	
+	private Object resolve3(T external, Object obj, Object rule) throws Exception
+	{
+		try
+		{
+			return resolver2.t(new Object[]{external,toList(obj),rule});
+		}
+		catch(Exception e)
+		{
+			String message = "Failed to resolve: "+obj+" with rule: "+rule;
+			throw new Exception(message,e);
+		}
+	}
+	
 	
 	
 	private List toList(Object obj) throws Exception
-	{return (List) prepare.t(obj);}
+	{
+		if(obj instanceof List) return (List) obj;
+		return (List) prepare.t(obj);
+	}
 }

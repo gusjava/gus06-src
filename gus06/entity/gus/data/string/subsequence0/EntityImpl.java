@@ -1,7 +1,6 @@
 package gus06.entity.gus.data.string.subsequence0;
 
 import gus06.framework.*;
-import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -31,9 +30,32 @@ public class EntityImpl implements Entity, T {
 		return b.toString();
 	}
 	
+	
 	private String sub1(String input, String rule) throws Exception
 	{
-		if(rule.equals("..")) return input;
+		String[] nn = rule.split("\\|");
+		int l = input.length();
+		
+		String rule0 = nn[0];
+		int[] skip = new int[nn.length-1];
+		for(int i=1;i<nn.length;i++) skip[i-1] = toInt(nn[i],l);
+
+		return sub2(input,rule0,skip);
+	}
+	
+	
+	
+	private String sub2(String input, String rule, int[] skip) throws Exception
+	{
+		if(rule.equals("..")) return all(input,skip);
+		if(rule.equals("all")) return all(input,skip);
+		
+		if(rule.equals("even")) return even(input,skip);
+		if(rule.equals("2n")) return even(input,skip);
+		
+		if(rule.equals("odd")) return odd(input,skip);
+		if(rule.equals("2n+1")) return odd(input,skip);
+		
 		
 		int l = input.length();
 		
@@ -41,7 +63,7 @@ public class EntityImpl implements Entity, T {
 		{
 			int n = toInt(rule,l);
 			if(n<0 || n>=l) return "";
-			return ""+input.charAt(n);
+			return has(skip,n)?"":""+input.charAt(n);
 		}
 		
 		if(rule.startsWith("..")) rule = "0"+rule;
@@ -53,8 +75,8 @@ public class EntityImpl implements Entity, T {
 		int start = toInt(m[0],l);
 		int end = toInt(m[1],l);
 		
-		if(start<=end) return substring(input,start,end+1);
-		return substring_re(input,start,end);
+		if(start<=end) substring(input,start,end,skip);
+		return substring_re(input,start,end,skip);
 	}
 	
 	private boolean isInt(String s)
@@ -63,6 +85,61 @@ public class EntityImpl implements Entity, T {
 		catch(NumberFormatException e){}
 		return false;
 	}
+	
+	
+	
+	
+	private String substring(String s, int start, int end, int[] skip)
+	{
+		int l = s.length();
+		if(start<0) start = 0;
+		if(end>=l) end = l-1;
+		
+		StringBuffer b = new StringBuffer();
+		for(int i=start;i<=end;i++)
+		if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	
+	private String substring_re(String s, int start, int end, int[] skip)
+	{
+		int l = s.length();
+		
+		StringBuffer b = new StringBuffer();
+		for(int i=start;i>=end;i--)
+		if(i>=0 && i<l) if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	
+	
+	
+	private String all(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	private String even(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(i%2==0 && !has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	private String odd(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(i%2==1 && !has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	
 	
 	private int toInt(String s)
 	{return Integer.parseInt(s);}
@@ -74,25 +151,9 @@ public class EntityImpl implements Entity, T {
 		return n<0? n+l:n;
 	}
 	
-	
-	
-	
-	private String substring(String s, int start, int end)
+	private boolean has(int[] nn, int v)
 	{
-		int l = s.length();
-		
-		if(start<0) start = 0;
-		if(end>=l) end = l-1;
-		return s.substring(start,end+1);
-	}
-	
-	
-	private String substring_re(String s, int start, int end)
-	{
-		int l = s.length();
-		
-		StringBuffer b = new StringBuffer();
-		for(int i=start;i>=end;i--) if(i>=0 && i<l) b.append(s.charAt(i));
-		return b.toString();
+		for(int n:nn) if(n==v) return true;
+		return false;
 	}
 }

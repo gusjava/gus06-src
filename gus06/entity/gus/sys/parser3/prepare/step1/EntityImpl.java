@@ -13,7 +13,6 @@ public class EntityImpl implements Entity, T {
 	public static final String TYPE = "type";
 	public static final String VALUE = "value";
 	
-	public static final String TYPE_INT = "int";
 	public static final String TYPE_ELEMENT = "element";
 	public static final String TYPE_SYMBOL = "symbol";
 	public static final String TYPE_OTHER = "other";
@@ -23,12 +22,10 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String s = (String) obj;
-			
+		
 		List list = new ArrayList();
-		boolean isEscape = false;
-			
 		StringBuffer b = new StringBuffer();
-			
+		
 		for(int i=0;i<s.length();i++)
 		{
 			char c = s.charAt(i);
@@ -60,35 +57,37 @@ public class EntityImpl implements Entity, T {
 		
 		String value = b.toString();
 		b.delete(0,b.length());
-		
-		Integer n = toInt(value);
-		if(n!=null) add(list,TYPE_INT,n);
-		else add(list,TYPE_ELEMENT,value);
+		add(list,TYPE_ELEMENT,value);
 	}
 	
 	
 	
 	private void addSymbol(List list, char c)
-	{add(list,TYPE_SYMBOL,""+c);}
+	{
+		add(list,TYPE_SYMBOL,""+c);
+	}
 	
 	
 	
 	private void addOther(List list, char c)
 	{
 		if(list.isEmpty())
-		{addOther2(list,c);return;}
+		{
+			add(list,TYPE_OTHER,""+c);
+			return;
+		}
 		
 		Map m = (Map) list.get(list.size()-1);
 		if(!m.get(TYPE).equals(TYPE_OTHER))
-		{addOther2(list,c);return;}
+		{
+			add(list,TYPE_OTHER,""+c);
+			return;
+		}
 		
 		String previous = (String) m.get(VALUE);
 		m.put(VALUE,previous+c);
 	}
 	
-	
-	private void addOther2(List list, char c)
-	{add(list,TYPE_OTHER,""+c);}
 	
 	
 	
@@ -103,6 +102,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
+	
 	private boolean isSymbol(char c)
 	{
 		return c=='.' || c==',' || c==';' || c=='?' || c=='!' || c==':' || 
@@ -113,24 +113,15 @@ public class EntityImpl implements Entity, T {
 			c=='$' || c=='£' || c=='µ' || c=='§' || c=='¤' || c=='=';
 	}
 	
-	
 	private boolean isLetter(char c)
 	{
 		int code = (int) c;
 		return (code>96 && code<123) || (code>64 && code<91);
 	}
 	
-	
 	private boolean isDigit(char c)
 	{
 		int code = (int) c;
 		return code>47 && code<58;
-	}
-	
-	private Integer toInt(String n)
-	{
-		try{return new Integer(n);}
-		catch(NumberFormatException e){}
-		return null;
 	}
 }

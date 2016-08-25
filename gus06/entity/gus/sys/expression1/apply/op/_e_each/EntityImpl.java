@@ -4,19 +4,20 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151123";}
 
 
-	private Service builder;
+	private Service builderP;
 	private Service perform;
 	
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.t");
+		builderP = Outside.service(this,"gus.sys.expression1.builder2.p");
 		perform = Outside.service(this,"gus.data.perform.each");
 	}
 
@@ -31,9 +32,11 @@ public class EntityImpl implements Entity, T {
 		
 		if(value==null) return null;
 		
+		if(value instanceof Map) return new T1(value,opMap);
 		if(value instanceof List) return new T1(value,opMap);
 		if(value instanceof Set) return new T1(value,opMap);
-		if(value instanceof Map) return new T1(value,opMap);
+		if(value instanceof Object[]) return new T1(value,opMap);
+		if(value instanceof File) return new T1(value,opMap);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
@@ -52,8 +55,8 @@ public class EntityImpl implements Entity, T {
 		
 		public Object t(Object obj) throws Exception
 		{
-			T t = (T) builder.t(new Object[]{obj,opMap});
-			return new E1(new Object[]{value,t});
+			P p = (P) builderP.t(new Object[]{obj,opMap});
+			return new E1(new Object[]{value,p});
 		}
 	}
 	

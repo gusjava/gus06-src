@@ -1,11 +1,9 @@
 package gus06.entity.gus.io.outputstream.textarea1.inv;
 
+import gus06.framework.*;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
-
 import javax.swing.JTextArea;
-
-import gus06.framework.*;
 
 public class EntityImpl implements Entity, T {
 
@@ -29,15 +27,15 @@ public class EntityImpl implements Entity, T {
 		}
 		
 		public void write(int b)
-	    {
+		{
 			baos.write(b);
-	        if((char)b=='\n')
-	        {
-	            gui.setCaretPosition(gui.getDocument().getLength());
-	            gui.setCaretPosition(0);
-	            gui.replaceSelection(baos.toString());
-	            baos.reset();
-	        }
+			if((char) b=='\n')
+			{
+				 gui.setCaretPosition(gui.getDocument().getLength());
+				 gui.setCaretPosition(0);
+				 gui.replaceSelection(baos.toString());
+				 baos.reset();
+			}
 		}
 	}
 }

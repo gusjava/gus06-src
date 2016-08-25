@@ -14,6 +14,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof Number) return new Integer(((Number) obj).intValue());
 		if(obj instanceof String) return new Integer((String) obj);
 		if(obj instanceof Boolean) return new Integer(((Boolean) obj)?1:0);
 		

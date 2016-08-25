@@ -11,11 +11,9 @@ public class EntityImpl implements Entity, P, V {
 	public String creationDate() {return "20150607";}
 
 
-	private PrintStream out;
 	
 	public EntityImpl() throws Exception
-	{out = (PrintStream) Outside.resource(this,"sysout");}
-	
+	{}
 	
 
 	public void p(Object obj) throws Exception
@@ -49,9 +47,6 @@ public class EntityImpl implements Entity, P, V {
 		final Field field = ClassLoader.class.getDeclaredField("sys_paths");
 		field.setAccessible(true);
 		field.set(null,null);
-		
-		out.println("java.library.path redefined:");
-		out.println(path);
 	}
 	
 	

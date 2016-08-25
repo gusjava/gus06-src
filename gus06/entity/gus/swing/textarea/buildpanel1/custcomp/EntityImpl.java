@@ -12,7 +12,7 @@ public class EntityImpl implements Entity, P {
 	private Service removeLine; //d
 	private Service doubleLine; //e
 	private Service search; //f
-	private Service regexp; //g
+	private Service regex; //g
 	private Service tool; //h
 	private Service wrapLine; //p
 	private Service undo; //yz
@@ -33,15 +33,15 @@ public class EntityImpl implements Entity, P {
 		removeLine = Outside.service(this,"gus.swing.textcomp.cust.action.d.removeline");
 		doubleLine = Outside.service(this,"gus.swing.textcomp.cust.action.e.doubleline");
 		search = Outside.service(this,"gus.swing.textcomp.cust.action.f.search");
-		regexp = Outside.service(this,"gus.swing.textcomp.cust.action.g.regexp");
+		regex = Outside.service(this,"gus.swing.textcomp.cust.action.g.regex");
 		tool = Outside.service(this,"gus.swing.textcomp.cust.action.h.tool");
 		wrapLine = Outside.service(this,"gus.swing.textcomp.cust.action.p.wrapline");
 		undo = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
 		
 		enlarge = Outside.service(this,"gus.swing.textcomp.cust.action.space.enlargeselection");
 		
-		nextHigh = Outside.service(this,"gus.swing.textcomp.cust.action.right.gotohigh.next");
-		previousHigh = Outside.service(this,"gus.swing.textcomp.cust.action.left.gotohigh.previous");
+		nextHigh = Outside.service(this,"gus.swing.textcomp.cust.action.right.select.forward");
+		previousHigh = Outside.service(this,"gus.swing.textcomp.cust.action.left.select.back");
 		
 		increaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.plus.increasefontsize");
 		decreaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.minus.decreasefontsize");
@@ -57,7 +57,7 @@ public class EntityImpl implements Entity, P {
 		removeLine.p(comp);
 		doubleLine.p(comp);
 		search.p(comp);
-		regexp.p(comp);
+		regex.p(comp);
 		tool.p(comp);
 		wrapLine.p(comp);
 		undo.p(comp);

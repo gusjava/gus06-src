@@ -2,10 +2,7 @@ package gus06.entity.gus.tostring.desc.list;
 
 import java.util.Map;
 import gus06.framework.*;
-import java.util.Iterator;
-import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 

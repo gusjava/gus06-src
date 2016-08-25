@@ -9,20 +9,21 @@ public class EntityImpl implements Entity, T {
 
 	public Object t(Object obj) throws Exception
 	{
-		return new F_equals((String)obj);
+		String s = ((String) obj).toLowerCase();
+		return new Filter(s);
 	}
 	
 	
-	private class F_equals implements F
+	private class Filter implements F
 	{
 		private String value;
-		public F_equals(String value)
-		{this.value = value.toLowerCase();}
+		public Filter(String value)
+		{this.value = value;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = (obj.toString()).toLowerCase();
+			String str = ((String) obj).toLowerCase();
 			return str.equals(value);
 		}
 	}

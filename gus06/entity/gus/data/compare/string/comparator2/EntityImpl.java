@@ -14,12 +14,12 @@ public class EntityImpl implements Entity, T, F {
 	
 	public EntityImpl() throws Exception
 	{
-		algo = Outside.service(this,"gus.data.compare.string.algo.editdistance.wagnerfischer");
+		algo = Outside.service(this,"gus.data.compare.string.common.longest1");
 	}
 	
 
 	public Object t(Object obj) throws Exception
-	{return ""+compute(obj);}
+	{return new Double(compute(obj));}
 	
 	
 	public boolean f(Object obj) throws Exception
@@ -53,15 +53,14 @@ public class EntityImpl implements Entity, T, F {
 	
 	private double computeStrings(String s1, String s2) throws Exception
 	{
-		int distance = Integer.parseInt((String) algo.t(new String[]{s1,s2}));
+		String s0 = (String) algo.t(new String[]{s1,s2});
+		
+		int length0 = s0.length();
 		int length1 = s1.length();
 		int length2 = s2.length();
 		
-		if(distance>=length1) return 0;
-		if(distance>=length2) return 0;
-		
-		int length = Math.min(length1,length2);
-		return (length-distance)/(double)length;
+		int length = Math.max(length1,length2);
+		return length0/(double)length;
 	}
 	
 	

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151114";}
 
@@ -16,8 +16,8 @@ public class EntityImpl implements Entity, T, R {
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.f");
-		perform = Outside.service(this,"gus.list.filterfirst");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.f");
+		perform = Outside.service(this,"gus.list.findfirst");
 	}
 
 	
@@ -36,13 +36,6 @@ public class EntityImpl implements Entity, T, R {
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{List.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
 	
 	private class T1 implements T
 	{
@@ -56,15 +49,9 @@ public class EntityImpl implements Entity, T, R {
 		}
 		
 		public Object t(Object obj) throws Exception
-		{
-			return perform.t(new Object[]{value,toF(obj)});
-		}
+		{return perform.t(new Object[]{value,toF(obj)});}
 		
 		private F toF(Object obj) throws Exception
-		{
-			if(obj instanceof F) return (F) obj;
-			if(obj instanceof String) return (F) builder.t(new Object[]{obj,opMap});
-			throw new Exception("Invalid data type: "+obj.getClass().getName());
-		}
+		{return (F) builder.t(new Object[]{obj,opMap});}
 	}
 }

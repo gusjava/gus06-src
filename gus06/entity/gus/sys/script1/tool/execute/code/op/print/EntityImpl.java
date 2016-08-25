@@ -8,15 +8,14 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20150906";}
 
 
-	private Service getOutput;
-	private Service evalAsString;
+	private Service print;
+	private Service eval;
 
 	public EntityImpl() throws Exception
 	{
-		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
-		evalAsString = Outside.service(this,"gus.sys.script1.context.evaluate.string1");
+		print = Outside.service(this,"gus.sys.script1.tool.print");
+		eval = Outside.service(this,"gus.sys.script1.context.evaluate");
 	}
-	
 	
 	
 	public void p(Object obj) throws Exception
@@ -24,12 +23,10 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
-		String value = (String) evalAsString.t(new Object[]{context,line});
-		P output = (P) getOutput.t(context);
-			
-		if(output!=null) output.p(value);
+		Object value = eval.t(new Object[]{context,line});
+		print.p(new Object[]{context,value});
 	}
 }

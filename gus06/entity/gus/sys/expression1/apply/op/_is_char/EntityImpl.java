@@ -2,7 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._is_char;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151114";}
 	
@@ -15,12 +15,5 @@ public class EntityImpl implements Entity, T, R {
 		
 		if(obj==null) return Boolean.FALSE;
 		return (obj instanceof String) && ((String) obj).length()==1;
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Object.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

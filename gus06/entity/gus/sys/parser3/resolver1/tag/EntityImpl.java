@@ -15,7 +15,6 @@ public class EntityImpl implements Entity, T {
 	public static final String TYPE_INT = "int";
 	public static final String TYPE_DOUBLE = "double";
 	public static final String TYPE_ELEMENT = "element";
-	public static final String TYPE_SYMBOL = "symbol";
 	public static final String TYPE_STRING = "string";
 	public static final String TYPE_GROUP1 = "group1";
 	public static final String TYPE_GROUP2 = "group2";
@@ -68,7 +67,7 @@ public class EntityImpl implements Entity, T {
 		if(value.equals("false")) return Boolean.FALSE;
 		if(value.equals("null")) return null;
 		
-		T external = (T) ((R) t).r("external");
+		T external = (T) ((G) t).g();
 		if(external==null) return null;
 		return external.t(value);
 	}

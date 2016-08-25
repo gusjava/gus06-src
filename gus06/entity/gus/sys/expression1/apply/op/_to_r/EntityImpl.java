@@ -9,20 +9,10 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service builder;
-	private Service mapToR;
-	private Service tToR;
-	private Service fToR;
-	private Service hToR;
-	private Service gToR;
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.r");
-		mapToR = Outside.service(this,"gus.convert.maptor");
-		tToR = Outside.service(this,"gus.convert.ttor");
-		fToR = Outside.service(this,"gus.convert.ftor");
-		hToR = Outside.service(this,"gus.convert.htor");
-		gToR = Outside.service(this,"gus.convert.gtor");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.r");
 	}
 
 	
@@ -36,16 +26,20 @@ public class EntityImpl implements Entity, T {
 		Map opMap = (Map) o[1];
 		
 		if(value==null) return null;
-		
 		if(value instanceof R) return value;
-		if(value instanceof Map) return mapToR.t(value);
-		if(value instanceof T) return tToR.t(value);
-		if(value instanceof F) return fToR.t(value);
-		if(value instanceof H) return hToR.t(value);
-		if(value instanceof G) return gToR.t(value);
 		
 		if(value instanceof String)
-			return builder.t(new Object[]{value,opMap});
+			return builder.t(obj);
+		if(value instanceof Map)
+			return builder.t(obj);
+		if(value instanceof T)
+			return builder.t(obj);
+		if(value instanceof F)
+			return builder.t(obj);
+		if(value instanceof H)
+			return builder.t(obj);
+		if(value instanceof G)
+			return builder.t(obj);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

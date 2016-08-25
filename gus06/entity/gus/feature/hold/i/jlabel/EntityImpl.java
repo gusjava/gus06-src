@@ -1,7 +1,6 @@
 package gus06.entity.gus.feature.hold.i.jlabel;
 
 import gus06.framework.*;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 public class EntityImpl implements Entity, G, I {
@@ -15,7 +14,7 @@ public class EntityImpl implements Entity, G, I {
 
 
 	public Object g() throws Exception
-	{return this;}
+	{return label;}
 	
 	public Object i() throws Exception
 	{return label;}

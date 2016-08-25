@@ -25,8 +25,6 @@ public class EntityImpl implements Entity, I, R {
 
 
 	private Service findColor;
-
-
 	private JTextPane0 textPane;
 
 	public EntityImpl() throws Exception
@@ -43,14 +41,6 @@ public class EntityImpl implements Entity, I, R {
 	
 	public Object r(String key) throws Exception
 	{
-		OutputStream0 os = buildOutputStream(key);
-		return new PrintStream(os,true,"UTF-8");
-	}
-	
-	
-	
-	private OutputStream0 buildOutputStream(String key) throws Exception
-	{
 		boolean isBold = false;
 		boolean isItalic = false;
 		Color color = Color.BLACK;
@@ -60,49 +50,10 @@ public class EntityImpl implements Entity, I, R {
 		{
 			if(n.equals("b") || n.equals("bold")) isBold = true;
 			else if(n.equals("i") || n.equals("italic")) isItalic = true;
-			else color = findColor(n);
+			else color = (Color) findColor.t(n);
 		}
-		return new OutputStream0(color,isBold,isItalic);
+		return new PrintStream0(color,isBold,isItalic);
 	}
-	
-	
-	private Color findColor(String key) throws Exception
-	{return (Color) findColor.t(key);}
-	
-	
-	
-	
-	private void print(Reader reader, Color color, boolean isBold, boolean isItalic)
-	{
-		try
-		{
-			while(reader.ready())
-			{
-				char[] chars = new char[1024];
-					int n = reader.read(chars);
-				String txt = new String(chars,0,n);
-				
-				textPane.appendText(txt,color,isBold,isItalic);
-				textPane.setCaretToEnd();
-			}
-		}
-		catch(Exception e)
-		{Outside.err(this,"print(Reader,Color,boolean,boolean)",e);}
-	}
-	
-	
-	
-	private void print(String m, Color color, boolean isBold, boolean isItalic)
-	{
-		try
-		{
-			textPane.appendText(m,color,isBold,isItalic);
-			textPane.setCaretToEnd();
-		}
-		catch(Exception e)
-		{Outside.err(this,"print(String,Color,boolean,boolean)",e);}
-	}
-	
 	
 	
 	
@@ -119,22 +70,22 @@ public class EntityImpl implements Entity, I, R {
 			attr = new SimpleAttributeSet();
 		}
 		
-		public synchronized void initBold(boolean val)
+		public void initBold(boolean val)
 		{StyleConstants.setBold(attr,val);}
 		
-		public synchronized void initItalic(boolean val)
+		public void initItalic(boolean val)
 		{StyleConstants.setItalic(attr,val);}
 		 
-		public synchronized void initUnderline(boolean val)
+		public void initUnderline(boolean val)
 		{StyleConstants.setUnderline(attr,val);}
 		
-		public synchronized void initForeground(Color color)
+		public void initForeground(Color color)
 		{StyleConstants.setForeground(attr,color);}
 		
-		public synchronized void initBackground(Color color)
+		public void initBackground(Color color)
 		{StyleConstants.setBackground(attr,color);}
 		
-		public synchronized void appendText(String text) throws BadLocationException
+		public void appendText(String text) throws BadLocationException
 		{doc.insertString(doc.getLength(),text,attr);}
 		
 		public void positionToEnd()
@@ -171,62 +122,62 @@ public class EntityImpl implements Entity, I, R {
 	
 	
 	
-	
-	
-	private class OutputStream0 extends OutputStream implements Runnable
+	private void send(String m, Color color, boolean isBold, boolean isItalic)
 	{
-		private Color color;
-		private boolean isBold;
-		private boolean isItalic;
-		
-		private PipedOutputStream out;
-		private PipedInputStream in;
-		private Reader reader;
-		
-		
-		public OutputStream0(Color color, boolean isBold, boolean isItalic) throws Exception
+		try
 		{
-			this.color = color;
-			this.isBold = isBold;
-			this.isItalic = isItalic;
-			
-			out = new PipedOutputStream();
-			in = new PipedInputStream(out);
-			reader = new InputStreamReader(in,"UTF-8");
-			
-			new Thread(this,"THREAD_OutputStream0_"+EntityImpl.class.getName()).start();
+			textPane.appendText(m,color,isBold,isItalic);
+			textPane.setCaretToEnd();
 		}
-	
-		public void write(int b) throws IOException
-		{out.write(b);}
-		
-		
-		public void flush() throws IOException
-		{
-			/*if(!reader.ready()) return;
-			
-			char[] chars = new char[1024];
-				int n = reader.read(chars);
-			String txt = new String(chars,0,n);
-			
-			print(txt,color,isBold,isItalic);*/
-		}
-		
-		
-		public void run()
-		{
-			while(true)
-			{
-				print(reader,color,isBold,isItalic);
-				sleep();
-			}
-		}
+		catch(Exception e)
+		{Outside.err(this,"send(String,Color,boolean,boolean)",e);}
 	}
 	
 	
-	private void sleep()
+	
+	
+	
+	private class PrintStream0 extends PrintStream
 	{
-		try{Thread.sleep(5);}
-		catch(Exception e){}
+		private Color color;
+		private boolean b;
+		private boolean i;
+		
+		public PrintStream0(Color color, boolean b, boolean i) throws Exception
+		{
+			super(new OutputStreamNull());
+			
+			this.color = color;
+			this.b = b;
+			this.i = i;
+		}
+	
+		public void println()			{send("\n",color,b,i);}
+		public void println(char[] val)		{send(val+"\n",color,b,i);}
+		public void println(boolean val)	{send(val+"\n",color,b,i);}
+		public void println(char val) 		{send(val+"\n",color,b,i);}
+		public void println(double val) 	{send(val+"\n",color,b,i);}
+		public void println(float val)    	{send(val+"\n",color,b,i);}
+		public void println(int val)  		{send(val+"\n",color,b,i);}
+		public void println(long val) 		{send(val+"\n",color,b,i);}
+		public void println(Object val)   	{send(val+"\n",color,b,i);}
+		public void println(String val)		{send(val+"\n",color,b,i);}
+	    
+		public void print(char[] val)    	{send(""+val,color,b,i);}
+		public void print(boolean val)    	{send(""+val,color,b,i);}
+		public void print(char val)     	{send(""+val,color,b,i);}
+		public void print(double val)      	{send(""+val,color,b,i);}
+		public void print(float val)      	{send(""+val,color,b,i);}
+		public void print(int val)      	{send(""+val,color,b,i);}
+		public void print(long val)     	{send(""+val,color,b,i);}
+		public void print(Object val)    	{send(""+val,color,b,i);}
+		public void print(String val)    	{send(""+val,color,b,i);}
+	}
+	
+	
+	private static class OutputStreamNull extends OutputStream
+	{
+		public OutputStreamNull(){} 
+		public void write(int b){}
 	}
 }

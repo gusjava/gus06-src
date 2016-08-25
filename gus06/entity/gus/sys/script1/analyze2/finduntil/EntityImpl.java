@@ -2,7 +2,7 @@ package gus06.entity.gus.sys.script1.analyze2.finduntil;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T {
+public class EntityImpl implements Entity, T, G {
 	
 	public static final String V_END = "end";
 
@@ -12,21 +12,28 @@ public class EntityImpl implements Entity, T {
 	
 	public static final String[] LIST = new String[] {
 		"block",
+		"block0",
 		"code",
 		"each",
 		"extends",
+		"extends1",
 		"for",
-		"function",
 		"if",
 		"ignore",
 		"redirect",
 		"repeat",
+		"switch",
 		"root",
 		"try",
 		"while",
 		"until"
 	};
 	
+	
+	public Object g() throws Exception
+	{
+		return LIST;
+	}
 	
 	
 	

@@ -71,13 +71,15 @@ public class EntityImpl implements Entity, P {
 			if(entry.getSize()<0)
 				throw new Exception("Invalid entry detected: "+entry.getName()+" (size="+entry.getSize()+")");
 			
-			entryPath.getParentFile().mkdirs();
-
 			if(entry.isDirectory())
 			{
-				entryPath.mkdir();
+				entryPath.mkdirs();
 				return;
 			}
+			
+			entryPath.getParentFile().mkdirs();
+			entryPath.createNewFile();
+			
 			FileOutputStream fos = new FileOutputStream(entryPath);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			InputStream is = zipFile.getInputStream(entry);

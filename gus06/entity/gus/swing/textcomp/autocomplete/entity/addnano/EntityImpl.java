@@ -11,10 +11,6 @@ public class EntityImpl implements Entity, P {
 	
 	
 
-	public EntityImpl() throws Exception
-	{
-	}
-
 	
 	
 	public void p( Object obj) throws Exception

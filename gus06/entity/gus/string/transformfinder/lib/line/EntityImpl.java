@@ -23,6 +23,8 @@ public class EntityImpl implements Entity, T, G {
 	{
 		map = new HashMap();
 		
+		put("buildtab",Outside.service(this,"gus.string.transform.line.buildtab"));
+		
 		put("count",Outside.service(this,"gus.string.transform.line.count"));
 		put("count_distinct",Outside.service(this,"gus.string.transform.line.count.distinct"));
 		put("count_empty",Outside.service(this,"gus.string.transform.line.count.empty"));
@@ -45,6 +47,11 @@ public class EntityImpl implements Entity, T, G {
 		put("permute_inv",Outside.service(this,"gus.string.transform.line.order.permute.inv"));
 		put("shuffle",Outside.service(this,"gus.string.transform.line.order.shuffle"));
 		put("sort",Outside.service(this,"gus.string.transform.line.order.sort"));
+		put("sort_i",Outside.service(this,"gus.string.transform.line.order.sort_i"));
+		put("sort_n",Outside.service(this,"gus.string.transform.line.order.sort_n"));
+		put("sortinv",Outside.service(this,"gus.string.transform.line.order.sortinv"));
+		put("sortinv_i",Outside.service(this,"gus.string.transform.line.order.sortinv_i"));
+		put("sortinv_n",Outside.service(this,"gus.string.transform.line.order.sortinv_n"));
 		put("sortlength",Outside.service(this,"gus.string.transform.line.order.sortlength"));
 		put("sortnum",Outside.service(this,"gus.string.transform.line.order.sortnum"));
 		
@@ -54,6 +61,13 @@ public class EntityImpl implements Entity, T, G {
 		put("rm_first",Outside.service(this,"gus.string.transform.line.remove.first"));
 		put("rm_last",Outside.service(this,"gus.string.transform.line.remove.last"));
 		
+		put("rm2_firstpart",Outside.service(this,"gus.string.transform.line.rm.common.firstpart"));
+		put("rm2_lastpart",Outside.service(this,"gus.string.transform.line.rm.common.lastpart"));
+		
+		put("tab_up",Outside.service(this,"gus.string.transform.line.tab.up"));
+		put("tab_down",Outside.service(this,"gus.string.transform.line.tab.down"));
+		put("tab_fall",Outside.service(this,"gus.string.transform.line.tab.fall"));
+		
 		put("length_max",Outside.service(this,"gus.string.transform.line.length.max"));
 		put("length_min",Outside.service(this,"gus.string.transform.line.length.min"));
 		put("length_sum",Outside.service(this,"gus.string.transform.line.length.sum"));
@@ -62,7 +76,12 @@ public class EntityImpl implements Entity, T, G {
 		put("length_toseq",Outside.service(this,"gus.string.transform.line.length.tosequence"));
 		
 		put("trim",Outside.service(this,"gus.string.transform.line.trim"));
+		put("trimfirst",Outside.service(this,"gus.string.transform.line.trimfirst"));
+		put("trimlast",Outside.service(this,"gus.string.transform.line.trimlast"));
+		
 		put("normalize",Outside.service(this,"gus.string.transform.line.normalize"));
+		put("reduce",Outside.service(this,"gus.string.transform.line.reduce"));
+		put("extend",Outside.service(this,"gus.string.transform.line.extend"));
 	}
 	
 	public Object t(Object obj) throws Exception

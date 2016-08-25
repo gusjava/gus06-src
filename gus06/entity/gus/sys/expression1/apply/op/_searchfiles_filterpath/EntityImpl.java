@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.f");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.f");
 		perform = Outside.service(this,"gus.dir.perform.searchfiles.filterpath");
 	}
 
@@ -30,10 +30,14 @@ public class EntityImpl implements Entity, T {
 		
 		if(value==null) return null;
 		
+		if(value instanceof String) return new T1(file((String) value),opMap);
 		if(value instanceof File) return new T1(value,opMap);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
+	
+	private File file(String s) throws Exception
+	{return new File(s).getCanonicalFile();}
 	
 	
 	private class T1 implements T

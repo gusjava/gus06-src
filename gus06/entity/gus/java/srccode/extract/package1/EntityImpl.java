@@ -23,7 +23,7 @@ public class EntityImpl implements Entity, T {
 		String[] lines = (String[]) toArray.t(obj);
 		for(String line:lines)
 		{
-			if(line.startsWith("package "))
+			if(line.trim().startsWith("package "))
 			return extract(line);
 		}
 		return null;

@@ -6,10 +6,22 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Collection;
 import java.util.List;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151109";}
+	
+	
+	private Service read;
+	private Service find;
+	
+	public EntityImpl() throws Exception
+	{
+		read = Outside.service(this,"gus.file.read.string.list.autodetect");
+		find = Outside.service(this,"gus.find.list");
+	}
+	
 	
 	
 	public Object t(Object obj) throws Exception
@@ -21,46 +33,23 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		if(obj instanceof List) return obj;
+		
+		if(obj instanceof Object[]) return find.t(obj);
+		if(obj instanceof int[]) return find.t(obj);
+		if(obj instanceof long[]) return find.t(obj);
+		if(obj instanceof double[]) return find.t(obj);
+		if(obj instanceof boolean[]) return find.t(obj);
+		if(obj instanceof char[]) return find.t(obj);
+		
 		if(obj instanceof Set) return new ArrayList((Set) obj);
 		if(obj instanceof Collection) return new ArrayList((Collection) obj);
-		if(obj instanceof Map) return new ArrayList(((Map) obj).values());
-		
-		if(obj instanceof Object[]) return toList((Object[]) obj);
-		if(obj instanceof int[]) return toList((int[]) obj);
-		if(obj instanceof double[]) return toList((double[]) obj);
-		if(obj instanceof boolean[]) return toList((boolean[]) obj);
+		if(obj instanceof Map) return new ArrayList(((Map) obj).keySet());
+		if(obj instanceof File) return read.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
 	
-	private List toList(Object[] oo)
-	{
-		List l = new ArrayList();
-		for(Object o:oo) l.add(o);
-		return l;
-	}
 	
-	
-	private List toList(int[] oo)
-	{
-		List l = new ArrayList();
-		for(int o:oo) l.add(new Integer(o));
-		return l;
-	}
-	
-	private List toList(double[] oo)
-	{
-		List l = new ArrayList();
-		for(double o:oo) l.add(new Double(o));
-		return l;
-	}
-	
-	private List toList(boolean[] oo)
-	{
-		List l = new ArrayList();
-		for(boolean o:oo) l.add(new Boolean(o));
-		return l;
-	}
 }

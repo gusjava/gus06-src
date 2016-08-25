@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		findList = Outside.service(this,"gus.app.jarfile.listing.java.manager.gyem.modules");
-		listFilter = Outside.service(this,"gus.list.filter2");
+		listFilter = Outside.service(this,"gus.list.filter.rule.one");
 		keys = (List) findList.g();
 	}
 	

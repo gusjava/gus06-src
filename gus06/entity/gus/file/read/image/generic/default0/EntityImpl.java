@@ -12,6 +12,7 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20150616";}
 
+	public static final Color COLOR = Color.WHITE;
 
 
 	public Object t(Object obj) throws Exception
@@ -24,7 +25,7 @@ public class EntityImpl implements Entity, T {
 		
 		BufferedImage image = new BufferedImage(56,56,BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = image.createGraphics();
-		g.setColor(Color.WHITE);
+		g.setColor(COLOR);
 		g.fillRect(0,0,56,56);
 		if(icon!=null) icon.paintIcon(null,g,20,20);
 		g.dispose();

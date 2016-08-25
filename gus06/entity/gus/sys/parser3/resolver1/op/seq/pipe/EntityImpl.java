@@ -14,6 +14,9 @@ public class EntityImpl implements Entity, T {
 	private Service pipe_map;
 	private Service pipe_list;
 	
+	private Service loop_t;
+	private Service loop_h;
+	
 	private Service toArray_t;
 	private Service toArray_h;
 	private Service toArray_map;
@@ -26,6 +29,9 @@ public class EntityImpl implements Entity, T {
 		pipe_h = Outside.service(this,"gus.feature.op.pipe.h");
 		pipe_map = Outside.service(this,"gus.feature.op.pipe.map");
 		pipe_list = Outside.service(this,"gus.feature.op.pipe.list");
+		
+		loop_t = Outside.service(this,"gus.feature.op.loop.t");
+		loop_h = Outside.service(this,"gus.feature.op.loop.h");
 		
 		toArray_t = Outside.service(this,"gus.convert.objarraytotarray.strict");
 		toArray_h = Outside.service(this,"gus.convert.objarraytoharray.strict");
@@ -46,6 +52,14 @@ public class EntityImpl implements Entity, T {
 		for(int i=0;i<cut.size();i++) oo[i] = t.t(cut.get(i));
 		
 		
+		if(oo.length==2 && oo[1] instanceof Integer)
+		{
+			if(oo[0] instanceof T) return loop_t.t(oo);
+			if(oo[0] instanceof H) return loop_h.t(oo);
+			
+			throw new Exception("Invalid pipe chain");
+		}
+		
 		T[] tt = (T[]) toArray_t.t(oo);
 		if(tt!=null) return pipe_t.t(tt);
 		
@@ -57,7 +71,6 @@ public class EntityImpl implements Entity, T {
 		
 		List[] lists = (List[]) toArray_list.t(oo);
 		if(lists!=null) return pipe_list.t(lists);
-		
 		
 		throw new Exception("Invalid pipe chain");
 	}

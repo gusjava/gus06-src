@@ -36,7 +36,7 @@ public class EntityImpl implements Entity, T {
 	{
 		if(s.equals("")) return null;
 		s = s.toLowerCase();
-        
+		
 		if(s.endsWith(".darker"))
 		{
         			s = s.substring(0,s.length()-7);
@@ -48,6 +48,8 @@ public class EntityImpl implements Entity, T {
 			return stringToColor(s).brighter();
 		}
         
+		if(s.startsWith("color.")) s = s.substring(6);
+		
 		if(s.equals("blue"))		return Color.BLUE;
 		if(s.equals("red"))		return Color.RED;
 		if(s.equals("black"))		return Color.BLACK;

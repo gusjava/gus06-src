@@ -5,6 +5,14 @@ import gus06.framework.*;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151116";}
+
+
+	private Service buildFilter;
+	
+	public EntityImpl() throws Exception
+	{
+		buildFilter = Outside.service(this,"gus.filter.array.build.none");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -14,7 +22,9 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof boolean[]) return none((boolean[]) obj);
+		
+		if(obj instanceof boolean[]) 	return none((boolean[]) obj);
+		if(obj instanceof F[])		return buildFilter.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

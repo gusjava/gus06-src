@@ -14,17 +14,21 @@ public class EntityImpl implements Entity, T {
 	private Service performList;
 	private Service performSet;
 	private Service performMap;
-	private Service performArray;
 	private Service performDir;
+	private Service performArray;
+	private Service performDoubleArray;
+	private Service performIntArray;
 	
 	
 	public EntityImpl() throws Exception
 	{
 		performList = Outside.service(this,"gus.list.findall");
 		performSet = Outside.service(this,"gus.set.findall");
-		performMap = Outside.service(this,"gus.map.entry.findall");
-		performArray = Outside.service(this,"gus.array.findall");
+		performMap = Outside.service(this,"gus.map.key.findall");
 		performDir = Outside.service(this,"gus.dir.findall");
+		performArray = Outside.service(this,"gus.array.objectarray.findall");
+		performDoubleArray = Outside.service(this,"gus.array.doublearray.findall");
+		performIntArray = Outside.service(this,"gus.array.intarray.findall");
 	}	
 	
 	
@@ -38,8 +42,10 @@ public class EntityImpl implements Entity, T {
 		if(input instanceof List) return performList.t(obj);
 		if(input instanceof Set) return performSet.t(obj);
 		if(input instanceof Map) return performMap.t(obj);
-		if(input instanceof Object[]) return performArray.t(obj);
 		if(input instanceof File) return performDir.t(obj);
+		if(input instanceof Object[]) return performArray.t(obj);
+		if(input instanceof double[]) return performDoubleArray.t(obj);
+		if(input instanceof int[]) return performIntArray.t(obj);
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}

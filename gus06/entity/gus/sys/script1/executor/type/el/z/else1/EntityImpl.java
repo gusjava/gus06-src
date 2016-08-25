@@ -18,6 +18,8 @@ public class EntityImpl implements Entity, T {
 		public Executor(Map tag) {this.tag = tag;}
 		
 		public void p(Object obj) throws Exception
-		{}
+		{
+			throw new Exception("Else tag are not meant to be executed");
+		}
 	}
 }

@@ -10,39 +10,55 @@ public class EntityImpl implements Entity, I, P, G {
 	public String creationDate() {return "20140821";}
 
 
-	private Service classToDocUrl;
+	private Service shiftPanel;
 	private Service urlViewer;
+	private Service entityViewer;
+	private Service findEntityName;
+	
+	private Service current;
     
-	private Class data;
-	private URL url;
 
 
 	public EntityImpl() throws Exception
 	{
-		classToDocUrl = Outside.service(this,"gus.java.fromclass.docurl");
-		urlViewer = Outside.service(this,"*gus.data.viewer.url");
+		shiftPanel = Outside.service(this,"*gus.swing.panel.shiftpanel");
+		urlViewer = Outside.service(this,"*gus.data.viewer.class1.panel.doc.url");
+		entityViewer = Outside.service(this,"*gus.data.viewer.class1.panel.doc.entity");
+		findEntityName = Outside.service(this,"gus.convert.classtoentityname");
 	}
 	
 	
-	public Object g() throws Exception
-	{return url;}
-	
-	
 	public Object i() throws Exception
-	{return urlViewer.i();}
+	{return shiftPanel.i();}
+	
+	
+	
+	public Object g() throws Exception
+	{return current!=null ? current.g() : null;}
+	
 	
 	
 	public void p(Object obj) throws Exception
 	{
-		data = (Class) obj;
-		url = findURL();
-		urlViewer.p(url);
-	}
+		Class data = (Class) obj;
+		if(data==null)
+		{
+			shiftPanel.p(null);
+			return;
+		}
 		
-	
-	private URL findURL() throws Exception
-	{
-		if(data==null) return null;
-		return (URL) classToDocUrl.t(data);
+		String entityName = (String) findEntityName.t(data);
+		if(entityName!=null)
+		{
+			entityViewer.p(entityName);
+			shiftPanel.p(entityViewer.i());
+			current = entityViewer;
+		}
+		else
+		{
+			urlViewer.p(data);
+			shiftPanel.p(urlViewer.i());
+			current = urlViewer;
+		}
 	}
 }

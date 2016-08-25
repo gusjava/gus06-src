@@ -1,10 +1,8 @@
 package gus06.entity.gus.io.outputstream.textarea1;
 
-import java.io.OutputStream;
-
-import javax.swing.JTextArea;
-
 import gus06.framework.*;
+import java.io.OutputStream;
+import javax.swing.JTextArea;
 
 public class EntityImpl implements Entity, T {
 

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.awt.Image;
 import java.util.List;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151115";}
 
@@ -35,14 +35,9 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof String) return new E1(obj);
 		if(obj instanceof Image) return new E1(obj);
 		
+		if(obj instanceof StringBuffer) return new E1(((StringBuffer)obj).toString());
+		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{File.class,File[].class,List.class,String.class,Image.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

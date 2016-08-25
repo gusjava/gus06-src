@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		deepPut = Outside.service(this,"gus.map.deep.put");
-		getPool = Outside.service(this,"gus.sys.script1.access.context.pool1.latest1");
+		getPool = Outside.service(this,"gus.sys.script1.access.context.pool.latest1");
 		analyze = Outside.service(this,"gus.sys.script1.tool.execute.code.op.set.analyze");
 	}
 	
@@ -26,8 +26,8 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
 		Object[] infos = (Object[]) analyze.t(obj);
 		if(infos.length!=3) throw new Exception("Wrong infos number: "+infos.length);

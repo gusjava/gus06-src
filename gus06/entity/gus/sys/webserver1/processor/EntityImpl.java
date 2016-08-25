@@ -13,6 +13,8 @@ public class EntityImpl implements Entity, T {
 	
 	private Service processor1;
 	private Service processor2;
+	private Service processor3;
+	
 	private Map prop;
 	
 	
@@ -20,6 +22,8 @@ public class EntityImpl implements Entity, T {
 	{
 		processor1 = Outside.service(this,"gus.sys.webserver1.web1.processor");
 		processor2 = Outside.service(this,"gus.sys.webserver1.web2.processor");
+		processor3 = Outside.service(this,"gus.sys.webserver1.web3.processor");
+		
 		prop = (Map) Outside.resource(this,"prop");
 	}
 	
@@ -39,6 +43,8 @@ public class EntityImpl implements Entity, T {
 		
 		if(id.equals("1")) return processor1;
 		if(id.equals("2")) return processor2;
+		if(id.equals("3")) return processor3;
+		
 		throw new Exception("Invalid processor id: "+id);
 	}
 	

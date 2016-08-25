@@ -17,6 +17,8 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
 
 
 public class EntityImpl extends S1 implements Entity, I, G, E, ActionListener, ListSelectionListener {
@@ -31,6 +33,7 @@ public class EntityImpl extends S1 implements Entity, I, G, E, ActionListener, L
 	private Service buildJList;
 	private Service linkerListField;
 	private Service fieldPersister;
+	private Service buildActionCopy;
 	
 	private Service generate;
 	private Service rename;
@@ -51,6 +54,7 @@ public class EntityImpl extends S1 implements Entity, I, G, E, ActionListener, L
 		buildJList = Outside.service(this,"gus.swing.list.build.fromicon");
 		linkerListField = Outside.service(this,"gus.swing.list.textfield.linker");
 		fieldPersister = Outside.service(this,"gus.swing.textcomp.persister.text");
+		buildActionCopy = Outside.service(this,"gus.swing.list.build.action.copy");
 		
 		generate = Outside.service(this,"gus.appli.gusclient1.execute.space.entities.newentity");
 		rename = Outside.service(this,"gus.appli.gusclient1.execute.entity.rename");
@@ -62,11 +66,16 @@ public class EntityImpl extends S1 implements Entity, I, G, E, ActionListener, L
 		label = new JLabel(" ");
 		field = (JComponent) fieldHolder.i();
 		list = (JList) buildJList.t(ICONID);
+		
+		Action copyAction = (Action) buildActionCopy.t(list);
+		JPanel p_bottom = new JPanel(new BorderLayout());
+		p_bottom.add(new JButton(copyAction),BorderLayout.EAST);
+		p_bottom.add(label,BorderLayout.CENTER);
 
 		panel = new JPanel(new BorderLayout());
 		panel.add(field,BorderLayout.NORTH);
 		panel.add(new JScrollPane(list),BorderLayout.CENTER);
-		panel.add(label,BorderLayout.SOUTH);
+		panel.add(p_bottom,BorderLayout.SOUTH);
 		
 
 		field.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0),new AbstractAction() {

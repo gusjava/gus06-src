@@ -16,13 +16,13 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		List[] cut = (List[]) o[0];
+		List cut = (List) o[0];
 		T t = (T) o[1];
 		
-		if(cut.length!=2) throw new Exception("Invalid split for equals operation: "+cut.length);
+		if(cut.size()!=2) throw new Exception("Invalid split for equals operation: "+cut.size());
 		
-		Object o1 = t.t(cut[0]);
-		Object o2 = t.t(cut[1]);
+		Object o1 = t.t(cut.get(0));
+		Object o2 = t.t(cut.get(1));
 		
 		return new Boolean(equals(o1,o2));
 	}

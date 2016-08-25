@@ -2,27 +2,25 @@ package gus06.entity.gus.sys.script1.tool.execute.tag;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.List;
+import java.io.File;
 
 public class EntityImpl implements Entity, P {
 	
-	public static final String K_CONTEXT = "context";
-	
-	public static final String C_HISTORY = "history";
-	public static final String C_CURRENT = "current";
-	public static final String C_START = "start";
-	public static final String C_STOP = "stop";
-
-
 	public String creationDate() {return "20150829";}
-
+	
 
 	private Service getExecutor;
+	private Service getScript;
+	private Service prepareExecution;
+	private Service modifyUserDir;
 
 
 	public EntityImpl() throws Exception
 	{
 		getExecutor = Outside.service(this,"gus.sys.script1.access.tag.executor1");
+		getScript = Outside.service(this,"gus.sys.script1.access.tag.stack1.script1");
+		prepareExecution = Outside.service(this,"gus.sys.script1.tool.execute.tag.prepare");
+		modifyUserDir = Outside.service(this,"gus.system.prop.userdir.modify");
 	}
 	
 	
@@ -34,8 +32,14 @@ public class EntityImpl implements Entity, P {
 		Map tag = o[0];
 		Map context = o[1];
 		
-		if(context.containsKey(C_STOP)) return;
-		handleContext(context,tag);
+		boolean ok = prepareExecution.f(new Map[]{tag,context});
+		if(!ok) return;
+		
+		File script = (File) getScript.t(tag);
+		File dir0 = null;
+		
+		if(script!=null)
+		dir0 = (File) modifyUserDir.t(script.getParentFile());
 		
 		try
 		{
@@ -47,19 +51,9 @@ public class EntityImpl implements Entity, P {
 			String message = "Failed to execute tag ["+tag+"]";
 			throw new Exception(message,e);
 		}
-	}
-	
-	
-	
-	
-	private void handleContext(Map context, Map tag)
-	{
-		tag.put(K_CONTEXT,context);
-		
-		if(!context.containsKey(C_START)) context.put(C_START,tag);
-		
-		context.put(C_CURRENT,tag);
-		List history = (List) context.get(C_HISTORY);
-		history.add(tag);
+		finally
+		{
+			if(dir0!=null) modifyUserDir.p(dir0);
+		}
 	}
 }

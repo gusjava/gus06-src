@@ -32,15 +32,12 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private class E1 implements E, G
+	private class E1 implements E
 	{
 		private Object o;
 		public E1(Object o) {this.o = o;}
 		
 		public void e() throws Exception
 		{perform.p(o);}
-		
-		public Object g() throws Exception
-		{return perform.t(o);}
 	}
 }

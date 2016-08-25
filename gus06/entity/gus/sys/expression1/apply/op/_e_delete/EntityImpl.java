@@ -27,6 +27,7 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		if(obj instanceof File) return new E1(obj);
+		if(obj instanceof File[]) return new E1(obj);
 		if(obj instanceof Iterator) return new E1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());

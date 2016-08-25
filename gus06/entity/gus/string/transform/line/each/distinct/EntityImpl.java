@@ -19,7 +19,6 @@ public class EntityImpl implements Entity, T {
 		Set set = new HashSet();
 		for(String n:nn)
 		{
-			n = n.trim();
 			if(set.contains(n)) return "false";
 			set.add(n);
 		}

@@ -33,6 +33,9 @@ public class EntityImpl implements Entity, P {
 		if(data instanceof StringBuffer)
 		{change((StringBuffer) data,value);return;}
 		
+		if(data instanceof StringBuilder)
+		{change((StringBuilder) data,value);return;}
+		
 		if(data instanceof Collection)
 		{change((Collection) data,value);return;}
 		
@@ -52,6 +55,12 @@ public class EntityImpl implements Entity, P {
 		b.append(value.toString());
 	}
 	
+	private void change(StringBuilder b, Object value)
+	{
+		b.setLength(0);
+		b.append(value.toString());
+	}
+	
 	private void change(Collection c, Object value)
 	{
 		c.clear();
@@ -66,7 +75,7 @@ public class EntityImpl implements Entity, P {
 	
 	private void change(File f, Object value) throws Exception
 	{
-		if(f.isFile()) writeFile.p(new Object[]{f,value});
-		else if(f.isDirectory()) throw new Exception("Directory not supported yet: "+f);
+		if(f.isDirectory()) throw new Exception("Directory not supported yet: "+f);
+		writeFile.p(new Object[]{f,value});
 	}
 }

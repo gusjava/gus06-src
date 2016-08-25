@@ -10,25 +10,42 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20150905";}
 	
 	public static final String MODE_REPLACE = "replace";
+	public static final String MODE_REPLACE0 = "replace0";
+	
 	public static final String MODE_CHANGE = "change";
+	public static final String MODE_CHANGE0 = "change0";
+	
 	public static final String MODE_APPEND = "append";
+	public static final String MODE_APPEND0 = "append0";
 	
 
 
-	private Service remove;
 	private Service replace;
-	private Service empty;
+	private Service replace0;
+	
 	private Service change;
+	private Service change0;
+	
 	private Service append;
+	private Service append0;
+	
+	private Service remove;
+	private Service empty;
 
 
 	public EntityImpl() throws Exception
 	{
-		remove = Outside.service(this,"gus.map.deep.put.remove");
 		replace = Outside.service(this,"gus.map.deep.put.replace");
-		empty = Outside.service(this,"gus.map.deep.put.empty");
+		replace0 = Outside.service(this,"gus.map.deep.put.replace0");
+		
 		change = Outside.service(this,"gus.map.deep.put.change");
+		change0 = Outside.service(this,"gus.map.deep.put.change0");
+		
 		append = Outside.service(this,"gus.map.deep.put.append");
+		append0 = Outside.service(this,"gus.map.deep.put.append0");
+		
+		remove = Outside.service(this,"gus.map.deep.put.remove");
+		empty = Outside.service(this,"gus.map.deep.put.empty");
 	}
 
 
@@ -47,8 +64,13 @@ public class EntityImpl implements Entity, P {
 	private void handleMain(Object data, String key, Object value, String mode) throws Exception
 	{
 		if(mode.equals(MODE_REPLACE)) {handleReplace(data,key,value);return;}
+		if(mode.equals(MODE_REPLACE0)) {handleReplace0(data,key,value);return;}
+		
 		if(mode.equals(MODE_CHANGE)) {handleChange(data,key,value);return;}
+		if(mode.equals(MODE_CHANGE0)) {handleChange0(data,key,value);return;}
+		
 		if(mode.equals(MODE_APPEND)) {handleAppend(data,key,value);return;}
+		if(mode.equals(MODE_APPEND0)) {handleAppend0(data,key,value);return;}
 		
 		throw new Exception("Invalid mode: "+mode);
 	}
@@ -62,6 +84,13 @@ public class EntityImpl implements Entity, P {
 	}
 	
 	
+	private void handleReplace0(Object data, String key, Object value) throws Exception
+	{
+		if(value==null) return;
+		replace0.p(new Object[]{data,key,value});
+	}
+	
+	
 	private void handleChange(Object data, String key, Object value) throws Exception
 	{
 		if(value==null)
@@ -70,9 +99,23 @@ public class EntityImpl implements Entity, P {
 	}
 	
 	
+	private void handleChange0(Object data, String key, Object value) throws Exception
+	{
+		if(value==null) return;
+		change0.p(new Object[]{data,key,value});
+	}
+	
+	
 	private void handleAppend(Object data, String key, Object value) throws Exception
 	{
 		if(value==null) return;
 		append.p(new Object[]{data,key,value});
+	}
+	
+	
+	private void handleAppend0(Object data, String key, Object value) throws Exception
+	{
+		if(value==null) return;
+		append0.p(new Object[]{data,key,value});
 	}
 }

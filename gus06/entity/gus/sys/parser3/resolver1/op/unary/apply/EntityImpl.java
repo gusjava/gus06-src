@@ -2,8 +2,6 @@ package gus06.entity.gus.sys.parser3.resolver1.op.unary.apply;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
@@ -23,10 +21,10 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		Map tag = (Map) o[0];
+		List cut = (List) o[0];
 		T t = (T) o[1];
 		
-		Object value = t.t(tag);
+		Object value = t.t(cut.get(0));
 		if(value==null) throw new Exception("Invalid value type for operator: null");
 
 		if(value instanceof String)

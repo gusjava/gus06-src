@@ -21,7 +21,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		cutMethod = Outside.service(this,"gus.sys.parser3.resolver1.cut.symbol1");
+		cutMethod = Outside.service(this,"gus.sys.parser3.cut.symbol.a1");
 	}
 
 	
@@ -50,6 +50,14 @@ public class EntityImpl implements Entity, T {
 			return arr;
 		}
 		
+		if(type.equals("long"))
+		{
+			long[] arr = new long[number];
+			for(int i=0;i<number;i++)
+			arr[i] = to_long(t.t(cut.get(i)));
+			return arr;
+		}
+		
 		if(type.equals("double"))
 		{
 			double[] arr = new double[number];
@@ -66,11 +74,11 @@ public class EntityImpl implements Entity, T {
 			return arr;
 		}
 		
-		if(type.equals("bool"))
+		if(type.equals("boolean"))
 		{
 			boolean[] arr = new boolean[number];
 			for(int i=0;i<number;i++)
-			arr[i] = to_bool(t.t(cut.get(i)));
+			arr[i] = to_boolean(t.t(cut.get(i)));
 			return arr;
 		}
 		
@@ -117,6 +125,14 @@ public class EntityImpl implements Entity, T {
 			return arr;
 		}
 		
+		if(type.equals("Date"))
+		{
+			Date[] arr = new Date[number];
+			for(int i=0;i<number;i++)
+			arr[i] = (Date) t.t(cut.get(i));
+			return arr;
+		}
+		
 		if(type.equals("URL"))
 		{
 			URL[] arr = new URL[number];
@@ -130,14 +146,6 @@ public class EntityImpl implements Entity, T {
 			Color[] arr = new Color[number];
 			for(int i=0;i<number;i++)
 			arr[i] = (Color) t.t(cut.get(i));
-			return arr;
-		}
-		
-		if(type.equals("Date"))
-		{
-			Date[] arr = new Date[number];
-			for(int i=0;i<number;i++)
-			arr[i] = (Date) t.t(cut.get(i));
 			return arr;
 		}
 		
@@ -283,6 +291,13 @@ public class EntityImpl implements Entity, T {
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
+	private long to_long(Object obj) throws Exception
+	{
+		if(obj instanceof Number)	return ((Number)obj).longValue();
+		if(obj instanceof String)	return Long.parseLong((String) obj);
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
 	private double to_double(Object obj) throws Exception
 	{
 		if(obj instanceof Number)	return ((Number)obj).doubleValue();
@@ -297,7 +312,7 @@ public class EntityImpl implements Entity, T {
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	private boolean to_bool(Object obj) throws Exception
+	private boolean to_boolean(Object obj) throws Exception
 	{
 		if(obj instanceof Boolean)	return ((Boolean)obj).booleanValue();
 		if(obj instanceof String)	return Boolean.parseBoolean((String) obj);

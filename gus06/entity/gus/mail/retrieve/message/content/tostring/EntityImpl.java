@@ -44,8 +44,10 @@ public class EntityImpl implements Entity, T {
 		try
 		{
 			Object content = mail.getContent();
+			String type = mail.getContentType();
+			
 			StringBuffer b = new StringBuffer();
-			handle(b,content);
+			handle(b,content,type);
 			return b.toString();
 		}
 		catch(Exception e)
@@ -60,7 +62,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private void handle(StringBuffer b, Object c) throws Exception
+	private void handle(StringBuffer b, Object c, String type) throws Exception
 	{
 		if(c==null)return;
 		
@@ -72,7 +74,7 @@ public class EntityImpl implements Entity, T {
 		}
 		if(c instanceof Multipart)
 		{
-			handleMultipart(b,(Multipart)c);
+			handleMultipart(b,(Multipart)c,type);
 			return;
 		}
 		if(c instanceof MimeMessage)
@@ -84,19 +86,19 @@ public class EntityImpl implements Entity, T {
 		if(c instanceof SharedByteArrayInputStream)
 		{
 			ByteArrayInputStream bais = (ByteArrayInputStream) c;
-			b.append("<ByteArrayInputStream: not supported yet>\n");
+			b.append("<ByteArrayInputStream: not supported yet><type="+type+">\n");
 			return;
 		}
 		if(c instanceof BASE64DecoderStream)
 		{
 			BASE64DecoderStream decoder = (BASE64DecoderStream) c;
-			b.append("<BASE64DecoderStream: not supported yet>\n");
+			b.append("<BASE64DecoderStream: not supported yet><type="+type+">\n");
 			return;
 		}
 		if(c instanceof QPDecoderStream)
 		{
 			QPDecoderStream decoder = (QPDecoderStream) c;
-			b.append("<QPDecoderStream: not supported yet>\n");
+			b.append("<QPDecoderStream: not supported yet><type="+type+">\n");
 			return;
 		}
 		throw new Exception("Unknown content type: "+c.getClass().getName());
@@ -105,7 +107,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private void handleMultipart(StringBuffer b, Multipart m)
+	private void handleMultipart(StringBuffer b, Multipart m, String type)
 	{
 		try
 		{
@@ -114,12 +116,12 @@ public class EntityImpl implements Entity, T {
 			{
 				BodyPart bodyPart = m.getBodyPart(i);
 				Object c = bodyPart.getContent();
-				handle(b,c);
+				handle(b,c,type);
 			}
 		}
 		catch(Exception e)
 		{
-			Outside.err(this,"handleMultipart(StringBuffer,Multipart)",e);
+			Outside.err(this,"handleMultipart(StringBuffer,Multipart,String)",e);
 			b.append("MULTIPART ERROR: "+e);
 		}
 	}

@@ -21,14 +21,20 @@ public class EntityImpl implements Entity, I, P, R {
 	private Service buildHighCount;
 	private Service buildHighScroll;
 	private Service buildFocusLabel;
+	private Service buildCaretLabel;
+	private Service buildQuickLabel;
 	private Service buildUndoManager;
 	private Service autoSaver;
+	private Service toolbarBuilder;
 	
 	private JPanel panel;
 	private JTextComponent comp;
+	
 	private JScrollPane scroll;
 	private JComponent countComp;
 	private JComponent focusComp;
+	private JComponent quickComp;
+	private JComponent caretComp;
 	
 	private File file;
 	private UndoManager undo;
@@ -43,8 +49,11 @@ public class EntityImpl implements Entity, I, P, R {
 		buildHighCount = Outside.service(this,"gus.swing.textcomp.highlight.sys1.countbar");
 		buildHighScroll = Outside.service(this,"gus.swing.textcomp.highlight.sys1.scrollpaint");
 		buildFocusLabel = Outside.service(this,"gus.swing.textcomp.textfocus.label");
+		buildCaretLabel = Outside.service(this,"gus.swing.textcomp.buildlabel.caretposition");
+		buildQuickLabel = Outside.service(this,"gus.sys.quickreplace.holder.find.label");
 		buildUndoManager = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
 		autoSaver = Outside.service(this,"*gus.file.editor.holder.text.autosaver");
+		toolbarBuilder = Outside.service(this,"gus.swing.toolbar.toolbar1");
 		
 		comp = (JTextComponent) buildComp.i();
 		undo = (UndoManager) buildUndoManager.t(comp);
@@ -54,6 +63,8 @@ public class EntityImpl implements Entity, I, P, R {
 		scroll = (JScrollPane) buildScroll.t(comp);
 		countComp = (JComponent) buildHighCount.t(comp);
 		focusComp = (JComponent) buildFocusLabel.t(comp);
+		quickComp = (JComponent) buildQuickLabel.t(comp);
+		caretComp = (JComponent) buildCaretLabel.t(comp);
 		
 		custComp.p(comp);
 		
@@ -63,7 +74,7 @@ public class EntityImpl implements Entity, I, P, R {
 		
 		panel = new JPanel(new BorderLayout());
 		panel.add(scroll,BorderLayout.CENTER);
-		panel.add(wc(countComp,wc(focusComp,null)),BorderLayout.SOUTH);
+		panel.add(bottomBar(),BorderLayout.SOUTH);
 		
 		autoSaver.v("comp",comp);
 	}
@@ -74,10 +85,33 @@ public class EntityImpl implements Entity, I, P, R {
 	
 	
 	
+	private JComponent bottomBar() throws Exception
+	{
+		JToolBar bar = (JToolBar) toolbarBuilder.i();
+		
+		bar.add(caretComp);
+		bar.addSeparator();
+		
+		bar.add(countComp);
+		bar.addSeparator();
+		
+		bar.add(focusComp);
+		bar.addSeparator();
+		
+		//bar.add(quickComp);
+		//bar.addSeparator();
+		
+		return wc(bar,null);
+	}
+	
+	
+	
 	public Object r(String key) throws Exception
 	{
 		if(key.equals("comp")) return comp;
+		
 		if(key.equals("keys")) return new String[]{"comp"};
+		
 		throw new Exception("Unknown key: "+key);
 	}
 	

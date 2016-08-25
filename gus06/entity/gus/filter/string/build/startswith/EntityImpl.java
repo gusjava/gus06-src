@@ -19,7 +19,7 @@ public class EntityImpl implements Entity, T {
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString();
+			String str = (String) obj;
 			return str.startsWith(s);
 		}
 	}

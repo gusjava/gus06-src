@@ -19,7 +19,6 @@ public class EntityImpl implements Entity, ActionListener, I {
 
 	private JPanel panel;
 	private JButton button;
-
 	
 	
 	public EntityImpl() throws Exception

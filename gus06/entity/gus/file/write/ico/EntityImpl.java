@@ -3,6 +3,7 @@ package gus06.entity.gus.file.write.ico;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import gus06.framework.*;
+import java.io.FileOutputStream;
 
 public class EntityImpl implements Entity, P {
 
@@ -22,6 +23,8 @@ public class EntityImpl implements Entity, P {
 		File file = (File) t[0];
 		BufferedImage im = (BufferedImage) toBufferedImage.t(t[1]);
 		
-		ICOEncoder.write(im,32,file);
+		FileOutputStream fos = new FileOutputStream(file);
+		ICOEncoder.write(im,32,fos);
+		fos.close();
 	}
 }

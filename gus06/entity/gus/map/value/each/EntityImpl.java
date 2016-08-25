@@ -2,7 +2,6 @@ package gus06.entity.gus.map.value.each;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class EntityImpl implements Entity, P {
@@ -16,18 +15,13 @@ public class EntityImpl implements Entity, P {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Map input = (Map) o[0];
-		T t = (T) o[1];
+		P p = (P) o[1];
 		
-		Map output = new HashMap();
 		Iterator it = input.keySet().iterator();
 		while(it.hasNext())
 		{
 			Object key = it.next();
-			Object value = input.get(key);
-			
-			output.put(key,t.t(value));
+			p.p(input.get(key));
 		}
-		input.clear();
-		input.putAll(output);
 	}
 }

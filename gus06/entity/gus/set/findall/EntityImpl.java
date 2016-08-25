@@ -19,6 +19,7 @@ public class EntityImpl implements Entity, T {
 		F filter = (F) o[1];
 		
 		Set output = new HashSet();
+		
 		Iterator it = input.iterator();
 		while(it.hasNext())
 		{

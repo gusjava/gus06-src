@@ -22,17 +22,19 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof PrintStream)
 			return new P1((PrintStream) obj);
 		if(obj instanceof File)
-			return new P1(new PrintStream((File) obj));
+			return new P1(new PrintStream((File) obj,"UTF-8"));
 		if(obj instanceof OutputStream)
-			return new P1(new PrintStream((OutputStream) obj));
+			return new P1(new PrintStream((OutputStream) obj,true,"UTF-8"));
 		if(obj instanceof StringBuffer)
 			return new P2((StringBuffer) obj);
+		if(obj instanceof StringBuilder)
+			return new P3((StringBuilder) obj);
 			
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
-	private class P1 implements P, G
+	private class P1 implements P, G, E
 	{
 		private PrintStream p;
 		public P1(PrintStream p) {this.p = p;}
@@ -42,6 +44,9 @@ public class EntityImpl implements Entity, T {
 		
 		public Object g() throws Exception
 		{return p;}
+		
+		public void e() throws Exception
+		{p.close();}
 	}
 	
 	
@@ -49,6 +54,19 @@ public class EntityImpl implements Entity, T {
 	{
 		private StringBuffer b;
 		public P2(StringBuffer b) {this.b = b;}
+		
+		public void p(Object obj) throws Exception
+		{b.append(obj);}
+		
+		public Object g() throws Exception
+		{return b;}
+	}
+	
+	
+	private class P3 implements P, G
+	{
+		private StringBuilder b;
+		public P3(StringBuilder b) {this.b = b;}
 		
 		public void p(Object obj) throws Exception
 		{b.append(obj);}

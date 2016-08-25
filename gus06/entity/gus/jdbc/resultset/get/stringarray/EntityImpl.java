@@ -1,8 +1,7 @@
 package gus06.entity.gus.jdbc.resultset.get.stringarray;
 
-import java.sql.ResultSet;
 import gus06.framework.*;
-import java.util.HashMap;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 public class EntityImpl implements Entity, T {

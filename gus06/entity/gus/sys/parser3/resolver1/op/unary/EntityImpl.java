@@ -1,9 +1,7 @@
 package gus06.entity.gus.sys.parser3.resolver1.op.unary;
 
 import gus06.framework.*;
-import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
@@ -14,7 +12,6 @@ public class EntityImpl implements Entity, T {
 	public static final String TYPE_SYMBOL = "symbol";
 	
 	
-	private Service resolveNot;
 	private Service resolveOpp;
 	private Service resolveApply;
 	private Service resolveApplier;
@@ -24,7 +21,6 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		resolveNot = Outside.service(this,"gus.sys.parser3.resolver1.op.unary.not");
 		resolveOpp = Outside.service(this,"gus.sys.parser3.resolver1.op.unary.opp");
 		resolveApply = Outside.service(this,"gus.sys.parser3.resolver1.op.unary.apply");
 		resolveApplier = Outside.service(this,"gus.sys.parser3.resolver1.op.unary.applier");
@@ -36,30 +32,32 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
 		
-		List l = (List) o[0];
-		T t = (T) o[1];
+		Map op = (Map) o[0];
+		Map tag = (Map) o[1];
+		T t = (T) o[2];
 		
-		if(l.size()!=2) throw new Exception("Wrong tag number: "+l.size());
+		try
+		{
+			if(!hasType(op,TYPE_SYMBOL))
+				throw new Exception("Invalid first tag for unary operation: "+op);
 		
-		Map op = (Map) l.get(0);
-		Map tag = (Map) l.get(1);
+			Object symbol = value(op);
 		
+			if(symbol.equals("-")) return resolveOpp.t(new Object[]{tag,t});
+			if(symbol.equals("&")) return resolveApply.t(new Object[]{tag,t});
+			if(symbol.equals("£")) return resolveApplier.t(new Object[]{tag,t});
+			if(symbol.equals("@")) return resolveEntityUnique.t(new Object[]{tag,t});
+			if(symbol.equals("§")) return resolveEntityMultiple.t(new Object[]{tag,t});
 		
-		if(!hasType(op,TYPE_SYMBOL))
-			throw new Exception("Invalid first tag for unary operation");
-		
-		Object symbol = value(op);
-		
-		if(symbol.equals("!")) return resolveNot.t(new Object[]{tag,t});
-		if(symbol.equals("-")) return resolveOpp.t(new Object[]{tag,t});
-		if(symbol.equals("&")) return resolveApply.t(new Object[]{tag,t});
-		if(symbol.equals("£")) return resolveApplier.t(new Object[]{tag,t});
-		if(symbol.equals("@")) return resolveEntityUnique.t(new Object[]{tag,t});
-		if(symbol.equals("§")) return resolveEntityMultiple.t(new Object[]{tag,t});
-		
-		throw new Exception("Invalid symbol for unary operation: "+symbol);
+			throw new Exception("Invalid symbol for unary operation: "+symbol);
+		}
+		catch(Exception e)
+		{
+			String message = "UNARY EXP: op="+op+" tag="+tag;
+			throw new Exception(message,e);
+		}
 	}
 	
 	

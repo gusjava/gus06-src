@@ -18,6 +18,7 @@ public class EntityImpl implements Entity, ActionListener, I, P, R, E, Runnable 
 	private Service txtEditor;
 	private Service console;
 	private Service initKey;
+	private Service autoCompleteOP;
 	
 	private JSplitPane split;
 	private JTextComponent comp;
@@ -33,8 +34,11 @@ public class EntityImpl implements Entity, ActionListener, I, P, R, E, Runnable 
 		txtEditor = Outside.service(this,"*gus.file.editor.ext.txt");
 		console = Outside.service(this,"*gus.file.editor.ext.gus.console");
 		initKey = Outside.service(this,"gus.swing.textcomp.cust2.keystroke.init");
+		autoCompleteOP = Outside.service(this,"gus.swing.textcomp.cust.action.f2.gusscript.autocomplete.op");
 		
 		comp = (JTextComponent) txtEditor.r("comp");
+		
+		autoCompleteOP.p(comp);
 		initKey.v("F12",new Object[]{comp,this});
 		
 		button = new JButton("Execute");

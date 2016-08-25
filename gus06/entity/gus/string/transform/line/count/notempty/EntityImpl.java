@@ -17,8 +17,11 @@ public class EntityImpl implements Entity, T {
 		String[] nn = s.split(DELIM,-1);
 		
 		int nb = 0;
-		for(String n:nn) if(!n.trim().equals("")) nb++;
+		for(String n:nn) if(valid(n)) nb++;
 		
 		return ""+nb;
 	}
+	
+	private boolean valid(String n)
+	{return !n.equals("");}
 }

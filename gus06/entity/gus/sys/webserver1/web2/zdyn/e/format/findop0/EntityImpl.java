@@ -41,8 +41,8 @@ public class EntityImpl implements Entity, T, G {
 		op_titled = Outside.service(this,"gus.string.transform.str.titled");
 		op_glued = Outside.service(this,"gus.string.transform.normalize.diacritics.lower.glued");
 		op_html = Outside.service(this,"gus.string.transform.format.html.encode");
-		op_eval = Outside.service(this,"gus.string.transform.bool.eval1");
-		op_check = Outside.service(this,"gus.string.transform.bool.eval2");
+		op_eval = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval1");
+		op_check = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval2");
 		op_int = Outside.service(this,"gus.string.transform.math.integer.eval1");
 		op_length = Outside.service(this,"gus.string.transform.str.length");
 		op_outside = Outside.service(this,"gus.outside.call");

@@ -23,16 +23,20 @@ public class EntityImpl implements Entity, T, G {
 	{
 		list = new ArrayList();
 		
+		add(Outside.service(this,"gus.string.transformfinder.lib.chardisplay"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.charorder"));
+		add(Outside.service(this,"gus.string.transformfinder.lib.clipboard"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.countchar"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.decode"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.encode"));
+		add(Outside.service(this,"gus.string.transformfinder.lib.entity"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.format"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.hash"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.integer"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.jap"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.json"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.kchar"));
+		add(Outside.service(this,"gus.string.transformfinder.lib.kchar2"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.line"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.norm"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.rand"));
@@ -44,7 +48,7 @@ public class EntityImpl implements Entity, T, G {
 		add(Outside.service(this,"gus.string.transformfinder.lib.timestamp"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.truefalse"));
 		add(Outside.service(this,"gus.string.transformfinder.lib.truncate"));
-		add(Outside.service(this,"gus.string.transformfinder.lib.entity"));
+		add(Outside.service(this,"gus.string.transformfinder.lib.wrap"));
 	}
 	
 	

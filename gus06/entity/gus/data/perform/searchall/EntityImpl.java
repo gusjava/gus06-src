@@ -32,6 +32,7 @@ public class EntityImpl implements Entity, T {
 		else if(input instanceof Set) handleSet(filter,path,output,(Set) input);
 		else if(input instanceof Map) handleMap(filter,path,output,(Map) input);
 		else if(input instanceof Object[]) handleArray(filter,path,output,(Object[]) input);
+		
 		else if(input instanceof String) handleString(filter,path,output,(String) input);
 		else if(input instanceof Number) handleNumber(filter,path,output,(Number) input);
 		else if(input instanceof Boolean) handleBoolean(filter,path,output,(Boolean) input);

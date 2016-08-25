@@ -12,9 +12,6 @@ public class EntityImpl implements Entity, T {
 	{return new F1((Collection) obj);}
 	
 	
-	
-	
-	
 	private class F1 implements F
 	{
 		private Collection c;

@@ -34,13 +34,17 @@ public class EntityImpl implements Entity, P {
 
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 		{
-			String s = (String)value;
-			if(s==null || s.equals(""))setText(" ");
-			else setText(s);
-			
-			if(isSelected) setBackground(Color.LIGHT_GRAY);
-			else setBackground(Color.WHITE);
+			setText(getDisplay(value));
+			setBackground(isSelected ? Color.LIGHT_GRAY : Color.WHITE);
 			return this;
+		}
+		
+		private String getDisplay(Object value)
+		{
+			if(value==null) return " ";
+			String s = value.toString();
+			if(s.trim().equals("")) return " ";
+			return s;
 		}
 	}
 }

@@ -3,7 +3,7 @@ package gus06.entity.gus.dir.access.write.properties;
 import gus06.framework.*;
 import java.io.File;
 
-public class EntityImpl implements Entity, P {
+public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20150524";}
 	
@@ -21,6 +21,11 @@ public class EntityImpl implements Entity, P {
 	
 	
 	public void p(Object obj) throws Exception
+	{t(obj);}
+	
+	
+	
+	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
 		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
@@ -33,6 +38,8 @@ public class EntityImpl implements Entity, P {
 		
 		if(data==null) remove.p(f);
 		else write.p(new Object[]{f,data});
+		
+		return f;
 	}
 	
 	private File file(File dir, String key)

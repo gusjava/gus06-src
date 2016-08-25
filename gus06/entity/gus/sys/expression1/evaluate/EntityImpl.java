@@ -26,37 +26,29 @@ public class EntityImpl implements Entity, T {
 		
 		if(o.length==3)
 		{
-			List pools = (List) o[0];
+			Map pool = (Map) o[0];
 			Map opMap = (Map) o[1];
-			String exp = (String) o[2];
+			String exp = ((String) o[2]).trim();
 			
-			T external = buildExternal(pools,opMap);
-		
-			evaluate.v("rule",null);
-			evaluate.v("external",external);
-			
-			return evaluate.t(exp.trim());
+			T external = buildExternal(pool,opMap);
+			return evaluate.t(new Object[]{external,exp});
 		}
 		
 		if(o.length==4)
 		{
-			List pools = (List) o[0];
+			Map pool = (Map) o[0];
 			Map opMap = (Map) o[1];
-			String exp = (String) o[2];
-			String rule = (String) o[3];
+			Object exp = o[2];
+			Object rule = o[3];
 			
-			T external = buildExternal(pools,opMap);
-		
-			evaluate.v("rule",rule);
-			evaluate.v("external",external);
-			
-			return evaluate.t(exp.trim());
+			T external = buildExternal(pool,opMap);
+			return evaluate.t(new Object[]{external,exp,rule});
 		}
 		
 		throw new Exception("Wrong data number: "+o.length);
 	}
 	
 	
-	private T buildExternal(List pools, Map opMap) throws Exception
-	{return (T) buildExternal.t(new Object[]{pools,opMap});}
+	private T buildExternal(Map pool, Map opMap) throws Exception
+	{return (T) buildExternal.t(new Object[]{pool,opMap});}
 }

@@ -26,15 +26,19 @@ public class EntityImpl implements Entity, V, P {
 		flavor0 = (DataFlavor[]) flavorProvider.g();
 	}
 	
+	
 	public void v(String key, Object obj) throws Exception
 	{
 		if(key.equals("p")) {p = (P) obj;return;}
 		if(key.equals("g")) {g = (G) obj;return;}
+		if(key.equals("pg")) {p = (P) obj;g = (G) obj;return;}
+		
 		throw new Exception("Unknown key: "+key);
 	}
 	
+	
 	public void p(Object obj) throws Exception
-	{new TransferHandler0(p,g,(JComponent)obj);}
+	{new TransferHandler0(p,g,(JComponent) obj);}
 
 	
 	

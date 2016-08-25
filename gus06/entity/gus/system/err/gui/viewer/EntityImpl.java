@@ -4,7 +4,6 @@ import gus06.framework.*;
 import javax.swing.*;
 import java.io.*;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,7 +13,7 @@ public class EntityImpl implements Entity, I, S {
 	public String creationDate() {return "20140730";}
 
 	private Service errManager;
-	private Service buildOutput;
+	private Service buildPrintStream;
 	private Service custArea;
 	private Service textChanged;
 
@@ -29,7 +28,7 @@ public class EntityImpl implements Entity, I, S {
 	public EntityImpl() throws Exception
 	{
 		errManager = Outside.service(this,"gus.system.err.manager");
-		buildOutput = Outside.service(this,"gus.io.outputstream.textarea1");
+		buildPrintStream = Outside.service(this,"gus.io.printstream.textarea1");
 		custArea = Outside.service(this,"gus.swing.textcomp.cust.console1.black.red");
 		textChanged = Outside.service(this,"gus.swing.textcomp.textchanged.delayed");
 
@@ -42,7 +41,7 @@ public class EntityImpl implements Entity, I, S {
 		panel = new JPanel(new BorderLayout());
 		panel.add(new JScrollPane(area),BorderLayout.CENTER);
 
-		areaErr = new PrintStream((OutputStream) buildOutput.t(area));
+		areaErr = (PrintStream) buildPrintStream.t(area);
 		errManager.p(areaErr);
 	}
 	

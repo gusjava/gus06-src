@@ -14,8 +14,8 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.sys.expression1.builder1.t");
-		perform = Outside.service(this,"gus.map.key.each");
+		builder = Outside.service(this,"gus.sys.expression1.builder2.p");
+		perform = Outside.service(this,"gus.data.perform.eachkey");
 	}
 
 	
@@ -48,8 +48,8 @@ public class EntityImpl implements Entity, T {
 		
 		public Object t(Object obj) throws Exception
 		{
-			T t = (T) builder.t(new Object[]{obj,opMap});
-			return new E1(new Object[]{value,t});
+			P p = (P) builder.t(new Object[]{obj,opMap});
+			return new E1(new Object[]{value,p});
 		}
 	}
 	

@@ -8,11 +8,11 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20150906";}
 
 
-	private Service evalAsObject;
+	private Service eval;
 
 	public EntityImpl() throws Exception
 	{
-		evalAsObject = Outside.service(this,"gus.sys.script1.context.evaluate");
+		eval = Outside.service(this,"gus.sys.script1.context.evaluate");
 	}
 	
 	
@@ -22,10 +22,11 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
-		E exec = (E) evalAsObject.t(new Object[]{context,line});
+		E exec = (E) eval.t(new Object[]{context,line});
+		if(exec==null) throw new Exception("Could not execute null object");
 		exec.e();
 	}
 }

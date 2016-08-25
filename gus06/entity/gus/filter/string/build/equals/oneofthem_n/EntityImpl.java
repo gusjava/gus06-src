@@ -29,22 +29,22 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		List l = parse(normalize((String)obj));
-		return new F_oneOfThem(l);
+		List l = parse(normalize((String) obj));
+		return new Filter(l);
 	}
 	
 	
 	
-	private class F_oneOfThem implements F
+	private class Filter implements F
 	{
 		private List elements;
-		public F_oneOfThem(List elements)
+		public Filter(List elements)
 		{this.elements = elements;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = normalize(obj.toString());
+			String str = normalize((String) obj);
 			return elements.contains(str);
 		}
 	}

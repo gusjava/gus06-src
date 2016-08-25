@@ -10,8 +10,6 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{return new R1((T) obj);}
 	
-	
-	
 		
 	
 	private class R1 implements R

@@ -8,7 +8,6 @@ public class EntityImpl implements Entity, F {
 
 	public static final String BLOCKS = "HIRAGANA;KATAKANA;CJK_UNIFIED_IDEOGRAPHS";
 	
-
 	public boolean f(Object obj) throws Exception
 	{
 		if(obj==null) return false;

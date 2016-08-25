@@ -6,9 +6,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class EntityImpl implements Entity, T {
+public class EntityImpl implements Entity, T, P {
 
 	public String creationDate() {return "20151117";}
+	
+	
+	public void p(Object obj) throws Exception
+	{
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		
+		List input = (List) o[0];
+		T trans = (T) o[1];
+		
+		Collections.sort(input,new Comparator1(trans));
+	}
 	
 	
 	public Object t(Object obj) throws Exception

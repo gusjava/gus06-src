@@ -15,12 +15,8 @@ public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20141122";}
 
-	public static final KeyStroke F5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5,0);
+	public static final int KEY = KeyEvent.VK_F5;
 
-
-	public EntityImpl() throws Exception
-	{
-	}
 	
 	
 	public void p(Object obj) throws Exception
@@ -64,7 +60,7 @@ public class EntityImpl implements Entity, P {
 		public void keyReleased(KeyEvent evt){}
 		public void keyTyped(KeyEvent evt){}
 		public void keyPressed(KeyEvent evt)
-		{if(evt.getKeyCode()==KeyEvent.VK_F5) execute(ex);}
+		{if(evt.getKeyCode()==KEY) execute(ex);}
 		
 		public void mouseExited(MouseEvent evt) {}
 		public void mouseEntered(MouseEvent evt) {}

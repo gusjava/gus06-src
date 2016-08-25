@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import javax.swing.Icon;
+import java.io.PrintStream;
 
 public class EntityImpl implements Entity, T {
 
@@ -29,6 +31,9 @@ public class EntityImpl implements Entity, T {
 	private Service toArray_f;
 	private Service toArray_t;
 	
+	private Service toArray_icon;
+	private Service toArray_printstream;
+	
 	
 	private Service sum_bool;
 	private Service sum_int;
@@ -47,11 +52,19 @@ public class EntityImpl implements Entity, T {
 	private Service sum_f;
 	private Service sum_t;
 	
+	private Service sum_icon;
+	private Service sum_printstream;
+	
+	
 	private Service isType_intarray;
+	private Service isType_longarray;
 	private Service isType_doublearray;
+	private Service isType_bytearray;
 	
 	private Service sum_intarray;
+	private Service sum_longarray;
 	private Service sum_doublearray;
+	private Service sum_bytearray;
 	
 	private Service sum_motley;
 	
@@ -83,6 +96,9 @@ public class EntityImpl implements Entity, T {
 		toArray_f = Outside.service(this,"gus.convert.objarraytofarray.strict");
 		toArray_t = Outside.service(this,"gus.convert.objarraytotarray.strict");
 		
+		toArray_icon = Outside.service(this,"gus.convert.objarraytoiconarray.strict");
+		toArray_printstream = Outside.service(this,"gus.convert.objarraytoprintstreamarray.strict");
+		
 		
 		sum_bool = Outside.service(this,"gus.math.tabboolean.and");
 		sum_int = Outside.service(this,"gus.math.tabint.sum");
@@ -91,8 +107,8 @@ public class EntityImpl implements Entity, T {
 		sum_long = Outside.service(this,"gus.math.tablong.sum");
 		
 		sum_string = Outside.service(this,"gus.string.stringarray.tostring");
-		sum_list = Outside.service(this,"gus.list.listarray.tolist");
-		sum_set = Outside.service(this,"gus.set.setarray.toset");
+		sum_list = Outside.service(this,"gus.sys.opposite1.list.sum");
+		sum_set = Outside.service(this,"gus.sys.opposite1.set.sum");
 		sum_map = Outside.service(this,"gus.map.maparray.tomap");
 		
 		sum_e = Outside.service(this,"gus.feature.op.sum.e");
@@ -101,11 +117,19 @@ public class EntityImpl implements Entity, T {
 		sum_f = Outside.service(this,"gus.feature.op.filter.and");
 		sum_t = Outside.service(this,"gus.feature.op.transform.sum");
 		
+		sum_icon = Outside.service(this,"gus.convert.iconstoicon");
+		sum_printstream = Outside.service(this,"gus.io.printstream.sum");
+		
+		
 		isType_intarray = Outside.service(this,"gus.data.array.istype.intarray");
+		isType_longarray = Outside.service(this,"gus.data.array.istype.longarray");
 		isType_doublearray = Outside.service(this,"gus.data.array.istype.intdoublearray");
+		isType_bytearray = Outside.service(this,"gus.data.array.istype.bytearray");
 		
 		sum_intarray = Outside.service(this,"gus.math.vectors.sum.intarray");
+		sum_longarray = Outside.service(this,"gus.math.vectors.sum.longarray");
 		sum_doublearray = Outside.service(this,"gus.math.vectors.sum.doublearray");
+		sum_bytearray = Outside.service(this,"gus.data.array.sum.bytearray");
 		
 		sum_motley = Outside.service(this,"gus.sys.parser3.resolver1.op.seq.sum.motley");
 	}
@@ -121,8 +145,9 @@ public class EntityImpl implements Entity, T {
 		List cut = (List) o[0];
 		T t = (T) o[1];
 		
-		Object[] oo = new Object[cut.size()];
-		for(int i=0;i<cut.size();i++) oo[i] = t.t(cut.get(i));
+		int nb = cut.size();
+		Object[] oo = new Object[nb];
+		for(int i=0;i<nb;i++) oo[i] = t.t(cut.get(i));
 		
 		return perform(oo);
 	}
@@ -180,8 +205,18 @@ public class EntityImpl implements Entity, T {
 		
 		
 		
+		Icon[] ii = (Icon[]) toArray_icon.t(oo);
+		if(ii!=null) return sum_icon.t(ii);
+		
+		PrintStream[] kk = (PrintStream[]) toArray_printstream.t(oo);
+		if(kk!=null) return sum_printstream.t(kk);
+		
+		
+		
 		if(isType_intarray.f(oo)) return sum_intarray.t(oo);
+		if(isType_longarray.f(oo)) return sum_longarray.t(oo);
 		if(isType_doublearray.f(oo)) return sum_doublearray.t(oo);
+		if(isType_bytearray.f(oo)) return sum_bytearray.t(oo);
 		
 		
 		return sum_motley.t(oo);

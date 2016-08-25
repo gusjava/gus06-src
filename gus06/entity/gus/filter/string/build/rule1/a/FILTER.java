@@ -45,10 +45,18 @@ public class FILTER {
 	public static final String MASK = "mask";
 	public static final String MASK_I = "mask_i";
 	public static final String MASK_N = "mask_n";
+	
+	public static final String MASK2 = "mask2";
+	public static final String MASK2_I = "mask2_i";
+	public static final String MASK2_N = "mask2_n";
 
 	public static final String EQEXP = "eqexp";
 	public static final String EQEXP_I = "eqexp_i";
 	public static final String EQEXP_N = "eqexp_n";
+
+	public static final String MSTARS = "mstars";
+	public static final String MSTARS_I = "mstars_i";
+	public static final String MSTARS_N = "mstars_n";
 
 	public static final String COEXP = "coexp";
 	public static final String COEXP_I = "coexp_i";

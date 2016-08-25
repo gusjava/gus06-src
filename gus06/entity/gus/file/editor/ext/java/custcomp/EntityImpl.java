@@ -9,17 +9,15 @@ public class EntityImpl implements Entity, P {
 
 	
 	private Service custComp;
-	//private Service highSyntax;
 	private Service autoImport;
-	private Service autoEdit;
+	//private Service highSyntax;
 
 
 	public EntityImpl() throws Exception
 	{
 		custComp = Outside.service(this,"gus.file.editor.ext.txt.custcomp");
-		//highSyntax = Outside.service(this,"gus.swing.textpane.cust.syntax.java.ostermiller");
 		autoImport = Outside.service(this,"gus.swing.textcomp.cust.action.f2.java.autoimport");
-		autoEdit = Outside.service(this,"gus.swing.textcomp.cust.autoedit.javaediting1");
+		//highSyntax = Outside.service(this,"gus.swing.textpane.cust.syntax.java.ostermiller");
 	}
 	
 	
@@ -29,8 +27,7 @@ public class EntityImpl implements Entity, P {
 		JTextComponent comp = (JTextComponent) obj;
 
 		custComp.p(comp);
-		//highSyntax.p(comp);
 		autoImport.p(comp);
-		autoEdit.p(comp);
+		//highSyntax.p(comp);
 	}
 }

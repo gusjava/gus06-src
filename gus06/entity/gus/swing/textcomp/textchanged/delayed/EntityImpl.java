@@ -8,28 +8,25 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
 import gus06.framework.*;
+import javax.swing.SwingUtilities;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20140723";}
 
-
 	public static final long DELAY = 400;
-    
+	
 	private Timer timer;
-    
+	
 	public EntityImpl() throws Exception
 	{
 		timer = new Timer("TIMER_"+getClass().getName());
 	}
 	
-	
 	public Object t(Object obj) throws Exception
 	{
 		return new TextCompHolder((JTextComponent) obj);
 	}
-	
-	
 	
 	
 	
@@ -41,8 +38,8 @@ public class EntityImpl implements Entity, T {
 		
 		public TextCompHolder(JTextComponent comp)
 		{
-		    this.comp = comp;
-		    comp.getDocument().addDocumentListener(this);
+			this.comp = comp;
+			comp.getDocument().addDocumentListener(this);
 		}
 		
 		public void changedUpdate(DocumentEvent e) {}
@@ -51,10 +48,23 @@ public class EntityImpl implements Entity, T {
 		
 		private void textChanged_()
 		{
-		    if(task!=null) task.cancel();
-		    task = new TimerTask0(this);
-		    timer.schedule(task,DELAY);
+			if(task!=null) task.cancel();
+			task = new TimerTask(){
+				public void run() {perform();}
+			};
+			timer.schedule(task,DELAY);
 		}
+		
+		
+		private void perform()
+		{
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run() {textChanged();}
+			});
+		}
+		
+		private void textChanged()
+		{send(this,"textChanged()");}
 		
 		public Object g() throws Exception
 		{return comp;}
@@ -73,21 +83,5 @@ public class EntityImpl implements Entity, T {
 				comp.getDocument().removeDocumentListener(this);
 			}
 		}
-    }
-    
-    
-    
-    
-    
-    
-    
-    private class TimerTask0 extends TimerTask
-    {
-		private S1 d;
-		public TimerTask0(S1 d) {this.d = d;}
-		public void run() {textChanged();}
-		
-		private void textChanged()
-		{d.send(this,"textChanged()");}
-    }
+	}
 }

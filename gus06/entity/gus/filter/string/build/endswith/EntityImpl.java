@@ -8,22 +8,19 @@ public class EntityImpl implements Entity, T {
 
 	
 	public Object t(Object obj) throws Exception
-	{
-		String s = (String)obj;
-		return new F_endsWith(s);
-	}
+	{return new Filter((String) obj);}
 	
-	private class F_endsWith implements F
+	
+	private class Filter implements F
 	{
-		private String value;
-		public F_endsWith(String value)
-		{this.value = value;}
+		private String s;
+		public Filter(String s) {this.s = s;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString();
-			return str.endsWith(value);
+			String str = (String) obj;
+			return str.endsWith(s);
 		}
 	}
 }

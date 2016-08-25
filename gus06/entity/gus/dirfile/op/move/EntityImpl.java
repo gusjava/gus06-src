@@ -25,7 +25,6 @@ public class EntityImpl implements Entity, P {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		File in = o[0];
-		File out = o[1];
 		
 		if(!in.exists()) throw new Exception("Input not found: "+in);
 		

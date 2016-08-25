@@ -23,13 +23,6 @@ public class EntityImpl implements Entity, T {
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{String.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
 	
 	private class F1 implements F
 	{

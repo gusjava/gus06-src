@@ -13,49 +13,30 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		return new F_eq(obj);
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Object.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
+		return new F1(obj);
 	}
 	
 	
-	private class F_eq implements F
+	
+	private class F1 implements F
 	{
 		private Object value;
-		public F_eq(Object value) {this.value = value;}
+		public F1(Object value) {this.value = value;}
 		
 		public boolean f(Object obj) throws Exception
 		{
-			if(value instanceof Integer)
-				return toInt(value) == toInt(obj);
-			if(value instanceof Double)
-				return toDouble(value) == toDouble(obj);
-			if(value instanceof Long)
-				return toLong(value) == toLong(obj);
-			if(value instanceof Float)
-				return toFloat(value) == toFloat(obj);
+			if(value==null && obj==null) return true;
+			if(value==null || obj==null) return false;
 			
-			return value.toString().equals(obj.toString());
+			if(value instanceof Number && obj instanceof Number)
+				return toDouble((Number) value) == toDouble((Number) obj);
+			
+			return value.equals(obj);
 		}
 	}
 	
 	
 	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
-	
-	private double toDouble(Object obj)
-	{return Double.parseDouble(""+obj);}
-	
-	private long toLong(Object obj)
-	{return Long.parseLong(""+obj);}
-	
-	private float toFloat(Object obj)
-	{return Float.parseFloat(""+obj);}
+	private double toDouble(Number n)
+	{return n.doubleValue();}
 }

@@ -24,20 +24,20 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		List l = parse(((String)obj).toLowerCase());
-		return new F_allOfThem(l);
+		return new Filter(l);
 	}
 	
 	
-	private class F_allOfThem implements F
+	private class Filter implements F
 	{
 		private List elements;
-		public F_allOfThem(List elements)
+		public Filter(List elements)
 		{this.elements = elements;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			List l = parse((obj.toString()).toLowerCase());
+			List l = parse(((String) obj).toLowerCase());
 			for(int i=0;i<elements.size();i++)
 				if(!l.contains(elements.get(i))) return false;
 			return true;

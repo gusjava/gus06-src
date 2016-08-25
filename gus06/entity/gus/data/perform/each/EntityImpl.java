@@ -4,21 +4,26 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20151123";}
 	
 	
+	private Service performMap;
 	private Service performList;
 	private Service performSet;
-	private Service performMap;
+	private Service performArray;
+	private Service performFile;
 	
 	public EntityImpl() throws Exception
 	{
+		performMap = Outside.service(this,"gus.map.value.each");
 		performList = Outside.service(this,"gus.list.each");
 		performSet = Outside.service(this,"gus.set.each");
-		performMap = Outside.service(this,"gus.map.value.each");
+		performArray = Outside.service(this,"gus.array.objectarray.each");
+		performFile = Outside.service(this,"gus.dir.perform.each");
 	}
 
 	
@@ -28,6 +33,12 @@ public class EntityImpl implements Entity, P {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Object input = o[0];
+		
+		if(input instanceof Map)
+		{
+			performMap.p(obj);
+			return;
+		}
 		
 		if(input instanceof List)
 		{
@@ -41,9 +52,15 @@ public class EntityImpl implements Entity, P {
 			return;
 		}
 		
-		if(input instanceof Map)
+		if(input instanceof Object[])
 		{
-			performMap.p(obj);
+			performArray.p(obj);
+			return;
+		}
+		
+		if(input instanceof File)
+		{
+			performFile.p(obj);
 			return;
 		}
 		

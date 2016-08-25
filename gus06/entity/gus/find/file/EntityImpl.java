@@ -3,6 +3,7 @@ package gus06.entity.gus.find.file;
 import gus06.framework.*;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -15,7 +16,22 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof File) return obj;
 		if(obj instanceof String) return new File((String) obj);
 		if(obj instanceof Path) return ((Path) obj).toFile();
+		if(obj instanceof List) return uniqueFile((List) obj);
+		if(obj instanceof File[]) return uniqueFile((File[]) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private File uniqueFile(List list) throws Exception
+	{
+		if(list.size()!=1) throw new Exception("Invalid list size for file conversion: "+list.size());
+		return (File) list.get(0);
+	}
+	
+	private File uniqueFile(File[] ff) throws Exception
+	{
+		if(ff.length!=1) throw new Exception("Invalid array size for file conversion: "+ff.length);
+		return ff[0];
 	}
 }

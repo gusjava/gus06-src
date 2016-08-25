@@ -16,16 +16,20 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		if(obj instanceof File) return ext((File) obj);
+		if(obj instanceof String) return ext((String) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
+	
 	private String ext(File file)
+	{return ext(file.getName());}
+	
+	private String ext(String name)
 	{
-		String name = file.getName();
 		if(!name.contains(".")) return "";
 		String[] n = name.split("\\.");
-		return n[n.length-1];
+		return n[n.length-1].toLowerCase();
 	}
 }

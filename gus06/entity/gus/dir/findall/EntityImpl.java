@@ -24,7 +24,6 @@ public class EntityImpl implements Entity, T {
 		if(ff==null) return output;
 		
 		int nb = ff.length;
-		
 		for(int i=0;i<nb;i++)
 		{
 			Object element = ff[i];

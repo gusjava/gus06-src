@@ -33,10 +33,10 @@ public class EntityImpl implements Entity, T {
 	
 	private char randomChar()
 	{
-		int r = random(26+26+10);
+		int r = random(62); //26+26+10
 		if(r<10) return (char)(48+r);
-		if(r<36) return (char)(65+r-10);
-		return (char)(97+r-36);
+		if(r<36) return (char)(55+r);//65-10
+		return (char)(61+r);//97-36
 	}
 	
 	

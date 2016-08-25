@@ -18,7 +18,6 @@ public class EntityImpl implements Entity, T {
 	public static final String TYPE = "type";
 	public static final String VALUE = "value";
 	
-	public static final String TYPE_INT = "int";
 	public static final String TYPE_ELEMENT = "element";
 	public static final String TYPE_SYMBOL = "symbol";
 	public static final String TYPE_STRING = "string";
@@ -50,40 +49,6 @@ public class EntityImpl implements Entity, T {
 		if(isOther(m)) return null;
 		return m;
 	}
-	
-	
-	
-	
-	private String value(Map m)
-	{return m.get(VALUE).toString();}
-	
-	private String type(Map m)
-	{return (String) m.get(TYPE);}
-	
-	private boolean hasValue(Map m, String value)
-	{return value(m).equals(value);}
-	
-	private boolean startsWith(Map m, String value)
-	{return value(m).startsWith(value);}
-	
-	private boolean hasType(Map m, String type)
-	{return type(m).equals(type);}
-	
-	
-	
-	
-	private boolean isQuote(Map m)
-	{return hasType(m,TYPE_SYMBOL) && hasValue(m,QUOTE);}
-	
-	private boolean isDQuote(Map m)
-	{return hasType(m,TYPE_SYMBOL) && hasValue(m,DQUOTE);}
-	
-	private boolean isEscape(Map m)
-	{return hasType(m,TYPE_SYMBOL) && hasValue(m,ESCAPE);}
-	
-	private boolean isOther(Map m)
-	{return hasType(m,TYPE_OTHER);}
-	
 	
 	
 	
@@ -124,6 +89,39 @@ public class EntityImpl implements Entity, T {
 		
 		return m;
 	}
+	
+	
+	
+	
+	private String value(Map m)
+	{return (String) m.get(VALUE);}
+	
+	private String type(Map m)
+	{return (String) m.get(TYPE);}
+	
+	private boolean hasValue(Map m, String value)
+	{return value(m).equals(value);}
+	
+	private boolean startsWith(Map m, String value)
+	{return value(m).startsWith(value);}
+	
+	private boolean hasType(Map m, String type)
+	{return type(m).equals(type);}
+	
+	
+	
+	
+	private boolean isQuote(Map m)
+	{return hasType(m,TYPE_SYMBOL) && hasValue(m,QUOTE);}
+	
+	private boolean isDQuote(Map m)
+	{return hasType(m,TYPE_SYMBOL) && hasValue(m,DQUOTE);}
+	
+	private boolean isEscape(Map m)
+	{return hasType(m,TYPE_SYMBOL) && hasValue(m,ESCAPE);}
+	
+	private boolean isOther(Map m)
+	{return hasType(m,TYPE_OTHER);}
 	
 
 

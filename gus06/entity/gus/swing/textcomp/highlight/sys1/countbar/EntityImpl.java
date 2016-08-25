@@ -131,7 +131,10 @@ public class EntityImpl implements Entity, T {
 		private void addLabel(Color c)
 		{
 			Integer n = (Integer) mapOcc.get(c);
+			
 			JLabel l = new JLabel(" "+n);
+			l.setOpaque(true);
+			l.setBackground(Color.WHITE);
 			
 			l.setForeground(c);
 			l.setToolTipText(tooltip(c));

@@ -12,6 +12,7 @@ public class EntityImpl implements Entity, T {
 	private Service readProp_pdf;
 	private Service readProp_prop;
 	private Service readProp_eml;
+	private Service readProp_ini;
 	
 	private Service default0;
 	
@@ -23,6 +24,7 @@ public class EntityImpl implements Entity, T {
 		readProp_pdf = Outside.service(this,"gus.file.read.properties.from.pdf");
 		readProp_prop = Outside.service(this,"gus.file.read.properties.from.properties");
 		readProp_eml = Outside.service(this,"gus.file.read.properties.from.eml");
+		readProp_ini = Outside.service(this,"gus.file.read.properties.from.ini");
 	}
 	
 
@@ -41,6 +43,7 @@ public class EntityImpl implements Entity, T {
 		if(en(s,"pdf")) return readProp_pdf;
 		if(en(s,"properties")) return readProp_prop;
 		if(en(s,"eml")) return readProp_eml;
+		if(en(s,"ini")) return readProp_ini;
 		
 		return null;
 	}

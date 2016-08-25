@@ -14,6 +14,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof Number) return new Long(((Number) obj).longValue());
 		if(obj instanceof String) return new Long((String) obj);
 		if(obj instanceof Integer) return new Long((Integer) obj);
 		

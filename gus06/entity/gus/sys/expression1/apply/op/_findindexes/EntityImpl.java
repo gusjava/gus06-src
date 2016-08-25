@@ -4,7 +4,7 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Map;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151122";}
 
@@ -33,13 +33,6 @@ public class EntityImpl implements Entity, T, R {
 		if(value instanceof List) return new T1(value,opMap);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{List.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 	
 	

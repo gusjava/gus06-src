@@ -25,18 +25,44 @@ public class EntityImpl implements Entity, T {
 	{
 		List output = new ArrayList();
 		String[] nn = rule.split(";");
-		for(String n:nn) handle(output,input,n);
+		for(String n:nn) handle1(output,input,n);
 		return output;
 	}
 	
 	
-	private void handle(List output, List input, String rule) throws Exception
+	
+	private void handle1(List output, List input, String rule) throws Exception
+	{
+		String[] nn = rule.split("\\|");
+		int l = input.size();
+		
+		String rule0 = nn[0];
+		int[] skip = new int[nn.length-1];
+		for(int i=1;i<nn.length;i++) skip[i-1] = toInt(nn[i],l);
+
+		handle2(output,input,rule0,skip);
+	}
+	
+	
+	private void handle2(List output, List input, String rule, int[] skip) throws Exception
 	{
 		if(rule.equals("")) return;
 		
-		if(rule.equals(".."))
+		if(rule.equals("..") || rule.equals("all"))
 		{
-			output.addAll(input);
+			handleAll(output,input,skip);
+			return;
+		}
+		
+		if(rule.equals("2n") || rule.equals("even"))
+		{
+			handleEven(output,input,skip);
+			return;
+		}
+		
+		if(rule.equals("2n+1") || rule.equals("odd"))
+		{
+			handleOdd(output,input,skip);
 			return;
 		}
 		
@@ -45,7 +71,7 @@ public class EntityImpl implements Entity, T {
 		if(isInt(rule))
 		{
 			int n = toInt(rule,l);
-			if(n>=0 && n<l)	output.add(input.get(n));
+			if(n>=0 && n<l && !has(skip,n)) output.add(input.get(n));
 			return;
 		}
 		
@@ -61,12 +87,12 @@ public class EntityImpl implements Entity, T {
 		if(start<=end)
 		{
 			for(int i=start;i<=end;i++)
-			if(i>=0 && i<l)	output.add(input.get(i));
+			if(i>=0 && i<l && !has(skip,i)) output.add(input.get(i));
 		}
 		else
 		{
 			for(int i=start;i>=end;i--)
-			if(i>=0 && i<l)	output.add(input.get(i));
+			if(i>=0 && i<l && !has(skip,i)) output.add(input.get(i));
 		}
 	}
 	
@@ -78,6 +104,28 @@ public class EntityImpl implements Entity, T {
 		return false;
 	}
 	
+	
+	private void handleAll(List output, List input, int[] skip)
+	{
+		for(int i=0;i<input.size();i++)
+		if(!has(skip,i)) output.add(input.get(i));
+	}
+	
+	
+	private void handleEven(List output, List input, int[] skip)
+	{
+		for(int i=0;i<input.size();i++)
+		if(i%2==0 && !has(skip,i)) output.add(input.get(i));
+	}
+	
+	private void handleOdd(List output, List input, int[] skip)
+	{
+		for(int i=0;i<input.size();i++)
+		if(i%2==1 && !has(skip,i)) output.add(input.get(i));
+	}
+	
+	
+	
 	private int toInt(String s)
 	{return Integer.parseInt(s);}
 	
@@ -86,5 +134,11 @@ public class EntityImpl implements Entity, T {
 	{
 		int n = toInt(s);
 		return n<0? n+l:n;
+	}
+	
+	private boolean has(int[] nn, int v)
+	{
+		for(int n:nn) if(n==v) return true;
+		return false;
 	}
 }

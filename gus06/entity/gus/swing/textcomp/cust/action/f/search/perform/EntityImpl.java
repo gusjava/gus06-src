@@ -4,11 +4,6 @@ import gus06.framework.*;
 import javax.swing.text.*;
 import java.util.regex.*;
 import javax.swing.JOptionPane;
-import java.awt.Graphics;
-import java.awt.Shape;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Graphics2D;
 
 public class EntityImpl implements Entity, P {
 
@@ -22,9 +17,11 @@ public class EntityImpl implements Entity, P {
 	private DefaultHighlighter.DefaultHighlightPainter painter1;
 	private DefaultHighlighter.DefaultHighlightPainter painter2;
 	
+	
 	public EntityImpl() throws Exception
 	{
 		getPainter = Outside.service(this,"gus.swing.textcomp.highlight.painter.manager1");
+		
 		painter1 = (DefaultHighlighter.DefaultHighlightPainter) getPainter.r(PAINTER_KEY1);
 		painter2 = (DefaultHighlighter.DefaultHighlightPainter) getPainter.r(PAINTER_KEY2);
 	}

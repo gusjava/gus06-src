@@ -8,30 +8,34 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150526";}
 
 
-	private Service charNormalize;
+	private Service normalize;
 	
 	public EntityImpl() throws Exception
-	{charNormalize = Outside.service(this,"gus.string.transform.normalize.diacritics.lower");}
-
+	{normalize = Outside.service(this,"gus.string.transform.normalize.diacritics.lower");}
 
 	private String normalize(String s) throws Exception
-	{return (String) charNormalize.t(s);}
+	{return (String) normalize.t(s);}
+
 
 	
+	
 	public Object t(Object obj) throws Exception
-	{return new F_matches((String)obj);}
+	{
+		String s = normalize((String) obj);
+		return new Filter(s);
+	}
 	
 	
-	private class F_matches implements F
+	private class Filter implements F
 	{
 		private Pattern p;
-		public F_matches(String regexp)
+		public Filter(String regexp)
 		{p = Pattern.compile(regexp, Pattern.DOTALL);}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = normalize(obj.toString());
+			String str = normalize((String) obj);
 			return p.matcher(str).matches();
 		}
 	}

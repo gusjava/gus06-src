@@ -14,14 +14,16 @@ public class EntityImpl implements Entity, T {
 	private Service getOutput;
 	private Service getPool;
 	private Service evalAsObject;
+	private Service prepare;
 
 	public EntityImpl() throws Exception
 	{
 		execute = Outside.service(this,"gus.sys.script1.tool.execute.content.all");
 		getParams = Outside.service(this,"gus.sys.script1.access.tag.params1");
 		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
-		getPool = Outside.service(this,"gus.sys.script1.access.context.pool1");
+		getPool = Outside.service(this,"gus.sys.script1.access.context.pool.first");
 		evalAsObject = Outside.service(this,"gus.sys.script1.context.evaluate");
+		prepare = Outside.service(this,"gus.sys.script1.executor.type.el.r.redirect.prepare");
 	}
 	
 	
@@ -48,9 +50,10 @@ public class EntityImpl implements Entity, T {
 			String params = (String) getParams.t(tag);
 			Map pool = (Map) getPool.t(context);
 			Object redirect = evalAsObject.t(new Object[]{context,params});
+			Object redirectObj = prepare.t(new Object[]{redirect,pool});
 			
 			Object p0 = ((R) output).r("p0");
-			output.v("redirect",redirect);
+			output.v("redirect",redirectObj);
 			
 			execute.p(new Map[]{tag,context});
 			

@@ -20,6 +20,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		if(obj instanceof Number) return new T1((Number)obj);
+		if(obj instanceof String) return new T2((String)obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -35,8 +36,24 @@ public class EntityImpl implements Entity, T {
 		public T1(Number value) {this.value = value;}
 		
 		public Object t(Object obj) throws Exception
-		{return rem(value,toNumber(obj));}
+		{
+			if(obj==null) return value;
+			return rem(value,toNumber(obj));
+		}
 	}
+	
+	private class T2 implements T
+	{
+		private String value;
+		public T2(String value) {this.value = value;}
+		
+		public Object t(Object obj) throws Exception
+		{
+			if(obj==null) return value;
+			return rem(value,(String) obj);
+		}
+	}
+	
 	
 	
 	private Object rem(Number n1, Number n2) throws Exception
@@ -45,6 +62,10 @@ public class EntityImpl implements Entity, T {
 			return new Integer(n1.intValue() - n2.intValue());
 		return new Double(n1.doubleValue() - n2.doubleValue());
 	}
+	
+	private Object rem(String s1, String s2) throws Exception
+	{return s1.replace(s2,"");}
+	
 	
 	
 	private Number toNumber(Object obj) throws Exception

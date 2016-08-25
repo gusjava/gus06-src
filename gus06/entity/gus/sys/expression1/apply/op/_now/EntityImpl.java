@@ -7,6 +7,10 @@ import java.text.SimpleDateFormat;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151124";}
+
+	public static final String T = "constant";
+	
+	public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	
 	
 	public Object t(Object obj) throws Exception
@@ -15,14 +19,9 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof String) return now((String) obj);
-		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		return now();
 	}
 	
-	private String now(String format) throws Exception
-	{
-		return new SimpleDateFormat(format).format(new Date());
-	}
+	private String now() throws Exception
+	{return sdf.format(new Date());}
 }

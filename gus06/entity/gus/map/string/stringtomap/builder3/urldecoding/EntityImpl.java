@@ -7,8 +7,17 @@ import java.net.URLDecoder;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20141013";}
+
+
+	private Service decoder;
 	
 	public static final String DELIM = "&";
+	
+	public EntityImpl() throws Exception
+	{
+		decoder = Outside.service(this,"gus.string.transform.encoding.url.decode");
+	}
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -28,7 +37,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	private String decode(String s) throws Exception
-	{return URLDecoder.decode(s,"UTF-8");}
+	{return (String) decoder.t(s);}
 	
 	
 	

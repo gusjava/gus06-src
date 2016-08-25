@@ -36,11 +36,8 @@ public class EntityImpl implements Entity, P, T {
 		T builder = (T) retrieveBuilder.t(context);
 		P executor = (P) retrieveExecutor.t(context);
 		
-		boolean test = input.startsWith("!");
-		if(test) input = input.substring(1);
-		
 		Map tag = (Map) builder.t(input);
-		if(!test) executor.p(new Map[]{tag,context});
+		executor.p(new Map[]{tag,context});
 		
 		return tag;
 	}

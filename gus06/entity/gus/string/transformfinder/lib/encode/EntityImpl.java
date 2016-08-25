@@ -23,10 +23,11 @@ public class EntityImpl implements Entity, T, G {
 	{
 		map = new HashMap();
 		
-		put("hill",Outside.service(this,"gus.string.transform.encoding.hill.encode"));
-		put("uu",Outside.service(this,"gus.string.transform.encoding.uu.encode"));
-		put("gouvernail",Outside.service(this,"gus.string.transform.encoding.gouvernail.encode"));
 		put("datastring",Outside.service(this,"gus.string.transform.encoding.datastring.encode"));
+		put("gouvernail",Outside.service(this,"gus.string.transform.encoding.gouvernail.encode"));
+		put("hill",Outside.service(this,"gus.string.transform.encoding.hill.encode"));
+		put("url",Outside.service(this,"gus.string.transform.encoding.url.encode"));
+		put("uu",Outside.service(this,"gus.string.transform.encoding.uu.encode"));
 	}
 	
 	public Object t(Object obj) throws Exception

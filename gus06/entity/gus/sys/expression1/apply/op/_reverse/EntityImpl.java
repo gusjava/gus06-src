@@ -2,12 +2,18 @@ package gus06.entity.gus.sys.expression1.apply.op._reverse;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Collections;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151109";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.reverse");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -17,24 +23,18 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof String) return reverse((String) obj);
-		if(obj instanceof List) return reverse((List) obj);
+		
+		if(obj instanceof String) return perform.t(obj);
+		if(obj instanceof List) return perform.t(obj);
+		if(obj instanceof Object[]) return perform.t(obj);
+		
+		if(obj instanceof double[]) return perform.t(obj);
+		if(obj instanceof int[]) return perform.t(obj);
+		if(obj instanceof long[]) return perform.t(obj);
+		if(obj instanceof float[]) return perform.t(obj);
+		if(obj instanceof byte[]) return perform.t(obj);
+		if(obj instanceof boolean[]) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	
-	private String reverse(String s)
-	{
-		StringBuffer b = new StringBuffer(s);
-		return b.reverse().toString();
-	}
-	
-	
-	private List reverse(List list)
-	{
-		List list1 = new ArrayList(list);
-		Collections.reverse(list1);
-		return list1;
 	}
 }

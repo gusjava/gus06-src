@@ -10,9 +10,9 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		double[] t = (double[]) obj;
-		double sum = 0;
 		int count = t.length;
 		
+		double sum = 0;
 		for(int i=0;i<count;i++) sum += t[i];
 		return new Double(sum/count);
 	}

@@ -8,24 +8,19 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151018";}
 
 
-	private Service readText;
-
-
-
+	private Service read;
+	private Service stringToMap;
 
 	public EntityImpl() throws Exception
 	{
-		readText = Outside.service(this,"gus.file.read.string.array.autodetect");
+		read = Outside.service(this,"gus.file.read.string.autodetect");
+		stringToMap = Outside.service(this,"gus.convert.stringtomap");
 	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
-		String[] array = (String[]) readText.t(obj);
-		
-		Properties prop = new Properties();
-		for(int i=0;i<array.length;i++)
-		prop.setProperty(""+i,array[i]);
-		return prop;
+		String text = (String) read.t(obj);
+		return stringToMap.t(text);
 	}
 }

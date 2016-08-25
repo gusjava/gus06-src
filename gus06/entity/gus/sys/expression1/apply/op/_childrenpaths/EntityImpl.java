@@ -3,17 +3,16 @@ package gus06.entity.gus.sys.expression1.apply.op._childrenpaths;
 import gus06.framework.*;
 import java.io.File;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 
 
-	private Service listingPaths;
+	private Service listing;
 	
 	public EntityImpl() throws Exception
-	{
-		listingPaths = Outside.service(this,"gus.dir.listing0.paths");
-	}
+	{listing = Outside.service(this,"gus.dir.listing0.paths");}
+
 
 	
 	public Object t(Object obj) throws Exception
@@ -24,22 +23,13 @@ public class EntityImpl implements Entity, T, R {
 		
 		if(obj==null) return null;
 		if(obj instanceof File)
-		{
-			File file = (File) obj;
-			return file.isFile()?listingPaths.t(file):null;
-		}
+			return listing.t((File) obj);
 		if(obj instanceof String)
-		{
-			File file = new File((String) obj).getCanonicalFile();
-			return file.isFile()?listingPaths.t(file):null;
-		}
+			return listing.t(file((String) obj));
+		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{File.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
+	private File file(String s) throws Exception
+	{return new File(s).getCanonicalFile();}
 }

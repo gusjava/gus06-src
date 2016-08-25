@@ -24,10 +24,13 @@ public class EntityImpl implements Entity, T, G {
 		map = new HashMap();
 		
 		put("diac",Outside.service(this,"gus.string.transform.normalize.diacritics"));
+		put("diac_camel",Outside.service(this,"gus.string.transform.normalize.diacritics.camelcase"));
+		put("diac_camel_inv",Outside.service(this,"gus.string.transform.normalize.diacritics.camelcase.inv"));
 		put("diac_lower",Outside.service(this,"gus.string.transform.normalize.diacritics.lower"));
+		put("diac_lower_glued",Outside.service(this,"gus.string.transform.normalize.diacritics.lower.glued"));
 		put("diac_upper",Outside.service(this,"gus.string.transform.normalize.diacritics.upper"));
-		put("diac_glued",Outside.service(this,"gus.string.transform.normalize.diacritics.lower.glued"));
 		put("filename",Outside.service(this,"gus.string.transform.normalize.filename"));
+		put("whitespace",Outside.service(this,"gus.string.transform.normalize.whitespace"));
 	}
 	
 	public Object t(Object obj) throws Exception

@@ -2,9 +2,17 @@ package gus06.entity.gus.sys.expression1.apply.op._half;
 
 import gus06.framework.*;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.half");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -14,18 +22,19 @@ public class EntityImpl implements Entity, T, R {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof Integer) return new Double(((double) toInt(obj))*0.5);
+		
+		if(obj instanceof Integer) return perform.t(obj);
+		if(obj instanceof Double) return perform.t(obj);
+		if(obj instanceof Float) return perform.t(obj);
+		if(obj instanceof Long) return perform.t(obj);
+		
+		if(obj instanceof int[]) return perform.t(obj);
+		if(obj instanceof double[]) return perform.t(obj);
+		if(obj instanceof float[]) return perform.t(obj);
+		if(obj instanceof long[]) return perform.t(obj);
+		
+		if(obj instanceof H) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Integer.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
 }

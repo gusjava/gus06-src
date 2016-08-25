@@ -6,6 +6,7 @@ import java.util.Map;
 import java.io.File;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
+import java.util.Date;
 
 public class EntityImpl implements Entity, T {
 
@@ -17,7 +18,10 @@ public class EntityImpl implements Entity, T {
 	private Service mapToString;
 	private Service arrayToString;
 	private Service fileToString;
+	private Service dateToString;
 	private Service imageToString;
+	private Service entityToString;
+	private Service exceptionToString;
 	private Service renderedImageToString;
 	
 
@@ -28,7 +32,10 @@ public class EntityImpl implements Entity, T {
 		mapToString = Outside.service(this,"gus.tostring.desc.short1.map");
 		arrayToString = Outside.service(this,"gus.tostring.desc.short1.array");
 		fileToString = Outside.service(this,"gus.tostring.desc.short1.file");
+		dateToString = Outside.service(this,"gus.tostring.desc.short1.date");
 		imageToString = Outside.service(this,"gus.tostring.desc.short1.image");
+		entityToString = Outside.service(this,"gus.tostring.desc.short1.entity");
+		exceptionToString = Outside.service(this,"gus.tostring.desc.short1.exception");
 		renderedImageToString = Outside.service(this,"gus.tostring.desc.short1.renderedimage");
 	}
 
@@ -44,7 +51,10 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Map) return mapToString.t(obj);
 		if(obj instanceof Object[]) return arrayToString.t(obj);
 		if(obj instanceof File) return fileToString.t(obj);
+		if(obj instanceof Date) return dateToString.t(obj);
 		if(obj instanceof Image) return imageToString.t(obj);
+		if(obj instanceof Entity) return entityToString.t(obj);
+		if(obj instanceof Exception) return exceptionToString.t(obj);
 		if(obj instanceof RenderedImage) return renderedImageToString.t(obj);
 		
 		return className(obj);

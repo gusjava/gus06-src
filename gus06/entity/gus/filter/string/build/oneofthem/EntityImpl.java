@@ -1,13 +1,8 @@
 package gus06.entity.gus.filter.string.build.oneofthem;
 
-
 import gus06.framework.*;
 
-
-
 public class EntityImpl implements Entity, T {
-
-
 
 	public String creationDate() {return "20150529";}
 
@@ -23,20 +18,20 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String[] words = (String[]) cuttingMethod.t(obj);
-		return new F_oneOfThem(words);
+		return new Filter(words);
 	}
 	
 	
-	private class F_oneOfThem implements F
+	private class Filter implements F
 	{
 		private String[] words;
-		public F_oneOfThem(String[] words)
+		public Filter(String[] words)
 		{this.words = words;}
 		
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = obj.toString();
+			String str = (String) obj;
 			for(int i=0;i<words.length;i++)
 				if(str.contains(words[i])) return true;
 			return false;

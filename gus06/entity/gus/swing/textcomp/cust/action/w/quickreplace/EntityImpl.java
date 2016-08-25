@@ -15,39 +15,43 @@ public class EntityImpl implements Entity, P {
 	public static final KeyStroke KEYSTROKE = KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK);
 	
 	
-	private Service buildExecute;
+	private Service buildHolder;
+	private Service buildTransform;
 	
 	public EntityImpl() throws Exception
-	{buildExecute = Outside.service(this,"gus.swing.textcomp.cust.action.w.quickreplace.buildexecute");}
+	{
+		buildHolder = Outside.service(this,"gus.sys.quickreplace.holder.find");
+		buildTransform = Outside.service(this,"gus.swing.textcomp.cust.action.w.quickreplace.t");
+	}
 	
 	
 	public void p(Object obj) throws Exception
 	{
 		JTextComponent comp = (JTextComponent) obj;
-		E execute = (E) buildExecute.t(comp);
-		new Holder(comp,execute);
+		P holder = (P) buildHolder.t(comp);
+		new Holder(comp,holder);
 	}
 
 
 
 	private class Holder extends AbstractAction
 	{
-		private E execute;
+		private P holder;
 		
-		public Holder(JTextComponent comp, E execute)
+		public Holder(JTextComponent comp, P holder)
 		{
-			this.execute = execute;
+			this.holder = holder;
 			comp.getInputMap().put(KEYSTROKE,this);
 		}
 		public void actionPerformed(ActionEvent e)
-		{execute(execute);}
+		{execute(holder);}
 	}
 	
 	
-	private void execute(E execute)
+	private void execute(P holder)
 	{
-		try{execute.e();}
+		try{holder.p(buildTransform);}
 		catch(Exception e)
-		{Outside.err(this,"execute(E)",e);}
+		{Outside.err(this,"execute(P)",e);}
 	}
 }

@@ -1,10 +1,20 @@
 package gus06.entity.gus.sys.expression1.apply.op._lower;
 
 import gus06.framework.*;
+import java.util.Set;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151109";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.lower");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -15,23 +25,13 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof String[]) return array((String[]) obj);
-		if(obj instanceof String) return ((String) obj).toLowerCase();
-		
-		if(obj instanceof Integer) return ""+obj;
-		if(obj instanceof Double) return ""+obj;
-		if(obj instanceof Float) return ""+obj;
-		if(obj instanceof Long) return ""+obj;
+		if(obj instanceof Set) return perform.t(obj);
+		if(obj instanceof List) return perform.t(obj);
+		if(obj instanceof String[]) return perform.t(obj);
+		if(obj instanceof String) return perform.t(obj);
+		if(obj instanceof Number) perform.t(obj);
+		if(obj instanceof Boolean) perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	
-	
-	private String[] array(String[] a)
-	{
-		String[] a1 = new String[a.length];
-		for(int i=0;i<a1.length;i++) a1[i] = a[i].toLowerCase();
-		return a1;
 	}
 }

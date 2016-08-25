@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.expression1.apply.op._children;
 import gus06.framework.*;
 import java.io.File;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 
@@ -19,15 +19,11 @@ public class EntityImpl implements Entity, T, R {
 		if(obj instanceof File)
 			return ((File) obj).listFiles();
 		if(obj instanceof String)
-			return new File((String) obj).getCanonicalFile().listFiles();
+			return file((String) obj).listFiles();
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{File.class,String.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
-	}
+	private File file(String s) throws Exception
+	{return new File(s).getCanonicalFile();}
 }

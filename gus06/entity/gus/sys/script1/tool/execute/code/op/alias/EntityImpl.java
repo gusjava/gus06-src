@@ -18,8 +18,8 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
 		Map alias = getAliasMap(context);
 		setAlias(alias,line);

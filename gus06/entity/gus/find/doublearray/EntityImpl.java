@@ -12,14 +12,29 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		if(obj==null) return null;
+		
 		if(obj instanceof double[]) return obj;
-		if(obj instanceof int[]) return intArrToArray((int[]) obj);
-		if(obj instanceof long[]) return intArrToArray((long[]) obj);
-		if(obj instanceof float[]) return intArrToArray((float[]) obj);
-		if(obj instanceof String[]) return intArrToArray((String[]) obj);
-		if(obj instanceof List) return listToArray((List) obj);
-		if(obj instanceof Set) return setToArray((Set) obj);
-		if(obj instanceof Map) return mapToArray((Map) obj);
+		if(obj instanceof int[]) return handle((int[]) obj);
+		if(obj instanceof long[]) return handle((long[]) obj);
+		if(obj instanceof float[]) return handle((float[]) obj);
+		
+		if(obj instanceof Set) return handle((Set) obj);
+		if(obj instanceof List) return handle((List) obj);
+		if(obj instanceof Object[]) return handle((Object[]) obj);
+		
+		if(obj instanceof double[][])
+		{
+			double[][] d = (double[][]) obj;
+			if(d.length==1) return d[0];
+			if(d.length>1 && d[0].length==1)
+			{
+				int l = d.length;
+				double[] r = new double[l];
+				for(int i=0;i<l;i++) r[i] = d[i][0];
+				return r;
+			}
+			throw new Exception("Invalid array length: "+d.length);
+		}
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -27,62 +42,53 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private double[] intArrToArray(int[] t)
+	private double[] handle(int[] t)
 	{
 		double[] n = new double[t.length];
 		for(int i=0;i<t.length;i++) n[i] = (double) t[i];
 		return n;
 	}
 	
-	private double[] intArrToArray(long[] t)
+	private double[] handle(long[] t)
 	{
 		double[] n = new double[t.length];
 		for(int i=0;i<t.length;i++) n[i] = (double) t[i];
 		return n;
 	}
 	
-	private double[] intArrToArray(float[] t)
+	private double[] handle(float[] t)
 	{
 		double[] n = new double[t.length];
 		for(int i=0;i<t.length;i++) n[i] = (double) t[i];
 		return n;
 	}
 	
-	private double[] intArrToArray(String[] t)
+	private double[] handle(Object[] t) throws Exception
 	{
 		double[] n = new double[t.length];
-		for(int i=0;i<t.length;i++) n[i] = Double.parseDouble(t[i]);
+		for(int i=0;i<t.length;i++) n[i] = toDouble(t[i]);
 		return n;
 	}
 	
-	
-	
-	
-	
-	private double[] listToArray(List list) throws Exception
+	private double[] handle(List list) throws Exception
 	{
 		double[] n = new double[list.size()];
 		for(int i=0;i<list.size();i++) n[i] = toDouble(list.get(i));
 		return n;
 	}
 	
-	private double[] setToArray(Set set) throws Exception
+	private double[] handle(Set set) throws Exception
 	{
-		ArrayList list = new ArrayList(set);
-		Collections.sort(list);
-		return listToArray(list);
+		return handle(new ArrayList(set));
 	}
 	
-	private double[] mapToArray(Map map) throws Exception
-	{
-		return setToArray(map.keySet());
-	}
+	
 	
 	
 	private double toDouble(Object obj) throws Exception
 	{
 		if(obj instanceof String) return Double.parseDouble((String) obj);
-		if(obj instanceof Double) return ((Double) obj).doubleValue();
+		if(obj instanceof Number) return ((Number) obj).doubleValue();
 		
 		throw new Exception("Invalid data type for double conversion: "+obj.getClass().getName());
 	}

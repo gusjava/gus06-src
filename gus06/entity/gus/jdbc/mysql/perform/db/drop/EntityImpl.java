@@ -10,12 +10,14 @@ public class EntityImpl implements Entity, P {
 
 	private Service buildSql;
 	private Service executeSql;
+	private Service protectedPath;
 
 
 	public EntityImpl() throws Exception
 	{
 		buildSql = Outside.service(this,"gus.jdbc.mysql.sql.db.drop");
 		executeSql = Outside.service(this,"gus.jdbc.mysql.perform.sqlexecute");
+		protectedPath = Outside.service(this,"gus.jdbc.mysql.check.protectedpath");
 	}
 	
 	
@@ -26,6 +28,8 @@ public class EntityImpl implements Entity, P {
 		
 		Connection cx = (Connection) o[0];
 		String dbName = (String) o[1];
+		
+		if(protectedPath.f(dbName)) throw new Exception("Attempt to drop db: "+dbName);
 		
 		String sql = (String) buildSql.t(dbName);
 		executeSql.p(new Object[]{cx,sql});

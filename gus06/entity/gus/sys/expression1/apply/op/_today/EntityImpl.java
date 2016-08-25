@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 
 public class EntityImpl implements Entity, T {
 
-	public String creationDate() {return "20151110";}
+	public String creationDate() {return "20160711";}
 	
-	private SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+	public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
 	
 	public Object t(Object obj) throws Exception
@@ -17,15 +17,9 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof Date) return today((Date) obj);
-		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		return today();
 	}
 	
-	private Boolean today(Date date)
-	{return new Boolean(yyyyMMdd(date).equals(yyyyMMdd(new Date())));}
-	
-	private String yyyyMMdd(Date date)
-	{return yyyyMMdd.format(date);}
+	private String today() throws Exception
+	{return sdf.format(new Date());}
 }

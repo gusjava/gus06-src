@@ -1,10 +1,22 @@
 package gus06.entity.gus.sys.expression1.apply.op._abs;
 
 import gus06.framework.*;
+import java.util.Set;
+import java.util.List;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
+
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.abs");
+	}
+	
 	
 	
 	public Object t(Object obj) throws Exception
@@ -15,33 +27,20 @@ public class EntityImpl implements Entity, T, R {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof Integer) return new Integer(Math.abs(toInt(obj)));
-		if(obj instanceof Double) return new Double(Math.abs(toDouble(obj)));
-		if(obj instanceof Float) return new Float(Math.abs(toFloat(obj)));
-		if(obj instanceof Long) return new Long(Math.abs(toLong(obj)));
+		if(obj instanceof H) return perform.t(obj);
+		if(obj instanceof Set) return perform.t(obj);
+		if(obj instanceof List) return perform.t(obj);
+		
+		if(obj instanceof Integer) return perform.t(obj);
+		if(obj instanceof Double) return perform.t(obj);
+		if(obj instanceof Float) return perform.t(obj);
+		if(obj instanceof Long) return perform.t(obj);
+		
+		if(obj instanceof int[]) return perform.t(obj);
+		if(obj instanceof double[]) return perform.t(obj);
+		if(obj instanceof float[]) return perform.t(obj);
+		if(obj instanceof long[]) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("input")) return new Class[]{Integer.class,Double.class,Float.class,Long.class};
-		if(key.equals("output")) return new Class[]{Integer.class,Double.class,Float.class,Long.class};
-		
-		if(key.equals("keys")) return new String[]{"input","output"};
-		throw new Exception("Unknown key: "+key);
-	}
-	
-	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
-	
-	private double toDouble(Object obj)
-	{return Double.parseDouble(""+obj);}
-	
-	private float toFloat(Object obj)
-	{return Float.parseFloat(""+obj);}
-	
-	private long toLong(Object obj)
-	{return Long.parseLong(""+obj);}
 }

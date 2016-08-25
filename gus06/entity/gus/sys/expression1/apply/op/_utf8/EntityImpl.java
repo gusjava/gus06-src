@@ -9,7 +9,7 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 	
-	public final Charset CHARSET = Charset.forName("UTF-8");
+	public final static Charset CHARSET = Charset.forName("UTF-8");
 
 
 	private Service readTextUTF8;
@@ -17,7 +17,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		readTextUTF8 = Outside.service(this,"gus.file.read.string.utf8");
+		readTextUTF8 = Outside.service(this,"gus.file.read.string.cs.utf8");
 		urlToTextUTF8 = Outside.service(this,"gus.web.download.urltotext.utf8");
 	}
 

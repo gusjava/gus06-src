@@ -5,6 +5,14 @@ import gus06.framework.*;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
+
+
+	private Service buildFilter;
+	
+	public EntityImpl() throws Exception
+	{
+		buildFilter = Outside.service(this,"gus.filter.array.build.many");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -14,11 +22,29 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof Integer) return new Boolean(toInt(obj)>1);
+		
+		if(obj instanceof Integer) 	return many((Integer) obj);
+		if(obj instanceof boolean[])	return many((boolean[]) obj);
+		if(obj instanceof F[])		return buildFilter.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
+	
+	private Boolean many(Integer n)
+	{
+		return new Boolean(n.intValue()>1);
+	}
+	
+	
+	private Boolean many(boolean[] array)
+	{
+		int found = 0;
+		for(boolean n:array) if(n)
+		{
+			found++;
+			if(found>1) return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
 }

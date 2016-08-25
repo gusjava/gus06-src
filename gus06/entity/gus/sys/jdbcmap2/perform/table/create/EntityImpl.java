@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.jdbcmap2.perform.table.create;
 import gus06.framework.*;
 import java.sql.Connection;
 
-public class EntityImpl implements Entity, F {
+public class EntityImpl implements Entity, F, P {
 
 	public String creationDate() {return "20150625";}
 	
@@ -25,6 +25,9 @@ public class EntityImpl implements Entity, F {
 		create = Outside.service(this,"gus.jdbc.mysql.perform.table.create");
 	}
 	
+	public void p(Object obj) throws Exception
+	{f(obj);}
+	
 	
 	public boolean f(Object obj) throws Exception
 	{
@@ -36,7 +39,7 @@ public class EntityImpl implements Entity, F {
 		
 		String[] col = new String[]{F_ID,F_KEY,F_VALUE};
 		String[] type = new String[]{T_ID,T_KEY,T_VALUE};
-		String[] primary = new String[]{F_ID,T_KEY};
+		String[] primary = new String[]{F_ID,F_KEY};
 		
 		create.p(new Object[]{cx,path,col,type,primary});
 		return true;

@@ -19,7 +19,7 @@ public class EntityImpl implements Entity {
 		bar = Outside.service(this,"gus.app.mainframe.menubar");
 		menuBar = (JMenuBar) bar.i();
 		
-		add("gus.appli.ideamanager.menu.menu1");
+		add(Outside.service(this,"gus.appli.ideamanager.menu.menu1"));
 		
 		menuBar.repaint();
 	}
@@ -27,11 +27,10 @@ public class EntityImpl implements Entity {
 	
 	
 	
-	private void add(String entityName)
+	private void add(Service s)
 	{
 		try
 		{
-			Service s = Outside.service(this,entityName);
 			JMenu menu = (JMenu) s.i();
 			if(menu!=null) menuBar.add(menu);
 		}

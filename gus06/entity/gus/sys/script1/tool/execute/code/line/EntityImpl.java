@@ -25,8 +25,8 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		String line = (String) o[0];
-		Map context = (Map) o[1];
+		Map context = (Map) o[0];
+		String line = (String) o[1];
 		
 		line = (String) formatValue.t(line);
 		if(line.equals("")) return;
@@ -37,6 +37,6 @@ public class EntityImpl implements Entity, P {
 		String params = n.length==2?n[1]:null;
 		
 		P op = (P) opMap.t(name);
-		op.p(new Object[]{params,context});
+		op.p(new Object[]{context,params});
 	}
 }

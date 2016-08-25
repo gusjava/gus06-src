@@ -3,7 +3,7 @@ package gus06.entity.gus.sys.jdbclink.perform.table.create;
 import gus06.framework.*;
 import java.sql.Connection;
 
-public class EntityImpl implements Entity, F {
+public class EntityImpl implements Entity, F, P {
 
 	public String creationDate() {return "20150625";}
 	
@@ -22,6 +22,9 @@ public class EntityImpl implements Entity, F {
 	{
 		create = Outside.service(this,"gus.jdbc.mysql.perform.table.create");
 	}
+	
+	public void p(Object obj) throws Exception
+	{f(obj);}
 	
 	
 	public boolean f(Object obj) throws Exception

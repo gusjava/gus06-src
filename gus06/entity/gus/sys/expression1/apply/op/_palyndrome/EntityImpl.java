@@ -1,6 +1,7 @@
 package gus06.entity.gus.sys.expression1.apply.op._palyndrome;
 
 import gus06.framework.*;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -16,15 +17,47 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return Boolean.FALSE;
-		if(!(obj instanceof String)) return Boolean.FALSE;
 		
-		return new Boolean(isPalyndrome((String) obj));
+		if(obj instanceof String) return new Boolean(isPalyndrome((String) obj));
+		if(obj instanceof List) return new Boolean(isPalyndrome((List) obj));
+		if(obj instanceof Object[]) return new Boolean(isPalyndrome((Object[]) obj));
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
+	
 	
 	
 	private boolean isPalyndrome(String s)
 	{
 		StringBuffer b = new StringBuffer(s);
 		return b.reverse().toString().equals(s);
+	}
+	
+	
+	private boolean isPalyndrome(List l)
+	{
+		int n = l.size()/2;
+		for(int i=0;i<n;i++)
+		{
+			Object o1 = l.get(i);
+			Object o2 = l.get(n-1-i);
+			
+			if(!o1.equals(o2)) return false;
+		}
+		return true;
+	}
+	
+	
+	private boolean isPalyndrome(Object[] o)
+	{
+		int n = o.length/2;
+		for(int i=0;i<n;i++)
+		{
+			Object o1 = o[i];
+			Object o2 = o[n-1-i];
+			
+			if(!o1.equals(o2)) return false;
+		}
+		return true;
 	}
 }

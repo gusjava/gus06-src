@@ -9,6 +9,14 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151110";}
 	
 	
+	private Service performLoop;
+	
+	public EntityImpl() throws Exception
+	{
+		performLoop = Outside.service(this,"gus.data.perform.loop");
+	}
+	
+	
 	
 	public Object t(Object obj) throws Exception
 	{
@@ -31,8 +39,12 @@ public class EntityImpl implements Entity, T {
 			return new T_times_String((String) obj);
 		if(obj instanceof List)
 			return new T_times_List((List) obj);
-		if(obj instanceof E)
-			return new T_times_E((E) obj);
+			
+		if(obj instanceof E) return new T_loop(obj);
+		if(obj instanceof G) return new T_loop(obj);
+		if(obj instanceof H) return new T_loop(obj);
+		if(obj instanceof P) return new T_loop(obj);
+		if(obj instanceof T) return new T_loop(obj);
 			
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -122,30 +134,12 @@ public class EntityImpl implements Entity, T {
 		}
 	}
 	
-	private class T_times_E implements T
+	private class T_loop implements T
 	{
-		private E value;
-		public T_times_E(E value) {this.value = value;}
+		private Object value;
+		public T_loop(Object value) {this.value = value;}
 		
 		public Object t(Object obj) throws Exception
-		{return new E0(value,toInt(obj));}
-	}
-	
-	
-	
-	
-	private class E0 implements E
-	{
-		private E value;
-		private int times;
-		
-		public E0(E value, int times)
-		{
-			this.value = value;
-			this.times = times;
-		}
-		
-		public void e() throws Exception
-		{for(int i=0;i<times;i++) value.e();}
+		{return performLoop.t(new Object[]{value,obj});}
 	}
 }

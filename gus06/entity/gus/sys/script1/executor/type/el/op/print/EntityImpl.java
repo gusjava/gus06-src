@@ -8,13 +8,13 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150829";}
 
 	
-	private Service getParams;
-	private Service op;
+	private Service wrapping1;
+	private Service print;
 
 	public EntityImpl() throws Exception
 	{
-		getParams = Outside.service(this,"gus.sys.script1.access.tag.params1");
-		op = Outside.service(this,"gus.sys.script1.tool.execute.code.op.print");
+		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
+		print = Outside.service(this,"gus.sys.script1.tool.print");
 	}
 	
 		
@@ -31,8 +31,25 @@ public class EntityImpl implements Entity, T {
 		public void p(Object obj) throws Exception
 		{
 			Map context = (Map) obj;
-			String params = (String) getParams.t(tag);
-			op.p(new Object[]{params,context});
+			wrapping1.p(new Object[]{context,tag,new Wrap()});
+		}
+	}
+	
+	
+	private class Wrap implements P
+	{
+		public void p(Object obj) throws Exception
+		{
+			Object[] o = (Object[]) obj;
+			if(o.length!=5) throw new Exception("Wrong data number: "+o.length);
+			
+			Map context = (Map) o[0];
+			Map tag = (Map) o[1];
+			Map pool1 = (Map) o[2];
+			Object main = o[3];
+			Map data = (Map) o[4];
+			
+			print.p(new Object[]{context,main});
 		}
 	}
 }

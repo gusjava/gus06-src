@@ -1,7 +1,6 @@
 package gus06.entity.gus.data.string.subsequence;
 
 import gus06.framework.*;
-import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -23,6 +22,9 @@ public class EntityImpl implements Entity, T {
 	
 	private String sub(String input, String rule) throws Exception
 	{
+		if(rule.matches("f[0-9]+")) return truncateFirst(input,rule);
+		if(rule.matches("l[0-9]+")) return truncateLast(input,rule);
+		
 		StringBuffer b = new StringBuffer();
 		
 		String[] nn = rule.split(";");
@@ -31,9 +33,50 @@ public class EntityImpl implements Entity, T {
 		return b.toString();
 	}
 	
+	
+	private String truncateFirst(String input, String rule) throws Exception
+	{
+		int n = toInt(rule.substring(1));
+		int l = input.length();
+		if(n>=l) throw new Exception("Invalid subsequence rule: "+rule);
+		return input.substring(n);
+	}
+	
+	
+	private String truncateLast(String input, String rule) throws Exception
+	{
+		int n = toInt(rule.substring(1));
+		int l = input.length();
+		if(n>=l) throw new Exception("Invalid subsequence rule: "+rule);
+		return input.substring(0,input.length()-n);
+	}
+	
+	
 	private String sub1(String input, String rule) throws Exception
 	{
-		if(rule.equals("..")) return input;
+		String[] nn = rule.split("\\|");
+		int l = input.length();
+		
+		String rule0 = nn[0];
+		int[] skip = new int[nn.length-1];
+		for(int i=1;i<nn.length;i++) skip[i-1] = toInt(nn[i],l);
+
+		return sub2(input,rule0,skip);
+	}
+
+
+
+	private String sub2(String input, String rule, int[] skip) throws Exception
+	{
+		if(rule.equals("..")) return all(input,skip);
+		if(rule.equals("all")) return all(input,skip);
+		
+		if(rule.equals("even")) return even(input,skip);
+		if(rule.equals("2n")) return even(input,skip);
+		
+		if(rule.equals("odd")) return odd(input,skip);
+		if(rule.equals("2n+1")) return odd(input,skip);
+		
 		
 		int l = input.length();
 		
@@ -41,7 +84,7 @@ public class EntityImpl implements Entity, T {
 		{
 			int n = toInt(rule,l);
 			if(n<0 || n>=l) throw new Exception("Invalid subsequence rule: "+rule);
-			return ""+input.charAt(n);
+			return has(skip,n)?"":""+input.charAt(n);
 		}
 		
 		if(rule.startsWith("..")) rule = "0"+rule;
@@ -56,8 +99,8 @@ public class EntityImpl implements Entity, T {
 		int end = toInt(m[1],l);
 		if(end<0 || end>=l) throw new Exception("Invalid subsequence rule: "+rule);
 		
-		if(start<=end) return input.substring(start,end+1);
-		return substring_re(input,start,end);
+		if(start<=end) return substring(input,start,end,skip);
+		return substring_re(input,start,end,skip);
 	}
 	
 	private boolean isInt(String s)
@@ -66,6 +109,54 @@ public class EntityImpl implements Entity, T {
 		catch(NumberFormatException e){}
 		return false;
 	}
+	
+	
+	
+	
+	private String substring(String s, int start, int end, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=start;i<=end;i++)
+		if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	
+	private String substring_re(String s, int start, int end, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=start;i>=end;i--)
+		if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	
+	
+	
+	private String all(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(!has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	private String even(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(i%2==0 && !has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
+	private String odd(String s, int[] skip)
+	{
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<s.length();i++)
+		if(i%2==1 && !has(skip,i)) b.append(s.charAt(i));
+		return b.toString();
+	}
+	
 	
 	private int toInt(String s)
 	{return Integer.parseInt(s);}
@@ -77,11 +168,9 @@ public class EntityImpl implements Entity, T {
 		return n<0? n+l:n;
 	}
 	
-	
-	private String substring_re(String s, int start, int end)
+	private boolean has(int[] nn, int v)
 	{
-		StringBuffer b = new StringBuffer();
-		for(int i=start;i>=end;i--) b.append(s.charAt(i));
-		return b.toString();
+		for(int n:nn) if(n==v) return true;
+		return false;
 	}
 }

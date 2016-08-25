@@ -11,34 +11,54 @@ public class EntityImpl implements Entity, ActionListener {
 
 
 	private Service engine;
-	private Service receiver;
+	private Service process;
 	private Service pooler;
 
 
 	public EntityImpl() throws Exception
 	{
-		engine = Outside.service(this,"gus.sys.webserver1.engine");
-		receiver = Outside.service(this,"gus.sys.webserver1.engine.receiver");
-		pooler = Outside.service(this,"gus.sys.webserver1.engine.pooler");
+		engine = Outside.service(this,"gus.sys.webserver1.main.engine");
+		process = Outside.service(this,"gus.sys.webserver1.main.process");
+		pooler = Outside.service(this,"*gus.thread.pooler.pobj.pool5");
 		
-		receiver.addActionListener(this);
+		
+		pooler.v("handler",new P() {
+			public void p(Object obj){poolerToEngine(obj);}
+		});
+		
+		engine.addActionListener(this);
 		engine.e();
 	}
-
+	
+	
+	
 
 	public void actionPerformed(ActionEvent e)
-	{perform();}
+	{engineToPooler();}
 	
 	
 	
-	private void perform()
+	
+	private void engineToPooler()
 	{
 		try
 		{
-			Object input = receiver.g();
+			Object input = engine.g();
 			pooler.p(input);
 		}
 		catch(Exception e)
-		{Outside.err(this,"perform()",e);}
+		{Outside.err(this,"engineToPooler()",e);}
+	}
+	
+	
+	private void poolerToEngine(Object obj)
+	{
+		try
+		{
+			obj = process.t(obj);
+			engine.p(obj);
+		}
+		catch(Exception e)
+		{Outside.err(this,"poolerToEngine(Object)",e);}
 	}
 }

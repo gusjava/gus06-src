@@ -12,6 +12,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	public static final String KEY_ADDRESS = "address";
+	public static final String KEY_PORT = "port";
 	public static final String KEY_CHANNEL = "channel";
 	public static final String KEY_DATA = "data";
 	
@@ -39,31 +40,27 @@ public class EntityImpl implements Entity, T {
 		SocketChannel ch = (SocketChannel) o[0];
 		byte[] data = (byte[]) o[1];
 		
-		//System.out.println("-----------------------");
-		//System.out.println("PACKET["+data.length+"]");
 		
 		if(data.length==BUFFSIZE)
 		{
 			enqueueData(ch,data);
-			//System.out.println("return null");
 			return null;
 		}
 		data = appendData(ch,data);
-		//System.out.println("data length: "+data.length);
 		
-		//System.out.println("return map");
 		Map map = (Map) formatData.t(data);
 		
 		if(map==null)
 		{
 			enqueueData(ch,data);
-			//System.out.println("return null");
 			return null;
 		}
 		
 		map.put(KEY_ADDRESS,address(ch));
+		map.put(KEY_PORT,port(ch));
 		map.put(KEY_CHANNEL,ch);
 		map.put(KEY_DATA,data);
+		
 		return map;
 	}
 	
@@ -74,6 +71,8 @@ public class EntityImpl implements Entity, T {
 	{return ch.socket().getInetAddress().getHostName();}
 	
 	
+	private String port(SocketChannel ch)
+	{return ""+ch.socket().getPort();}
 	
 	
 	

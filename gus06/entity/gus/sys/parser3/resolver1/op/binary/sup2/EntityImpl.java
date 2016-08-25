@@ -2,8 +2,7 @@ package gus06.entity.gus.sys.parser3.resolver1.op.binary.sup2;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.Date;
 
 public class EntityImpl implements Entity, T {
 
@@ -16,22 +15,33 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		List[] cut = (List[]) o[0];
+		List cut = (List) o[0];
 		T t = (T) o[1];
 		
-		if(cut.length!=2) throw new Exception("Invalid split for equals operation: "+cut.length);
+		if(cut.size()!=2) throw new Exception("Invalid split for equals operation: "+cut.size());
 		
-		List l1 = cut[0];
-		List l2 = cut[1];
+		Object o1 = t.t(cut.get(0));
+		Object o2 = t.t(cut.get(1));
 		
-		double d1 = toNum(t.t(l1)).doubleValue();
-		double d2 = toNum(t.t(l2)).doubleValue();
-		return new Boolean(d1 > d2);
+		if(o1==null) return Boolean.FALSE;
+		if(o2==null) return Boolean.FALSE;
+		
+		if(o1 instanceof Number && o2 instanceof Number)
+			return new Boolean(numberToDouble(o1) > numberToDouble(o2));
+		
+		if(o1 instanceof Date && o2 instanceof Date)
+			return new Boolean(dateToLong(o1) > dateToLong(o2));
+		
+		if(o1 instanceof String && o2 instanceof String)
+			return new Boolean(((String) o1).compareTo((String) o2) > 0);
+		
+		return Boolean.FALSE;
 	}
 	
-	private Number toNum(Object obj) throws Exception
-	{
-		if(!(obj instanceof Number)) throw new Exception("Invalid data type: "+obj.getClass().getName());
-		return (Number) obj;
-	}
+	
+	private double numberToDouble(Object obj)
+	{return ((Number) obj).doubleValue();}
+	
+	private long dateToLong(Object obj)
+	{return ((Date) obj).getTime();}
 }

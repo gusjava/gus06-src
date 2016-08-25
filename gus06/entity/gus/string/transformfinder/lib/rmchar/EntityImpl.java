@@ -25,11 +25,11 @@ public class EntityImpl implements Entity, T, G {
 		
 		put("diac",Outside.service(this,"gus.string.transform.character.remove.diacritics"));
 		put("digit",Outside.service(this,"gus.string.transform.character.remove.digit"));
+		put("eol",Outside.service(this,"gus.string.transform.character.remove.eol"));
 		put("white",Outside.service(this,"gus.string.transform.character.remove.whitespace"));
 		put("spacetab",Outside.service(this,"gus.string.transform.character.remove.whitespace.spacetab"));
 		put("space",Outside.service(this,"gus.string.transform.character.remove.whitespace.space"));
 		put("tab",Outside.service(this,"gus.string.transform.character.remove.whitespace.tab"));
-		put("lfcr",Outside.service(this,"gus.string.transform.character.remove.whitespace.lfcr"));
 		put("letter",Outside.service(this,"gus.string.transform.character.remove.letter"));
 		put("lower",Outside.service(this,"gus.string.transform.character.remove.lowercase"));
 		put("upper",Outside.service(this,"gus.string.transform.character.remove.uppercase"));

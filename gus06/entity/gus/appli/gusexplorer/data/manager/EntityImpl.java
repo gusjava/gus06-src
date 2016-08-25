@@ -7,14 +7,18 @@ import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class EntityImpl extends S1 implements Entity, P, G, V, R {
+public class EntityImpl extends S1 implements Entity, ActionListener, P, G, V, R {
 
 	public String creationDate() {return "20141208";}
 	
 
+	private Service listPersister;
+	private List list;
 
-	private Service persister;
+	private Service configManager;
 	
 	private Service op_add;
 	private Service op_clear;
@@ -26,14 +30,14 @@ public class EntityImpl extends S1 implements Entity, P, G, V, R {
 	private Service op_reload;
 	private Service op_remove;
 	
-	private List list;
 	private Map lastModification;
 	
 
 
 	public EntityImpl() throws Exception
 	{
-		persister = Outside.service(this,"gus.app.persister1.data.filelist");
+		configManager = Outside.service(this,"gus.appli.gusexplorer.config.manager");
+		listPersister = Outside.service(this,"gus.app.persister1.data.filelist");
 		
 		op_add = Outside.service(this,"gus.appli.gusexplorer.data.manager.op.add");
 		op_clear = Outside.service(this,"gus.appli.gusexplorer.data.manager.op.clear");
@@ -45,12 +49,17 @@ public class EntityImpl extends S1 implements Entity, P, G, V, R {
 		op_reload = Outside.service(this,"gus.appli.gusexplorer.data.manager.op.reload");
 		op_remove = Outside.service(this,"gus.appli.gusexplorer.data.manager.op.remove");
 		
-		list = (List) persister.r(getClass().getName());
+		//configManager.addActionListener(this);
+		list = (List) listPersister.r(getClass().getName());
 	}
+
+	public void actionPerformed(ActionEvent e)
+	{configChanged();}
+	
 	
 	
 	public Object g() throws Exception
-	{return new ArrayList(list);}
+	{return new ArrayList(list());}
 	
 	
 	
@@ -81,6 +90,19 @@ public class EntityImpl extends S1 implements Entity, P, G, V, R {
 	
 	public void p(Object obj) throws Exception
 	{add(obj);}
+	
+	
+	
+	private void configChanged()
+	{
+		try
+		{
+			System.out.println("configChanged()");
+			init(list());
+		}
+		catch(Exception e)
+		{Outside.err(this,"configChanged()",e);}
+	}
 	
 	
 	
@@ -117,7 +139,7 @@ public class EntityImpl extends S1 implements Entity, P, G, V, R {
 	
 	private void perform(T op, Object data) throws Exception
 	{
-		lastModification = (Map) op.t(new Object[]{list,data});
+		lastModification = (Map) op.t(new Object[]{list(),data});
 		if(lastModification==null) return;
 		
 		save();
@@ -125,7 +147,16 @@ public class EntityImpl extends S1 implements Entity, P, G, V, R {
 	}
 	
 	private void save() throws Exception
-	{persister.v(getClass().getName(),list);}
+	{
+		//configManager.e();
+		listPersister.v(getClass().getName(),list);
+	}
+	
+	private List list() throws Exception
+	{
+		//return (List) configManager.g();
+		return list;
+	}
 	
 	private void modified()
 	{send(this,"modified()");}

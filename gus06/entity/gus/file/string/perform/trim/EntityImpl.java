@@ -14,8 +14,8 @@ public class EntityImpl implements Entity, P {
 
 	public EntityImpl() throws Exception
 	{
-		read = Outside.service(this,"gus.file.read.string");
-		write = Outside.service(this,"gus.file.write.string");
+		read = Outside.service(this,"gus.file.read.string.autodetect");
+		write = Outside.service(this,"gus.file.write.string.autodetect");
 	}
 	
 	

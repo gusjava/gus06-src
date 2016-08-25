@@ -1,8 +1,9 @@
 package gus06.entity.gus.sys.expression1.apply.op._inv;
 
 import gus06.framework.*;
+import java.util.Map;
 
-public class EntityImpl implements Entity, T, R {
+public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151110";}
 
@@ -27,16 +28,13 @@ public class EntityImpl implements Entity, T, R {
 		if(obj==null) return null;
 		
 		if(obj instanceof Boolean) return perform.t(obj);
+		if(obj instanceof Double) return perform.t(obj);
+		if(obj instanceof Integer) return perform.t(obj);
+		if(obj instanceof Float) return perform.t(obj);
 		if(obj instanceof F) return perform.t(obj);
 		if(obj instanceof H) return perform.t(obj);
+		if(obj instanceof Map) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("types")) return new Class[]{Boolean.class,F.class,H.class};
-		if(key.equals("keys")) return new String[]{"types"};
-		throw new Exception("Unknown key: "+key);
 	}
 }

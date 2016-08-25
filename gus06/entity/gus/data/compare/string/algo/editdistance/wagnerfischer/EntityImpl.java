@@ -12,12 +12,12 @@ public class EntityImpl implements Entity, T {
 	{
 		String[] s = (String[]) obj;
 		if(s.length!=2) throw new Exception("Wrong data number: "+s.length);
-		return ""+getLevenshteinDistance1(s[0],s[1]);
+		return getLevenshteinDistance1(s[0],s[1]);
 	}
 
 
 	
-	private int getLevenshteinDistance1(String s1, String s2)
+	private Integer getLevenshteinDistance1(String s1, String s2)
 	{	
 		int l1 = s1.length()+1;
 		int l2 = s2.length()+1;
@@ -36,6 +36,6 @@ public class EntityImpl implements Entity, T {
 			
 			array[i][j] = Math.min(Math.min(v1,v2),v3);
 		}
-		return array[l1-1][l2-1];
+		return new Integer(array[l1-1][l2-1]);
 	}
 }

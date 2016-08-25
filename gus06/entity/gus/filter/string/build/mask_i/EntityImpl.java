@@ -24,20 +24,20 @@ public class EntityImpl implements Entity, T, V {
 	
 	public Object t(Object obj) throws Exception
 	{
-		String s = (String)obj;
-		return new F_mask(s,maskChar);
+		String s = ((String) obj).toLowerCase();
+		return new F1(s,maskChar);
 	}
 	
 	
-	private class F_mask implements F
+	private class F1 implements F
 	{
 		private String value;
 		private int valueLength;
 		private char maskChar0;
 		
-		public F_mask(String value, char maskChar0)
+		public F1(String value, char maskChar0)
 		{
-			this.value = value.toLowerCase();
+			this.value = value;
 			this.maskChar0 = Character.toLowerCase(maskChar0);
 			valueLength = value.length();
 		}
@@ -45,7 +45,8 @@ public class EntityImpl implements Entity, T, V {
 		public boolean f(Object obj) throws Exception
 		{
 			if(obj==null) return false;
-			String str = (obj.toString()).toLowerCase();
+			String str = ((String) obj).toLowerCase();
+			
 			if(str.length()!=valueLength) return false;
 			for(int i=0;i<valueLength;i++)
 			{

@@ -39,8 +39,12 @@ public class EntityImpl implements Entity, T, G {
 		put("invert",Outside.service(this,"gus.string.transform.sequence.order.invert"));
 		put("permute",Outside.service(this,"gus.string.transform.sequence.order.permute"));
 		put("permute_inv",Outside.service(this,"gus.string.transform.sequence.order.permute.inv"));
-		put("suffle",Outside.service(this,"gus.string.transform.sequence.order.shuffle"));
+		put("shuffle",Outside.service(this,"gus.string.transform.sequence.order.shuffle"));
 		put("sort",Outside.service(this,"gus.string.transform.sequence.order.sort"));
+		put("sort_i",Outside.service(this,"gus.string.transform.sequence.order.sort_i"));
+		put("sortinv",Outside.service(this,"gus.string.transform.sequence.order.sortinv"));
+		put("sortinv_i",Outside.service(this,"gus.string.transform.sequence.order.sortinv_i"));
+		put("sortinv_n",Outside.service(this,"gus.string.transform.sequence.order.sortinv_n"));
 		put("sortlength",Outside.service(this,"gus.string.transform.sequence.order.sortlength"));
 		put("sortnum",Outside.service(this,"gus.string.transform.sequence.order.sortnum"));
 		
@@ -69,6 +73,8 @@ public class EntityImpl implements Entity, T, G {
 		put("length_toseq",Outside.service(this,"gus.string.transform.sequence.length.tosequence"));
 		
 		put("trim",Outside.service(this,"gus.string.transform.sequence.trim"));
+		put("trimfirst",Outside.service(this,"gus.string.transform.sequence.trimfirst"));
+		put("trimlast",Outside.service(this,"gus.string.transform.sequence.trimlast"));
 	}
 	
 	public Object t(Object obj) throws Exception

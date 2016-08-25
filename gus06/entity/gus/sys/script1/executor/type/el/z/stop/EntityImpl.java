@@ -7,18 +7,15 @@ public class EntityImpl implements Entity, T {
 	
 	public String creationDate() {return "20150830";}
 
-	public static final String C_STOP = "stop";
-	public static final String K_IF = "if";
+	public static final String C_EXECUTION = "execution";
+	public static final String X_STOP = "stop";
 	
 	
-	private Service getParams;
-	private Service buildData;
+	private Service wrapping2;
 	
 	public EntityImpl() throws Exception
-	{
-		getParams = Outside.service(this,"gus.sys.script1.access.tag.params0");
-		buildData = Outside.service(this,"gus.sys.script1.executor.type.el.z.stop.params");
-	}
+	{wrapping2 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping2");}
+	
 	
 	
 	public Object t(Object obj) throws Exception
@@ -34,20 +31,27 @@ public class EntityImpl implements Entity, T {
 		public void p(Object obj) throws Exception
 		{
 			Map context = (Map) obj;
-			String params = (String) getParams.t(tag);
-			Map data = (Map) buildData.t(new Object[]{context,params});
+			wrapping2.p(new Object[]{context,tag,new Wrap()});
 			
-			Boolean if1 = (Boolean) get(data,K_IF);
-			if(if1!=null && !if1.booleanValue()) return;
-			
-			context.put(C_STOP,tag);
 		}
 	}
 	
 	
-	private Object get(Map map, String key)
+	private class Wrap implements P
 	{
-		if(!map.containsKey(key)) return null;
-		return map.get(key);
+		public void p(Object obj) throws Exception
+		{
+			Object[] o = (Object[]) obj;
+			if(o.length!=5) throw new Exception("Wrong data number: "+o.length);
+			
+			Map context = (Map) o[0];
+			Map tag = (Map) o[1];
+			Map pool1 = (Map) o[2];
+			Object main = o[3];
+			Map data = (Map) o[4];
+	 		
+			Map execution = (Map) context.get(C_EXECUTION);
+			execution.put(X_STOP,tag);
+		}
 	}
 }
