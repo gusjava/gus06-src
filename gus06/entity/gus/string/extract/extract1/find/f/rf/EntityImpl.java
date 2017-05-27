@@ -2,9 +2,6 @@ package gus06.entity.gus.string.extract.extract1.find.f.rf;
 
 import gus06.framework.*;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.List;
-import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
@@ -12,15 +9,14 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service buildPattern;
+	private Service perform;
 
 	public EntityImpl() throws Exception
 	{
 		buildPattern = Outside.service(this,"gus.string.extract.extract1.pattern.reluctant");
+		perform = Outside.service(this,"gus.string.extract.match.first");
 	}
 
-
-
-	
 	public Object t(Object obj) throws Exception
 	{
 		String[] o = (String[]) obj;
@@ -29,17 +25,10 @@ public class EntityImpl implements Entity, T {
 		return extract(o[0],o[1]);
 	}
 	
-	
-	
-	
-	private String extract(String data, String rule) throws Exception
+	private Object extract(String data, String rule) throws Exception
 	{
 		String pattern = (String) buildPattern.t(rule);
-		
 		Pattern p = Pattern.compile(pattern,Pattern.DOTALL);
-		Matcher m = p.matcher(data);
-		
-		if(!m.find()) return null;
-		return m.group();
+		return perform.t(new Object[]{data,p});
 	}
 }

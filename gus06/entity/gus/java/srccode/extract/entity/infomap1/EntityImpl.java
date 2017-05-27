@@ -40,7 +40,7 @@ public class EntityImpl implements Entity, T {
 		extractSignature = Outside.service(this,"gus.java.srccode.extract.entity.signature1");
 		extractImports = Outside.service(this,"gus.java.srccode.extract.entity.imports1");
 		extractDate = Outside.service(this,"gus.java.srccode.extract.entity.creationdate");
-		extractDependencies = Outside.service(this,"gus.java.srccode.extract.entity.dependencies");
+		extractDependencies = Outside.service(this,"gus.java.srccode.extract.entity.dependencies1");
 		extractServiceCalls = Outside.service(this,"gus.java.srccode.extract.entity.calls.service");
 		extractResourceCalls = Outside.service(this,"gus.java.srccode.extract.entity.calls.resource");
 	}

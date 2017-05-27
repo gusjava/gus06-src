@@ -24,7 +24,7 @@ public class EntityImpl implements Entity, T {
 	{
 		performList = Outside.service(this,"gus.list.findall2");
 		performSet = Outside.service(this,"gus.set.findall2");
-		performMap = Outside.service(this,"gus.map.key.findall2");
+		performMap = Outside.service(this,"gus.map.findall2");
 		performDir = Outside.service(this,"gus.dir.findall2");
 		performArray = Outside.service(this,"gus.array.objectarray.findall2");
 		performDoubleArray = Outside.service(this,"gus.array.doublearray.findall2");

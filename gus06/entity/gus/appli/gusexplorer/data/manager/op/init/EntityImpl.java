@@ -41,7 +41,7 @@ public class EntityImpl implements Entity, T {
 		l.clear();
 		for(int i=0;i<l0.size();i++)
 		{
-			File f = file((File) l.get(i));
+			File f = file((File) l0.get(i));
 			if(!found(l,f)) l.add(f);
 		}
 		

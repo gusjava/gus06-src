@@ -3,6 +3,9 @@ package gus06.entity.gus.sys.expression1.apply.op._e_add;
 import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
+import java.awt.Rectangle;
+import java.awt.Container;
+import javax.swing.text.JTextComponent;
 
 public class EntityImpl implements Entity, T {
 
@@ -30,6 +33,9 @@ public class EntityImpl implements Entity, T {
 		if(value instanceof List) return new T1(value);
 		if(value instanceof Set) return new T1(value);
 		if(value instanceof StringBuffer) return new T1(value);
+		if(value instanceof Rectangle) return new T1(value);
+		if(value instanceof JTextComponent) return new T1(value);
+		if(value instanceof Container) return new T1(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

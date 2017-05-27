@@ -22,10 +22,8 @@ public class EntityImpl implements Entity, P, T {
 		while(it.hasNext())
 		{
 			Object key = it.next();
-			if(map.containsKey(key))
-				throw new Exception("Key already used inside map: "+key);
+			if(map.containsKey(key)) throw new Exception("Key already used inside map: "+key);
 		}
-		
 		map.putAll(m);
 	}
 	
@@ -42,8 +40,7 @@ public class EntityImpl implements Entity, P, T {
 		while(it.hasNext())
 		{
 			Object key = it.next();
-			if(map.containsKey(key))
-				throw new Exception("Key already used inside map: "+key);
+			if(map.containsKey(key)) throw new Exception("Key already used inside map: "+key);
 		}
 		
 		Map map1 = new HashMap(map);

@@ -9,13 +9,20 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151029";}
 
-
 	public static final String TYPE = "type";
 	public static final String VALUE = "value";
 	
 	public static final String TYPE_SYMBOL = "symbol";
+
+
+
+	private Service wrapFTT;
 	
-	
+	public EntityImpl() throws Exception
+	{
+		wrapFTT = Outside.service(this,"gus.feature.wrap.ftt.t");
+	}
+
 
 	
 	
@@ -33,15 +40,24 @@ public class EntityImpl implements Entity, T {
 		List l2 = cut[1];
 		List l3 = cut[2];
 		
-		Boolean r = toBool(t.t(l1));
-		List l = r.booleanValue() ? l2 : l3;
-		return t.t(l);
-	}
-	
-	
-	private Boolean toBool(Object obj) throws Exception
-	{
-		if(!(obj instanceof Boolean)) throw new Exception("Invalid data type: "+obj.getClass().getName());
-		return (Boolean) obj;
+		Object cond = t.t(l1);
+		
+		if(cond instanceof Boolean)
+		{
+			Boolean r = (Boolean) cond;
+			List l = r.booleanValue() ? l2 : l3;
+			return t.t(l);
+		}
+		if(cond instanceof F)
+		{
+			Object v2 = t.t(l2);
+			if(!(v2 instanceof T)) throw new Exception("Invalid ternary operator part1: "+v2.getClass().getName());
+			Object v3 = t.t(l3);
+			if(!(v3 instanceof T)) throw new Exception("Invalid ternary operator part2: "+v3.getClass().getName());
+			
+			return wrapFTT.t(new Object[]{cond,v2,v3});
+		}
+		
+		throw new Exception("Invalid data type: "+cond.getClass().getName());
 	}
 }

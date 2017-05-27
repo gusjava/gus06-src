@@ -3,7 +3,6 @@ package gus06.entity.gus.file.read.string.cs.default0;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-
 import gus06.framework.*;
 
 public class EntityImpl implements Entity, T {

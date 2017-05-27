@@ -2,6 +2,7 @@ package gus06.entity.gus.data.perform.putall.strict;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -9,10 +10,12 @@ public class EntityImpl implements Entity, P, T {
 	
 	
 	private Service performMap;
+	private Service performFile;
 	
 	public EntityImpl() throws Exception
 	{
 		performMap = Outside.service(this,"gus.map.putall.strict");
+		performFile = Outside.service(this,"gus.file.properties.perform.field.putall.strict");
 	}
 
 	
@@ -21,26 +24,17 @@ public class EntityImpl implements Entity, P, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		Object input = o[0];
-		
-		if(input instanceof Map)
-		{performMap.p(o);return;}
-		
-		throw new Exception("Invalid data type: "+input.getClass().getName());
+		if(o[0] instanceof Map) {performMap.p(o);return;}
+		if(o[0] instanceof File) {performFile.p(o);return;}
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
-	
-	
 	
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		Object input = o[0];
-		
-		if(input instanceof Map)
-			return performMap.t(o);
-		
-		throw new Exception("Invalid data type: "+input.getClass().getName());
+		if(o[0] instanceof Map) return performMap.t(o);
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
 }

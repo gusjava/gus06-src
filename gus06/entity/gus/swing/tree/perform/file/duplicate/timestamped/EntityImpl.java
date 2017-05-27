@@ -11,12 +11,11 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20151004";}
 
 
-	private Service duplicate;
-
+	private Service perform;
 
 	public EntityImpl() throws Exception
 	{
-		duplicate = Outside.service(this,"gus.dirfile.perform.duplicate.timestamped");
+		perform = Outside.service(this,"gus.dirfile.perform.duplicate.timestamped");
 	}
 	
 	
@@ -28,7 +27,7 @@ public class EntityImpl implements Entity, P {
 		if(file==null) return;
 		if(!file.exists()) return;
 		
-		boolean done = duplicate.f(file);
+		boolean done = perform.f(file);
 		if(!done) return;
 		
 		TreePath path = tree.getSelectionPath().getParentPath();

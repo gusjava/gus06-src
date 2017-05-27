@@ -8,33 +8,21 @@ public class EntityImpl implements Entity, G, T {
 	public String creationDate() {return "20141015";}
 
 
-	
+	private Service findScreenRect;
 	private Rectangle screenRect;
 	private Robot robot;
 	
 
-	public EntityImpl() throws AWTException
+	public EntityImpl() throws Exception
 	{
-		screenRect = getScreenRect();
+		findScreenRect = Outside.service(this,"gus.awt.screen.rect");
+		screenRect = (Rectangle) findScreenRect.g();
 		robot = new Robot();
 	}
 
 	public Object g() throws Exception
 	{return robot.createScreenCapture(screenRect);}
 	
-	
 	public Object t(Object obj) throws Exception
-	{
-		Rectangle rect = (Rectangle) obj;
-		return robot.createScreenCapture(rect);
-	}
-	
-
-	private Rectangle getScreenRect()
-	{
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice device = env.getDefaultScreenDevice();
-		GraphicsConfiguration gc = device.getDefaultConfiguration();
-		return gc.getBounds();
-	}
+	{return robot.createScreenCapture((Rectangle) obj);}
 }

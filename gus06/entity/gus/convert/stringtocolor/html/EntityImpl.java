@@ -7,10 +7,6 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20140729";}
 
-
-	public EntityImpl() throws Exception
-	{
-	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -18,24 +14,29 @@ public class EntityImpl implements Entity, T {
 
 	
 	
-	private Color htmlToColor(String code) throws Exception
+	private Color htmlToColor(String s) throws Exception
 	{
-		if(code.startsWith("#"))
-		code = code.substring(1);
+		if(s==null) return null;
+		if(s.equals("")) return null;
 		
-		if(code.length()==3) return buildColor3(code);
-		if(code.length()==6) return buildColor6(code);
-		throw new Exception("Invalid html color code: "+code);
+		if(s.startsWith("#")) s = s.substring(1);
+		
+		try
+		{
+			if(s.length()==3) return buildColor3(s);
+			if(s.length()==6) return buildColor6(s);
+		}
+		catch(NumberFormatException e){}
+		return null;
 	}
-	
 
 	
 	
-	private Color buildColor3(String code)
+	private Color buildColor3(String s)
 	{
-		String r_ = code.substring(0,1);
-		String g_ = code.substring(1,2);
-		String b_ = code.substring(2,3);
+		String r_ = s.substring(0,1);
+		String g_ = s.substring(1,2);
+		String b_ = s.substring(2,3);
 		
 		int r = Integer.parseInt(r_+r_,16);
 		int g = Integer.parseInt(g_+g_,16);
@@ -44,11 +45,11 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private Color buildColor6(String code)
+	private Color buildColor6(String s)
 	{
-		String r_ = code.substring(0,2);
-		String g_ = code.substring(2,4);
-		String b_ = code.substring(4,6);
+		String r_ = s.substring(0,2);
+		String g_ = s.substring(2,4);
+		String b_ = s.substring(4,6);
 		
 		int r = Integer.parseInt(r_,16);
 		int g = Integer.parseInt(g_,16);

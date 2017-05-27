@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._fchildrennames0;
 
 import gus06.framework.*;
 import java.io.File;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -9,9 +10,13 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service listing;
+	private Service buildFile;
 	
 	public EntityImpl() throws Exception
-	{listing = Outside.service(this,"gus.dir.listing0.files.names0");}
+	{
+		listing = Outside.service(this,"gus.dir.listing0.files.names0");
+		buildFile = Outside.service(this,"gus.sys.expression1.file.build");
+	}
 
 	
 	
@@ -19,17 +24,21 @@ public class EntityImpl implements Entity, T {
 	{
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
-		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof File)
-			return listing.t((File) obj);
-		if(obj instanceof String)
-			return listing.t(file((String) obj));
+		Object value = o[0];
+		Map opMap = (Map) o[1];
 		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		if(value==null) return null;
+		
+		if(value instanceof File)
+			return listing.t(value);
+			
+		if(value instanceof String)
+			return listing.t(file((String) value,opMap));
+		
+		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 	
-	private File file(String s) throws Exception
-	{return new File(s).getCanonicalFile();}
+	private File file(String s, Map opMap) throws Exception
+	{return (File) buildFile.t(new Object[]{s,opMap});}
 }

@@ -10,6 +10,7 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service readFile;
+	private Service redirectPath;
 
 	
 	private File homeDir;
@@ -17,6 +18,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		readFile = Outside.service(this,"gus.file.read.string");
+		redirectPath = Outside.service(this,"m122.t.guslink");
 		homeDir = (File) Outside.resource(this,"path#path.sys.user.home");
 	}
 	
@@ -31,13 +33,15 @@ public class EntityImpl implements Entity, T {
 		d = new File(d,"gus.app.persister1");
 		
 		File f = new File(d,"mainframe.bounds.txt");
-		if(!f.exists()) return null;
+		f = (File) redirectPath.t(f);
+		
+		if(!f.exists()) throw new Exception("File not found: "+f);
 		
 		String s = (String) readFile.t(f);
-		if(s.equals("")) return null;
+		if(s.equals("")) throw new Exception("Empty file: "+f);
 		
 		String[] n = s.split(" ");
-		if(n.length!=4) return null;
+		if(n.length!=4) throw new Exception("Invalid file content: "+f);
 		
 		int x = int_(n[0]);
 		int y = int_(n[1]);

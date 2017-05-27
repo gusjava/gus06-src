@@ -20,7 +20,7 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private class F1 implements F
+	public class F1 implements F
 	{
 		private Boolean b;
 		public F1(Boolean b){this.b = b;}

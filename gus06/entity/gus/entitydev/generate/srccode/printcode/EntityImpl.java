@@ -5,11 +5,7 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import gus06.framework.Entity;
-import gus06.framework.Outside;
-import gus06.framework.P;
-import gus06.framework.Service;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, P {
 

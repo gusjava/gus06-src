@@ -27,7 +27,9 @@ public class EntityImpl implements Entity, T {
 		b.append(short1.t(set)+"\n");
 		
 		List list = new ArrayList(set);
-		Collections.sort(list);
+		
+		try{Collections.sort(list);}
+		catch(Exception e){}
 		
 		for(int i=0;i<list.size();i++)
 		{

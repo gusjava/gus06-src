@@ -22,7 +22,7 @@ public class EntityImpl implements Entity, P {
 	{
 		listing = Outside.service(this,"gus.dir.listing0.ext.properties");
 		readKeySet = Outside.service(this,"gus.file.read.properties.keyset");
-		op = Outside.service(this,"gus.file.properties.perform.field.set");
+		op = Outside.service(this,"gus.file.properties.perform.field.put");
 		chooseField = Outside.service(this,"gus.input.choose.dialog.field.fromset");
 		chooseName = Outside.service(this,"gus.input.text.dialog");
 	}

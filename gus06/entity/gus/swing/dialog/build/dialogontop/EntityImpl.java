@@ -29,9 +29,7 @@ public class EntityImpl implements Entity, T, P {
 	
 	public Object t(Object obj) throws Exception
 	{
-    		Dialog1 d = new Dialog1((JComponent) obj);
-    		d.setVisible(true);
-		return d;
+    		return new Dialog1((JComponent) obj);
 	}
 	
 	

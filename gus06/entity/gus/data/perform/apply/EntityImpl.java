@@ -14,7 +14,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		wrap_pobj = Outside.service(this,"gus.feature.wrap.pobj.e");
+		wrap_pobj = Outside.service(this,"gus.feature.wrap.po.e");
 	}
 
 	

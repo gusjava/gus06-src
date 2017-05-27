@@ -14,7 +14,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		getParams = Outside.service(this,"gus.sys.script1.access.tag.params1");
-		op = Outside.service(this,"gus.sys.script1.tool.execute.code.op.set0");
+		op = Outside.service(this,"gus.sys.script1.tool.execute.op.set0");
 	}
 	
 	

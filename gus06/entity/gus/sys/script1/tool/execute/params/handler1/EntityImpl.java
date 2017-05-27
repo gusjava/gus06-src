@@ -29,7 +29,8 @@ public class EntityImpl implements Entity, T {
 				"alter",
 				"before",
 				"after",
-				"return"};
+				"return",
+				"e"};
 	
 	public static final String[] RULES = new String[]{
 				"[main] with [options]",
@@ -50,6 +51,7 @@ public class EntityImpl implements Entity, T {
 				"[main] before [before]",
 				"[main] after [after]",
 				"[main] return [return]",
+				"[main] e [e]",
 				"[main]"};
 
 	

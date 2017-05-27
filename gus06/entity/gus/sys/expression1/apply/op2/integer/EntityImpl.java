@@ -14,7 +14,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		pWrap = Outside.service(this,"gus.feature.wrap.pobj.e");
+		pWrap = Outside.service(this,"gus.feature.wrap.po.e");
 	}
 
 	
@@ -40,30 +40,40 @@ public class EntityImpl implements Entity, T {
 		
 			if(obj==null) return null;
 			
-			if(obj instanceof Integer) return new Boolean(toInt(obj)==number);
-			if(obj instanceof Double) return new Boolean(toDouble(obj)==number);
+			try
+			{
+				if(obj instanceof Integer) return new Boolean(toInt(obj)==number);
+				if(obj instanceof Double) return new Boolean(toDouble(obj)==number);
+				
+				if(obj instanceof String) return elementAt((String) obj,number);
+				if(obj instanceof List) return elementAt((List) obj,number);
+				if(obj instanceof Object[]) return elementAt((Object[]) obj,number);
+				
+				if(obj instanceof boolean[]) return elementAt((boolean[]) obj,number);
+				if(obj instanceof byte[]) return elementAt((byte[]) obj,number);
+				if(obj instanceof int[]) return elementAt((int[]) obj,number);
+				if(obj instanceof double[]) return elementAt((double[]) obj,number);
+				if(obj instanceof float[]) return elementAt((float[]) obj,number);
+				if(obj instanceof long[]) return elementAt((long[]) obj,number);
+				if(obj instanceof short[]) return elementAt((short[]) obj,number);
+				if(obj instanceof char[]) return elementAt((char[]) obj,number);
+				
+				if(obj instanceof Map) return elementAt((Map) obj,number);
+				if(obj instanceof Set) return contains((Set) obj,number);
+				
+				if(obj instanceof R) return retrieve((R) obj,number);
+				if(obj instanceof T) return retrieve((T) obj,number);
+				if(obj instanceof F) return retrieve((F) obj,number);
+				if(obj instanceof H) return retrieve((H) obj,number);
+				if(obj instanceof P) return retrieve((P) obj,number);
 			
-			if(obj instanceof String) return elementAt((String) obj,number);
-			if(obj instanceof List) return elementAt((List) obj,number);
-			if(obj instanceof Object[]) return elementAt((Object[]) obj,number);
-			
-			if(obj instanceof boolean[]) return elementAt((boolean[]) obj,number);
-			if(obj instanceof byte[]) return elementAt((byte[]) obj,number);
-			if(obj instanceof int[]) return elementAt((int[]) obj,number);
-			if(obj instanceof double[]) return elementAt((double[]) obj,number);
-			if(obj instanceof float[]) return elementAt((float[]) obj,number);
-			if(obj instanceof long[]) return elementAt((long[]) obj,number);
-			
-			if(obj instanceof Map) return elementAt((Map) obj,number);
-			if(obj instanceof Set) return contains((Set) obj,number);
-			
-			if(obj instanceof R) return retrieve((R) obj,number);
-			if(obj instanceof T) return retrieve((T) obj,number);
-			if(obj instanceof F) return retrieve((F) obj,number);
-			if(obj instanceof H) return retrieve((H) obj,number);
-			if(obj instanceof P) return retrieve((P) obj,number);
-			
-			throw new Exception("Invalid operator  ["+number+"] for object "+obj.getClass().getName());
+				throw new Exception("Unsupported data type: "+obj.getClass().getName());
+			}
+			catch(Exception e)
+			{
+				String message = "Failed to apply operator ["+number+"] on object's type "+obj.getClass().getName();
+				throw new Exception(message,e);
+			}
 		}
 	}
 	
@@ -81,6 +91,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(String s, int n)
 	{
 		int size = s.length();
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return ""+s.charAt(n);
@@ -89,6 +101,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(List l, int n)
 	{
 		int size = l.size();
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return l.get(n);
@@ -97,6 +111,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(Object[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return a[n];
@@ -105,6 +121,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(boolean[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Boolean(a[n]);
@@ -113,6 +131,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(byte[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Byte(a[n]);
@@ -121,6 +141,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(int[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Integer(a[n]);
@@ -129,6 +151,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(double[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Double(a[n]);
@@ -137,6 +161,8 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(float[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Float(a[n]);
@@ -145,22 +171,48 @@ public class EntityImpl implements Entity, T {
 	private Object elementAt(long[] a, int n)
 	{
 		int size = a.length;
+		if(size==0) return null;
+		
 		if(n<0) n += size;
 		if(n<0 || n>=size) return null;
 		return new Long(a[n]);
 	}
 	
+	private Object elementAt(short[] a, int n)
+	{
+		int size = a.length;
+		if(size==0) return null;
+		
+		if(n<0) n += size;
+		if(n<0 || n>=size) return null;
+		return new Short(a[n]);
+	}
+	
+	private Object elementAt(char[] a, int n)
+	{
+		int size = a.length;
+		if(size==0) return null;
+		
+		if(n<0) n += size;
+		if(n<0 || n>=size) return null;
+		return ""+a[n];
+	}
+	
 	private Object elementAt(Map m, int n)
 	{
-		if(m.containsKey(new Integer(n))) return m.get(new Integer(n));
-		if(m.containsKey(""+n)) return m.get(""+n);
+		if(m.containsKey(new Integer(n)))
+			return m.get(new Integer(n));
+		if(m.containsKey(""+n))
+			return m.get(""+n);
 		return null;
 	}
 	
 	private Boolean contains(Set s, int n)
 	{
-		if(s.contains(new Integer(n))) return Boolean.TRUE;
-		if(s.contains(""+n)) return Boolean.TRUE;
+		if(s.contains(new Integer(n)))
+			return Boolean.TRUE;
+		if(s.contains(""+n))
+			return Boolean.TRUE;
 		return Boolean.FALSE;
 	}
 	

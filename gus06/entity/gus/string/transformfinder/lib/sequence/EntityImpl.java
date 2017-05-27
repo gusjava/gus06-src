@@ -73,8 +73,8 @@ public class EntityImpl implements Entity, T, G {
 		put("length_toseq",Outside.service(this,"gus.string.transform.sequence.length.tosequence"));
 		
 		put("trim",Outside.service(this,"gus.string.transform.sequence.trim"));
-		put("trimfirst",Outside.service(this,"gus.string.transform.sequence.trimfirst"));
-		put("trimlast",Outside.service(this,"gus.string.transform.sequence.trimlast"));
+		put("trimstart",Outside.service(this,"gus.string.transform.sequence.trim.start"));
+		put("trimend",Outside.service(this,"gus.string.transform.sequence.trim.end"));
 	}
 	
 	public Object t(Object obj) throws Exception

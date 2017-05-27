@@ -9,15 +9,17 @@ public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20160521";}
 	
-	public static final String REGEX_HTML_COLOR = "#[0-9a-fA-F]{6}";
-	public static final String REGEX_JAVA_COLOR = "(Color\\.[A-Z_]+)|(new Color\\([^\\)]+\\))";
+	public static final String REGEX_HTML1 = "#[0-9a-fA-F]{6}";
+	public static final String REGEX_HTML2 = "#[0-9a-fA-F]{3}";
+	
+	public static final String REGEX_JAVA1 = "Color\\.[A-Z_]+";
+	public static final String REGEX_JAVA2 = "new Color\\([^\\)]+\\)";
 
 
 	private Service stringToColor;
 	private Service colorToHtml;
 	private Service colorToJava;
 
-	
 	
 	public EntityImpl() throws Exception
 	{
@@ -30,14 +32,26 @@ public class EntityImpl implements Entity, P {
 	public void p(Object obj) throws Exception
 	{
 		JTextComponent comp = (JTextComponent) obj;
-		String text = comp.getSelectedText();
 		
-		if(text.matches(REGEX_HTML_COLOR))
+		String text = comp.getSelectedText();
+		if(text==null) return;
+		
+		if(text.matches(REGEX_HTML1))
 		{
 			Color c = chooseColor(text);
 			if(c!=null) replace(comp,colorToHtml,c);
 		}
-		else if(text.matches(REGEX_JAVA_COLOR))
+		if(text.matches(REGEX_HTML2))
+		{
+			Color c = chooseColor(text);
+			if(c!=null) replace(comp,colorToHtml,c);
+		}
+		else if(text.matches(REGEX_JAVA1))
+		{
+			Color c = chooseColor(text);
+			if(c!=null) replace(comp,colorToJava,c);
+		}
+		else if(text.matches(REGEX_JAVA2))
 		{
 			Color c = chooseColor(text);
 			if(c!=null) replace(comp,colorToJava,c);

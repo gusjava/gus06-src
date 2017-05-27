@@ -13,6 +13,7 @@ public class EntityImpl implements Entity, P {
 	public static final String APPSIZE = "app.size";
 	public static final String APPTITLE = "app.title";
 	public static final String APPVERSION = "app.version";
+	public static final String APPVISIBLEONSTART = "app.visibleonstart";
 
 
 	private Map prop;
@@ -52,6 +53,7 @@ public class EntityImpl implements Entity, P {
 		if(title!=null) frame.setTitle(title);
 		
 		frame.setLocationRelativeTo(null);
+		frame.setVisible(visibleOnStart());
 	}
 	
 	
@@ -64,6 +66,15 @@ public class EntityImpl implements Entity, P {
 		
 		if(has(APPVERSION)) title = title+" "+prop(APPVERSION);
 		return title;
+	}
+	
+	
+	
+	private boolean visibleOnStart()
+	{
+		if(!has(APPVISIBLEONSTART)) return true;
+		String v = prop(APPVISIBLEONSTART);
+		return Boolean.parseBoolean(v);
 	}
 	
 	

@@ -8,15 +8,19 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service read;
+	private Service split;
 
 
 	public EntityImpl() throws Exception
-	{read = Outside.service(this,"gus.file.read.string.autodetect");}
+	{
+		read = Outside.service(this,"gus.file.read.string.autodetect");
+		split = Outside.service(this,"gus.string.split.lines1");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
 		String text = (String) read.t(obj);
-		return text.replace("\r","").split("\n");
+		return split.t(text);
 	}
 }

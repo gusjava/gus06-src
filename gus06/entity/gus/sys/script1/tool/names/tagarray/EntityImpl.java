@@ -8,10 +8,10 @@ public class EntityImpl implements Entity, G, F {
 	public String creationDate() {return "20160729";}
 	
 	public static final String[] TAGS = new String[]{
-		"alias","comment","execute","output","print",
+		"alias","comment","execute","output","print","println",
 		"set","set0","set1","block","block0",
 		"code","case","each","extends","extends1",
-		"for","if","ignore","redirect","repeat",
+		"for","if","ignore","redirect","repeat","clock",
 		"switch","try","until","while","call",
 		"debug","else","elseif","end","include",
 		"include1","parent","return","stop"};

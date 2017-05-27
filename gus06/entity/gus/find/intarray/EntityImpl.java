@@ -8,6 +8,16 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160626";}
 
+
+	private Service stringToArray;
+	
+	
+	public EntityImpl() throws Exception
+	{
+		stringToArray = Outside.service(this,"gus.convert.stringtointarray");
+	}
+
+
 	
 	public Object t(Object obj) throws Exception
 	{
@@ -21,6 +31,9 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Set) return handle((Set) obj);
 		if(obj instanceof List) return handle((List) obj);
 		if(obj instanceof Object[]) return handle((Object[]) obj);
+		if(obj instanceof String) return stringToArray.t(obj);
+		
+		if(obj instanceof int[][]) return handle((int[][]) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -66,6 +79,19 @@ public class EntityImpl implements Entity, T {
 	private int[] handle(Set set) throws Exception
 	{
 		return handle(new ArrayList(set));
+	}
+	
+	private int[] handle(int[][] d) throws Exception
+	{
+		if(d.length==1) return d[0];
+		if(d.length>1 && d[0].length==1)
+		{
+			int l = d.length;
+			int[] r = new int[l];
+			for(int i=0;i<l;i++) r[i] = d[i][0];
+			return r;
+		}
+		throw new Exception("Invalid array length: "+d.length);
 	}
 	
 	

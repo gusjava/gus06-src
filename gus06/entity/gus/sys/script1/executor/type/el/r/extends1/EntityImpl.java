@@ -7,7 +7,6 @@ public class EntityImpl implements Entity, T {
 	
 	public String creationDate() {return "20151111";}
 	
-	public static final String C_EXECUTION = "execution";
 	public static final String X_PARENT = "parent";
 	public static final String K_INCLUDED = "included";
 	
@@ -15,6 +14,7 @@ public class EntityImpl implements Entity, T {
 	private Service handleContent;
 	private Service wrapping1;
 	private Service engine;
+	private Service getExecution;
 
 
 	public EntityImpl() throws Exception
@@ -22,6 +22,7 @@ public class EntityImpl implements Entity, T {
 		handleContent = Outside.service(this,"gus.sys.script1.executor.type.el.r.extends1.content");
 		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
 		engine = Outside.service(this,"gus.sys.script1.engine");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 	}
 	
 		
@@ -58,7 +59,7 @@ public class EntityImpl implements Entity, T {
 			
 			handleContent.p(new Map[]{context,tag});
 			
-			Map execution = (Map) get(context,C_EXECUTION);
+			Map execution = (Map) getExecution.t(context);
 			execution.put(X_PARENT,tag);
 			
 			Map included = (Map) engine.t(new Object[]{main,context});

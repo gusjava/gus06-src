@@ -3,6 +3,7 @@ package gus06.entity.gus.sys.expression1.apply.op._opp;
 import gus06.framework.*;
 import java.util.Set;
 import java.util.List;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -29,6 +30,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof H) return perform.t(obj);
 		if(obj instanceof Set) return perform.t(obj);
 		if(obj instanceof List) return perform.t(obj);
+		if(obj instanceof Map) return perform.t(obj);
 		
 		if(obj instanceof Integer) return perform.t(obj);
 		if(obj instanceof Double) return perform.t(obj);

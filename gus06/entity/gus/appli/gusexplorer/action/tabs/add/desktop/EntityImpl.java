@@ -7,7 +7,7 @@ public class EntityImpl implements Entity, G, E {
 
 	public String creationDate() {return "20151010";}
 
-	public static final String DISPLAY = "ACTION_tab_addDesktop#Add desktop";
+	public static final String DISPLAY = "ACTION_tab_addDesktop#Add desktop dir";
 
 	private Service execute;
 	private Service buildAction;

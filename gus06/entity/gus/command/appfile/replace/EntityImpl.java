@@ -12,12 +12,12 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20140707";}
 
 
-	private Service replace;
+	private Service handle;
 	private File appFile;
 
 	public EntityImpl() throws Exception
 	{
-		replace = Outside.service(this,"gus.map.replace");
+		handle = Outside.service(this,"gus.command.appfile.replace.handle");
 		appFile = (File) Outside.resource(this,"appfile");
 	}
 	
@@ -27,7 +27,7 @@ public class EntityImpl implements Entity, P {
 		String s = (String) obj;
 		
 		Properties prop = load();
-		replace.v(s,prop);
+		handle.v(s,prop);
 		save(prop);
 	}
 	

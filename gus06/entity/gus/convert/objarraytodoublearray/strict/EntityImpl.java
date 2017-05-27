@@ -18,8 +18,8 @@ public class EntityImpl implements Entity, T {
 		double[] yy = new double[length];
 		for(int i=0;i<length;i++)
 		{
-			if(!(oo[i] instanceof Number)) return null;
-			yy[i] = ((Number) oo[i]).doubleValue();
+			if(!(oo[i] instanceof Double)) return null;
+			yy[i] = ((Double) oo[i]).doubleValue();
 		}
 		return yy;
 	}

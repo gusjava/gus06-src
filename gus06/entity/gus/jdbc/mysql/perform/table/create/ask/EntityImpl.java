@@ -44,7 +44,7 @@ public class EntityImpl implements Entity, F {
 		String[] type = buildType(f);
 		String[] primary = new String[]{FIELD_ID};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
 	

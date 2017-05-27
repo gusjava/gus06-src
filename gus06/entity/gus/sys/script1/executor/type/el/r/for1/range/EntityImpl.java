@@ -28,14 +28,14 @@ public class EntityImpl implements Entity, T {
 	{
 		if(end>0) return new int[]{0,end,1};
 		if(end<0) return new int[]{0,end,-1};
-		return new int[]{0,0,0};
+		return new int[]{0,0,1};
 	}
 	
 	private int[] fromInt2(int start, int end)
 	{
 		if(start<end) return new int[]{start,end,1};
 		if(start>end) return new int[]{start,end,-1};
-		return new int[]{start,start,0};
+		return new int[]{start,start,1};
 	}
 	
 	private int[] fromInt3(int start, int end, int incr) throws Exception

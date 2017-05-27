@@ -31,13 +31,15 @@ public class EntityImpl implements Entity, T {
 		Window window = SwingUtilities.getWindowAncestor(component);
 		
 		System.setProperty("sun.java2d.noddraw","true");
-		WindowUtils.setWindowAlpha(window,0);
+		WindowUtils.setWindowAlpha(window,0f);
+		
 		//window.setVisible(false);
 		
 		BufferedImage image = robot.createScreenCapture(frame);
 		
-		WindowUtils.setWindowAlpha(window,1);
-		System.getProperties().remove("sun.java2d.noddraw");
+		System.setProperty("sun.java2d.noddraw","true");
+		WindowUtils.setWindowAlpha(window,1f);
+		
 		//window.setVisible(true);
 		
 		return image;

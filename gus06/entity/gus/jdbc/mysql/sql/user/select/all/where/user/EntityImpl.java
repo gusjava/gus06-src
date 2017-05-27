@@ -11,7 +11,7 @@ public class EntityImpl implements Entity, T {
 	private Service format;
 
 	public EntityImpl() throws Exception
-	{format = Outside.service(this,"gus.jdbc.mysql.format.sql.sequence");}
+	{format = Outside.service(this,"gus.jdbc.mysql.format.sql.value");}
 
 
 

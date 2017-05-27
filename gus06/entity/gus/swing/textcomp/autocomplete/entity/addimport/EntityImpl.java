@@ -27,8 +27,8 @@ public class EntityImpl implements Entity, V, P {
 		extractStructure = Outside.service(this,"gus.java.srccode.extract.entity.structure1");
 		extractImports = Outside.service(this,"gus.java.srccode.extract.imports1");
 		searchClass = Outside.service(this,"gus.java.searchclass.fromrt.preferred");
-		findCaretWord = Outside.service(this,"gus.swing.textcomp.caretword.find");
-		replaceCaretWord = Outside.service(this,"gus.swing.textcomp.caretword.replace");
+		findCaretWord = Outside.service(this,"gus.swing.textcomp.caret.word.find");
+		replaceCaretWord = Outside.service(this,"gus.swing.textcomp.caret.word.replace");
 	}
 	
 	

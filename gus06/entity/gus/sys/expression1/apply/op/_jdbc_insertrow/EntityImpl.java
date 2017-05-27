@@ -9,11 +9,11 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20160409";}
 
 
-	private Service updateRow;
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		updateRow = Outside.service(this,"gus.jdbc.mysql.perform.row.insert");
+		perform = Outside.service(this,"gus.jdbc.mysql.perform.row.insert");
 	}
 
 	
@@ -77,7 +77,7 @@ public class EntityImpl implements Entity, T {
 		
 		public void e() throws Exception
 		{
-			updateRow.p(new Object[]{cx,tableName,map});
+			perform.p(new Object[]{cx,tableName,map});
 		}
 	}
 }

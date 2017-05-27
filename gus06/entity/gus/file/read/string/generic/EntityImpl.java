@@ -30,7 +30,7 @@ public class EntityImpl implements Entity, T {
 		}
 		catch(Exception e)
 		{
-			String message = "Failed to read image from file: "+file.getAbsolutePath();
+			String message = "Failed to read text from file: "+file.getAbsolutePath();
 			Outside.err(this,"t(Object)",new Exception(message,e));
 			return "ERR:"+e;
 		}

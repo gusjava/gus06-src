@@ -1,4 +1,4 @@
-package gus06.entity.gus.sys.base1.impl.writeMap1.map.jdbc;
+package gus06.entity.gus.sys.base1.impl.write.map.jdbc;
 
 import gus06.framework.*;
 import java.util.Map;

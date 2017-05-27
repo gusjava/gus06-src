@@ -2,7 +2,6 @@ package gus06.entity.gus.sys.expression1.apply.op._n0;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -16,6 +15,6 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		return "\n"+obj.toString();
+		return "\n"+obj;
 	}
 }

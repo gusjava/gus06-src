@@ -1,7 +1,8 @@
 package gus06.entity.gus.file.read.string.list;
 
 import gus06.framework.*;
-import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
 
@@ -18,6 +19,8 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String[] array = (String[]) read.t(obj);
-		return Arrays.asList(array);
+		List l = new ArrayList();
+		for(String a : array) l.add(a);
+		return l;
 	}
 }

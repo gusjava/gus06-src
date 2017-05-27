@@ -10,6 +10,15 @@ import java.awt.image.RenderedImage;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20141115";}
+
+
+	private Service stringToDimension;
+	
+	public EntityImpl() throws Exception
+	{
+		stringToDimension = Outside.service(this,"gus.convert.stringtodimension");
+	}
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -18,6 +27,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Dimension) return obj;
 		
 		if(obj instanceof int[]) return intArrayToDim((int[]) obj);
+		if(obj instanceof String) return stringToDimension.t(obj);
 		if(obj instanceof Point) return pointToDim((Point) obj);
 		if(obj instanceof JFrame) return jframeToDim((JFrame) obj);
 		if(obj instanceof Rectangle) return rectangleToDim((Rectangle) obj);

@@ -9,6 +9,14 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151029";}
 
+
+	private Service compare;
+
+	public EntityImpl() throws Exception
+	{
+		compare = Outside.service(this,"gus.data.compare.o1");
+	}
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -27,18 +35,6 @@ public class EntityImpl implements Entity, T {
 		return new Boolean(equals(o1,o2));
 	}
 	
-	
-	private boolean equals(Object o1, Object o2)
-	{
-		if(o1==null && o2==null) return true;
-		if(o1==null || o2==null) return false;
-		
-		if(o1 instanceof Number && o2 instanceof Number)
-		{
-			double d1 = ((Number) o1).doubleValue();
-			double d2 = ((Number) o2).doubleValue();
-			return d1==d2;
-		}
-		return o1.equals(o2);
-	}
+	private boolean equals(Object o1, Object o2) throws Exception
+	{return compare.f(new Object[]{o1,o2});}
 }

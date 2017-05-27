@@ -2,6 +2,12 @@ package gus06.entity.gus.sys.expression1.apply.op._reverse;
 
 import gus06.framework.*;
 import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import java.awt.image.RenderedImage;
+import javax.swing.JTabbedPane;
+import javax.swing.text.JTextComponent;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -27,6 +33,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof String) return perform.t(obj);
 		if(obj instanceof List) return perform.t(obj);
 		if(obj instanceof Object[]) return perform.t(obj);
+		if(obj instanceof Map) return perform.t(obj);
 		
 		if(obj instanceof double[]) return perform.t(obj);
 		if(obj instanceof int[]) return perform.t(obj);
@@ -34,6 +41,12 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof float[]) return perform.t(obj);
 		if(obj instanceof byte[]) return perform.t(obj);
 		if(obj instanceof boolean[]) return perform.t(obj);
+		if(obj instanceof JPanel) return perform.t(obj);
+		if(obj instanceof JSplitPane) return perform.t(obj);
+		if(obj instanceof JTabbedPane) return perform.t(obj);
+		if(obj instanceof JTextComponent) return perform.t(obj);
+		
+		if(obj instanceof RenderedImage) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

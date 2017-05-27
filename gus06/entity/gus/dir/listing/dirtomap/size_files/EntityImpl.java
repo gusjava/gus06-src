@@ -28,7 +28,7 @@ public class EntityImpl implements Entity, T {
 			File[] ff = p.listFiles();
 			for(File f:ff) analyze(map,f);
 		}
-		else
+		else if(p.isFile())
 		{
 			String key = ""+p.length();
 			findSet(map,key).add(p);

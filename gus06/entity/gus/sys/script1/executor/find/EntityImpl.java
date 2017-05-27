@@ -4,13 +4,12 @@ import gus06.framework.*;
 import java.util.Map;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20150829";}
 	
 	public static final String T_ROOT = "root";
 	public static final String T_ELEMENT = "element";
 	public static final String T_TEXT = "text";
-
-
-	public String creationDate() {return "20150829";}
 
 
 	private Service typeRoot;

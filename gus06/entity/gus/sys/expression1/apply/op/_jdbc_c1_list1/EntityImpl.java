@@ -56,27 +56,7 @@ public class EntityImpl implements Entity, T {
 		public Object t(Object obj) throws Exception
 		{
 			String c1 = (String) obj;
-			return new T3(cx,table,c1);
-		}
-	}
-	
-	private class T3 implements T
-	{
-		private Connection cx;
-		private String table;
-		private String c1;
-		
-		public T3(Connection cx, String table, String c1)
-		{
-			this.cx = cx;
-			this.table = table;
-			this.c1 = c1;
-		}
-		
-		public Object t(Object obj) throws Exception
-		{
-			String c2 = (String) obj;
-			return perform.t(new Object[]{cx,table,c1,c2});
+			return perform.t(new Object[]{cx,table,c1});
 		}
 	}
 }

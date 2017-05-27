@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Properties;
 import gus06.framework.*;
+import java.util.Map;
 
 public class EntityImpl implements Entity, P {
 
@@ -15,7 +16,7 @@ public class EntityImpl implements Entity, P {
 
 	public EntityImpl() throws Exception
 	{
-		decrypt = Outside.service(this,"gus.crypto.pbe1.stringcol.decrypt");
+		decrypt = Outside.service(this,"gus.crypto.pbe1.object.decrypt");
 		read = Outside.service(this,"gus.file.read.properties");
 	}
 
@@ -26,7 +27,9 @@ public class EntityImpl implements Entity, P {
 		File file = (File) obj;
 		Properties p = (Properties) read.t(file);
 		
-		p = (Properties) decrypt.t(p);
+		Map m = (Map) decrypt.t(p);
+		p = new Properties();
+		p.putAll(m);
 		
 		FileOutputStream fos = new FileOutputStream(file);
 		p.store(fos,"");

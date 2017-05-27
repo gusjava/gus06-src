@@ -38,6 +38,8 @@ public class EntityImpl implements Entity, P, T, F {
 		if(newName.equals(oldName)) return null;
 		
 		File dir1 = new File(dir.getParentFile(),newName);
+		if(dir1.exists()) throw new Exception("Target path already exists: "+dir1);
+		
 		copy.p(new File[]{dir,dir1});
 		return dir1;
 	}

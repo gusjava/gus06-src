@@ -26,7 +26,8 @@ public class EntityImpl implements Entity, T, G {
 		"root",
 		"try",
 		"while",
-		"until"
+		"until",
+		"clock"
 	};
 	
 	

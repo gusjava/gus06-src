@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		buildExternal = Outside.service(this,"gus.sys.expression1.external");
+		buildExternal = Outside.service(this,"gus.sys.expression1.external.c0");
 		getContext = Outside.service(this,"gus.sys.script1.access.opmap.context");
 		contextPool = Outside.service(this,"gus.sys.script1.access.context.pool.latest");
 	}
@@ -44,6 +44,16 @@ public class EntityImpl implements Entity, T {
 			for(int i=0;i<l.size();i++)
 			{
 				Object element = l.get(i);
+				char c = (char)(98+i);
+				pool.put(""+c,element);
+			}
+		}
+		else if(data instanceof Object[])
+		{
+			Object[] arr = (Object[]) data;
+			for(int i=0;i<arr.length;i++)
+			{
+				Object element = arr[i];
 				char c = (char)(98+i);
 				pool.put(""+c,element);
 			}

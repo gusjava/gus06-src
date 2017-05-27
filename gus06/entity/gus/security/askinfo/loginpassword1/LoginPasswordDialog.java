@@ -2,10 +2,7 @@ package gus06.entity.gus.security.askinfo.loginpassword1;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
-
 
 class LoginPasswordDialog extends JDialog {
 

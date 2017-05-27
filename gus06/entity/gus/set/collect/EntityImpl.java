@@ -16,15 +16,7 @@ public class EntityImpl implements Entity, P, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Set input = (Set) o[0];
-		T t = (T) o[1];
-		
-		Set output = new HashSet();
-		Iterator it = input.iterator();
-		while(it.hasNext())
-		{
-			Object element = it.next();
-			output.add(t.t(element));
-		}
+		Set output = (Set) t(obj);
 		
 		input.clear();
 		input.addAll(output);

@@ -63,7 +63,7 @@ class ExplorerTreeModelCache implements TreeModel {
 	public synchronized int getChildCount(Object node)
 	{
 		Object[] a = getArray(node);
-		if(a==null) return -1;
+		if(a==null) return 0;
 		return a.length;
 	}
 

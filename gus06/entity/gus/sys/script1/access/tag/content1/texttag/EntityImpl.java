@@ -9,7 +9,6 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150906";}
 
 
-
 	private Service getContent;
 	private Service getValue;
 

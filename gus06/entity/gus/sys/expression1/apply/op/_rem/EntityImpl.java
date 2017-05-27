@@ -25,9 +25,6 @@ public class EntityImpl implements Entity, T {
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	private int toInt(Object obj)
-	{return Integer.parseInt(""+obj);}
-	
 	
 	
 	private class T1 implements T
@@ -38,9 +35,25 @@ public class EntityImpl implements Entity, T {
 		public Object t(Object obj) throws Exception
 		{
 			if(obj==null) return value;
-			return rem(value,toNumber(obj));
+			return remNb(value,toNumber(obj));
 		}
+		
+		private Object remNb(Number n1, Number n2) throws Exception
+		{
+			if(n1 instanceof Integer && n2 instanceof Integer)
+				return new Integer(n1.intValue() - n2.intValue());
+			return new Double(n1.doubleValue() - n2.doubleValue());
+		}
+		
+		private Number toNumber(Object obj) throws Exception
+		{return (Number) findNumber.t(obj);}
+		
+		private int toInt(Object obj)
+		{return Integer.parseInt(""+obj);}
 	}
+	
+	
+	
 	
 	private class T2 implements T
 	{
@@ -50,24 +63,19 @@ public class EntityImpl implements Entity, T {
 		public Object t(Object obj) throws Exception
 		{
 			if(obj==null) return value;
-			return rem(value,(String) obj);
+			return rem(value,toString_(obj));
+		}
+		
+		private Object rem(String s1, String s2) throws Exception
+		{return s1.replace(s2,"");}
+		
+		private String toString_(Object obj) throws Exception
+		{
+			if(obj instanceof Boolean) return ""+obj;
+			if(obj instanceof Number) return ""+obj;
+			if(obj instanceof String) return ""+obj;
+			
+			throw new Exception("Invalid data type: "+obj.getClass().getName());
 		}
 	}
-	
-	
-	
-	private Object rem(Number n1, Number n2) throws Exception
-	{
-		if(n1 instanceof Integer && n2 instanceof Integer)
-			return new Integer(n1.intValue() - n2.intValue());
-		return new Double(n1.doubleValue() - n2.doubleValue());
-	}
-	
-	private Object rem(String s1, String s2) throws Exception
-	{return s1.replace(s2,"");}
-	
-	
-	
-	private Number toNumber(Object obj) throws Exception
-	{return (Number) findNumber.t(obj);}
 }

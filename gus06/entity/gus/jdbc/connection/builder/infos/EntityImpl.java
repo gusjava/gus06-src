@@ -66,7 +66,7 @@ public class EntityImpl implements Entity, T {
 	
 	private Map fromString(String s) throws Exception
 	{
-		return fromArray(s.split("\\|"));
+		return fromArray(s.split("\\|",-1));
 	}
 	
 	

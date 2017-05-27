@@ -2,6 +2,7 @@ package gus06.entity.gus.data.perform.eachvalue;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P {
 
@@ -9,10 +10,12 @@ public class EntityImpl implements Entity, P {
 	
 	
 	private Service performMap;
+	private Service performFile;
 	
 	public EntityImpl() throws Exception
 	{
 		performMap = Outside.service(this,"gus.map.value.each");
+		performFile = Outside.service(this,"gus.dirfile.perform.eachvalue.handle");
 	}
 
 	
@@ -26,6 +29,12 @@ public class EntityImpl implements Entity, P {
 		if(input instanceof Map)
 		{
 			performMap.p(obj);
+			return;
+		}
+		
+		if(input instanceof File)
+		{
+			performFile.p(obj);
 			return;
 		}
 		

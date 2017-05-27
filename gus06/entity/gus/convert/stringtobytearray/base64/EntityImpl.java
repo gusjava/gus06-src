@@ -9,8 +9,12 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		if(obj instanceof String)
-			return Base64Coder.decode((String) obj);
-		throw new Exception("Invalid data type: "+obj);
+		if(obj==null) return null;
+		return convert((String) obj);
+	}
+
+	private byte[] convert(String s) throws Exception
+	{
+		return Base64Coder.decode(s);
 	}
 }

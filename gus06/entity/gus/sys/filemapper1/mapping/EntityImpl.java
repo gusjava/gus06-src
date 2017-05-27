@@ -22,7 +22,10 @@ public class EntityImpl implements Entity, T {
 		String id = format((String) o[1]);
 		String key = format((String) o[2]);
 		
+		if(key==null) throw new Exception("Invalid null key for file mapping");
+		
 		if(map==null) return key;
+		if(id==null) return key;
 		
 		if(map.containsKey(id+"@"+key))
 		return map.get(id+"@"+key);

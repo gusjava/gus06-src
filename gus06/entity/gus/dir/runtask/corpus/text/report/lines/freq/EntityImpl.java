@@ -21,7 +21,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.dir.listing0.ext.txt");
-		handleLine = Outside.service(this,"gus.file.string.reader.hanlelines.autodetect");
+		handleLine = Outside.service(this,"gus.file.string.reader.handlelines.autodetect");
 		writeFreqMap = Outside.service(this,"gus.file.write.string.freqmap");
 		buildAppender = Outside.service(this,"gus.map.freqmap.build.appender");
 	}

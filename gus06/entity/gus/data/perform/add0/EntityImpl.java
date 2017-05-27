@@ -2,16 +2,21 @@ package gus06.entity.gus.data.perform.add0;
 
 import gus06.framework.*;
 import java.util.List;
+import java.io.File;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.Document;
 
 public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20160130";}
 	
 	
+	private Service performFile;
 	private Service performList;
 	
 	public EntityImpl() throws Exception
 	{
+		performFile = Outside.service(this,"gus.file.write.string.append0.autodetect");
 		performList = Outside.service(this,"gus.list.add0");
 	}
 
@@ -23,11 +28,10 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof List)
-		{performList.p(o);return;}
-		
-		if(input instanceof StringBuffer)
-		{performSb(o);return;}
+		if(input instanceof File)		{performFile.p(o);return;}
+		if(input instanceof List)		{performList.p(o);return;}
+		if(input instanceof StringBuffer)	{performSb(o);return;}
+		if(input instanceof JTextComponent)	{performTextComp(o);return;}
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}
@@ -62,5 +66,15 @@ public class EntityImpl implements Entity, P, T {
 		String s = (String) o[1];
 		
 		sb.insert(0,s);
+	}
+	
+	
+	private void performTextComp(Object[] o) throws Exception
+	{
+		JTextComponent comp = (JTextComponent) o[0];
+		String s = (String) o[1];
+		
+		Document doc = comp.getDocument();
+		doc.insertString(0,s,null);
 	}
 }

@@ -9,13 +9,13 @@ public class EntityImpl extends S1 implements Entity, R, P, V {
 
 	public String creationDate() {return "20160615";}
 	
-	public static final String C_EXECUTION = "execution";
 	public static final String X_START = "start";
 
 
 	private Service engine;
 	private Service contextBuilder;
 	private Service getPool;
+	private Service getExecution;
 	
 	private Map input;
 	private Object output;
@@ -30,6 +30,7 @@ public class EntityImpl extends S1 implements Entity, R, P, V {
 		engine = Outside.service(this,"gus.sys.script1.engine");
 		contextBuilder = Outside.service(this,"gus.sys.script1.context.builder1");
 		getPool = Outside.service(this,"gus.sys.script1.access.tag.stack1.pool1");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 		
 		input = new HashMap();
 	}
@@ -98,7 +99,7 @@ public class EntityImpl extends S1 implements Entity, R, P, V {
 	
 	private void cleanContext() throws Exception
 	{
-		Map execution = (Map) get(context,C_EXECUTION);
+		Map execution = (Map) getExecution.t(context);
 		Map tag = (Map) execution.remove(X_START);
 		Map pool = (Map) getPool.t(tag);
 		

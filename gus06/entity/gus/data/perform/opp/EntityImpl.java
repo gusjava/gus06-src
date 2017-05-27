@@ -3,6 +3,7 @@ package gus06.entity.gus.data.perform.opp;
 import gus06.framework.*;
 import java.util.Set;
 import java.util.List;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -12,12 +13,14 @@ public class EntityImpl implements Entity, T {
 	private Service oppFunction;
 	private Service oppSet;
 	private Service oppList;
+	private Service oppMap;
 	
 	public EntityImpl() throws Exception
 	{
 		oppFunction = Outside.service(this,"gus.feature.op.function.opp");
 		oppSet = Outside.service(this,"gus.sys.opposite1.set.perform");
 		oppList = Outside.service(this,"gus.sys.opposite1.list.perform");
+		oppMap = Outside.service(this,"gus.map.opp.map");
 	}
 
 	
@@ -26,6 +29,7 @@ public class EntityImpl implements Entity, T {
 	{
 		if(obj instanceof Set) return oppSet.t(obj);
 		if(obj instanceof List) return oppList.t(obj);
+		if(obj instanceof Map) return oppMap.t(obj);
 		if(obj instanceof H) return oppFunction.t(obj);
 		
 		if(obj instanceof Integer) return new Integer(-1*toInt(obj));

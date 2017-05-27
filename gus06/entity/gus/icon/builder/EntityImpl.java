@@ -8,13 +8,13 @@ public class EntityImpl implements Entity, T, R {
 
 	public String creationDate() {return "20140913";}
 
-	private Service iconInside;
+	private Service iconLoader;
 	private Service iconsToIcon;
 	
 
 	public EntityImpl() throws Exception
 	{
-		iconInside = Outside.service(this,"gus.app.inside.icon");
+		iconLoader = Outside.service(this,"gus.icon.loader");
 		iconsToIcon = Outside.service(this,"gus.convert.iconstoicon");
 	}
 	
@@ -44,5 +44,5 @@ public class EntityImpl implements Entity, T, R {
 	
 	
 	private Icon load(String key) throws Exception
-	{return (Icon) iconInside.t(key);}
+	{return (Icon) iconLoader.t(key);}
 }

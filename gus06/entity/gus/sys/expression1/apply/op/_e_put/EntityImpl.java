@@ -2,10 +2,12 @@ package gus06.entity.gus.sys.expression1.apply.op._e_put;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.util.List;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
-	public String creationDate() {return "20160128";}
+	public String creationDate() {return "20160408";}
 
 
 	private Service perform;
@@ -26,6 +28,16 @@ public class EntityImpl implements Entity, T {
 		if(value==null) return null;
 		
 		if(value instanceof Map) return new T1(value);
+		if(value instanceof File) return new T1(value);
+		if(value instanceof List) return new T1(value);
+		if(value instanceof Object[]) return new T1(value);
+		if(value instanceof boolean[]) return new T1(value);
+		if(value instanceof double[]) return new T1(value);
+		if(value instanceof float[]) return new T1(value);
+		if(value instanceof long[]) return new T1(value);
+		if(value instanceof int[]) return new T1(value);
+		
+//		if(value instanceof StringBuffer) return new T1(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
@@ -33,19 +45,35 @@ public class EntityImpl implements Entity, T {
 	
 	private class T1 implements T
 	{
-		private Object value;
-		public T1(Object value)
-		{this.value = value;}
+		private Object data;
+		
+		public T1(Object data)
+		{this.data = data;}
 		
 		public Object t(Object obj) throws Exception
-		{return new E1(new Object[]{value,obj});}
+		{return new T2(data,obj);}
+	}
+	
+	private class T2 implements T
+	{
+		private Object data;
+		private Object key;
+		
+		public T2(Object data, Object key)
+		{
+			this.data = data;
+			this.key = key;
+		}
+		
+		public Object t(Object obj) throws Exception
+		{return new E1(new Object[]{data,key,obj});}
 	}
 	
 	
 	private class E1 implements E
 	{
 		private Object o;
-		public E1(Object o){this.o = o;}
+		public E1(Object o) {this.o = o;}
 		
 		public void e() throws Exception
 		{perform.p(o);}

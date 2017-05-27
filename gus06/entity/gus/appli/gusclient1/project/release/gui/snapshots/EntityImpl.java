@@ -37,6 +37,7 @@ public class EntityImpl implements Entity, ActionListener, I, P {
 		screenPanel = Outside.service(this,"*gus.swing.panel.screen.image");
 		
 		button = new JButton("Take picture");
+		button.setEnabled(false);
 		button.addActionListener(this);
 		
 		panel = new JPanel(new BorderLayout());
@@ -53,6 +54,7 @@ public class EntityImpl implements Entity, ActionListener, I, P {
 	public void p(Object obj) throws Exception
 	{
 		dir = (File) obj;
+		button.setEnabled(dir!=null);
 		screenPanel.p(null);
 	}
 
@@ -70,13 +72,13 @@ public class EntityImpl implements Entity, ActionListener, I, P {
 			if(dir==null) return;
 			
 			String id = (String) manager.g();
-			if(id==null) return;
+			if(id==null) throw new Exception("Invalid null id found for project");
 			
 			Rectangle rec = (Rectangle) findFrame.t(id);
-			if(rec==null) return;
+			if(rec==null) throw new Exception("Invalid null rec found for application");
 			
 			BufferedImage image = (BufferedImage) printScreen.t(rec);
-			if(image==null) return;
+			if(image==null) throw new Exception("Invalid null image found for application");
 			
 			File imageDir = new File(dir,"images");
 			imageDir.mkdirs();

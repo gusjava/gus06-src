@@ -26,8 +26,8 @@ public class EntityImpl implements Entity, T {
 		File[] ff = dir.listFiles();
 		if(ff!=null) for(File f:ff)
 		{
-			if(f.isDirectory()) handleDir(list,f);
 			list.add(f);
+			if(f.isDirectory()) handleDir(list,f);
 		}
 	}
 }

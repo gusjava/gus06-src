@@ -7,14 +7,17 @@ public class EntityImpl implements Entity, T {
 	
 	public String creationDate() {return "20150830";}
 
-	public static final String C_EXECUTION = "execution";
 	public static final String X_STOP = "stop";
 	
 	
 	private Service wrapping2;
+	private Service getExecution;
 	
 	public EntityImpl() throws Exception
-	{wrapping2 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping2");}
+	{
+		wrapping2 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping2");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
+	}
 	
 	
 	
@@ -50,7 +53,7 @@ public class EntityImpl implements Entity, T {
 			Object main = o[3];
 			Map data = (Map) o[4];
 	 		
-			Map execution = (Map) context.get(C_EXECUTION);
+			Map execution = (Map) getExecution.t(context);
 			execution.put(X_STOP,tag);
 		}
 	}

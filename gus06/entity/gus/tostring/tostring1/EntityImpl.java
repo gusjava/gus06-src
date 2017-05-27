@@ -3,15 +3,11 @@ package gus06.entity.gus.tostring.tostring1;
 import gus06.framework.*;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160625";}
-
-
-	public EntityImpl() throws Exception
-	{
-	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -36,6 +32,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof Object[]) return toString((Object[]) obj);
 		if(obj instanceof Set) return toString((Set) obj);
+		if(obj instanceof List) return toString((List) obj);
 		
 		return obj.toString();
 	}
@@ -161,6 +158,20 @@ public class EntityImpl implements Entity, T {
 		{
 			b.append(toString1(dd[i]));
 			if(i<dd.length-1) b.append(",");
+		}
+		b.append("]");
+		return b.toString();
+	}
+	
+	
+	
+	private String toString(List list)
+	{
+		StringBuffer b = new StringBuffer("[");
+		for(int i=0;i<list.size();i++) 
+		{
+			b.append(toString1(list.get(i)));
+			if(i<list.size()-1) b.append(",");
 		}
 		b.append("]");
 		return b.toString();

@@ -13,10 +13,8 @@ public class EntityImpl implements Entity, T {
 	private Service hToT;
 	private Service gToT;
 	private Service mapToT;
-	
-	private Service builder1;
-	private Service simpleTrans;
-	
+	private Service pToT;
+	private Service ruleToT;
 
 	public EntityImpl() throws Exception
 	{
@@ -25,9 +23,8 @@ public class EntityImpl implements Entity, T {
 		hToT = Outside.service(this,"gus.convert.htot");
 		gToT = Outside.service(this,"gus.convert.gtot");
 		mapToT = Outside.service(this,"gus.convert.maptot");
-		
-		builder1 = Outside.service(this,"gus.sys.expression1.builder1.t");
-		simpleTrans = Outside.service(this,"gus.data.transform.object.fromrule");
+		pToT = Outside.service(this,"gus.feature.wrap.p.t2e");
+		ruleToT = Outside.service(this,"gus.sys.expression1.builder2.t.rule");
 	}
 	
 	
@@ -50,17 +47,13 @@ public class EntityImpl implements Entity, T {
 		if(data instanceof F) 		return (T) fToT.t(data);
 		if(data instanceof H) 		return (T) hToT.t(data);
 		if(data instanceof G) 		return (T) gToT.t(data);
-		if(data instanceof String)	return stringToT(""+data,opMap);
-		if(data instanceof Integer)	return stringToT(""+data,opMap);
+		if(data instanceof P) 		return (T) pToT.t(data);
+		if(data instanceof String)	return ruleToT(""+data,opMap);
+		if(data instanceof Integer)	return ruleToT(""+data,opMap);
 		
 		throw new Exception("Invalid data type: "+data.getClass().getName());
 	}
 	
-	
-	private T stringToT(String data, Map opMap) throws Exception
-	{
-		T t = (T) simpleTrans.r(data);
-		if(t!=null) return t;
-		return (T) builder1.t(new Object[]{data,opMap});
-	}
+	private T ruleToT(String rule, Map opMap) throws Exception
+	{return (T) ruleToT.t(new Object[]{rule,opMap});}
 }

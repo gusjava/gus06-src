@@ -30,7 +30,7 @@ public class EntityImpl implements Entity, R, E, P {
 		getFile = Outside.service(this,"gus.sys.option.getfile");
 		analyzer = Outside.service(this,"gus.java.srcfile.extract.entity.infomap1");
 		baseHolder = Outside.service(this,"gus.appli.entityanalyze.holder.base");
-		formatMap = Outside.service(this,"gus.map.formatvalues.tostring");
+		formatMap = Outside.service(this,"gus.map.formatvalues.tostring2");
 	}
 	
 	

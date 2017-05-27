@@ -14,9 +14,9 @@ public class EntityImpl implements Entity, P {
 	private Service createDir;
 	private Service createTool;
 	
-	private Service rename;
+	private Service renameAsk;
 	private Service renameTStamp;
-	private Service duplicate;
+	private Service duplicateAsk;
 	private Service duplicateTStamp;
 	private Service displayInfos1;
 	private Service displayInfos2;
@@ -25,7 +25,6 @@ public class EntityImpl implements Entity, P {
 	private Service remove;
 	private Service refresh;
 	private Service runTask;
-	private Service runPTask;
 	
 	private Service copy;
 	private Service copyPath;
@@ -52,10 +51,10 @@ public class EntityImpl implements Entity, P {
 		createDir = Outside.service(this,"gus.swing.tree.perform.file.createdir");
 		createTool = Outside.service(this,"gus.swing.tree.perform.file.createtool");
 		
-		rename = Outside.service(this,"gus.swing.tree.perform.file.rename");
+		renameAsk = Outside.service(this,"gus.swing.tree.perform.file.rename.ask");
 		renameTStamp = Outside.service(this,"gus.swing.tree.perform.file.rename.timestamped");
 		
-		duplicate = Outside.service(this,"gus.swing.tree.perform.file.duplicate");
+		duplicateAsk = Outside.service(this,"gus.swing.tree.perform.file.duplicate.ask");
 		duplicateTStamp = Outside.service(this,"gus.swing.tree.perform.file.duplicate.timestamped");
 		
 		displayInfos1 = Outside.service(this,"gus.swing.tree.perform.file.display.infos1");
@@ -65,7 +64,6 @@ public class EntityImpl implements Entity, P {
 		remove = Outside.service(this,"gus.swing.tree.perform.file.remove");
 		refresh = Outside.service(this,"gus.swing.tree.perform.file.refresh");
 		runTask = Outside.service(this,"gus.swing.tree.perform.file.runtask");
-		runPTask = Outside.service(this,"gus.swing.tree.perform.file.runtask.previous");
 		
 		copy = Outside.service(this,"gus.swing.tree.perform.file.copy");
 		copyPath = Outside.service(this,"gus.swing.tree.perform.file.copypath");
@@ -143,7 +141,6 @@ public class EntityImpl implements Entity, P {
 					case KeyEvent.VK_F3:execute(tree,duplicateTStamp);break;
 					case KeyEvent.VK_F4:execute(tree,displayInfos2);break;
 					
-					case KeyEvent.VK_F7:execute(tree,runPTask);break;
 					case KeyEvent.VK_SPACE:execute(tree,changeRoot);break;
 				}
 			}
@@ -152,8 +149,8 @@ public class EntityImpl implements Entity, P {
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_F1:execute(tree,createFile);break;
-					case KeyEvent.VK_F2:execute(tree,rename);break;
-					case KeyEvent.VK_F3:execute(tree,duplicate);break;
+					case KeyEvent.VK_F2:execute(tree,renameAsk);break;
+					case KeyEvent.VK_F3:execute(tree,duplicateAsk);break;
 					case KeyEvent.VK_F4:execute(tree,displayInfos1);break;
 					
 					case KeyEvent.VK_F5:execute(tree,refresh);break;

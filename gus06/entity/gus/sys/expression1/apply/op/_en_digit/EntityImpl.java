@@ -18,22 +18,14 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof String) return new F1((String) obj);
+		if(obj==null) return Boolean.FALSE;
+		if(obj instanceof String) return new Boolean(matches((String) obj));
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	
-	private class F1 implements F
+	public boolean matches(String s) throws Exception
 	{
-		private String s;
-		public F1(String s) {this.s = s;}
-		
-		public boolean f(Object obj) throws Exception
-		{
-			String s0 = (String) obj;
-			return s.matches(".*[0-9]$");
-		}
+		return s.matches(".*[0-9]$");
 	}
 }

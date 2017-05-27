@@ -35,6 +35,7 @@ public class EntityImpl implements Entity, I, V, R, ActionListener {
 
 	private Service compHolder;
 	private Service fieldFactory;
+	private Service buildProc;
 	private Service process;
 	private Service findColor;
 
@@ -66,6 +67,7 @@ public class EntityImpl implements Entity, I, V, R, ActionListener {
 	{
 		compHolder = Outside.service(this,"*gus.swing.textpane.holder.printstreamcomp");
 		fieldFactory = Outside.service(this,"gus.swing.textfield.factory.recallfield");
+		buildProc = Outside.service(this,"gus.sys.console.build.proc");
 		process = Outside.service(this,"gus.process.holder1");
 		findColor = Outside.service(this,"gus.find.color");
 		
@@ -183,11 +185,7 @@ public class EntityImpl implements Entity, I, V, R, ActionListener {
 	
 	
 	private Process buildProc(String cmd) throws Exception
-	{
-		if(root==null) return Runtime.getRuntime().exec(cmd);
-		if(!root.isDirectory()) throw new Exception("Invalid root dir: "+root);
-		return Runtime.getRuntime().exec(cmd,null,root);
-	}
+	{return (Process) buildProc.t(new Object[]{cmd,root});}
 	
 	
 	

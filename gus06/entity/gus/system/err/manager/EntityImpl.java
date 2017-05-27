@@ -3,7 +3,7 @@ package gus06.entity.gus.system.err.manager;
 import gus06.framework.*;
 import java.io.*;
 
-public class EntityImpl implements Entity, P {
+public class EntityImpl implements Entity, P, G {
 
 	public String creationDate() {return "20140730";}
 
@@ -16,11 +16,15 @@ public class EntityImpl implements Entity, P {
 		factory = Outside.service(this,"gus.io.printstream.factory.multi.hist");
 		
 		p1 = (PrintStream) factory.g();
-		((P)p1).p(System.err);
+		p(System.err);
+		
 		System.setErr(p1);
 	}
 	
+	public Object g() throws Exception
+	{return p1;}
+	
 	
 	public void p(Object obj) throws Exception
-	{((P)p1).p(obj);}
+	{((V)p1).v("add",obj);}
 }

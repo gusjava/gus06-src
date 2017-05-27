@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.Collection;
 import java.util.Map;
 import java.io.File;
+import javax.swing.text.JTextComponent;
 
 public class EntityImpl implements Entity, P {
 
@@ -60,6 +61,12 @@ public class EntityImpl implements Entity, P {
 			if(!f.exists() || (f.isFile() && f.length()==0)) change(f,value);
 			return;
 		}
+		if(data instanceof JTextComponent) 
+		{
+			JTextComponent c = (JTextComponent) data;
+			if(c.getText().equals("")) change(c,value);
+			return;
+		}
 		throw new Exception("Invalid data type: "+data.getClass().getName());
 	}
 	
@@ -87,5 +94,10 @@ public class EntityImpl implements Entity, P {
 	private void change(File f, Object value) throws Exception
 	{
 		writeFile.p(new Object[]{f,value});
+	}
+	
+	private void change(JTextComponent c, Object value) throws Exception
+	{
+		c.setText((String) value);
 	}
 }

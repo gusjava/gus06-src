@@ -14,7 +14,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		builder = Outside.service(this,"gus.filter.string.build.equals");
+		builder = Outside.service(this,"gus.filter.object.build.equals");
 		perform = Outside.service(this,"gus.map.key.filter");
 	}
 

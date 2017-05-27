@@ -11,14 +11,41 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20140727";}
 	
+	public static final String SHIFT = "shift ";
+	public static final String CTRL = "ctrl ";
+	public static final String CTRL_SHIFT = "ctrl shift ";
+	public static final String ALT = "alt ";
+	public static final String ALT_SHIFT = "alt shift ";
+	
+	
 	
 	public Object t(Object obj) throws Exception
 	{
 		String s = (String) obj;
-		if(s.startsWith("ctrl "))
-			return keyStroke_ctrl(s.substring(5));
+			
+		if(s.startsWith(SHIFT))
+			return keyStroke_shift(s.substring(SHIFT.length()));
+		
+		if(s.startsWith(CTRL_SHIFT))
+			return keyStroke_ctrlShift(s.substring(CTRL_SHIFT.length()));
+			
+		if(s.startsWith(CTRL))
+			return keyStroke_ctrl(s.substring(CTRL.length()));
+			
+		if(s.startsWith(ALT_SHIFT))
+			return keyStroke_altShift(s.substring(ALT_SHIFT.length()));
+			
+		if(s.startsWith(ALT))
+			return keyStroke_alt(s.substring(ALT.length()));
+			
 		return keyStroke(s);
 	}
+	
+	
+	//Autre approche à tester ...
+//	private KeyStroke findKeyStroke(String info) throws Exception
+//	{return KeyStroke.getKeyStroke(info);}
+
 
 
 	private KeyStroke keyStroke(String s) throws Exception
@@ -26,6 +53,18 @@ public class EntityImpl implements Entity, T {
 
 	private KeyStroke keyStroke_ctrl(String s) throws Exception
 	{return KeyStroke.getKeyStroke(code(s),Event.CTRL_MASK);}
+
+	private KeyStroke keyStroke_shift(String s) throws Exception
+	{return KeyStroke.getKeyStroke(code(s),KeyEvent.SHIFT_MASK);}
+
+	private KeyStroke keyStroke_ctrlShift(String s) throws Exception
+	{return KeyStroke.getKeyStroke(code(s),Event.CTRL_MASK + KeyEvent.SHIFT_MASK);}
+
+	private KeyStroke keyStroke_alt(String s) throws Exception
+	{return KeyStroke.getKeyStroke(code(s),Event.ALT_MASK);}
+
+	private KeyStroke keyStroke_altShift(String s) throws Exception
+	{return KeyStroke.getKeyStroke(code(s),Event.ALT_MASK + KeyEvent.SHIFT_MASK);}
 
 
 
@@ -74,8 +113,19 @@ public class EntityImpl implements Entity, T {
     	if(s.equals("Y")) return KeyEvent.VK_Y;
     	if(s.equals("Z")) return KeyEvent.VK_Z;
 
-    	if(s.equals("SPACE")) return KeyEvent.VK_SPACE;
+	if(s.equals("DOWN")) return KeyEvent.VK_DOWN;
+	if(s.equals("UP")) return KeyEvent.VK_UP;
+	if(s.equals("RIGHT")) return KeyEvent.VK_RIGHT;
+	if(s.equals("LEFT")) return KeyEvent.VK_LEFT;
     	
+    	if(s.equals("SPACE")) return KeyEvent.VK_SPACE;
+    	if(s.equals("BACKSPACE")) return KeyEvent.VK_BACK_SPACE;
+    	if(s.equals("DEL")) return KeyEvent.VK_DELETE;
+    	if(s.equals("-")) return KeyEvent.VK_MINUS;
+    	if(s.equals("+")) return KeyEvent.VK_EQUALS;		//touche +=}
+    	if(s.equals("!")) return KeyEvent.VK_EXCLAMATION_MARK;
+    	if(s.equals("/")) return KeyEvent.VK_COLON;		//touche /:
+	
     	throw new Exception("Unknown code: "+s);
     }
 }

@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Iterator;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -31,6 +32,15 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Collection)	return perform.t(obj);
 		if(obj instanceof Iterator)	return perform.t(obj);
 		if(obj instanceof Object[])	return perform.t(obj);
+		if(obj instanceof File)		return perform.t(obj);
+		
+		if(obj instanceof double[])	return perform.t(obj);
+		if(obj instanceof float[])	return perform.t(obj);
+		if(obj instanceof long[])	return perform.t(obj);
+		if(obj instanceof int[])	return perform.t(obj);
+		if(obj instanceof boolean[])	return perform.t(obj);
+		if(obj instanceof byte[])	return perform.t(obj);
+		if(obj instanceof short[])	return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

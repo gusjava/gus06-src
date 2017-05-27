@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 	
+	public String creationDate() {return "20150829";}
+	
 	public static final String K_TAGPOS = "tagpos";
 	public static final String K_TEXTSTART = "textstart";
 	public static final String K_TEXTEND = "textend";
@@ -14,7 +16,6 @@ public class EntityImpl implements Entity, T {
 	public static final String K_PREVTAG = "prevtag";
 	
 	
-	public String creationDate() {return "20150829";}
 
 
 	private Service buildTagText;

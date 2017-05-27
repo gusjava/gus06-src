@@ -59,8 +59,36 @@ public class EntityImpl implements Entity, T {
 	
 	private F stringToF(String data, Map opMap) throws Exception
 	{
+		if(opMap.containsKey("_"+data))
+			return opToF(data,opMap);
+		
 		F f = (F) simpleFilter.r(data);
 		if(f!=null) return f;
+		
 		return (F) builder1.t(new Object[]{data,opMap});
+	}
+	
+	
+	
+	private F opToF(String data, Map opMap) throws Exception
+	{
+		T op = (T) opMap.get("_"+data);
+		return new F0(op,opMap);
+	}
+	
+	
+	private class F0 implements F
+	{
+		private T t;
+		private Map opMap;
+		
+		public F0(T t, Map opMap)
+		{this.t = t;this.opMap = opMap;}
+		
+		public boolean f(Object obj) throws Exception
+		{
+			Boolean b = (Boolean) t.t(new Object[]{obj,opMap});
+			return b.booleanValue();
+		}
 	}
 }

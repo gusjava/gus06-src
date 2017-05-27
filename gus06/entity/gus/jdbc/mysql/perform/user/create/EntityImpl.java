@@ -30,6 +30,7 @@ public class EntityImpl implements Entity, P {
 		String pwd = (String) o[3];
 		
 		String sql = (String) buildSql.t(new String[]{user,host,pwd});
+		System.out.println("sql: "+sql);
 		executeSql.p(new Object[]{cx,sql});
 	}
 }

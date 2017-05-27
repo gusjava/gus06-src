@@ -18,12 +18,14 @@ public class EntityImpl implements Entity, P {
 	public static final String K_OP = "op";
 	public static final String K_BEFORE = "before";
 	public static final String K_AFTER = "after";
+	public static final String K_E = "e";
 	
 
 	private Service getOutput;
 	private Service getPool;
 	private Service getParentPool;
-	private Service transferBack;
+	private Service handleReturn1;
+	private Service handleExecute1;
 	private Service initOp;
 	private Service initAlter;
 	private Service debugTag;
@@ -36,12 +38,13 @@ public class EntityImpl implements Entity, P {
 		getOutput = Outside.service(this,"gus.sys.script1.access.context.output0");
 		getPool = Outside.service(this,"gus.sys.script1.access.tag.stack1.pool1");
 		getParentPool = Outside.service(this,"gus.sys.script1.access.tag.parent0.stack1.pool1");
-		transferBack = Outside.service(this,"gus.sys.script1.tool.execute.transfer.back");
+		handleReturn1 = Outside.service(this,"gus.sys.script1.tool.execute.handle.return1");
+		handleExecute1 = Outside.service(this,"gus.sys.script1.tool.execute.handle.execute1");
 		initOp = Outside.service(this,"gus.sys.script1.tool.execute.init.op");
 		initAlter = Outside.service(this,"gus.sys.script1.tool.execute.init.alter");
 		debugTag = Outside.service(this,"gus.sys.script1.tool.debug.tag");
 		prepareRedirect = Outside.service(this,"gus.sys.script1.executor.type.el.r.redirect.prepare");
-		executeString = Outside.service(this,"gus.sys.script1.tool.execute.code.op.execute");
+		executeString = Outside.service(this,"gus.sys.script1.tool.execute.op.execute");
 	}
 	
 	
@@ -69,6 +72,7 @@ public class EntityImpl implements Entity, P {
 		Integer repeat = (Integer) get(data,K_REPEAT);
 		Object redirect = get(data,K_REDIRECT);
 		String return1 = (String) get(data,K_RETURN);
+		String e1 = (String) get(data,K_E);
 		Map alter = (Map) get(data,K_ALTER);
 		Map op = (Map) get(data,K_OP);
 		Object before = get(data,K_BEFORE);
@@ -79,7 +83,7 @@ public class EntityImpl implements Entity, P {
 		if(if1!=null && !if1.booleanValue()) return;
 		
 		executeObj(context,before);
-		setRedirect(output,tag,redirect);
+		setRedirect(output,context,tag,redirect);
 		
 		E e_alter = initAlter(context,alter);
 		E e_op = initOp(context,op);
@@ -100,7 +104,8 @@ public class EntityImpl implements Entity, P {
 			e_alter.e();
 		
 			if(redirect!=null) output.v("redirect",p0);
-			if(return1!=null) transferBack.p(new Object[]{tag,return1});
+			if(return1!=null) handleReturn1.p(new Object[]{tag,return1});
+			if(e1!=null) handleExecute1.p(new Object[]{tag,e1});
 		}
 		
 		executeObj(context,after);
@@ -139,12 +144,12 @@ public class EntityImpl implements Entity, P {
 		debugTag.v(debug,tag);
 	}
 	
-	private void setRedirect(V output, Map tag, Object redirect) throws Exception
+	private void setRedirect(V output, Map context, Map tag, Object redirect) throws Exception
 	{
 		if(redirect==null) return;
 		
 		Map parentPool = (Map) getParentPool.t(tag);
-		Object redirectObj = prepareRedirect.t(new Object[]{redirect,parentPool});
+		Object redirectObj = prepareRedirect.t(new Object[]{context,parentPool,redirect});
 		output.v("redirect",redirectObj);
 	}
 	

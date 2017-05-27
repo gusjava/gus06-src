@@ -49,7 +49,7 @@ public class EntityImpl implements Entity, F, P {
 		String[] type = new String[]{T_ID,T_NAME,T_TYPE,T_SIZE,T_TIME,T_PREVIEW,T_DATA};
 		String[] primary = new String[]{F_ID};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
 }

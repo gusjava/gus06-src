@@ -37,6 +37,7 @@ public class EntityImpl implements Entity, T {
 		if(value instanceof Set) return new T1(value,opMap);
 		if(value instanceof Map) return new T1(value,opMap);
 		if(value instanceof Object[]) return new T1(value,opMap);
+		if(value instanceof String) return new T1(value,opMap);
 		
 		if(value instanceof double[]) return new T2(value,opMap);
 		if(value instanceof float[]) return new T2(value,opMap);

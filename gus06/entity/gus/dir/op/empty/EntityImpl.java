@@ -32,14 +32,14 @@ public class EntityImpl implements Entity, P {
 	private void deleteFile(File file) throws Exception
 	{
 		boolean r = file.delete();
-		if(!r) throw new Exception("File cound not be deleted: "+file);
+		if(!r) throw new Exception("File could not be deleted: "+file);
 	}
 	
 	private void deleteDir(File dir) throws Exception
 	{
 		emptyDir(dir);
 		boolean r = dir.delete();
-		if(!r) throw new Exception("Dir cound not be deleted: "+dir);
+		if(!r) throw new Exception("Dir could not be deleted: "+dir);
 	}
 
 }

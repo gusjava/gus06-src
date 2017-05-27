@@ -24,6 +24,6 @@ public class EntityImpl implements Entity, P {
 		File f = (File) obj;
 		
 		if(f.isDirectory()) emptyDir.p(f);
-		else emptyFile.p(f);
+		else if(f.isFile()) emptyFile.p(f);
 	}
 }

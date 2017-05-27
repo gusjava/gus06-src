@@ -24,44 +24,92 @@ public class EntityImpl implements Entity, P {
 	public void p(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=3 && o.length!=4) throw new Exception("Wrong data number: "+o.length);
 		
 		Connection cx = (Connection) o[0];
 		String path = (String) o[1];
 		Map map = (Map) o[2];
+		Object options = o.length==4 ? o[3] : null;
 		
 		List fields = new ArrayList(map.keySet());
 		Collections.sort(fields);
 		int nb = fields.size();
 		
 		List pkList = new ArrayList();
-		String[] col = new String[nb];
-		String[] type = new String[nb];
+		List unList = new ArrayList();
+		
+		String[] colName = new String[nb];
+		String[] colDef = new String[nb];
 		
 		for(int i=0;i<nb;i++)
 		{
 			String key = (String) fields.get(i);
 			String value = (String) map.get(key);
-			String[] n = value.split("[ \t]+");
 			
-			StringBuffer b = new StringBuffer(n[0]);
-			String infos = n.length>1?n[1]:null;
-			String dvalue = n.length>2?n[2]:null;
-			
-			if(infos.contains("0")) b.append(" NULL");
-			else if(infos.contains("1")) b.append(" NOT NULL");
-			
-			if(dvalue!=null) b.append(" default "+dvalue);
-			if(infos.contains("+")) b.append(" auto_increment");
-			
-			col[i] = key;
-			type[i] = b.toString();
-			if(infos.contains("*")) pkList.add(key);
+			colName[i] = key;
+			colDef[i] = buildColDef(key,value,pkList,unList);
 		}
 		
 		String[] primary = new String[pkList.size()];
 		pkList.toArray(primary);
 		
-		createTable.p(new Object[]{cx,path,col,type,primary});
+		String[] uniques = new String[unList.size()];
+		unList.toArray(uniques);
+		
+		createTable.p(new Object[]{cx,path,colName,colDef,primary,uniques,options});
+	}
+	
+	
+	
+	private String buildColDef(String key, String value, List pkList, List unList)
+	{
+		if(value.startsWith("~")) return value.substring(1);
+			
+		String[] n = value.split("[ \t]+");
+			
+		String type = n[0];
+		String infos = n.length>1?n[1]:null;
+		String dvalue = n.length>2?n[2]:null;
+		
+		StringBuffer b = new StringBuffer(type);
+		if(infos.contains("0")) b.append(" NULL");
+		else if(infos.contains("1")) b.append(" NOT NULL");
+		
+		if(isValidDValue(dvalue)) handleDValue(b,type,dvalue);
+		if(infos.contains("+")) b.append(" auto_increment");
+		
+		if(infos.contains("*")) pkList.add(key);
+		if(infos.contains("!")) unList.add(key);
+		
+		return b.toString();
+	}
+	
+	
+	
+	private boolean isValidDValue(String dvalue)
+	{
+		if(dvalue==null) return false;
+		if(dvalue.startsWith("#")) return false;
+		if(dvalue.startsWith("->")) return false;
+		return true;
+	}
+	
+	
+	private void handleDValue(StringBuffer b, String type, String dvalue)
+	{
+		if(type.toLowerCase().equals("datetime")) handleDDateTime(b,dvalue);
+		else b.append(" default "+dvalue);
+	}
+	
+	
+	private void handleDDateTime(StringBuffer b, String dvalue)
+	{
+		if(dvalue.equals("c1"))
+			b.append(" default CURRENT_TIMESTAMP");
+		else if(dvalue.equals("c2"))
+			b.append(" on update CURRENT_TIMESTAMP");
+		else if(dvalue.equals("c12"))
+			b.append(" default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP");
+		else b.append(" default "+dvalue);
 	}
 }

@@ -22,7 +22,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		formatInfo = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.template.span.formatinfo");	
-		evalInt = Outside.service(this,"gus.string.transform.math.integer.eval1");
+		evalInt = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval1.t");
 		findVar = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.var.build");
 		emptyData = Outside.service(this,"gus.data.perform.empty");
 	}

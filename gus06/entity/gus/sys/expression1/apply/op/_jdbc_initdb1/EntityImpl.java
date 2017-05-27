@@ -8,15 +8,11 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20160316";}
 
 
-	private Service createDb;
-	private Service createUser;
-	private Service grantUser;
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		createDb = Outside.service(this,"gus.jdbc.mysql.perform.db.create");
-		createUser = Outside.service(this,"gus.jdbc.mysql.perform.user.create");
-		grantUser = Outside.service(this,"gus.jdbc.mysql.perform.user.grant.db.all");
+		perform = Outside.service(this,"gus.jdbc.mysql.perform.db.init1");
 	}
 
 	
@@ -39,10 +35,7 @@ public class EntityImpl implements Entity, T {
 		public T1(Connection cx) {this.cx = cx;}
 		
 		public Object t(Object obj) throws Exception
-		{
-			String dbName = (String) obj;
-			return new E1(cx,dbName);
-		}
+		{return new E1(cx,(String) obj);}
 	}
 	
 	private class E1 implements E
@@ -57,14 +50,6 @@ public class EntityImpl implements Entity, T {
 		}
 		
 		public void e() throws Exception
-		{
-			String user = dbName;
-			String pwd = dbName;
-			String host = "localhost";
-			
-			createDb.p(new Object[]{cx,dbName});
-			createUser.p(new Object[]{cx,user,host,pwd});
-			grantUser.p(new Object[]{cx,dbName,user,host});
-		}
+		{perform.p(new Object[]{cx,dbName});}
 	}
 }

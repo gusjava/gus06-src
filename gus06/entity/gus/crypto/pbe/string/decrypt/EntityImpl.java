@@ -8,43 +8,26 @@ public class EntityImpl implements Entity, T {
 
 	
 	private Service decrypt;
-	private Service toByteArray;
-	
-	
+	private Service wrapper;
 	
 	public EntityImpl() throws Exception
 	{
 		decrypt = Outside.service(this,"gus.crypto.pbe.bytearray.decrypt");
-		toByteArray = Outside.service(this,"gus.convert.stringtobytearray.hexa");
+		wrapper = Outside.service(this,"gus.crypto.tool.decrypt.string");
 	}
-
 	
-
 	public Object t(Object obj) throws Exception
 	{
 		T t = (T) decrypt.t(obj);
-		return new Decrypter(t);
+		return new Holder(t);
 	}
 	
-	
-	
-	
-	private class Decrypter implements T
+	private class Holder implements T
 	{
 		private T t;
-		public Decrypter(T t) {this.t = t;}
-
-		private byte[] de(byte[] input) throws Exception
-		{return (byte[]) t.t(input);}
+		public Holder(T t) {this.t = t;}
 		
 		public Object t(Object obj) throws Exception
-		{
-			String text = (String) obj;
-			byte[] b0 = toByteArray(text);
-			return new String(de(b0),"UTF-8");
-		}
+		{return wrapper.t(new Object[]{t,obj});}
 	}
-	
-	private byte[] toByteArray(String s) throws Exception
-	{return (byte[]) toByteArray.t(s);}
 }

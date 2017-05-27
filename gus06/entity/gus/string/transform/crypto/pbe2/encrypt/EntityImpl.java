@@ -9,10 +9,8 @@ public class EntityImpl implements Entity, T {
 
 	private Service s;
 
-
 	public EntityImpl() throws Exception
 	{s = Outside.service(this,"gus.crypto.pbe2.string.encrypt");}
-	
 	
 	public Object t(Object obj) throws Exception
 	{return s.t(obj);}

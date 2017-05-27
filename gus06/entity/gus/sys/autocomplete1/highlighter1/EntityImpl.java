@@ -17,6 +17,7 @@ public class EntityImpl implements Entity, V {
 	private Service libLines;
 	private Service libWords;
 	private Service libMap;
+	private Service regColors;
 	
 	
 
@@ -33,6 +34,7 @@ public class EntityImpl implements Entity, V {
 		libLines = Outside.service(this,"gus.sys.autocomplete1.highlighter1.lib.lines");
 		libWords = Outside.service(this,"gus.sys.autocomplete1.highlighter1.lib.words");
 		libMap = Outside.service(this,"gus.sys.autocomplete1.highlighter1.lib.map");
+		regColors = Outside.service(this,"gus.sys.autocomplete1.highlighter1.reg.colors");
 	}
 
 	
@@ -48,6 +50,7 @@ public class EntityImpl implements Entity, V {
 		if(key.equals("liblines"))	{libLines.p(obj);return;}
 		if(key.equals("libwords"))	{libWords.p(obj);return;}
 		if(key.equals("libmap"))	{libMap.p(obj);return;}
+		if(key.equals("regcolors"))	{regColors.p(obj);return;}
 		
 		if(key.startsWith("line "))	{elLine.v(p2(key),obj);return;}
 		

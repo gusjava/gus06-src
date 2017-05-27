@@ -4,16 +4,19 @@ import gus06.framework.*;
 import java.util.Collection;
 import java.util.Map;
 import java.io.File;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.Document;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20151204";}
 
 
-
+	private Service appendToFileTxt;
 
 	public EntityImpl() throws Exception
 	{
+		appendToFileTxt = Outside.service(this,"gus.file.write.string.append.autodetect");
 	}
 	
 	
@@ -43,6 +46,9 @@ public class EntityImpl implements Entity, P {
 		if(data instanceof File)
 		{append((File) data,value);return;}
 		
+		if(data instanceof JTextComponent)
+		{append((JTextComponent) data,(String) value);return;}
+		
 		throw new Exception("Invalid data type: "+data.getClass().getName());
 	}
 	
@@ -70,6 +76,23 @@ public class EntityImpl implements Entity, P {
 	private void append(File f, Object value) throws Exception
 	{
 		if(f.isDirectory()) throw new Exception("Directory not supported yet: "+f);
-		if(f.isFile()) throw new Exception("File not supported yet: "+f);
+		if(f.isFile()) appendToFile(f,value);
+	}
+	
+	private void append(JTextComponent comp, String value) throws Exception
+	{
+		Document doc = comp.getDocument();
+		int len = doc.getLength();
+		doc.insertString(len,value,null);
+	}
+	
+	
+	
+	private void appendToFile(File f, Object value) throws Exception
+	{
+		if(value instanceof String) {appendToFileTxt.p(new Object[]{f,value});return;}
+		if(value instanceof Map) {throw new Exception("Not supported yet");}
+		
+		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 }

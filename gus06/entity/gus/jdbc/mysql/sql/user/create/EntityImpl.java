@@ -7,6 +7,16 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150624";}
 
 
+	private Service formatUser;
+	private Service formatPwd;
+
+	public EntityImpl() throws Exception
+	{
+		formatUser = Outside.service(this,"gus.jdbc.mysql.format.sql.username");
+		formatPwd = Outside.service(this,"gus.jdbc.mysql.format.sql.value");
+	}
+
+
 
 	public Object t(Object obj) throws Exception
 	{
@@ -21,16 +31,15 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private String userHost(String user, String host)
+	private String userHost(String user, String host) throws Exception
 	{
-		if(user==null || user.equals("")) user = "%";
-		if(host==null || host.equals("")) host = "%";
-		return "'"+user+"'@'"+host+"'";
+		return (String) formatUser.t(new String[]{user,host});
 	}
 	
-	private String pwdPart(String pwd)
+	
+	private String pwdPart(String pwd) throws Exception
 	{
-		if(pwd!=null) return " IDENTIFIED BY '"+pwd+"'";
+		if(pwd!=null) return " IDENTIFIED BY "+formatPwd.t(pwd);
 		return "";
 	}
 }

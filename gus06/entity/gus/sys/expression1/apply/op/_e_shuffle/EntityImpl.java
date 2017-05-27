@@ -25,6 +25,8 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
+		if(obj instanceof int[]) return new E1(obj);
+		if(obj instanceof double[]) return new E1(obj);
 		if(obj instanceof List) return new E1(obj);
 		if(obj instanceof StringBuffer) return new E1(obj);
 		

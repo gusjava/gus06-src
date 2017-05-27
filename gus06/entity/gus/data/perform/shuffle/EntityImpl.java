@@ -2,37 +2,46 @@ package gus06.entity.gus.data.perform.shuffle;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Collections;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20151124";}
+
+
+	private Service performSb;
+	private Service performIntArray;
+	private Service performDoubleArray;
+	private Service performObjArray;
+	private Service performList;
+	
+	public EntityImpl() throws Exception
+	{
+		performSb = Outside.service(this,"gus.data.string.shuffle.perform");
+		performIntArray = Outside.service(this,"gus.math.tabint.shuffle.fisher.yates");
+		performDoubleArray = Outside.service(this,"gus.math.tabdouble.shuffle.fisher.yates");
+		performObjArray = Outside.service(this,"gus.array.objectarray.shuffle");
+		performList = Outside.service(this,"gus.list.shuffle");
+	}
+
 	
 	
 	public void p(Object obj) throws Exception
 	{
 		if(obj instanceof StringBuffer)
-		{shuffle((StringBuffer) obj);return;}
+		{performSb.p(obj);return;}
+		
+		if(obj instanceof int[])
+		{performIntArray.p(obj);return;}
+		
+		if(obj instanceof double[])
+		{performDoubleArray.p(obj);return;}
+		
+		if(obj instanceof Object[])
+		{performObjArray.p(obj);return;}
 		
 		if(obj instanceof List)
-		{shuffle((List) obj);return;}
+		{performList.p(obj);return;}
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-	
-	private void shuffle(List l)
-	{Collections.shuffle(l);}
-	
-	
-	private void shuffle(StringBuffer b)
-	{
-		StringBuffer b1 = new StringBuffer();
-		while(b.length()>0)
-		{
-			int n = (int) (Math.random()*b.length());
-			b1.append(b.charAt(n));
-			b.deleteCharAt(n);
-		}
-		b.append(b1.toString());
 	}
 }

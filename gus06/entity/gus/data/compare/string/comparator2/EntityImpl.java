@@ -29,18 +29,21 @@ public class EntityImpl implements Entity, T, F {
 	
 	private double compute(Object obj) throws Exception
 	{
-		String[] s = (String[]) obj;
-		if(s.length!=2) throw new Exception("Wrong data number: "+s.length);
+		Object[] o = (Object[]) obj;
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		if(s[0].equals(s[1])) return 1;
-		if(s[0].equals("")) return 0;
-		if(s[1].equals("")) return 0;
+		String s1 = (String) o[0];
+		String s2 = (String) o[1];
 		
-		boolean s1Long = isLong(s[0]);
-		boolean s2Long = isLong(s[1]);
+		if(s1.equals(s2)) return 1;
+		if(s1.equals("")) return 0;
+		if(s2.equals("")) return 0;
 		
-		if(s1Long && s2Long) return computeLongs(s[0],s[1]);
-		if(!s1Long && !s2Long) return computeStrings(s[0],s[1]);
+		boolean s1Long = isLong(s1);
+		boolean s2Long = isLong(s2);
+		
+		if(s1Long && s2Long) return computeLongs(s1,s2);
+		if(!s1Long && !s2Long) return computeStrings(s1,s2);
 		return 0;
 	}
 	

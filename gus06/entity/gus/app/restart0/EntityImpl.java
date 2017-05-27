@@ -9,20 +9,19 @@ public class EntityImpl implements Entity, E {
 	public String creationDate() {return "20150626";}
 
 	
-	private Service findJar;
-	private Service launchJar;
+	private Service findArgs;
+	private Service restart;
 
 	public EntityImpl() throws Exception
 	{
-		findJar = Outside.service(this,"gus.app.jarfile");
-		launchJar = Outside.service(this,"gus.java.launchjar");
+		findArgs = Outside.service(this,"gus.app.argsline");
+		restart = Outside.service(this,"gus.app.restart");
 	}
 	
 	
 	public void e() throws Exception
 	{
-		File jar = (File) findJar.g();
-		launchJar.p(jar);
-		System.exit(0);
+		String args = (String) findArgs.g();
+		restart.p(args);
 	}
 }

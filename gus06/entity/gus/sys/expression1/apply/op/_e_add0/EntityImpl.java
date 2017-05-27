@@ -2,6 +2,8 @@ package gus06.entity.gus.sys.expression1.apply.op._e_add0;
 
 import gus06.framework.*;
 import java.util.List;
+import java.io.File;
+import javax.swing.text.JTextComponent;
 
 public class EntityImpl implements Entity, T {
 
@@ -26,8 +28,10 @@ public class EntityImpl implements Entity, T {
 		
 		if(value==null) return null;
 		
+		if(value instanceof File) return new T1(value);
 		if(value instanceof List) return new T1(value);
 		if(value instanceof StringBuffer) return new T1(value);
+		if(value instanceof JTextComponent) return new T1(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

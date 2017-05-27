@@ -2,11 +2,7 @@ package gus06.entity.gus.command.entity.generate;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import gus06.framework.Entity;
-import gus06.framework.Outside;
-import gus06.framework.P;
-import gus06.framework.Service;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, P {
 

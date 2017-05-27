@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import java.util.Vector;
 
 public class EntityImpl extends S1 implements Entity, I, P, G, ActionListener {
 

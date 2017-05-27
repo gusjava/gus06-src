@@ -51,8 +51,7 @@ public class EntityImpl implements Entity, F {
 		}
 		catch(Exception e)
 		{
-			if(e.toString().startsWith("javax.crypto."))
-				return false;
+			if(e.toString().startsWith("javax.crypto.")) return false;
 			throw e;
 		}
 	}

@@ -32,11 +32,11 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=4) throw new Exception("Wrong data number: "+o.length);
 		
 		File dir = (File) o[0];
-		String rule = (String) o[1];
+		Object filterData = o[1];
 		Object progress = o[2];
 		Set interrupt = (Set) o[3];
 		
-		F filter = (F) buildFilter.t(rule);
+		F filter = buildFilter(filterData);
 		File[] ff = dir.listFiles();
 		Map result = new HashMap();
 		
@@ -59,4 +59,14 @@ public class EntityImpl implements Entity, T {
 	
 	private String toId(File f) throws Exception
 	{return (String) getName.t(f);}
+	
+	
+	
+	private F buildFilter(Object data) throws Exception
+	{
+		if(data instanceof F) return (F) data;
+		if(data instanceof String) return (F) buildFilter.t(data);
+		
+		throw new Exception("Invalid data type: "+data.getClass().getName());
+	}
 }

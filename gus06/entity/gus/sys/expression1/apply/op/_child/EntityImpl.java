@@ -15,7 +15,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof File) return new T1((File) obj);
+		if(obj instanceof File) return new T1(obj);
+		if(obj instanceof File[]) return new T1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -23,10 +24,29 @@ public class EntityImpl implements Entity, T {
 	
 	private class T1 implements T
 	{
-		private File dir;
-		public T1(File dir) {this.dir = dir;}
+		private Object data;
+		public T1(Object data) {this.data = data;}
 		
 		public Object t(Object obj) throws Exception
-		{return new File(dir,(String) obj);}
+		{return build(data,(String) obj);}
+	}
+	
+	
+	
+	private Object build(Object obj, String s) throws Exception
+	{
+		if(obj instanceof File)
+		{
+			File d = (File) obj;
+			return new File(d,s);
+		}
+		if(obj instanceof File[])
+		{
+			File[] d1 = (File[]) obj;
+			File[] d2 = new File[d1.length];
+			for(int i=0;i<d1.length;i++) d2[i] = new File(d1[i],s);
+			return d2;
+		}
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 }

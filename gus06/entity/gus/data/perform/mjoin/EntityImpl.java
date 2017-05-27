@@ -34,7 +34,10 @@ public class EntityImpl implements Entity, T {
 	{
 		StringBuffer b = new StringBuffer();
 		List keys = new ArrayList(m.keySet());
-		Collections.sort(keys);
+		
+		try{Collections.sort(keys);}
+		catch(Exception e){}
+		
 		int n = keys.size();
 		
 		for(int i=0;i<n;i++)

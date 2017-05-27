@@ -1,9 +1,6 @@
 package gus06.entity.gus.swing.label.hold.link.web;
 
 import gus06.framework.*;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import java.awt.Color;
@@ -11,7 +8,6 @@ import java.awt.event.MouseListener;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-
 
 public class EntityImpl implements Entity, I, P, G, MouseListener {
 

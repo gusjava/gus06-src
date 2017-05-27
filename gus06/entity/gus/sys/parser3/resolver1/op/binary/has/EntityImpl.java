@@ -52,10 +52,23 @@ public class EntityImpl implements Entity, T {
 			return new Boolean(contains(map,o2));
 		}
 		
+		if(o1 instanceof Object[])
+		{
+			Object[] array = (Object[]) o1;
+			return new Boolean(contains(array,o2));
+		}
+		
 		if(o1 instanceof double[] && o2 instanceof Number)
 		{
 			double[] dd = (double[]) o1;
 			double v = ((Number) o2).doubleValue();
+			return new Boolean(found(dd,v));
+		}
+		
+		if(o1 instanceof float[] && o2 instanceof Number)
+		{
+			float[] dd = (float[]) o1;
+			float v = ((Number) o2).floatValue();
 			return new Boolean(found(dd,v));
 		}
 		
@@ -66,7 +79,14 @@ public class EntityImpl implements Entity, T {
 			return new Boolean(found(dd,v));
 		}
 		
-		throw new Exception("Invalid has operation");
+		if(o1 instanceof long[] && o2 instanceof Number)
+		{
+			long[] dd = (long[]) o1;
+			long v = ((Number) o2).longValue();
+			return new Boolean(found(dd,v));
+		}
+		
+		throw new Exception("Invalid has operation (o1="+o1+")");
 	}
 	
 	
@@ -78,11 +98,25 @@ public class EntityImpl implements Entity, T {
 		return false;
 	}
 	
+	private boolean found(float[] dd, float v)
+	{
+		for(float d:dd) if(v==d) return true;
+		return false;
+	}
+	
 	private boolean found(int[] dd, int v)
 	{
 		for(int d:dd) if(v==d) return true;
 		return false;
 	}
+	
+	private boolean found(long[] dd, long v)
+	{
+		for(long d:dd) if(v==d) return true;
+		return false;
+	}
+	
+	
 	
 	
 	private boolean contains(Collection c1, Object o2)
@@ -90,6 +124,13 @@ public class EntityImpl implements Entity, T {
 		if(o2 instanceof Collection)
 			return c1.containsAll((Collection) o2);
 		return c1.contains(o2);
+	}
+	
+	
+	private boolean contains(Object[] array, Object o2)
+	{
+		for(Object elem : array) if(equals(elem,o2)) return true;
+		return false;
 	}
 	
 	private boolean contains(Map m1, Object o2)
@@ -101,5 +142,13 @@ public class EntityImpl implements Entity, T {
 			return true;
 		}
 		return m1.containsKey(o2);
+	}
+	
+	
+	private boolean equals(Object o1, Object o2)
+	{
+		if(o1==null && o2==null) return true;
+		if(o1==null || o2==null) return false;
+		return o1.equals(o2);
 	}
 }

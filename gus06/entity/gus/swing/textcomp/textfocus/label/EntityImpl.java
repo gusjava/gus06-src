@@ -3,7 +3,7 @@ package gus06.entity.gus.swing.textcomp.textfocus.label;
 import gus06.framework.*;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 import java.util.List;
 import javax.swing.Icon;
 import java.awt.GridLayout;
@@ -28,17 +28,17 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		G holder = (G) manager.t(obj);
-		return new JPanel1(holder);
+		return new JLabel1(holder);
 	}
 	
 	
-	private class JPanel1 extends JPanel implements ActionListener
+	private class JLabel1 extends JLabel implements ActionListener
 	{
 		private G holder;
 		
-		public JPanel1(G holder)
+		public JLabel1(G holder)
 		{
-			super(new GridLayout(1,0));
+			super(" ");
 			this.holder = holder;
 			((S) holder).addActionListener(this);
 		}
@@ -49,22 +49,21 @@ public class EntityImpl implements Entity, T {
 		private void updateGui()
 		{
 			int number = number(holder);
-			removeAll();
-			for(int i=0;i<number;i++)
-			add(new JLabel(icon));
+			setIcon(number>=0?icon:null);
+			setText(number>=1?""+number:"");
 		}
 	}
-	
 	
 	private int number(G g)
 	{
 		try
 		{
 			List queue = (List) g.g();
+			if(queue==null) return -1;
 			return queue.size();
 		}
 		catch(Exception e)
 		{Outside.err(this,"number(G)",e);}
-		return 0;
+		return -1;
 	}
 }

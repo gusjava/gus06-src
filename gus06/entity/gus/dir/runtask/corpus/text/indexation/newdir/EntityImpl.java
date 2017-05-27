@@ -20,7 +20,7 @@ public class EntityImpl implements Entity, P {
 		listing = Outside.service(this,"gus.dir.listing0.ext.txt");
 		autoRename = Outside.service(this,"gus.file.newfile.autorename2");
 		cutting = Outside.service(this,"gus.string.split.wordcutting1");
-		handleLines = Outside.service(this,"gus.file.string.reader.hanlelines.autodetect");
+		handleLines = Outside.service(this,"gus.file.string.reader.handlelines.autodetect");
 	}
 
 	

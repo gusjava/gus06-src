@@ -48,6 +48,7 @@ public class EntityImpl extends S1 implements Entity, R, G, V, P {
 		draggable.p(dialog);
 		locationPersister.v("GADGET_POSITION_"+name,dialog);
 		
+    		dialog.setVisible(true);
 		updated();
 	}
 	

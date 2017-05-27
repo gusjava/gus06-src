@@ -19,11 +19,11 @@ public class EntityImpl implements Entity, P {
 	
 	public EntityImpl() throws Exception
 	{
-		performMap = Outside.service(this,"gus.map.value.each");
+		performMap = Outside.service(this,"gus.map.keyvalue.each");
 		performList = Outside.service(this,"gus.list.each");
 		performSet = Outside.service(this,"gus.set.each");
 		performArray = Outside.service(this,"gus.array.objectarray.each");
-		performFile = Outside.service(this,"gus.dir.perform.each");
+		performFile = Outside.service(this,"gus.dirfile.perform.each.handle");
 	}
 
 	

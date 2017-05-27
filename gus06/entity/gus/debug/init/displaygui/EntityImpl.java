@@ -14,8 +14,6 @@ public class EntityImpl implements Entity {
 	private Service subMap;
 	private Service newEntity;
 
-	
-	private JFrame frame;
 
 	public EntityImpl() throws Exception
 	{
@@ -30,7 +28,6 @@ public class EntityImpl implements Entity {
 			String name = (String) map.get(id);
 			handle(id,name);
 		}
-		
 	}
 	
 	

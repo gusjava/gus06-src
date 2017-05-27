@@ -26,7 +26,6 @@ public class EntityImpl implements Entity, ActionListener {
 		dialogGui = Outside.service(this,"gus.appli.usbwebprint.gui.dialog.extractor");
 		
 		dialog = (JDialog) buildDialog.t(dialogGui.i());
-		dialog.setVisible(false);
 		dialog.setLocation(10,10);
 		
 		percent.addActionListener(this);

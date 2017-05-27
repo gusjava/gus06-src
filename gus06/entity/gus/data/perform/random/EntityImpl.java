@@ -13,7 +13,14 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
+		if(obj instanceof Double) return new Double(random(toDouble(obj)));
+		if(obj instanceof Long) return new Long(random(toLong(obj)));
 		if(obj instanceof Integer) return new Integer(random(toInt(obj)));
+		
+		if(obj instanceof double[]) return new Double(random((double[]) obj));
+		if(obj instanceof long[]) return new Long(random((long[]) obj));
+		if(obj instanceof int[]) return new Integer(random((int[]) obj));
+		
 		if(obj instanceof Boolean) return new Boolean(Math.random()<0.5);
 		if(obj instanceof String) return random((String) obj);
 		if(obj instanceof List) return random((List) obj);
@@ -28,9 +35,45 @@ public class EntityImpl implements Entity, T {
 	private int toInt(Object obj)
 	{return ((Integer) obj).intValue();}
 	
+	private double toDouble(Object obj)
+	{return ((Double) obj).doubleValue();}
+	
+	private long toLong(Object obj)
+	{return ((Long) obj).longValue();}
+	
+	
+	
+	
+	private double random(double n)
+	{return Math.random()*n;}
+	
 	
 	private int random(int n)
 	{return (int) (Math.random()*n);}
+	
+	
+	private long random(long n)
+	{return (long) (Math.random()*n);}
+	
+	
+	private double random(double[] n) throws Exception
+	{
+		if(n.length!=2) throw new Exception("Invalid data length: "+n.length);
+		return n[0]+random(n[1]-n[0]);
+	}
+	
+	private int random(int[] n) throws Exception
+	{
+		if(n.length!=2) throw new Exception("Invalid data length: "+n.length);
+		return n[0]+random(n[1]-n[0]);
+	}
+	
+	private long random(long[] n) throws Exception
+	{
+		if(n.length!=2) throw new Exception("Invalid data length: "+n.length);
+		return n[0]+random(n[1]-n[0]);
+	}
+	
 	
 	
 	private Object random(List list)

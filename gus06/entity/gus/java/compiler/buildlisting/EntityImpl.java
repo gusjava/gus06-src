@@ -45,7 +45,7 @@ public class EntityImpl implements Entity, T {
 		{
 			if(f[i].isDirectory()) print(f[i],filter,p);
 			else if(isValid(f[i],filter)) p.println(dd(f[i]));
-        		}
+        	}
 	}
 
 

@@ -15,18 +15,9 @@ public class EntityImpl implements Entity, P, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		double[] input = (double[]) o[0];
-		H h = (H) o[1];
+		double[] output = (double[]) t(obj);
 		
-		int nb = input.length;
-		double[] output = new double[nb];
-		
-		for(int i=0;i<nb;i++)
-		{
-			double value = input[i];
-			output[i] = h.h(value);
-		}
-		
-		for(int i=0;i<nb;i++)
+		for(int i=0;i<input.length;i++)
 		input[i] = output[i];
 	}
 	

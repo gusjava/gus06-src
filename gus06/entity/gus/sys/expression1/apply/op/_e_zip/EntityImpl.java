@@ -37,7 +37,7 @@ public class EntityImpl implements Entity, T {
 		public T1(Object input) {this.input = input;}
 		
 		public Object t(Object obj) throws Exception
-		{return new E1(input,toFile(obj));}
+		{return new E1(input,(File) obj);}
 	}
 	
 	private class E1 implements E
@@ -54,15 +54,4 @@ public class EntityImpl implements Entity, T {
 		public void e() throws Exception
 		{perform.p(new Object[]{input,zipFile});}
 	}
-	
-	
-	
-	private File toFile(Object obj) throws Exception
-	{
-		if(obj instanceof File) return (File) obj;
-		if(obj instanceof String) return new File((String) obj).getCanonicalFile();
-		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
-	}
-		
 }

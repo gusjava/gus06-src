@@ -40,6 +40,31 @@ public class EntityImpl implements Entity, F {
 				Object[] t = (Object[]) o;
 				if(!checkDistinct(set,Arrays.asList(t))) return false;
 			}
+			else if(o instanceof int[])
+			{
+				int[] t = (int[]) o;
+				if(!checkDistinct(set,Arrays.asList(t))) return false;
+			}
+			else if(o instanceof long[])
+			{
+				long[] t = (long[]) o;
+				if(!checkDistinct(set,Arrays.asList(t))) return false;
+			}
+			else if(o instanceof double[])
+			{
+				double[] t = (double[]) o;
+				if(!checkDistinct(set,Arrays.asList(t))) return false;
+			}
+			else if(o instanceof float[])
+			{
+				float[] t = (float[]) o;
+				if(!checkDistinct(set,Arrays.asList(t))) return false;
+			}
+			else if(o instanceof boolean[])
+			{
+				boolean[] t = (boolean[]) o;
+				if(!checkDistinct(set,Arrays.asList(t))) return false;
+			}
 		}
 		return true;
 	}

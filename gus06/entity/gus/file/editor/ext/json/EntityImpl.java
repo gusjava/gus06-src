@@ -1,47 +1,44 @@
 package gus06.entity.gus.file.editor.ext.json;
 
-import java.awt.BorderLayout;
-import java.io.File;
 import gus06.framework.*;
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
-import java.awt.event.ActionListener;
-import java.util.Map;
+import java.io.File;
 
-
-public class EntityImpl implements Entity, I, P {
+public class EntityImpl implements Entity, I, P, G {
 
 	public String creationDate() {return "20150117";}
 
 	
-	private Service jsonParser;
-	private Service readFile;
-	private Service objViewer;
+	private Service tab;
+	private Service textGui;
+	private Service dataGui;
 	
 	private File file;
-	private Map data;
-	
 
 	public EntityImpl() throws Exception
 	{
-		jsonParser = Outside.service(this,"gus.sys.jsonparser1.evaluate");
-		readFile = Outside.service(this,"gus.file.read.string.autodetect");
-		objViewer = Outside.service(this,"*gus.data.viewer.object");
+		tab = Outside.service(this,"*gus.swing.tabbedpane.holder1");
+		textGui = Outside.service(this,"*gus.file.editor.ext.txt");
+		dataGui = Outside.service(this,"*gus.file.editor.ext.json.dataviewer");
+		
+		tab.v("Src",textGui.i());
+		tab.v("Data",dataGui.i());
 	}
 	
 	
 	public Object i() throws Exception
-	{return objViewer.i();}
+	{return tab.i();}
 	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	
 	public void p(Object obj) throws Exception
 	{
 		file = (File) obj;
-		String s = (String) readFile.t(file);
-		data = (Map) jsonParser.t(s);
 		
-		objViewer.p(data);
+		textGui.p(obj);
+		dataGui.p(obj);
 	}
 }

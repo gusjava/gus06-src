@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.Set;
 import java.io.File;
+import java.util.Iterator;
 
 public class EntityImpl implements Entity, T {
 
@@ -17,12 +18,18 @@ public class EntityImpl implements Entity, T {
 	private Service find;
 	private Service read;
 	private Service rsToSet;
+	private Service stringToSet;
+	private Service itToSet;
+	private Service gToSet;
 	
 	public EntityImpl() throws Exception
 	{
 		find = Outside.service(this,"gus.find.set");
 		read = Outside.service(this,"gus.file.read.string.set.autodetect");
 		rsToSet = Outside.service(this,"gus.jdbc.resultset.tostringset");
+		stringToSet = Outside.service(this,"gus.set.build.from.chars");
+		itToSet = Outside.service(this,"gus.set.build.from.iterator");
+		gToSet = Outside.service(this,"gus.set.build.from.g");
 	}
 
 	
@@ -37,6 +44,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof Set) return obj;
 		
+		if(obj instanceof String) return stringToSet.t(obj);
 		if(obj instanceof Object[]) return find.t(obj);
 		if(obj instanceof int[]) return find.t(obj);
 		if(obj instanceof long[]) return find.t(obj);
@@ -49,6 +57,8 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Map) return new HashSet(((Map) obj).keySet());
 		if(obj instanceof ResultSet) return rsToSet.t(obj);
 		if(obj instanceof File) return read.t(obj);
+		if(obj instanceof Iterator) return itToSet.t(obj);
+		if(obj instanceof G) return gToSet.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

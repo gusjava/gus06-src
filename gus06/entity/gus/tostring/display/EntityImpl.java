@@ -2,11 +2,9 @@ package gus06.entity.gus.tostring.display;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class EntityImpl implements Entity, T {
 
@@ -14,23 +12,25 @@ public class EntityImpl implements Entity, T {
 	
 	public static final int LIMIT_DEEP = 10;
 	public static final int LIMIT_STRING = 50;
+	public static final int LIMIT_BUFF = 100000;
 
 
 	private Service encodeString;
 	private Service buildDesc;
-
+	private Service strictSet;
 
 	public EntityImpl() throws Exception
 	{
 		encodeString = Outside.service(this,"gus.string.transform.encoding.datastring.encode");
 		buildDesc = Outside.service(this,"gus.tostring.desc.short1");
+		strictSet = Outside.service(this,"gus.set.build.strictset");
 	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
 		StringBuffer b = new StringBuffer();
-		Set k = new HashSet();
+		Set k = (Set) strictSet.g();
 		handleObj("",k,b,obj);
 		return b.toString()+"\n";
 	}
@@ -38,13 +38,11 @@ public class EntityImpl implements Entity, T {
 	
 	private void handleObj(String offset, Set k, StringBuffer b, Object obj) throws Exception
 	{
-		if(offset.length() > LIMIT_DEEP)
-		{b.append("...");return;}
+		if(obj==null) {append(b,"null");return;}
+		if(offset.length() > LIMIT_DEEP) {append(b,"...");return;}
 		
-		if(obj==null) b.append("null");
-		
-		else if(obj instanceof Number) b.append(obj);
-		else if(obj instanceof Boolean) b.append(obj);
+		else if(obj instanceof Number) append(b,""+obj);
+		else if(obj instanceof Boolean) append(b,""+obj);
 		
 		else if(obj instanceof String)		handleString(b,(String) obj);
 		else if(obj instanceof Map)		handleMap(offset,k,b,(Map) obj);
@@ -66,178 +64,188 @@ public class EntityImpl implements Entity, T {
 	{
 		String s_ = (String) encodeString.t(s);
 		if(s_.length()>LIMIT_STRING) s_ = s_.substring(0,LIMIT_STRING)+"...";
-		b.append("\""+s_+"\"");
+		append(b,"\""+s_+"\"");
 	}
 	
 	
 	private void handleMap(String offset, Set k, StringBuffer b, Map m) throws Exception
 	{
-		if(k.contains(m)) {b.append("{...}");return;}
-		k.add(m);
+		if(!k.add(m)) {append(b,"{...}");return;}
 		
-		b.append("{\n");
+		append(b,"{\n");
 		List l = new ArrayList(m.keySet());
 		for(int i=0;i<l.size();i++)
 		{
-			String key = (String) l.get(i);
+			Object key = l.get(i);
 			Object value = m.get(key);
 			
-			b.append(offset+"\t");
+			append(b,offset+"\t");
 			handleObj(offset,k,b,key);
 			
-			b.append(":");
+			append(b,":");
 			
 			handleObj(offset+"\t",k,b,value);
-			if(i<l.size()-1) b.append(",");
-			
-			b.append("\n");
+			if(i<l.size()-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"}");
+		append(b,offset+"}");
 	}
 	
 	
 	private void handleSet(String offset, Set k, StringBuffer b, Set s) throws Exception
 	{
-		if(k.contains(s)) {b.append("{...}");return;}
-		k.add(s);
+		if(!k.add(s)) {append(b,"{...}");return;}
 		
-		b.append("{\n");
+		append(b,"{\n");
 		List l = new ArrayList(s);
 		for(int i=0;i<l.size();i++)
 		{
 			Object value = l.get(i);
-			b.append(offset+"\t");
+			append(b,offset+"\t");
 			handleObj(offset+"\t",k,b,value);
-			if(i<l.size()-1) b.append(",");
-			b.append("\n");
+			if(i<l.size()-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"}");
+		append(b,offset+"}");
 	}
 	
 	
 	private void handleList(String offset, Set k, StringBuffer b, List l) throws Exception
 	{
-		if(k.contains(l)) {b.append("[...]");return;}
-		k.add(l);
+		if(!k.add(l)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<l.size();i++)
 		{
 			Object value = l.get(i);
-			b.append(offset+"\t");
+			append(b,offset+"\t");
 			handleObj(offset+"\t",k,b,value);
-			if(i<l.size()-1) b.append(",");
-			b.append("\n");
+			if(i<l.size()-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArray(String offset, Set k, StringBuffer b, Object[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
 			Object value = a[i];
-			b.append(offset+"\t");
+			append(b,offset+"\t");
 			handleObj(offset+"\t",k,b,value);
-			if(i<a.length-1) b.append(",");
-			b.append("\n");
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayInt(String offset, Set k, StringBuffer b, int[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayLong(String offset, Set k, StringBuffer b, long[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayDouble(String offset, Set k, StringBuffer b, double[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayFloat(String offset, Set k, StringBuffer b, float[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayBoolean(String offset, Set k, StringBuffer b, boolean[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleArrayChar(String offset, Set k, StringBuffer b, char[] a) throws Exception
 	{
-		if(k.contains(a)) {b.append("[...]");return;}
-		k.add(a);
+		if(!k.add(a)) {append(b,"[...]");return;}
 		
-		b.append("[\n");
+		append(b,"[\n");
 		for(int i=0;i<a.length;i++)
 		{
-			b.append(offset+"\t"+a[i]+"\n");
+			append(b,offset+"\t"+a[i]);
+			if(i<a.length-1) append(b,",");
+			append(b,"\n");
 		}
-		b.append(offset+"]");
+		append(b,offset+"]");
 	}
 	
 	
 	private void handleOther(StringBuffer b, Object obj) throws Exception
 	{
 		String desc = (String) buildDesc.t(obj);
-		b.append(desc);
+		append(b,desc);
+	}
+	
+	
+	
+	private void append(StringBuffer b, String s) throws Exception
+	{
+		if(b.length()>LIMIT_BUFF)
+			throw new Exception("StringBuffer has exeeded limit "+LIMIT_BUFF+": "+b.length());
+		b.append(s);
 	}
 }

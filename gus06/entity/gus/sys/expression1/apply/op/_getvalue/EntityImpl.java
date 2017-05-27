@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		perform = Outside.service(this,"gus.reflection.method.getter.getvalue");
+		perform = Outside.service(this,"gus.reflection.getter.getvalue");
 	}
 
 	

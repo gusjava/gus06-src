@@ -5,7 +5,8 @@ import gus06.framework.*;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160308";}
-	
+
+
 	
 	public Object t(Object obj) throws Exception
 	{
@@ -14,6 +15,7 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
 		if(obj instanceof byte[]) return obj;
 		if(obj instanceof String) return ((String) obj).getBytes();
 		

@@ -7,9 +7,10 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.event.ActionListener;
 import javax.swing.undo.UndoManager;
+import java.util.Map;
 
 
-public class EntityImpl implements Entity, I, P, R {
+public class EntityImpl implements Entity, I, P, G, R {
 
 	public String creationDate() {return "20140831";}
 
@@ -51,13 +52,14 @@ public class EntityImpl implements Entity, I, P, R {
 		buildFocusLabel = Outside.service(this,"gus.swing.textcomp.textfocus.label");
 		buildCaretLabel = Outside.service(this,"gus.swing.textcomp.buildlabel.caretposition");
 		buildQuickLabel = Outside.service(this,"gus.sys.quickreplace.holder.find.label");
-		buildUndoManager = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
+		buildUndoManager = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_zy.undoredo");
 		autoSaver = Outside.service(this,"*gus.file.editor.holder.text.autosaver");
 		toolbarBuilder = Outside.service(this,"gus.swing.toolbar.toolbar1");
 		
 		comp = (JTextComponent) buildComp.i();
 		undo = (UndoManager) buildUndoManager.t(comp);
 		
+		((Map) ((R)comp).r("data")).put("editor",this);
 		S1 highSup = (S1) buildHighSup.t(comp);
 		
 		scroll = (JScrollPane) buildScroll.t(comp);
@@ -82,6 +84,10 @@ public class EntityImpl implements Entity, I, P, R {
 	
 	public Object i() throws Exception
 	{return panel;}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	
@@ -109,8 +115,8 @@ public class EntityImpl implements Entity, I, P, R {
 	public Object r(String key) throws Exception
 	{
 		if(key.equals("comp")) return comp;
-		
-		if(key.equals("keys")) return new String[]{"comp"};
+		if(key.equals("file")) return file;
+		if(key.equals("keys")) return new String[]{"comp","file"};
 		
 		throw new Exception("Unknown key: "+key);
 	}
@@ -120,6 +126,8 @@ public class EntityImpl implements Entity, I, P, R {
 	public void p(Object obj) throws Exception
 	{
 		file = (File) obj;
+		((Map) ((R)comp).r("data")).put("file",file);
+		
 		boolean loaded = autoSaver.f(file);
 		if(loaded) undo.discardAllEdits();
 	}

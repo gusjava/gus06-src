@@ -10,16 +10,11 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20160201";}
 
 
-	private Service colContainsAll;
-	private Service mapContainsKeyAll;
-	private Service arrayContainsAll;
-	
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		colContainsAll = Outside.service(this,"gus.collection.containsall.coltof");
-		mapContainsKeyAll = Outside.service(this,"gus.map.containsall.key.maptof");
-		arrayContainsAll = Outside.service(this,"gus.array.containsall.arraytof");
+		perform = Outside.service(this,"gus.data.perform.hasall");
 	}
 
 	
@@ -31,14 +26,13 @@ public class EntityImpl implements Entity, T {
 		Object value = o[0];
 		Map opMap = (Map) o[1];
 		
-		if(value==null) return null;
+		if(value==null) return perform.t(value);
 		
-		if(value instanceof List) return colContainsAll.t(value);
-		if(value instanceof Set) return colContainsAll.t(value);
-		if(value instanceof Map) return mapContainsKeyAll.t(value);
-		if(value instanceof Object[]) return arrayContainsAll.t(value);
+		if(value instanceof List) return perform.t(value);
+		if(value instanceof Set) return perform.t(value);
+		if(value instanceof Map) return perform.t(value);
+		if(value instanceof Object[]) return perform.t(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
-	
 }

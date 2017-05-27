@@ -12,7 +12,7 @@ public class EntityImpl implements Entity, T {
 	{
 		File file = (File) obj;
 		
-		if(file==null) return file;
+		if(file==null) return null;
 		if(!file.exists()) return file;
 		if(file.length()==0) return file;
 		

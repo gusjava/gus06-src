@@ -2,7 +2,6 @@ package gus06.entity.gus.app.outside.lastmodified;
 
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import gus06.framework.*;
@@ -11,10 +10,9 @@ public class EntityImpl implements Entity, G {
 
 	public String creationDate() {return "20140705";}
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	
 	private Service classToUrl;
-	private String time;
+	private Date date;
 
 	public EntityImpl() throws Exception
 	{
@@ -24,8 +22,8 @@ public class EntityImpl implements Entity, G {
 	
 	public Object g() throws Exception
 	{
-		if(time==null) init();
-		return time;
+		if(date==null) init();
+		return date;
 	}
 	
 	
@@ -34,6 +32,6 @@ public class EntityImpl implements Entity, G {
 		URL url = (URL) classToUrl.t(Outside.class);
 		URLConnection connection = url.openConnection();
 		long lastModified = connection.getLastModified();
-		time = sdf.format(new Date(lastModified));
+		date = new Date(lastModified);
 	}
 }

@@ -211,7 +211,7 @@ public class Parser2 extends Parser1 {
 		Object value = parse_value();
 		parse_blank();
 		
-		if(value==null) return reset(n0,"value==null");
+		if(value==null) return list;
 		list.add(value);
 		
 		value = parse_nextElement();

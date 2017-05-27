@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -15,37 +16,46 @@ public class EntityImpl implements Entity, P, T {
 	public void p(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Map map = (Map) o[0];
-		Object key = o[1];
-		Collection col = (Collection) o[2];
+		Map m = (Map) o[1];
 		
-		if(!map.containsKey(key))
-			map.put(key,new ArrayList());
+		Iterator it = m.keySet().iterator();
+		while(it.hasNext())
+		{
+			Object key = it.next();
+			Collection c = (Collection) m.get(key);
 			
-		List list = (List) map.get(key);
-		list.addAll(col);
+			if(!map.containsKey(key))
+				map.put(key,new ArrayList());
+			List list = (List) map.get(key);
+			list.addAll(c);
+		}
 	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Map map = (Map) o[0];
-		Object key = o[1];
-		Collection col = (Collection) o[2];
+		Map m = (Map) o[1];
 		
 		Map map1 = new HashMap(map);
 		
-		if(!map1.containsKey(key))
-			map1.put(key,new ArrayList());
+		Iterator it = m.keySet().iterator();
+		while(it.hasNext())
+		{
+			Object key = it.next();
+			Collection c = (Collection) m.get(key);
 			
-		List list = (List) map1.get(key);
-		list.addAll(col);
-		
+			if(!map1.containsKey(key))
+				map1.put(key,new ArrayList());
+			List list = (List) map1.get(key);
+			list.addAll(c);
+		}
 		return map1;
 	}
 }

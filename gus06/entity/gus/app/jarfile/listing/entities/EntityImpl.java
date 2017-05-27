@@ -23,10 +23,10 @@ public class EntityImpl implements Entity, G {
 	}
 	
 	
-	public Object g() throws Exception
+	public synchronized Object g() throws Exception
 	{
 		if(list==null) init();
-		return list;
+		return new ArrayList(list);
 	}
 	
 	
@@ -44,8 +44,9 @@ public class EntityImpl implements Entity, G {
 			String entityName = entryToEntityName(entry);
 			if(entityName!=null) list.add(entityName);
 		}
-		Collections.sort(list);
 		jar.close();
+		
+		Collections.sort(list);
 	}
 	
 	

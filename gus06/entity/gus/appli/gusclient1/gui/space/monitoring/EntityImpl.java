@@ -46,7 +46,7 @@ public class EntityImpl implements Entity, I {
 		tabHolder.v("GUI_jre#JRE",jreViewer.i());
 		tabHolder.v("GUI_main#Main",mainViewer.i());
 		tabHolder.v("entity#Entities",entitiesViewer.i());
-		tabHolder.v("GUI_info#Info",infoViewer.i());
+		tabHolder.v("GUI_info#Infos",infoViewer.i());
 		tabHolder.v("GUI_jarFile#App jar",appJarViewer.i());
 		
 		tabPersist.v(getClass().getName()+"_tab",tabHolder.i());

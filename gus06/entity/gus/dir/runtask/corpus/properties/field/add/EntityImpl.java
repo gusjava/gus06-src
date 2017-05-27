@@ -19,7 +19,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.dir.listing0.ext.properties");
-		op = Outside.service(this,"gus.file.properties.perform.field.set");
+		op = Outside.service(this,"gus.file.properties.perform.field.put");
 		input = Outside.service(this,"gus.input.text.dialog");
 	}
 

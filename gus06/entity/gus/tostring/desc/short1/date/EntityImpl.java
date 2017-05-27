@@ -1,7 +1,6 @@
 package gus06.entity.gus.tostring.desc.short1.date;
 
 import gus06.framework.*;
-import java.io.File;
 import java.util.Date;
 
 public class EntityImpl implements Entity, T {

@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 
-public class EntityImpl implements Entity, I, P, ActionListener {
+public class EntityImpl implements Entity, I, P, G, ActionListener {
 
 	public String creationDate() {return "20140831";}
 
@@ -41,6 +41,10 @@ public class EntityImpl implements Entity, I, P, ActionListener {
 	
 	public Object i() throws Exception
 	{return gui.i();}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	

@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.script1.executor.type.el.r.each.list;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -60,13 +61,28 @@ public class EntityImpl implements Entity, P {
 		
 		String name_i = getIndexName(var);
 		String name_v = getElementName(var);
+		String name_i_ = name_i + "_";
 		
 		for(int i=0;i<struct.size();i++)
 		{
 			Object value = struct.get(i);
 			
+			Map m = new HashMap();
+				
+			m.put("index",new Integer(i));
+			m.put("index1",new Integer(i+1));
+			m.put("size",new Integer(struct.size()));
+			m.put("first",new Boolean(i==0));
+			m.put("last",new Boolean(i==struct.size()-1));
+			m.put("even",new Boolean(i%2==0));
+			m.put("odd",new Boolean(i%2==1));
+			m.put("progress",(i+1)+"/"+struct.size());
+			m.put("value",value);
+			
 			pool1.put(name_i,new Integer(i));
 			pool1.put(name_v,value);
+			pool1.put(name_i_,m);
+			
 			
 			if(while1!=null && !isTrue(context,while1)) return;
 			if(until1!=null && isTrue(context,until1)) return;
@@ -74,11 +90,12 @@ public class EntityImpl implements Entity, P {
 					
 			if(skip1==null || !isTrue(context,skip1))
 			if(keep==null || isTrue(context,keep))
-			executePart1.p(new Map[]{tag,context});
+			{
+				executePart1.p(new Map[]{tag,context});
+			}
 		}
 		if(struct.isEmpty())
 		{
-			pool1.put(name_i,new Integer(-1));
 			executePart2.p(new Map[]{tag,context});
 		}
 	}

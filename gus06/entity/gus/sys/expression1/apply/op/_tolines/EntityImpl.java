@@ -9,9 +9,13 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service read;
+	private Service split;
 	
 	public EntityImpl() throws Exception
-	{read = Outside.service(this,"gus.file.read.string.array.autodetect");}
+	{
+		read = Outside.service(this,"gus.file.read.string.list.autodetect");
+		split = Outside.service(this,"gus.string.split.lines1.list");
+	}
 
 	
 	
@@ -22,7 +26,7 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof String) return ((String) obj).split("\n");
+		if(obj instanceof String) return split.t(obj);
 		if(obj instanceof File) return read.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());

@@ -11,6 +11,7 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String s = (String) obj;
-		return s.split("[\n\r]+");
+//		return s.split("[\n\r]+");
+		return s.replace("\r","").split("\n");
 	}
 }

@@ -18,7 +18,7 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		int index = random(26);
+		int index = random(52);
 		return ""+ALPHABET.charAt(index);
 	}
 	

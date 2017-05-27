@@ -33,6 +33,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(value instanceof List) return new T1(value,opMap);
 		if(value instanceof Set) return new T1(value,opMap);
+		if(value instanceof Object[]) return new T1(value,opMap);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

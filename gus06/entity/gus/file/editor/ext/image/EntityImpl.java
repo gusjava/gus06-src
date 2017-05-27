@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.io.File;
 
-public class EntityImpl implements Entity, I, P {
+public class EntityImpl implements Entity, I, P, G {
 
 	public String creationDate() {return "20140909";}
 
@@ -26,6 +26,10 @@ public class EntityImpl implements Entity, I, P {
 	
 	public Object i() throws Exception
 	{return screen.i();}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	public void p(Object obj) throws Exception

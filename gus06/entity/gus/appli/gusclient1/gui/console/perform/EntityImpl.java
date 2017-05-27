@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EntityImpl extends S1 implements Entity, P {
 
@@ -84,7 +86,7 @@ public class EntityImpl extends S1 implements Entity, P {
 		{
 			if(line.equals("exit")) System.exit(0);
 			
-			out.println(">"+line);
+			out.println(now()+">"+line);
 			
 			serverOut.p(out);
 			executeCmd(line,out);
@@ -118,4 +120,9 @@ public class EntityImpl extends S1 implements Entity, P {
 			
 	private void send_end()
 	{send(this,"end()");}
+	
+	
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+	private String now() {return sdf.format(new Date());}
 }

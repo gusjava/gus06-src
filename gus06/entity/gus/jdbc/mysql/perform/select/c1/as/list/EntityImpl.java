@@ -9,19 +9,19 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service perform;
-	private Service rsToListMap;
+	private Service rsToList;
 
 
 	public EntityImpl() throws Exception
 	{
 		perform = Outside.service(this,"gus.jdbc.mysql.perform.select.c1");
-		rsToListMap = Outside.service(this,"gus.jdbc.resultset.toobjectlist");
+		rsToList = Outside.service(this,"gus.jdbc.resultset.toobjectlist");
 	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
 		ResultSet rs = (ResultSet) perform.t(obj);
-		return rsToListMap.t(rs);
+		return rsToList.t(rs);
 	}
 }

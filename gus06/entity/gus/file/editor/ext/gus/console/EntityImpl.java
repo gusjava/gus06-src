@@ -14,7 +14,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.Insets;
 import java.util.Map;
 
-public class EntityImpl implements Entity, I, P {
+public class EntityImpl implements Entity, I, P, V {
 
 	public String creationDate() {return "20151101";}
 	
@@ -25,6 +25,7 @@ public class EntityImpl implements Entity, I, P {
 	private Service compHolder;
 	private Service engine;
 	private Service readText;
+	private Service printDelayed;
 	
 
 	private JPanel panel;
@@ -35,6 +36,8 @@ public class EntityImpl implements Entity, I, P {
 	
 	private String input;
 	private String output;
+	private long lapse = -1;
+	
 	
 	
 	
@@ -44,6 +47,7 @@ public class EntityImpl implements Entity, I, P {
 		compHolder = Outside.service(this,"*gus.swing.textpane.holder.printstreamcomp");
 		engine = Outside.service(this,"gus.sys.script1.main.main1");
 		readText = Outside.service(this,"gus.file.read.string.autodetect");
+		printDelayed = Outside.service(this,"gus.io.printstream.delayed1");
 		
 		console = (JTextComponent) compHolder.i();
 		
@@ -86,6 +90,16 @@ public class EntityImpl implements Entity, I, P {
 	}
 	
 	
+	public void v(String key, Object obj) throws Exception
+	{
+		if(key.equals("lapse")) {lapse = toLong(obj);return;}
+		throw new Exception("Unknown key: "+key);
+	}
+	
+	private long toLong(Object obj)
+	{return Long.parseLong(""+obj);}
+	
+	
 	
 
 
@@ -94,6 +108,7 @@ public class EntityImpl implements Entity, I, P {
 		try
 		{
 			PrintStream p_out = p_out();
+			
 			engine.p(new Object[]{inputFile,p_out});
 			p_out.close();
 			
@@ -113,10 +128,15 @@ public class EntityImpl implements Entity, I, P {
 	
 	
 	private PrintStream p_out() throws Exception
-	{return (PrintStream) compHolder.r("white");}
+	{
+		Object p = compHolder.r("white");
+		return (PrintStream) printDelayed.t(new Object[]{p,new Long(lapse)});
+	}
 	
 	private PrintStream p_err() throws Exception
-	{return (PrintStream) compHolder.r("red");}
+	{
+		return (PrintStream) compHolder.r("red");
+	}
 	
 	
 	private void print(File f, String s) throws Exception

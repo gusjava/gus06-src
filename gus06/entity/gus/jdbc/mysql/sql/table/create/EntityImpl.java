@@ -23,19 +23,29 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=4) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=6) throw new Exception("Wrong data number: "+o.length);
 		
 		String path = (String) o[0];
 		String[] col = (String[]) o[1];
 		String[] type = (String[]) o[2];
 		String[] primary = (String[]) o[3];
+		String[] uniques = (String[]) o[4];
+		String options = (String) o[5];
 		
 		if(col.length!=type.length) throw new Exception("Different col and type length: "+col.length+" <> "+type.length);
 		
 		String colPart = colPart(col,type);
 		String primaryPart = primaryPart(primary);
+		String uniquesPart = uniquesPart(uniques);
 		
-		return "CREATE TABLE "+format(path)+" ("+colPart+","+primaryPart+")";
+		StringBuffer b = new StringBuffer("CREATE TABLE "+format(path)+" ("+colPart);
+		if(primaryPart!=null) b.append(","+primaryPart);
+		if(uniquesPart!=null) b.append(","+uniquesPart);
+		b.append(")");
+		
+		if(options!=null) b.append(" "+options);
+		
+		return b.toString();
 	}
 
 
@@ -51,13 +61,28 @@ public class EntityImpl implements Entity, T {
 		return b.toString();
 	}
 	
+	
 	private String primaryPart(String[] primary) throws Exception
 	{
+		if(primary==null || primary.length==0) return null;
+		
 		StringBuffer b = new StringBuffer("PRIMARY KEY (");
 		for(int i=0;i<primary.length;i++)
 			b.append(format(primary[i])+",");
 		b.deleteCharAt(b.length()-1);
 		b.append(")");
+		return b.toString();
+	}
+	
+	
+	private String uniquesPart(String[] uniques) throws Exception
+	{
+		if(uniques==null || uniques.length==0) return null;
+		
+		StringBuffer b = new StringBuffer();
+		for(int i=0;i<uniques.length;i++)
+			b.append("UNIQUE KEY ("+format(uniques[i])+"),");
+		b.deleteCharAt(b.length()-1);
 		return b.toString();
 	}
 	

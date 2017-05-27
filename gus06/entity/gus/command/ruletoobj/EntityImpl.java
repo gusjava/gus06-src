@@ -1,9 +1,6 @@
 package gus06.entity.gus.command.ruletoobj;
 
-import gus06.framework.Entity;
-import gus06.framework.Outside;
-import gus06.framework.Service;
-import gus06.framework.T;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, T {
 

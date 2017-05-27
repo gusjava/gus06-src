@@ -1,14 +1,10 @@
 package gus06.entity.gus.swing.label.hold.file;
 
 import java.io.File;
-
 import gus06.framework.*;
-
 import javax.swing.Icon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
-
 
 public class EntityImpl implements Entity, I, P, G {
 

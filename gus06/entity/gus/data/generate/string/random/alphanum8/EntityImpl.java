@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, G, T {
 
 	public Object t(Object obj) throws Exception
 	{
-		int length = Integer.parseInt((String)obj);
+		int length = Integer.parseInt(""+obj);
 		return randomString(length);
 	}
 	

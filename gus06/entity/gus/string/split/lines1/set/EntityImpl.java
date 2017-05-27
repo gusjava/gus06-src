@@ -22,8 +22,7 @@ public class EntityImpl implements Entity, T {
 	{
 		String[] nn = (String[]) split.t(obj);
 		Set set = new HashSet();
-		for(String n:nn)
-		if(!n.trim().equals("")) set.add(n.trim());
+		for(String n:nn) set.add(n);
 		return set;
 	}
 }

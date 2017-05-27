@@ -49,7 +49,7 @@ public class EntityImpl implements Entity, T {
 		{
 			T external = buildExternal(new Double(value),opMap);
 			T t = (T) resolver1.t(external);
-			Double r = (Double) t.t(list);
+			Number r = (Number) t.t(list);
 			return r.doubleValue();
 		}
 	}

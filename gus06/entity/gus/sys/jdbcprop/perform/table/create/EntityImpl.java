@@ -8,8 +8,8 @@ public class EntityImpl implements Entity, F, P {
 	public String creationDate() {return "20150625";}
 	
 	
-	public final static String F_ID = "id";
-	public final static String F_VALUE = "value";
+	public final static String F_ID = "ID";
+	public final static String F_VALUE = "VALUE";
 	
 	public final static String T_ID = "CHAR(100)";
 	public final static String T_VALUE = "TEXT";
@@ -39,7 +39,7 @@ public class EntityImpl implements Entity, F, P {
 		String[] type = new String[]{T_ID,T_VALUE};
 		String[] primary = new String[]{F_ID};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
 }

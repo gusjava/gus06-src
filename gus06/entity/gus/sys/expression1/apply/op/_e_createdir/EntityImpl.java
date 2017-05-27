@@ -28,8 +28,8 @@ public class EntityImpl implements Entity, T {
 		
 		public void e() throws Exception
 		{
-			if(f.exists()) return;
-			f.mkdirs();
+			if(f.isFile()) throw new Exception("Path already initialized as a file: "+f);
+			if(!f.exists()) f.mkdirs();
 		}
 	}
 }

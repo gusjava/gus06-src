@@ -99,6 +99,15 @@ public class EntityImpl implements Entity, P, T {
 	{
 		if(obj instanceof String[]) return (String[]) obj;
 		if(obj instanceof String) return ((String) obj).split(" ");
+		if(obj instanceof List) return toStringArray((List) obj);
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	public String[] toStringArray(List l) throws Exception
+	{
+		int number = l.size();
+		String[] yy = new String[number];
+		for(int i=0;i<number;i++) yy[i] = ""+l.get(i);
+		return yy;
 	}
 }

@@ -2,11 +2,13 @@ package gus06.entity.gus.sys.script1.executor.type.el.r.while1;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.util.HashMap;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151111";}
 	
+	public static final String K_VAR = "var";
 	public static final String K_UNTIL = "until";
 	public static final String K_SKIP = "skip";
 	public static final String K_KEEP = "keep";
@@ -67,6 +69,7 @@ public class EntityImpl implements Entity, T {
 			
 			
 			Boolean while1 = (Boolean) main;
+			String var = (String) get(data,K_VAR);
 			String until1 = (String) get(data,K_UNTIL);
 			String skip1 = (String) get(data,K_SKIP);
 			String keep = (String) get(data,K_KEEP);
@@ -77,9 +80,22 @@ public class EntityImpl implements Entity, T {
 			
 			int k = 0;
 			
+			String mName1 = var!=null?var:"i";
+			String mName2 = mName1 + "_";
+			
 			if(min!=null)
 			for(int i=0;i<min.intValue();i++)
 			{
+				Map m = new HashMap();
+				m.put("index",new Integer(k));
+				m.put("index1",new Integer(k+1));
+				m.put("first",new Boolean(k==0));
+				m.put("even",new Boolean(k%2==0));
+				m.put("odd",new Boolean(k%2==1));
+				
+				pool1.put(mName1,new Integer(i));
+				pool1.put(mName2,m);
+				
 				executePart1.p(new Map[]{tag,context});
 				k++;
 			}
@@ -92,7 +108,19 @@ public class EntityImpl implements Entity, T {
 				
 				if(skip1==null || !isTrue(context,skip1))
 				if(keep==null || isTrue(context,keep))
-				executePart1.p(new Map[]{tag,context});
+				{
+					Map m = new HashMap();
+					m.put("index",new Integer(k));
+					m.put("index1",new Integer(k+1));
+					m.put("first",new Boolean(k==0));
+					m.put("even",new Boolean(k%2==0));
+					m.put("odd",new Boolean(k%2==1));
+					
+					pool1.put(mName1,new Integer(k));
+					pool1.put(mName2,m);
+					
+					executePart1.p(new Map[]{tag,context});
+				}
 				
 				k++;
 				while1 = evalMain(context,tag);

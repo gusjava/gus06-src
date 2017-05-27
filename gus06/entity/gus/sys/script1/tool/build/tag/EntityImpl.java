@@ -5,13 +5,12 @@ import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
-
 	public String creationDate() {return "20150829";}
+
 
 	private Service parser;
 	private Service analyzer1;
 	private Service analyzer2;
-	
 	
 	public EntityImpl() throws Exception
 	{

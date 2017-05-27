@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Font;
 
 
 public class EntityImpl implements Entity, I, V, E {
@@ -77,6 +78,8 @@ public class EntityImpl implements Entity, I, V, E {
 	
 	
 	
+	
+	
 	private class TableModel0 extends AbstractTableModel
 	{
 		public int getColumnCount() {return 2;}
@@ -90,7 +93,7 @@ public class EntityImpl implements Entity, I, V, E {
 		
 		public Class getColumnClass(int y)
 		{
-			if(y==0)return File.class;
+			if(y==0) return File.class;
 			return int[].class;
 		}
 		
@@ -100,7 +103,8 @@ public class EntityImpl implements Entity, I, V, E {
 		public Object getValueAt(int x, int y)
 		{
 			if(y==0) return files[x];
-			return map.get(files[x]);
+			Map m = (Map) map.get(files[x]);
+			return m.get("values");
 		}
 	}
 	
@@ -108,13 +112,28 @@ public class EntityImpl implements Entity, I, V, E {
 	
 	private class TableCellRendererFile extends JLabel implements TableCellRenderer
 	{
+		private Font font_p;
+		private Font font_f;
+		
+		public TableCellRendererFile()
+		{
+			super();
+			font_f = getFont().deriveFont(Font.PLAIN);
+			font_p = getFont().deriveFont(Font.BOLD);
+		}
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
 		{
 			File file = (File) value;
+			Map m = (Map) map.get(file);
+			Boolean same = (Boolean) m.get("same");
+			
 			setText(file.getName());
+			setFont(same.booleanValue() ? font_p : font_f);
+			
 			return this;
 		}
 	}
+	
 	
 	
 	private class TableCellRendererIntArray extends JLabel implements TableCellRenderer

@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.Map;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
 
 public class EntityImpl implements Entity, T {
 
@@ -14,7 +15,8 @@ public class EntityImpl implements Entity, T {
 	public final static String KEY_TYPE = "TYPE";
 	public final static String KEY_SIZE = "SIZE";
 	public final static String KEY_PREVIEW = "PREVIEW";
-	public final static String KEY_DATA = "DATA";
+	public final static String KEY_IMAGE = "IMAGE";
+	public final static String KEY_CONTENT = "CONTENT";
 
 
 	private Service buildMd5;
@@ -55,6 +57,7 @@ public class EntityImpl implements Entity, T {
 		private String type;
 		private byte[] preview;
 		private byte[] content;
+		private BufferedImage image;
 		private String id;
 		private String size;
 		
@@ -68,13 +71,14 @@ public class EntityImpl implements Entity, T {
 			this.data = data;
 			
 			Object[] oo = (Object[]) prepareData.t(data);
-			if(oo.length!=4) throw new Exception("Wrong data number (2): "+oo.length);
+			if(oo.length!=5) throw new Exception("Wrong data number (2): "+oo.length);
 		
 			name = (String) oo[0];
 			type = (String) oo[1];
 			preview = (byte[]) oo[2];
 			content = (byte[]) oo[3];
-		
+			image = (BufferedImage) oo[4];
+			
 			id = (String) buildMd5.t(content);
 			size = ""+content.length;
 		}
@@ -82,12 +86,14 @@ public class EntityImpl implements Entity, T {
 		public void run()
 		{
 			Map map = new HashMap();
+			
 			map.put(KEY_ID,id);
 			map.put(KEY_NAME,name);
 			map.put(KEY_TYPE,type);
 			map.put(KEY_SIZE,size);
 			map.put(KEY_PREVIEW,preview);
-			map.put(KEY_DATA,content);
+			map.put(KEY_CONTENT,content);
+			map.put(KEY_IMAGE,image);
 			
 			started();
 			exception = sendData(cx,path,map);
@@ -106,12 +112,14 @@ public class EntityImpl implements Entity, T {
 			if(key.equals("type")) return type;
 			if(key.equals("preview")) return preview;
 			if(key.equals("content")) return content;
+			if(key.equals("image")) return image;
 			if(key.equals("id")) return id;
 			if(key.equals("size")) return size;
 			if(key.equals("exception")) return exception;
 			
 			if(key.equals("keys"))
-				return new String[]{"cx","path","data","name","type","preview","content","id","size","exception"};
+				return new String[]{"cx","path","data","name","type",
+				"preview","content","image","id","size","exception"};
 			
 			throw new Exception("Unknown key: "+key);
 		}

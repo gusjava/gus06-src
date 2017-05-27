@@ -64,6 +64,10 @@ public class EntityImpl implements Entity, T {
 	private Service f_mstars_i;
 	private Service f_mstars_n;
 
+	private Service f_mstars2;
+	private Service f_mstars2_i;
+	private Service f_mstars2_n;
+
 	private Service f_containsregexp;
 	private Service f_containsregexp_i;
 	private Service f_containsregexp_n;
@@ -142,6 +146,10 @@ public class EntityImpl implements Entity, T {
 		f_mstars = Outside.service(this,"gus.filter.string.build.mstars");
 		f_mstars_i = Outside.service(this,"gus.filter.string.build.mstars_i");
 		f_mstars_n = Outside.service(this,"gus.filter.string.build.mstars_n");
+
+		f_mstars2 = Outside.service(this,"gus.filter.string.build.mstars2");
+		f_mstars2_i = Outside.service(this,"gus.filter.string.build.mstars2_i");
+		f_mstars2_n = Outside.service(this,"gus.filter.string.build.mstars2_n");
 
 		f_containsregexp = Outside.service(this,"gus.filter.string.build.containsregexp");
 		f_containsregexp_i = Outside.service(this,"gus.filter.string.build.containsregexp_i");
@@ -232,6 +240,10 @@ public class EntityImpl implements Entity, T {
 		if(type.equals(FILTER.MSTARS)) 		return build(f_mstars,info);
 		if(type.equals(FILTER.MSTARS_I)) 	return build(f_mstars_i,info);
 		if(type.equals(FILTER.MSTARS_N)) 	return build(f_mstars_n,info);
+
+		if(type.equals(FILTER.MSTARS2)) 	return build(f_mstars2,info);
+		if(type.equals(FILTER.MSTARS2_I)) 	return build(f_mstars2_i,info);
+		if(type.equals(FILTER.MSTARS2_N)) 	return build(f_mstars2_n,info);
 
 		if(type.equals(FILTER.COEXP)) 		return build(f_containsregexp,info);
 		if(type.equals(FILTER.COEXP_I)) 	return build(f_containsregexp_i,info);

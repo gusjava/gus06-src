@@ -2,10 +2,8 @@ package gus06.entity.gus.file.editor.ext.class1;
 
 import gus06.framework.*;
 import java.io.File;
-import javax.swing.JComponent;
 
-
-public class EntityImpl implements Entity, I, P {
+public class EntityImpl implements Entity, I, P, G {
 
 	public String creationDate() {return "20140807";}
 
@@ -26,6 +24,10 @@ public class EntityImpl implements Entity, I, P {
 	
 	public Object i() throws Exception
 	{return formPanel.i();}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	

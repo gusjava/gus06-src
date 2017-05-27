@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class EntityImpl implements Entity, P {
+
+	public String creationDate() {return "20150829";}
+	
 	
 	public static final String K_TYPE = "type";
 	public static final String K_VALUE = "value";
@@ -17,12 +20,6 @@ public class EntityImpl implements Entity, P {
 	public static final String T_ELEMENT = "element";
 	
 	
-
-
-	public String creationDate() {return "20150829";}
-
-	
-
 
 	private Service findUntil;
 	private Service formatValue;
@@ -71,7 +68,6 @@ public class EntityImpl implements Entity, P {
 	
 	
 	
-
 	
 	
 	

@@ -27,7 +27,7 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
+		if(obj==null) return new F_false();
 		if(obj instanceof String) return new F1((String) obj);
 		if(obj instanceof File) return new F1((String) readText.t(obj));
 		
@@ -50,5 +50,10 @@ public class EntityImpl implements Entity, T {
 				if(value.contains(words[i])) return true;
 			return false;
 		}
+	}
+	
+	private class F_false implements F
+	{
+		public boolean f(Object obj) throws Exception {return false;}
 	}
 }

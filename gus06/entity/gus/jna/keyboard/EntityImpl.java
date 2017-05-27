@@ -81,6 +81,7 @@ public class EntityImpl extends S1 implements Entity, G, F, Runnable {
 		{
 			if(nCode>=0)
 			{
+//				System.out.println("vkcode="+info.vkCode);
 				code = convert(info.vkCode);
 			
 				switch(wParam.intValue())

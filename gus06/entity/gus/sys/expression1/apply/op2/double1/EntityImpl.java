@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		pWrap = Outside.service(this,"gus.feature.wrap.pobj.e");
+		pWrap = Outside.service(this,"gus.feature.wrap.po.e");
 	}
 
 	
@@ -41,19 +41,27 @@ public class EntityImpl implements Entity, T {
 		
 			if(obj==null) return null;
 			
-			if(obj instanceof Integer) return new Boolean(toInt(obj)==number);
-			if(obj instanceof Double) return new Boolean(toDouble(obj)==number);
+			try
+			{
+				if(obj instanceof Integer) return new Boolean(toInt(obj)==number);
+				if(obj instanceof Double) return new Boolean(toDouble(obj)==number);
+				
+				if(obj instanceof Map) return elementAt((Map) obj,number);
+				if(obj instanceof Set) return contains((Set) obj,number);
+				
+				if(obj instanceof R) return retrieve((R) obj,number);
+				if(obj instanceof T) return retrieve((T) obj,number);
+				if(obj instanceof F) return retrieve((F) obj,number);
+				if(obj instanceof H) return retrieve((H) obj,number);
+				if(obj instanceof P) return retrieve((P) obj,number);
 			
-			if(obj instanceof Map) return elementAt((Map) obj,number);
-			if(obj instanceof Set) return contains((Set) obj,number);
-			
-			if(obj instanceof R) return retrieve((R) obj,number);
-			if(obj instanceof T) return retrieve((T) obj,number);
-			if(obj instanceof F) return retrieve((F) obj,number);
-			if(obj instanceof H) return retrieve((H) obj,number);
-			if(obj instanceof P) return retrieve((P) obj,number);
-			
-			throw new Exception("Invalid operator  ["+number+"] for object "+obj.getClass().getName());
+				throw new Exception("Unsupported data type: "+obj.getClass().getName());
+			}
+			catch(Exception e)
+			{
+				String message = "Failed to apply operator ["+number+"] on object's type "+obj.getClass().getName();
+				throw new Exception(message,e);
+			}
 		}
 	}
 	

@@ -25,65 +25,61 @@ public class EntityImpl implements Entity, P {
 	{
 		list = new ArrayList<>();
 		
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_b.execute"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_c.copy"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_d.removeline"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_e.doubleline"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_f.search"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_g.regex"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_h.tool"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_j.high1"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_p.wrapline"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_q.keepselection"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_r.keepline"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_t.truncate"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_v.paste"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_w.quickreplace"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_x.cut"));
+		
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_down.select.after"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_up.select.before"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_right.select.forward"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_left.select.back"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_space.enlargeselection"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_plus.increasefontsize"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_minus.decreasefontsize"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_f1.focusshift"));
+		
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_f.search"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_g.regex.rule"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_h.tool"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_t.truncate.inv"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_w.smartreplace"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_slash.comment"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_shift_excla.comment"));
+		
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.f1.autocomplete"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.c.copy"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.d.removeline"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.e.doubleline"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.f.search"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.f_shift.search"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_f.search1"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.g.regex"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.g_shift.regex.rule"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.h.tool"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.j.high1"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.p.wrapline"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.q.keepselection"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.q_shift.keepselection.focus"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.r.keepline"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.r_shift.keepline.focus"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.t.truncate"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.t_shift.truncate.inv"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.v.paste"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.w.quickreplace"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.w_shift.smartreplace"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.x.cut"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.space.enlargeselection"));
-		
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.escap.focusback"));
-		
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.del"));
 		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.plus.increasefontsize"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.minus.decreasefontsize"));
-		
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.down.select.after"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.right.select.forward"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.left.select.back"));
-		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.up.select.before"));
-		
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_f.search1"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_q.keepselection"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_h.tool"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_t.truncate"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_down.gotodown"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_left.gotoleft"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_right.gotoright"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_up.gotoup"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_del"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_backspace"));
+		
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_shift_h.tool"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.action.alt_shift_t.truncate.inv"));
 		
 		list.add(Outside.service(this,"gus.swing.textcomp.paint.caretline"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.autoedit.tab1"));
 		list.add(Outside.service(this,"gus.swing.textcomp.cust.autoedit.enter1"));
+		list.add(Outside.service(this,"gus.swing.textcomp.cust.autoedit.closexml"));
 	}
 	
 	

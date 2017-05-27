@@ -58,6 +58,10 @@ public class FILTER {
 	public static final String MSTARS_I = "mstars_i";
 	public static final String MSTARS_N = "mstars_n";
 
+	public static final String MSTARS2 = "mstars2";
+	public static final String MSTARS2_I = "mstars2_i";
+	public static final String MSTARS2_N = "mstars2_n";
+
 	public static final String COEXP = "coexp";
 	public static final String COEXP_I = "coexp_i";
 	public static final String COEXP_N = "coexp_n";

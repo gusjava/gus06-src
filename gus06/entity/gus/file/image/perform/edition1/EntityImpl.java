@@ -25,7 +25,6 @@ public class EntityImpl implements Entity, F {
 		Object access = findAccess.t(file);
 		
 		Object img = ((G)access).g();
-		System.out.println("perform edition");
 		img = dialog.t(img);
 		
 		if(img==null) return false;

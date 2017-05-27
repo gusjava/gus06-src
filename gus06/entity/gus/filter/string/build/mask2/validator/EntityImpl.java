@@ -24,7 +24,10 @@ public class EntityImpl implements Entity, F {
 		if(c1=='D') return !isDigit((int) c2); 		//non digit
 		
 		if(c1=='a') return isLowerCase((int) c2); 	//lowercase
-		if(c1=='A') return isUpperCase((int) c2); 	//uppercase
+		if(c1=='A') return !isLowerCase((int) c2); 	//non lowercase
+		
+		if(c1=='b') return isUpperCase((int) c2); 	//uppercase
+		if(c1=='B') return !isUpperCase((int) c2); 	//non uppercase
 		
 		if(c1=='w') return isLetter((int) c2); 		//letter
 		if(c1=='W') return !isLetter((int) c2); 	//non letter

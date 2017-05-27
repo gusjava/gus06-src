@@ -2,11 +2,19 @@ package gus06.entity.gus.sys.expression1.apply.op._valueset;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.HashSet;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151201";}
+
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.valueset");
+	}
 	
 	
 	public Object t(Object obj) throws Exception
@@ -16,7 +24,11 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof Map) return new HashSet(((Map) obj).values());
+		
+		if(obj instanceof Map) return perform.t(obj);
+		if(obj instanceof Map[]) return perform.t(obj);
+		if(obj instanceof File) return perform.t(obj);
+		if(obj instanceof File[]) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

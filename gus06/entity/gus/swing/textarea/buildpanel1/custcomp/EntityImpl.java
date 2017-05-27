@@ -29,22 +29,22 @@ public class EntityImpl implements Entity, P {
 
 	public EntityImpl() throws Exception
 	{
-		execute = Outside.service(this,"gus.swing.textcomp.cust.action.b.execute");
-		removeLine = Outside.service(this,"gus.swing.textcomp.cust.action.d.removeline");
-		doubleLine = Outside.service(this,"gus.swing.textcomp.cust.action.e.doubleline");
-		search = Outside.service(this,"gus.swing.textcomp.cust.action.f.search");
-		regex = Outside.service(this,"gus.swing.textcomp.cust.action.g.regex");
-		tool = Outside.service(this,"gus.swing.textcomp.cust.action.h.tool");
-		wrapLine = Outside.service(this,"gus.swing.textcomp.cust.action.p.wrapline");
-		undo = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
+		execute = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_b.execute");
+		removeLine = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_d.removeline");
+		doubleLine = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_e.doubleline");
+		search = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_f.search");
+		regex = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_g.regex");
+		tool = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_h.tool");
+		wrapLine = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_p.wrapline");
+		undo = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_zy.undoredo");
 		
-		enlarge = Outside.service(this,"gus.swing.textcomp.cust.action.space.enlargeselection");
+		enlarge = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_space.enlargeselection");
 		
-		nextHigh = Outside.service(this,"gus.swing.textcomp.cust.action.right.select.forward");
-		previousHigh = Outside.service(this,"gus.swing.textcomp.cust.action.left.select.back");
+		nextHigh = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_right.select.forward");
+		previousHigh = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_left.select.back");
 		
-		increaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.plus.increasefontsize");
-		decreaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.minus.decreasefontsize");
+		increaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_plus.increasefontsize");
+		decreaseFont = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_minus.decreasefontsize");
 	}
 	
 	

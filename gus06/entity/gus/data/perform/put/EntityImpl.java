@@ -1,57 +1,76 @@
 package gus06.entity.gus.data.perform.put;
 
 import gus06.framework.*;
-import java.util.List;
 import java.util.Map;
+import java.io.File;
+import java.util.List;
 
 public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20160128";}
 	
 	
+	private Service performFile;
+	
 	private Service performMap;
+	private Service performList;
+	private Service performArrayObj;
+	private Service performArrayBoolean;
+	private Service performArrayDouble;
+	private Service performArrayFloat;
+	private Service performArrayInt;
+	private Service performArrayLong;
+	
 	
 	public EntityImpl() throws Exception
 	{
+		performFile = Outside.service(this,"gus.file.properties.perform.field.put");
+		
 		performMap = Outside.service(this,"gus.map.put");
+		performList = Outside.service(this,"gus.list.put");
+		performArrayObj = Outside.service(this,"gus.array.objectarray.put");
+		performArrayBoolean = Outside.service(this,"gus.array.booleanarray.put");
+		performArrayDouble = Outside.service(this,"gus.array.doublearray.put");
+		performArrayFloat = Outside.service(this,"gus.array.floatarray.put");
+		performArrayInt = Outside.service(this,"gus.array.intarray.put");
+		performArrayLong = Outside.service(this,"gus.array.longarray.put");
 	}
+
 
 	public void p(Object obj) throws Exception
 	{
-		performMap.p(toArray(obj));
+		Object[] o = (Object[]) obj;
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
+		
+		if(o[0] instanceof File) {performFile.p(o);return;}
+		
+		if(o[0] instanceof Map) {performMap.p(o);return;}
+		if(o[0] instanceof List) {performList.p(o);return;}
+		if(o[0] instanceof Object[]) {performArrayObj.p(o);return;}
+		if(o[0] instanceof boolean[]) {performArrayBoolean.p(o);return;}
+		if(o[0] instanceof double[]) {performArrayDouble.p(o);return;}
+		if(o[0] instanceof float[]) {performArrayFloat.p(o);return;}
+		if(o[0] instanceof int[]) {performArrayInt.p(o);return;}
+		if(o[0] instanceof long[]) {performArrayLong.p(o);return;}
+		
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
+	
 	
 	public Object t(Object obj) throws Exception
 	{
-		return performMap.t(toArray(obj));
-	}
-	
-	
-	
-	private Object[] toArray(Object obj) throws Exception
-	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
 		
-		Object input = o[0];
-		Object data = o[1];
+		if(o[0] instanceof Map) return performMap.t(o);
+		if(o[0] instanceof List) return performList.t(o);
+		if(o[0] instanceof Object[]) return performArrayObj.t(o);
+		if(o[0] instanceof boolean[]) return performArrayBoolean.t(o);
+		if(o[0] instanceof double[]) return performArrayDouble.t(o);
+		if(o[0] instanceof float[]) return performArrayFloat.t(o);
+		if(o[0] instanceof int[]) return performArrayInt.t(o);
+		if(o[0] instanceof long[]) return performArrayLong.t(o);
 		
-		if(!(input instanceof Map))
-			throw new Exception("Invalid data type: "+input.getClass().getName());
-		
-		if(data instanceof Object[])
-		{
-			Object[] tt = (Object[]) data;
-			if(tt.length!=2) throw new Exception("Wrong data number: "+tt.length);
-			return new Object[]{input,tt[0],tt[1]};
-		}
-		if(data instanceof List)
-		{
-			List l = (List) data;
-			if(l.size()!=2) throw new Exception("Wrong data number: "+l.size());
-			return new Object[]{input,l.get(0),l.get(1)};
-		}
-			
-		throw new Exception("Invalid data type: "+data.getClass().getName());
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
 }

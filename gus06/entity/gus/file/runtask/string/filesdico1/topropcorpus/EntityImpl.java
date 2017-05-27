@@ -16,8 +16,8 @@ public class EntityImpl implements Entity, P {
 
 	public EntityImpl() throws Exception
 	{
-		lineToProp = Outside.service(this,"gus.dir.runtask2.report.filesdico1.linetoprop");
-		lineReader = Outside.service(this,"gus.file.string.reader.hanlelines");
+		lineToProp = Outside.service(this,"gus.sys.filesdico1.linetoprop");
+		lineReader = Outside.service(this,"gus.file.string.reader.handlelines");
 		writeProp = Outside.service(this,"gus.dir.access.write.properties.randomid");
 	}
 

@@ -19,6 +19,7 @@ public class EntityImpl implements Entity, T, V {
 	
 	private Service drawText;
 	private Service findDimension;
+	private Service truncate;
 
 	private Font font = DEFAULT_FONT;
 	private int margin = DEFAULT_MARGIN;
@@ -29,6 +30,7 @@ public class EntityImpl implements Entity, T, V {
 	{
 		drawText = Outside.service(this,"gus.graphics.draw.string.drawstring1");
 		findDimension = Outside.service(this,"gus.graphics.draw.string.finddimension1");
+		truncate = Outside.service(this,"gus.string.transform.truncate.length10000");
 	}
 	
 	
@@ -44,7 +46,7 @@ public class EntityImpl implements Entity, T, V {
 
 	public Object t(Object obj) throws Exception
 	{
-		String text = (String) obj;
+		String text = (String) truncate.t(obj);
 		
 		int[] dim = findDim(text,font);
 		
@@ -58,8 +60,6 @@ public class EntityImpl implements Entity, T, V {
 		g.fillRect(0,0,weight,height);
 		
 		g.setColor(Color.BLACK);
-		//g.drawRect(margin,margin,dim[0],dim[1]);
-		
 		g.setFont(font);
 		drawText(g,margin,margin,text);
 		

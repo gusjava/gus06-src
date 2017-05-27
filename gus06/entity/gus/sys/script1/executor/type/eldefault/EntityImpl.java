@@ -4,14 +4,13 @@ import gus06.framework.*;
 import java.util.Map;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20150830";}
 	
 	public static final String K_NAME = "name";
 	public static final String K_PARAMS = "params";
 	
 	public static final String C_ALIAS = "alias";
-
-
-	public String creationDate() {return "20150830";}
 	
 
 

@@ -8,12 +8,13 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20160323";}
 	
 	
-
 	private Service isRootTag;
+	private Service getCurrent;
 
 	public EntityImpl() throws Exception
 	{
 		isRootTag = Outside.service(this,"gus.sys.script1.access.tag.type1.isroot");
+		getCurrent = Outside.service(this,"gus.sys.script1.access.context.execution.current");
 	}
 
 
@@ -21,9 +22,8 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		Map context = (Map) obj;
+		Map currentTag = (Map) getCurrent.t(context);
 		
-		Map execution = (Map) get1(context,"execution");
-		Map currentTag = (Map) get1(execution,"current");
 		Map stack = (Map) get1(currentTag,"stack");
 		Map owner = (Map) get1(stack,"owner");
 		

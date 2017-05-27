@@ -2,7 +2,7 @@ package gus06.entity.gus.swing.button.cust2.display;
 
 import gus06.framework.*;
 import javax.swing.Icon;
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 public class EntityImpl implements Entity, V {
 
@@ -16,10 +16,10 @@ public class EntityImpl implements Entity, V {
 	
 	
 	public void v(String key, Object obj) throws Exception
-	{perform(key,(JButton) obj);}
+	{perform(key,(AbstractButton) obj);}
 	
 	
-	private void perform(String info, JButton button) throws Exception
+	private void perform(String info, AbstractButton button) throws Exception
 	{
 		if(info==null || info.equals(""))
 		{

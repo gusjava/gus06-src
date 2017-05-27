@@ -14,10 +14,9 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		decrypt = Outside.service(this,"gus.crypto.pbe1.stringcol.decrypt");
+		decrypt = Outside.service(this,"gus.crypto.pbe1.object.decrypt");
 		urlToProperties = Outside.service(this,"gus.convert.urltoproperties");
 	}
-	
 	
 	public Object t(Object obj) throws Exception
 	{

@@ -9,7 +9,7 @@ public class EntityImpl implements Entity, G {
 	public String creationDate() {return "20140703";}
 	
 	
-	String pid;
+	private String pid;
 	
 	public Object g() throws Exception
 	{

@@ -5,16 +5,19 @@ import java.util.Collection;
 import java.util.Map;
 import java.io.File;
 import java.util.Iterator;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.Document;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20160312";}
 
 
-
+	private Service appendToFileTxt;
 
 	public EntityImpl() throws Exception
 	{
+		appendToFileTxt = Outside.service(this,"gus.file.write.string.append0.autodetect");
 	}
 	
 	
@@ -61,6 +64,12 @@ public class EntityImpl implements Entity, P {
 			append0(f,value);
 			return;
 		}
+		if(data instanceof JTextComponent) 
+		{
+			JTextComponent c = (JTextComponent) data;
+			append0(c,(String) value);
+			return;
+		}
 		throw new Exception("Invalid data type: "+data.getClass().getName());
 	}
 	
@@ -100,6 +109,22 @@ public class EntityImpl implements Entity, P {
 	private void append0(File f, Object value) throws Exception
 	{
 		if(f.isDirectory()) throw new Exception("Directory not supported yet: "+f);
-		if(f.isFile()) throw new Exception("File not supported yet: "+f);
+		if(f.isFile()) appendToFile0(f,value);
+	}
+	
+	private void append0(JTextComponent comp, String value) throws Exception
+	{
+		Document doc = comp.getDocument();
+		doc.insertString(0,value,null);
+	}
+	
+	
+	
+	private void appendToFile0(File f, Object value) throws Exception
+	{
+		if(value instanceof String) {appendToFileTxt.p(new Object[]{f,value});return;}
+		if(value instanceof Map) {throw new Exception("Not supported yet");}
+		
+		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 }

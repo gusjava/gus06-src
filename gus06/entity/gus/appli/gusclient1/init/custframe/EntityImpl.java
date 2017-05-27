@@ -40,5 +40,6 @@ public class EntityImpl implements Entity {
 		}
 		
 		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 }

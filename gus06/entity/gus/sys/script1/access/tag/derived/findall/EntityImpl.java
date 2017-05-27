@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20160203";}
 	
 	public static final String K_PARENT = "parent";
 	public static final String K_DERIVED = "derived";
 
-
-	public String creationDate() {return "20160203";}
 
 
 	

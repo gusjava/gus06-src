@@ -76,7 +76,7 @@ public class EntityImpl implements Entity, P, V {
 		{
 			setIcon(icon);
 			setFont(font);
-			setText((String) value);
+			setText(value+" ");
 			setBackground(bg(isSelected));
 			return this;
 		}

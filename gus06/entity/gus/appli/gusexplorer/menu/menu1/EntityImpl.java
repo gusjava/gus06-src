@@ -16,7 +16,9 @@ public class EntityImpl implements Entity, I {
 	public String creationDate() {return "20151002";}
 
 	private Service fullscreen;
+	private Service setting;
 	private Service about;
+	private Service help;
 	private Service exit;
 	
 	private JMenu menu;
@@ -24,12 +26,16 @@ public class EntityImpl implements Entity, I {
 	public EntityImpl() throws Exception
 	{
 		fullscreen = Outside.service(this,"gus.app.action.fullscreen.en");
+		setting = Outside.service(this,"gus.app.action.setting.en");
 		about = Outside.service(this,"gus.app.action.about.en");
+		help = Outside.service(this,"gus.app.action.help.en");
 		exit = Outside.service(this,"gus.app.action.exit.en");
 	
 		menu = new JMenu("Application");
 		
 		add(fullscreen);
+		add(setting);
+		add(help);
 		add(about);
 		menu.addSeparator();
 		add(exit);

@@ -2,9 +2,13 @@ package gus06.entity.gus.sys.script1.context.builder1.a;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.util.Date;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20160504";}
 	
+	public static final String C_ID = "id";
 	public static final String C_ALIAS = "alias";
 	public static final String C_INPUT = "input";
 	public static final String C_OUTPUT = "output";
@@ -16,11 +20,9 @@ public class EntityImpl implements Entity, T {
 	public static final String C_TAG_EXECUTOR = "tag_executor";
 	public static final String C_EXP_EVALUATOR = "exp_evaluator";
 	public static final String C_FILE_MAPPER = "file_mapper";
+	public static final String C_START_DATE = "start_date";
 	
 	
-
-
-	public String creationDate() {return "20160504";}
 
 
 	private Service buildOutput;
@@ -35,6 +37,7 @@ public class EntityImpl implements Entity, T {
 	private Service expEvaluator;
 	
 	private Service buildMap;
+	private Service randomId;
 
 	
 
@@ -52,6 +55,7 @@ public class EntityImpl implements Entity, T {
 		expEvaluator = Outside.service(this,"gus.sys.expression1.evaluate");
 		
 		buildMap = Outside.service(this,"gus.map.map1");
+		randomId = Outside.service(this,"gus.data.generate.string.random.number14");
 	}
 	
 
@@ -68,6 +72,7 @@ public class EntityImpl implements Entity, T {
 		
 		Map context = map("context");
 		
+		String id = (String) randomId.g();
 		Map alias = map("alias");
 		Object input = buildInput.t(input1);
 		Object output = buildOutput.t(output1);
@@ -76,7 +81,9 @@ public class EntityImpl implements Entity, T {
 		Object appMap = buildAppMap.t(context);
 		Object execution = buildExecution.t(context);
 		Object mapper = buildMapper.t(context);
+		Date startDate = new Date();
 		
+		context.put(C_ID,id);
 		context.put(C_ALIAS,alias);
 		context.put(C_INPUT,input);
 		context.put(C_OUTPUT,output);
@@ -85,6 +92,7 @@ public class EntityImpl implements Entity, T {
 		context.put(C_OPERATORS,opMap);
 		context.put(C_EXECUTION,execution);
 		context.put(C_FILE_MAPPER,mapper);
+		context.put(C_START_DATE,startDate);
 		
 		context.put(C_TAG_BUILDER,tagBuilder);
 		context.put(C_TAG_EXECUTOR,tagExecutor);

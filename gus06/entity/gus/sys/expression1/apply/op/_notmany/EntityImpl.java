@@ -1,6 +1,9 @@
 package gus06.entity.gus.sys.expression1.apply.op._notmany;
 
 import gus06.framework.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -24,6 +27,12 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		if(obj instanceof Integer) 	return notMany((Integer) obj);
+		if(obj instanceof Long) 	return notMany((Long) obj);
+		
+		if(obj instanceof List) 	return notMany((List) obj);
+		if(obj instanceof Set) 		return notMany((Set) obj);
+		if(obj instanceof Map) 		return notMany((Map) obj);
+		
 		if(obj instanceof boolean[])	return notMany((boolean[]) obj);
 		if(obj instanceof F[])		return buildFilter.t(obj);
 		
@@ -34,6 +43,22 @@ public class EntityImpl implements Entity, T {
 	private Boolean notMany(Integer n)
 	{
 		return new Boolean(n.intValue()<2);
+	}
+	private Boolean notMany(Long n)
+	{
+		return new Boolean(n.intValue()<2);
+	}
+	private Boolean notMany(List l)
+	{
+		return new Boolean(l.size()<2);
+	}
+	private Boolean notMany(Set l)
+	{
+		return new Boolean(l.size()<2);
+	}
+	private Boolean notMany(Map l)
+	{
+		return new Boolean(l.size()<2);
 	}
 	
 	

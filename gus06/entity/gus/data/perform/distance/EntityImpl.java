@@ -3,6 +3,7 @@ package gus06.entity.gus.data.perform.distance;
 import gus06.framework.*;
 import java.util.Date;
 import java.awt.Color;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -18,71 +19,171 @@ public class EntityImpl implements Entity, T {
 	{
 		distance_doubleArray = Outside.service(this,"gus.math.tabdouble.distance.euclidean");
 		distance_string = Outside.service(this,"gus.data.compare.string.comparator1.distance");
-		distance_color = Outside.service(this,"gus.awt.color.distance.hsb1");
+		distance_color = Outside.service(this,"gus.awt.color.distance.rgb");
 	}
 	
 	
 	public Object t(Object obj) throws Exception
 	{
-		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		if(obj instanceof Object[]) return distance((Object[]) obj);
+		if(obj instanceof List) return distance((List) obj);
 		
-		if(o[0] instanceof Integer && o[1] instanceof Integer)
-			return distance((Integer) o[0], (Integer) o[1]);
-			
-		if(o[0] instanceof Number && o[1] instanceof Number)
-			return distance((Number) o[0], (Number) o[1]);
-			
-		if(o[0] instanceof Date && o[1] instanceof Date)
-			return distance((Date) o[0], (Date) o[1]);
-			
-		if(o[0] instanceof Color && o[1] instanceof Color)
-			return distance((Color) o[0], (Color) o[1]);
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private Object distance(Object[] t) throws Exception
+	{
+		if(t.length<2) return null;
+		if(t.length==2) return distance(t[0],t[1]);
 		
-		if(o[0] instanceof double[] && o[1] instanceof double[])
-			return distance((double[]) o[0], (double[]) o[1]);
+		if(t[0] instanceof Number)
+		{
+			double d = 0;
+			for(int i=0;i<t.length-1;i++)
+			d+=distanceNum((Number) t[i],(Number) t[i+1]);
+			return new Double(d);
+		}
+		if(t[0] instanceof Date)
+		{
+			double d = 0;
+			for(int i=0;i<t.length-1;i++)
+			d+=distanceDate((Date) t[i],(Date) t[i+1]);
+			return new Double(d);
+		}
+		if(t[0] instanceof Color)
+		{
+			double d = 0;
+			for(int i=0;i<t.length-1;i++)
+			d+=distanceColor((Color) t[i],(Color) t[i+1]);
+			return new Double(d);
+		}
+		if(t[0] instanceof double[])
+		{
+			double d = 0;
+			for(int i=0;i<t.length-1;i++)
+			d+=distanceDoubleTab((double[]) t[i],(double[]) t[i+1]);
+			return new Double(d);
+		}
+		if(t[0] instanceof String)
+		{
+			double d = 0;
+			for(int i=0;i<t.length-1;i++)
+			d+=distanceString((String) t[i],(String) t[i+1]);
+			return new Double(d);
+		}
+		throw new Exception("Invalid data types: "+t[0].getClass().getName());
+	}
+	
+	private Object distance(List l) throws Exception
+	{
+		if(l.size()<2) return null;
+		if(l.size()==2) return distance(l.get(0),l.get(1));
 		
-		if(o[0] instanceof String && o[1] instanceof String)
-			return distance((String) o[0], (String) o[1]);
-		
-		throw new Exception("Invalid data types: "+o[0].getClass().getName()+" and "+o[1].getClass().getName());
+		if(l.get(0) instanceof Number)
+		{
+			double d = 0;
+			for(int i=0;i<l.size()-1;i++)
+			d+=distanceNum((Number) l.get(i),(Number) l.get(i+1));
+			return new Double(d);
+		}
+		if(l.get(0) instanceof Date)
+		{
+			double d = 0;
+			for(int i=0;i<l.size()-1;i++)
+			d+=distanceDate((Date) l.get(i),(Date) l.get(i+1));
+			return new Double(d);
+		}
+		if(l.get(0) instanceof Color)
+		{
+			double d = 0;
+			for(int i=0;i<l.size()-1;i++)
+			d+=distanceColor((Color) l.get(i),(Color) l.get(i+1));
+			return new Double(d);
+		}
+		if(l.get(0) instanceof double[])
+		{
+			double d = 0;
+			for(int i=0;i<l.size()-1;i++)
+			d+=distanceDoubleTab((double[]) l.get(i),(double[]) l.get(i+1));
+			return new Double(d);
+		}
+		if(l.get(0) instanceof String)
+		{
+			double d = 0;
+			for(int i=0;i<l.size()-1;i++)
+			d+=distanceString((String) l.get(i),(String) l.get(i+1));
+			return new Double(d);
+		}
+		throw new Exception("Invalid data types: "+l.get(0).getClass().getName());
 	}
 	
 	
 	
 	
-	private Integer distance(Integer n1, Integer n2)
+	private Object distance(Object t1, Object t2) throws Exception
+	{
+		if(t1 instanceof Integer && t2 instanceof Integer)
+			return distanceInt((Integer) t1, (Integer) t2);
+			
+		if(t1 instanceof Number && t2 instanceof Number)
+			return distanceNum((Number) t1, (Number) t2);
+			
+		if(t1 instanceof Date && t2 instanceof Date)
+			return distanceDate((Date) t1, (Date) t2);
+			
+		if(t1 instanceof Color && t2 instanceof Color)
+			return distanceColor((Color) t1, (Color) t2);
+		
+		if(t1 instanceof double[] && t2 instanceof double[])
+			return distanceDoubleTab((double[]) t1, (double[]) t2);
+		
+		if(t1 instanceof String && t2 instanceof String)
+			return distanceString((String) t1, (String) t2);
+		
+		throw new Exception("Invalid data types: "+t1.getClass().getName()+" and "+t2.getClass().getName());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private Integer distanceInt(Integer n1, Integer n2)
 	{
 		int d1 = n1.intValue();
 		int d2 = n2.intValue();
 		return new Integer(Math.abs(d1-d2));
 	}
 	
-	private Double distance(Number n1, Number n2)
+	private Double distanceNum(Number n1, Number n2)
 	{
 		double d1 = n1.doubleValue();
 		double d2 = n1.doubleValue();
 		return new Double(Math.abs(d1-d2));
 	}
 	
-	private Long distance(Date n1, Date n2)
+	private Long distanceDate(Date n1, Date n2)
 	{
 		long t1 = n1.getTime();
 		long t2 = n1.getTime();
 		return new Long(Math.abs(t1-t2));
 	}
 	
-	private Double distance(Color n1, Color n2) throws Exception
+	private Double distanceColor(Color n1, Color n2) throws Exception
 	{
 		return (Double) distance_color.t(new Color[]{n1,n2});
 	}
 	
-	private Double distance(double[] n1, double[] n2) throws Exception
+	private Double distanceDoubleTab(double[] n1, double[] n2) throws Exception
 	{
 		return (Double) distance_doubleArray.t(new Object[]{n1,n2});
 	}
 	
-	private Double distance(String n1, String n2) throws Exception
+	private Double distanceString(String n1, String n2) throws Exception
 	{
 		return (Double) distance_string.t(new String[]{n1,n2});
 	}

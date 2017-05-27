@@ -11,11 +11,15 @@ public class EntityImpl implements Entity, T {
 	public static final String K_OPTIONS = "options";
 	
 	public static final String[] KEYS = new String[]{
+				"mode",
+				"indent",
 				"args",
 				"if"};
 
 	public static final String[] RULES = new String[]{
 				"with [options]",
+				"mode [mode]",
+				"indent [indent]",
 				"args [args]",
 				"if [if]"};
 

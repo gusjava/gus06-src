@@ -3,6 +3,7 @@ package gus06.entity.gus.sys.expression1.apply.op._fileicon;
 import gus06.framework.*;
 import java.io.File;
 import javax.swing.Icon;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
@@ -10,11 +11,13 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service findIcon;
+	private Service buildFile;
 
 
 	public EntityImpl() throws Exception
 	{
 		findIcon = Outside.service(this,"gus.file.icon.os");
+		buildFile = Outside.service(this,"gus.sys.expression1.file.build");
 	}
 
 	
@@ -22,20 +25,22 @@ public class EntityImpl implements Entity, T {
 	{
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
-		obj = o[0];
 		
-		if(obj==null) return null;
+		Object value = o[0];
+		Map opMap = (Map) o[1];
 		
-		if(obj instanceof String) return icon(toFile((String) obj));
-		if(obj instanceof File) return icon((File) obj);
+		if(value==null) return null;
 		
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		if(value instanceof String) return icon(file((String) value, opMap));
+		if(value instanceof File) return icon((File) value);
+		
+		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
 	
 	
 	private Icon icon(File file) throws Exception
 	{return (Icon) findIcon.t(file);}
 	
-	private File toFile(String s) throws Exception
-	{return new File(s).getCanonicalFile();}
+	private File file(String s, Map opMap) throws Exception
+	{return (File) buildFile.t(new Object[]{s,opMap});}
 }

@@ -21,7 +21,7 @@ public class EntityImpl implements Entity, P {
 	{
 		listing = Outside.service(this,"gus.dir.listing0.ext.txt");
 		autoRename = Outside.service(this,"gus.file.newfile.autorename2");
-		chooser = Outside.service(this,"gus.string.transformfinder.chooser");
+		chooser = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_h.tool.perform.chooser");
 		op = Outside.service(this,"gus.file.string.perform2.apply.t");
 	}
 

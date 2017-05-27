@@ -11,9 +11,10 @@ import javax.swing.text.JTextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.undo.UndoManager;
+import java.util.Map;
 
 
-public class EntityImpl implements Entity, I, P, R {
+public class EntityImpl implements Entity, I, P, G, R {
 
 	public String creationDate() {return "20141215";}
 
@@ -45,7 +46,7 @@ public class EntityImpl implements Entity, I, P, R {
 		buildHighSup = Outside.service(this,"gus.swing.textcomp.highlight.sys1.support");
 		buildHighCount = Outside.service(this,"gus.swing.textcomp.highlight.sys1.countbar");
 		buildHighScroll = Outside.service(this,"gus.swing.textcomp.highlight.sys1.scrollpaint");
-		buildUndoManager = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
+		buildUndoManager = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_zy.undoredo");
 		autoSaver = Outside.service(this,"*gus.file.editor.holder.text.autosaver");
 		
 		comp = (JTextComponent) buildComp.i();
@@ -74,11 +75,17 @@ public class EntityImpl implements Entity, I, P, R {
 	{return panel;}
 	
 	
+	public Object g() throws Exception
+	{return file;}
+	
+	
 	
 	public Object r(String key) throws Exception
 	{
 		if(key.equals("comp")) return comp;
-		if(key.equals("keys")) return new String[]{"comp"};
+		if(key.equals("file")) return file;
+		if(key.equals("keys")) return new String[]{"comp","file"};
+		
 		throw new Exception("Unknown key: "+key);
 	}
 	
@@ -87,6 +94,8 @@ public class EntityImpl implements Entity, I, P, R {
 	public void p(Object obj) throws Exception
 	{
 		file = (File) obj;
+		((Map) ((R)comp).r("data")).put("file",file);
+		
 		boolean loaded = autoSaver.f(file);
 		if(loaded) undo.discardAllEdits();
 	}

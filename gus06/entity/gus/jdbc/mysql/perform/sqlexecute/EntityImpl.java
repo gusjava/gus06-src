@@ -3,11 +3,18 @@ package gus06.entity.gus.jdbc.mysql.perform.sqlexecute;
 import gus06.framework.*;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.sql.ResultSet;
 
 public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20141009";}
+
+
+	private Service recorder;
+
+	public EntityImpl() throws Exception
+	{
+		recorder = Outside.service(this,"gus.jdbc.connection.sqlrecorder");
+	}
 
 	
 	
@@ -24,6 +31,8 @@ public class EntityImpl implements Entity, P, T {
 			Statement st = cx.createStatement();
 			st.execute(sql);
 			st.close();
+			
+			recorder.v(sql,cx);
 		}
 		catch(Exception e)
 		{

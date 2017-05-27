@@ -20,7 +20,7 @@ public class EntityImpl implements Entity, T {
 	{
 		performList = Outside.service(this,"gus.list.findfirst");
 		performSet = Outside.service(this,"gus.set.findone");
-		performMap = Outside.service(this,"gus.map.filterone.value");
+		performMap = Outside.service(this,"gus.map.key.findone");
 	}	
 	
 	

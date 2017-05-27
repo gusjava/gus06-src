@@ -19,10 +19,12 @@ public class EntityImpl implements Entity, T {
 
 	public Object t(Object obj) throws Exception
 	{
-		if(obj instanceof String) return formatSequence((String)obj);
-		if(obj instanceof List) return formatSequence((List)obj);
-		if(obj instanceof Set) return formatSequence((Set)obj);
-		if(obj instanceof String[]) return formatSequence((String[])obj);
+		if(obj instanceof Boolean) return formatSequence(""+obj);
+		if(obj instanceof Number) return formatSequence(""+obj);
+		if(obj instanceof String) return formatSequence(""+obj);
+		if(obj instanceof List) return formatSequence((List) obj);
+		if(obj instanceof Set) return formatSequence((Set) obj);
+		if(obj instanceof Object[]) return formatSequence((Object[]) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -39,7 +41,7 @@ public class EntityImpl implements Entity, T {
 	{
 		StringBuffer b = new StringBuffer();
 		for(int i=0;i<seq.size();i++)
-		b.append(format((String)seq.get(i))+",");
+		b.append(format(""+seq.get(i))+",");
 		
 		b.deleteCharAt(b.length()-1);
 		return b.toString();
@@ -51,18 +53,18 @@ public class EntityImpl implements Entity, T {
 		StringBuffer b = new StringBuffer();
 		Iterator it = seq.iterator();
 		while(it.hasNext())
-		b.append(format((String)it.next())+",");
+		b.append(format(""+it.next())+",");
 		
 		b.deleteCharAt(b.length()-1);
 		return b.toString();
 	}
 	
 	
-	private String formatSequence(String[] seq) throws Exception
+	private String formatSequence(Object[] seq) throws Exception
 	{
 		StringBuffer b = new StringBuffer();
 		for(int i=0;i<seq.length;i++)
-		b.append(format(seq[i])+",");
+		b.append(format(""+seq[i])+",");
 		
 		b.deleteCharAt(b.length()-1);
 		return b.toString();

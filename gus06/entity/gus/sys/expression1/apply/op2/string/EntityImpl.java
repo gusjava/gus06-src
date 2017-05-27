@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		pWrap = Outside.service(this,"gus.feature.wrap.pobj.e");
+		pWrap = Outside.service(this,"gus.feature.wrap.po.e");
 		ruleToIndex = Outside.service(this,"gus.list.ruletoindex");
 	}
 
@@ -46,27 +46,38 @@ public class EntityImpl implements Entity, T {
 		
 			if(obj==null) return null;
 			
-			if(obj instanceof Map) return elementAt((Map) obj,k);
-			if(obj instanceof Set) return contains((Set) obj,k);
-			
-			if(obj instanceof List) return findByValue((List) obj,k);
-			if(obj instanceof String) return findByValue((String) obj,k);
-			if(obj instanceof File[]) return findByValue((File[]) obj,k);
-			if(obj instanceof Object[]) return findByValue((Object[]) obj,k);
-			
-			if(obj instanceof boolean[]) return findByValue((boolean[]) obj,k);
-			if(obj instanceof byte[]) return findByValue((byte[]) obj,k);
-			if(obj instanceof int[]) return findByValue((int[]) obj,k);
-			if(obj instanceof double[]) return findByValue((double[]) obj,k);
-			if(obj instanceof float[]) return findByValue((float[]) obj,k);
-			if(obj instanceof long[]) return findByValue((long[]) obj,k);
-			
-			if(obj instanceof R) return retrieve((R) obj,k);
-			if(obj instanceof T) return retrieve((T) obj,k);
-			if(obj instanceof F) return retrieve((F) obj,k);
-			if(obj instanceof P) return retrieve((P) obj,k);
-			
-			throw new Exception("Invalid operator ["+k+"] for object "+obj.getClass().getName());
+			try
+			{
+				if(obj instanceof Map) return elementAt((Map) obj,k);
+				if(obj instanceof Set) return contains((Set) obj,k);
+				if(obj instanceof File) return child((File) obj,k);
+				
+				if(obj instanceof List) return findByValue((List) obj,k);
+				if(obj instanceof String) return findByValue((String) obj,k);
+				if(obj instanceof File[]) return findByValue((File[]) obj,k);
+				if(obj instanceof Object[]) return findByValue((Object[]) obj,k);
+				
+				if(obj instanceof boolean[]) return findByValue((boolean[]) obj,k);
+				if(obj instanceof byte[]) return findByValue((byte[]) obj,k);
+				if(obj instanceof int[]) return findByValue((int[]) obj,k);
+				if(obj instanceof double[]) return findByValue((double[]) obj,k);
+				if(obj instanceof float[]) return findByValue((float[]) obj,k);
+				if(obj instanceof long[]) return findByValue((long[]) obj,k);
+				if(obj instanceof short[]) return findByValue((long[]) obj,k);
+				if(obj instanceof char[]) return findByValue((long[]) obj,k);
+				
+				if(obj instanceof R) return retrieve((R) obj,k);
+				if(obj instanceof T) return retrieve((T) obj,k);
+				if(obj instanceof F) return retrieve((F) obj,k);
+				if(obj instanceof P) return retrieve((P) obj,k);
+				
+				throw new Exception("Unsupported data type: "+obj.getClass().getName());
+			}
+			catch(Exception e)
+			{
+				String message = "Failed to apply operator ["+k+"] on object's type "+obj.getClass().getName();
+				throw new Exception(message,e);
+			}
 		}
 	}
 	
@@ -84,6 +95,11 @@ public class EntityImpl implements Entity, T {
 		return Boolean.FALSE;
 	}
 	
+	private File child(File dir, String k)
+	{
+		return new File(dir,k);
+	}
+	
 	
 	
 	
@@ -93,89 +109,74 @@ public class EntityImpl implements Entity, T {
 		return index==null ? null : l.get(index.intValue());
 	}
 	
-	private Object findByValue(String s, String k)
+	private Object findByValue(String s, String k) throws Exception
 	{
-		if(k.equals("first")) return s.length()==0 ? null : s.charAt(0);
-		if(k.equals("last")) return s.length()==0 ? null : s.charAt(s.length()-1);
-		if(k.equals("random")) return s.length()==0 ? null : s.charAt(random(s.length()));
+		Integer index = (Integer) ruleToIndex.t(new Object[]{s,k});
+		return index==null ? null : s.charAt(index.intValue());
+	}
+	
+	private Object findByValue(File[] a, String k) throws Exception
+	{
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		if(index!=null) return a[index.intValue()];
 		
+		for(File f:a) if(f.getName().equals(k)) return f;
 		return null;
 	}
 	
-	private Object findByValue(File[] a, String k)
+	private Object findByValue(Object[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : a[0];
-		if(k.equals("last")) return a.length==0 ? null : a[a.length-1];
-		if(k.equals("random")) return a.length==0 ? null : a[random(a.length)];
-		
-		for(File f:a)
-		if(f.getName().equals(k)) return f;
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : a[index.intValue()];
 	}
 	
-	private Object findByValue(Object[] a, String k)
+	private Object findByValue(boolean[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : a[0];
-		if(k.equals("last")) return a.length==0 ? null : a[a.length-1];
-		if(k.equals("random")) return a.length==0 ? null : a[random(a.length)];
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Boolean(a[index.intValue()]);
 	}
 	
-	private Object findByValue(boolean[] a, String k)
+	private Object findByValue(byte[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Boolean(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Boolean(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Boolean(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Byte(a[index.intValue()]);
 	}
 	
-	private Object findByValue(byte[] a, String k)
+	private Object findByValue(int[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Byte(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Byte(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Byte(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Integer(a[index.intValue()]);
 	}
 	
-	private Object findByValue(int[] a, String k)
+	private Object findByValue(double[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Integer(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Integer(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Integer(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Double(a[index.intValue()]);
 	}
 	
-	private Object findByValue(double[] a, String k)
+	private Object findByValue(float[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Double(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Double(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Double(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Float(a[index.intValue()]);
 	}
 	
-	private Object findByValue(float[] a, String k)
+	private Object findByValue(long[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Float(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Float(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Float(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Long(a[index.intValue()]);
 	}
 	
-	private Object findByValue(long[] a, String k)
+	private Object findByValue(short[] a, String k) throws Exception
 	{
-		if(k.equals("first")) return a.length==0 ? null : new Long(a[0]);
-		if(k.equals("last")) return a.length==0 ? null : new Long(a[a.length-1]);
-		if(k.equals("random")) return a.length==0 ? null : new Long(a[random(a.length)]);
-		
-		return null;
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : new Short(a[index.intValue()]);
 	}
 	
+	private Object findByValue(char[] a, String k) throws Exception
+	{
+		Integer index = (Integer) ruleToIndex.t(new Object[]{a,k});
+		return index==null ? null : ""+a[index.intValue()];
+	}
 	
 	
 	
@@ -191,12 +192,4 @@ public class EntityImpl implements Entity, T {
 	
 	private Object retrieve(P p, String k) throws Exception
 	{return pWrap.t(new Object[]{p,k});}
-	
-	
-	
-	
-	
-	
-	private int random(int n)
-	{return (int) (Math.random()*n);}
 }

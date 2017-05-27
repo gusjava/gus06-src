@@ -10,9 +10,10 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.util.List;
+import java.util.HashMap;
 
 
-public class EntityImpl implements Entity, I, P, ActionListener {
+public class EntityImpl implements Entity, I, P, G, ActionListener {
 
 	public String creationDate() {return "20141229";}
 	
@@ -58,6 +59,10 @@ public class EntityImpl implements Entity, I, P, ActionListener {
 	{return tabHolder.i();}
 	
 	
+	public Object g() throws Exception
+	{return file;}
+	
+	
 	
 	public void p(Object obj) throws Exception
 	{
@@ -84,6 +89,8 @@ public class EntityImpl implements Entity, I, P, ActionListener {
 	private void updateMap() throws Exception
 	{
 		Map m = readFile();
+		if(m==null) m = new HashMap();
+		
 		m.put(PATH_THIS,file.getAbsolutePath());
 		m.put(PATH_PARENT,file.getParentFile().getAbsolutePath());
 		

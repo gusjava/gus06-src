@@ -1,14 +1,17 @@
 package gus06.entity.gus.sys.play1.manager;
 
 import gus06.framework.*;
+import javax.swing.JFrame;
 
 public class EntityImpl extends S1 implements Entity, P, R, V {
 
 	public String creationDate() {return "20160612";}
 
+	private JFrame frame;
 
 	public EntityImpl() throws Exception
 	{
+		frame = new JFrame();
 	}
 	
 	
@@ -18,6 +21,7 @@ public class EntityImpl extends S1 implements Entity, P, R, V {
 		
 		if(s.equals("show")) {show();return;}
 		if(s.equals("hide")) {hide();return;}
+		if(s.equals("clear")) {clear();return;}
 	}
 	
 	
@@ -40,6 +44,11 @@ public class EntityImpl extends S1 implements Entity, P, R, V {
 	
 	private void hide() throws Exception
 	{
-		
+		frame.setVisible(false);
+	}
+	
+	private void clear() throws Exception
+	{
+		frame.setVisible(true);
 	}
 }

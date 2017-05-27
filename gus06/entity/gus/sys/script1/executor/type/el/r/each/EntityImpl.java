@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.Map;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 
 public class EntityImpl implements Entity, T {
 
@@ -11,24 +12,31 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service wrapping1;
+	private Service toArray;
+	
+	private Service each_null;
 	private Service each_map;
 	private Service each_set;
 	private Service each_list;
 	private Service each_array;
+	private Service each_iterator;
 	private Service each_string;
-	private Service each_null;
-	private Service toArray;
+	private Service each_g;
+
 
 	public EntityImpl() throws Exception
 	{
 		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
+		toArray = Outside.service(this,"gus.find.objectarray");
+		
+		each_null = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.null1");
 		each_map = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.map");
 		each_set = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.set");
 		each_list = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.list");
 		each_array = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.array");
+		each_iterator = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.iterator");
 		each_string = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.string");
-		each_null = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.null1");
-		toArray = Outside.service(this,"gus.find.objectarray");
+		each_g = Outside.service(this,"gus.sys.script1.executor.type.el.r.each.g");
 	}
 	
 	
@@ -72,11 +80,14 @@ public class EntityImpl implements Entity, T {
 	private Service findService(Object src) throws Exception
 	{
 		if(src==null) return each_null;
+		
 		if(src instanceof Map) return each_map;
 		if(src instanceof Set) return each_set;
 		if(src instanceof List) return each_list;
 		if(src instanceof Object[]) return each_array;
+		if(src instanceof Iterator) return each_iterator;
 		if(src instanceof String) return each_string;
+		if(src instanceof G) return each_g;
 		
 		throw new Exception("Invalid data type: "+src.getClass().getName());
 	}

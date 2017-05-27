@@ -36,6 +36,7 @@ public class EntityImpl implements Entity, T {
 	private long toLong(Object obj) throws Exception
 	{
 		if(obj instanceof Long) return ((Long) obj).longValue();
+		if(obj instanceof Integer) return ((Integer) obj).longValue();
 		if(obj instanceof String) return Long.parseLong((String) obj);
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

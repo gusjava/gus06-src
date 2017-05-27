@@ -76,8 +76,8 @@ public class EntityImpl implements Entity, T, G {
 		put("length_toseq",Outside.service(this,"gus.string.transform.line.length.tosequence"));
 		
 		put("trim",Outside.service(this,"gus.string.transform.line.trim"));
-		put("trimfirst",Outside.service(this,"gus.string.transform.line.trimfirst"));
-		put("trimlast",Outside.service(this,"gus.string.transform.line.trimlast"));
+		put("trimst",Outside.service(this,"gus.string.transform.line.trim.start"));
+		put("trimen",Outside.service(this,"gus.string.transform.line.trim.end"));
 		
 		put("normalize",Outside.service(this,"gus.string.transform.line.normalize"));
 		put("reduce",Outside.service(this,"gus.string.transform.line.reduce"));

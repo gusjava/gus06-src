@@ -14,6 +14,7 @@ public class EntityImpl implements Entity, T {
 	private Service build;
 	private Service fileToName;
 	private Service shiftPanelFactory;
+	private Service recorder;
 	
 	
 	public EntityImpl() throws Exception
@@ -21,6 +22,7 @@ public class EntityImpl implements Entity, T {
 		build = Outside.service(this,"gus.sys.async.guibuilder.dataholder");
 		fileToName = Outside.service(this,"gus.file.editor.main.filetoname");
 		shiftPanelFactory = Outside.service(this,"factory#gus.swing.panel.shiftpanel");
+		recorder = Outside.service(this,"gus.file.editor.main.recorder");
 	}
 	
 	
@@ -42,12 +44,13 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private class Holder implements I, G, P
+	private class Holder implements I, G, P, R
 	{
 		private Map map;
 		private String name;
 		private Object editor;
 		private I guiHolder;
+		private File file;
 		
 		public Holder(File file) throws Exception
 		{
@@ -60,16 +63,19 @@ public class EntityImpl implements Entity, T {
 			
 			putFile(file);
 			updateGui();
+			recorder.p(new Object[]{this,file});
 		}
 		
 		
 		public void p(Object obj) throws Exception
 		{
-			File file = (File) obj;
+			file = (File) obj;
 			String name0 = name(file);
 			
 			if(equals(name,name0)) putFile(file);
 			else editorChanged(name0,file);
+			
+			recorder.p(new Object[]{this,file});
 		}
 		
 		
@@ -122,5 +128,14 @@ public class EntityImpl implements Entity, T {
 		
 		public Object i() throws Exception
 		{return guiHolder.i();}
+		
+		public Object r(String key) throws Exception
+		{
+			if(key.equals("file")) return file;
+			if(key.equals("editor")) return editor;
+			
+			if(key.equals("keys")) return new String[]{"file","editor"};
+			throw new Exception("Unknown key: "+key);
+		}
 	}
 }

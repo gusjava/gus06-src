@@ -27,7 +27,7 @@ public class EntityImpl implements Entity, T {
 		double d = 0;
 		for(int i=0;i<f1.length;i++)
 		{
-			double r = f1[i]-f2[i];
+			double r = Math.abs(f1[i]-f2[i]);
 			if(r>d) d = r;
 		}
 		return d;

@@ -10,15 +10,19 @@ public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20151111";}
 
+
 	private Service engineFromText;
 	private Service engineFromFile;
+	private Service buildFile;
+	private Service getInside;
 
 	public EntityImpl() throws Exception
 	{
 		engineFromText = Outside.service(this,"gus.sys.script1.engine.fromtext");
 		engineFromFile = Outside.service(this,"gus.sys.script1.engine.fromfile");
+		buildFile = Outside.service(this,"gus.sys.script1.tool.build.file");
+		getInside = Outside.service(this,"gus.app.inside.script2");
 	}
-
 	
 	
 	public void p(Object obj) throws Exception
@@ -42,6 +46,8 @@ public class EntityImpl implements Entity, P, T {
 	
 	private Object handle(Object src, Map context) throws Exception
 	{
+		if(src==null) throw new Exception("Invalid source object: null");
+		
 		if(src instanceof G)		return handleG((G)src,context);
 		if(src instanceof File)		return handleFile((File)src,context);
 		if(src instanceof String)	return handleString((String)src,context);
@@ -56,19 +62,25 @@ public class EntityImpl implements Entity, P, T {
 		return handle(g.g(),context);
 	}
 	
+	
 	private Object handleFile(File f, Map context) throws Exception
 	{
 		return engineFromFile.t(new Object[]{f,context});
 	}
 	
+	
 	private Object handleString(String s, Map context) throws Exception
 	{
 		try
 		{
-			File f = new File(s).getCanonicalFile();
+			File f = (File) buildFile.t(new Object[]{s,context});
 			if(f.isFile()) return handleFile(f,context);
 		}
 		catch(IOException e){}
+		
+		String script = (String) getInside.t(s);
+		if(script!=null) return engineFromText.t(new Object[]{script,context});
+		
 		return engineFromText.t(new Object[]{s,context});
 	}
 }

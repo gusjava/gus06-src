@@ -70,7 +70,7 @@ public class EntityImpl implements Entity, I {
 		getArgsLine = Outside.service(this,"gus.app.argsline");
 		getStartTime = Outside.service(this,"gus.app.starttime");
 		getPid = Outside.service(this,"gus.app.pid");
-		getJarTime = Outside.service(this,"gus.app.outside.lastmodified");
+		getJarTime = Outside.service(this,"gus.app.outside.lastmodified.timestamp");
 		getEntityNb = Outside.service(this,"gus.app.jarfile.listing.entities.nb");
 		
 		prop = (Map) Outside.resource(this,"prop");

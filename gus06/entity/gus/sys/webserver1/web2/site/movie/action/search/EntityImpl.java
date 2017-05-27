@@ -26,7 +26,6 @@ public class EntityImpl implements Entity, P {
 		if(!mf.f("params_post query")) return;
 		
 		String query = (String) mr.r("params_post query");
-		//System.out.println("query: "+query);
 		
 		Object result = apiSearch.t(query);
 		mv.v("data d result",result);

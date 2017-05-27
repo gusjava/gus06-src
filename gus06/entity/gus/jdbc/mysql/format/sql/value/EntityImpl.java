@@ -12,8 +12,21 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		String value = (String) obj;
+		if(obj instanceof String) return formatString((String) obj);
+		if(obj instanceof Number) return formatNumber((Number) obj);
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private String formatString(String value)
+	{
 		if(value.length()>LIMITSIZE) value = value.substring(0,LIMITSIZE);
 		return "'"+value.replace("\\","\\\\").replace("'","\\'")+"'";
+	}
+	
+	private String formatNumber(Number value)
+	{
+		return value.toString();
 	}
 }

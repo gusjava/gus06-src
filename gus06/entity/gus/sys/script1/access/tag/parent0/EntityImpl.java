@@ -4,11 +4,11 @@ import gus06.framework.*;
 import java.util.Map;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20160327";}
 	
 	public static final String K_PARENT = "parent";
 
-
-	public String creationDate() {return "20160327";}
 
 
 	

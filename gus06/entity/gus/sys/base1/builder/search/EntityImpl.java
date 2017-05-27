@@ -37,8 +37,8 @@ public class EntityImpl implements Entity, T {
 	{
 		private G g;
 		private Object progress;
+		private Object filter;
 		private Set interrupt;
-		private String rule;
 		private Map result;
 		
 		
@@ -53,7 +53,7 @@ public class EntityImpl implements Entity, T {
 		{
 			if(key.equals("progress")) return progress;
 			if(key.equals("result")) return result;
-			if(key.equals("rule")) return rule;
+			if(key.equals("filter")) return filter;
 			
 			throw new Exception("Invalid key: "+key);
 		}
@@ -62,7 +62,7 @@ public class EntityImpl implements Entity, T {
 		public void v(String key, Object obj) throws Exception
 		{
 			if(key.equals("progress")) {progress = obj;return;}
-			if(key.equals("rule")) {rule = (String) obj;return;}
+			if(key.equals("filter")) {filter = obj;return;}
 		}
 		
 		
@@ -78,7 +78,7 @@ public class EntityImpl implements Entity, T {
 			interrupt.clear();
 		
 			synchronized(g)
-			{result = perform(new Object[]{g,rule,progress,interrupt});}
+			{result = perform(new Object[]{g,filter,progress,interrupt});}
 			
 			if(result==null) interrupted();
 			else complete();

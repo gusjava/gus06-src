@@ -4,22 +4,19 @@ import gus06.framework.*;
 import java.util.Map;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JComponent;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160120";}
 
 
-	private Service colContains;
-	private Service mapContainsKey;
-	private Service arrayContains;
-	
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		colContains = Outside.service(this,"gus.collection.contains.coltof");
-		mapContainsKey = Outside.service(this,"gus.map.contains.key.maptof");
-		arrayContains = Outside.service(this,"gus.array.contains.arraytof");
+		perform = Outside.service(this,"gus.data.perform.has");
 	}
 
 	
@@ -31,14 +28,15 @@ public class EntityImpl implements Entity, T {
 		Object value = o[0];
 		Map opMap = (Map) o[1];
 		
-		if(value==null) return null;
+		if(value==null) return perform.t(value);
 		
-		if(value instanceof List) return colContains.t(value);
-		if(value instanceof Set) return colContains.t(value);
-		if(value instanceof Map) return mapContainsKey.t(value);
-		if(value instanceof Object[]) return arrayContains.t(value);
+		if(value instanceof List) return perform.t(value);
+		if(value instanceof Set) return perform.t(value);
+		if(value instanceof Map) return perform.t(value);
+		if(value instanceof Object[]) return perform.t(value);
+		if(value instanceof JComponent) return perform.t(value);
+		if(value instanceof File) return perform.t(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}
-	
 }

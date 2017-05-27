@@ -15,6 +15,7 @@ public class EntityImpl implements Entity, F {
 		if(obj instanceof Map) return ((Map) obj).size()==0;
 		if(obj instanceof Collection) return ((Collection) obj).size()==0;
 		if(obj instanceof String) return ((String) obj).length()==0;
+		if(obj instanceof StringBuffer) return ((StringBuffer) obj).length()==0;
 		if(obj instanceof File) return empty((File) obj);
 		
 		if(obj instanceof Object[]) return ((Object[]) obj).length==0;

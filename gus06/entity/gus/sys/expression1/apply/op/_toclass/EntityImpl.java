@@ -5,6 +5,15 @@ import gus06.framework.*;
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151109";}
+
+
+	private Service findClass;
+	
+	public EntityImpl() throws Exception
+	{
+		findClass = Outside.service(this,"gus.find.class1");
+	}
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -14,7 +23,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof String) return Class.forName((String) obj);
+		if(obj instanceof Class) return obj;
+		if(obj instanceof String) return findClass.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

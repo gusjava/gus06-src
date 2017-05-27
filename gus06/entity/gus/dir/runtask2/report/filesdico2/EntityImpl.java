@@ -24,7 +24,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.dir.listing.dirtofiles");
-		buildLine = Outside.service(this,"gus.dir.runtask2.report.filesdico2.buildline");
+		buildLine = Outside.service(this,"gus.sys.filesdico2.buildline");
 	}
 
 	

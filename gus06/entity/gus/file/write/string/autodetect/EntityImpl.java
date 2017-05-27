@@ -10,19 +10,13 @@ public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20141215";}
 	
-	public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
 
-	private Service hasUnicode;
 	private Service findCharset;
-	private Service forceUTF8;
-
 
 	public EntityImpl() throws Exception
 	{
-		hasUnicode = Outside.service(this,"gus.filter.string.haschar.unicode");
-		findCharset = Outside.service(this,"gus.file.string.info.charset");
-		forceUTF8 = Outside.service(this,"gus.file.write.string.autodetect.forceutf8");
+		findCharset = Outside.service(this,"gus.file.write.string.autodetect.findcharset");
 	}
 	
 	
@@ -33,19 +27,14 @@ public class EntityImpl implements Entity, P {
 		
 		File file = (File) o[0];
 		String text = (String) o[1];
-		
 		Charset charset = charset(file,text);
+		
 		PrintStream p = new PrintStream(file,charset.name());
 		p.print(text);
 		p.close();
 	}
 	
+	
 	private Charset charset(File file, String text) throws Exception
-	{
-		if(forceUTF8.f(file)) return CHARSET_UTF8;
-		if(hasUnicode.f(text)) return CHARSET_UTF8;
-		
-		Charset charset = (Charset) findCharset.t(file);
-		return charset!=null?charset:Charset.defaultCharset();
-	}
+	{return (Charset) findCharset.t(new Object[]{file,text});}
 }

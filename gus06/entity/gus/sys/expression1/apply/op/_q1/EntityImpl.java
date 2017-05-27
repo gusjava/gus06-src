@@ -16,6 +16,9 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof Boolean) return "\""+obj+"\"";
+		if(obj instanceof Number) return "\""+obj+"\"";
 		if(obj instanceof String) return "\""+obj+"\"";
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());

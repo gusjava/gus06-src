@@ -12,10 +12,10 @@ import java.awt.GridLayout;
 import java.awt.Font;
 
 public class EntityImpl implements Entity, ActionListener, I, G, E, Runnable {
-	
-	public static final Font FONT = new Font("Courier New", Font.PLAIN, 13);
 
 	public String creationDate() {return "20150829";}
+	
+	public static final Font FONT = new Font("Courier New", Font.PLAIN, 13);
 
 
 	private Service engine;
@@ -23,7 +23,7 @@ public class EntityImpl implements Entity, ActionListener, I, G, E, Runnable {
 	private Service buildOutputStream;
 	private Service viewer;
 	private Service contextBuilder;
-	private Service initKey;
+	private Service putAction;
 
 	private JButton button;
 	private JTextArea area1;
@@ -43,7 +43,7 @@ public class EntityImpl implements Entity, ActionListener, I, G, E, Runnable {
 		buildOutputStream = Outside.service(this,"gus.io.outputstream.textarea1");
 		viewer = Outside.service(this,"*gus.data.viewer.g.output");
 		contextBuilder = Outside.service(this,"gus.sys.script1.context.builder1");
-		initKey = Outside.service(this,"gus.swing.textcomp.cust2.keystroke.init.control.q");
+		putAction = Outside.service(this,"gus.swing.textcomp.cust.putaction.ctrl_q");
 		
 		Outside.service(this,"gus.beep");
 		Outside.service(this,"gus.beep.sleep1000");
@@ -62,7 +62,7 @@ public class EntityImpl implements Entity, ActionListener, I, G, E, Runnable {
 		area2.setFont(FONT);
 		area2.setEditable(false);
 		
-		initKey.p(new Object[]{area1,this});
+		putAction.p(new Object[]{area1,this});
 		
 		os = (OutputStream) buildOutputStream.t(area2);
 		

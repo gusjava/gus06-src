@@ -18,8 +18,8 @@ public class EntityImpl implements Entity, T {
 		float[] yy = new float[length];
 		for(int i=0;i<length;i++)
 		{
-			if(!(oo[i] instanceof Number)) return null;
-			yy[i] = ((Number) oo[i]).floatValue();
+			if(!(oo[i] instanceof Float)) return null;
+			yy[i] = ((Float) oo[i]).floatValue();
 		}
 		return yy;
 	}

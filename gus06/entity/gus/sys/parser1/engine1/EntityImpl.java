@@ -33,6 +33,7 @@ public class EntityImpl implements Entity, T {
 		
 		public T1(String info) throws Exception
 		{
+			if(info.length()==1) info = ESCAPE+info+info;
 			if(info.length()==2) info = ESCAPE+info;
 			if(info.length()!=3) throw new Exception("Invalid info: "+info);
 			

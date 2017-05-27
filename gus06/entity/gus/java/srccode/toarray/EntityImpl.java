@@ -28,12 +28,6 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	
 	private String format(String line)
-	{
-		line = line.replace("\t","").trim();
-		while(line.startsWith(" ")) line = line.substring(1);
-		while(line.contains("  ")) line = line.replace("  "," ");
-		return line;
-	}
+	{return line.replace("\t","").trim();}
 }

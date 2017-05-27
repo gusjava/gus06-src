@@ -17,11 +17,13 @@ public class EntityImpl implements Entity, T {
 		String[] lines = s.split("\n");
 		
 		HashMap map = new HashMap();
+		
 		for(int i=0;i<lines.length;i++)
+		if(!lines[i].trim().equals(""))
 		{
 			String[] n = lines[i].split(delim,2);
 			if(n.length!=2) throw new Exception("Invalid text: "+s);
-			map.put(n[0],n[1]);
+			map.put(n[0].trim(),n[1].trim());
 		}
 		return map;
 	}
@@ -29,8 +31,9 @@ public class EntityImpl implements Entity, T {
 	
 	private String findDelim(String s) throws Exception
 	{
-		if(s.contains("\t")) return "\t";
 		if(s.contains("=")) return "=";
+		if(s.contains(":")) return ":";
+		if(s.contains("\t")) return "\t";
 		throw new Exception("Invalid text: "+s);
 	}
 }

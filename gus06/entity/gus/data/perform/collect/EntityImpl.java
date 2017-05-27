@@ -4,16 +4,19 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P, T {
 
 	public String creationDate() {return "20151117";}
 	
 	
+	private Service performFile;
 	private Service performList;
 	private Service performSet;
 	private Service performMap;
 	private Service performArray;
+	private Service performString;
 	
 	private Service performDoubleArray;
 	private Service performFloatArray;
@@ -23,10 +26,12 @@ public class EntityImpl implements Entity, P, T {
 	
 	public EntityImpl() throws Exception
 	{
+		performFile = Outside.service(this,"gus.dirfile.perform.each.transform");
 		performList = Outside.service(this,"gus.list.collect");
 		performSet = Outside.service(this,"gus.set.collect");
-		performMap = Outside.service(this,"gus.map.value.collect");
+		performMap = Outside.service(this,"gus.map.keyvalue.collect");
 		performArray = Outside.service(this,"gus.array.objectarray.collect");
+		performString = Outside.service(this,"gus.data.string.collect");
 		
 		performDoubleArray = Outside.service(this,"gus.array.doublearray.collect");
 		performFloatArray = Outside.service(this,"gus.array.floatarray.collect");
@@ -41,10 +46,13 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
+		if(input instanceof File)	{performFile.p(obj);return;}
+		
 		if(input instanceof List)	{performList.p(obj);return;}
 		if(input instanceof Set)	{performSet.p(obj);return;}
 		if(input instanceof Map) 	{performMap.p(obj);return;}
 		if(input instanceof Object[]) 	{performArray.p(obj);return;}
+		if(input instanceof StringBuffer){performString.p(obj);return;}
 		
 		if(input instanceof double[]) 	{performDoubleArray.p(obj);return;}
 		if(input instanceof float[]) 	{performFloatArray.p(obj);return;}
@@ -66,6 +74,7 @@ public class EntityImpl implements Entity, P, T {
 		if(input instanceof Set) return performSet.t(obj);
 		if(input instanceof Map) return performMap.t(obj);
 		if(input instanceof Object[]) return performArray.t(obj);
+		if(input instanceof String) return performString.t(obj);
 		
 		if(input instanceof double[]) return performDoubleArray.t(obj);
 		if(input instanceof float[]) return performFloatArray.t(obj);

@@ -4,6 +4,8 @@ import gus06.framework.*;
 import java.util.Map;
 import java.io.File;
 import java.util.Collection;
+import javax.swing.text.JTextComponent;
+import java.awt.Container;
 
 public class EntityImpl implements Entity, T {
 
@@ -31,6 +33,15 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof File) return new E1(obj);
 		if(obj instanceof Collection) return new E1(obj);
 		if(obj instanceof StringBuffer) return new E1(obj);
+		if(obj instanceof JTextComponent) return new E1(obj);
+		if(obj instanceof Container) return new E1(obj);
+		
+		if(obj instanceof Map[]) return new E1(obj);
+		if(obj instanceof File[]) return new E1(obj);
+		if(obj instanceof Collection[]) return new E1(obj);
+		if(obj instanceof StringBuffer[]) return new E1(obj);
+		if(obj instanceof JTextComponent[]) return new E1(obj);
+		if(obj instanceof Container[]) return new E1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

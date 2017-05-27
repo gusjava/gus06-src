@@ -1,9 +1,9 @@
 package gus06.entity.gus.sys.expression1.apply.op._any;
 
 import gus06.framework.*;
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.Map;
-import java.util.Iterator;
 
 public class EntityImpl implements Entity, T {
 
@@ -28,6 +28,12 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		
 		if(obj instanceof Integer)	return any((Integer) obj);
+		if(obj instanceof Long)		return any((Long) obj);
+		
+		if(obj instanceof List)		return any((List) obj);
+		if(obj instanceof Set)		return any((Set) obj);
+		if(obj instanceof Map)		return any((Map) obj);
+		
 		if(obj instanceof boolean[])	return any((boolean[]) obj);
 		if(obj instanceof F[])		return buildFilter.t(obj);
 		
@@ -40,7 +46,22 @@ public class EntityImpl implements Entity, T {
 	{
 		return new Boolean(n.intValue()>0);
 	}
-	
+	private Boolean any(Long n)
+	{
+		return new Boolean(n.intValue()>0);
+	}
+	private Boolean any(List l)
+	{
+		return new Boolean(l.size()>0);
+	}
+	private Boolean any(Set l)
+	{
+		return new Boolean(l.size()>0);
+	}
+	private Boolean any(Map l)
+	{
+		return new Boolean(l.size()>0);
+	}
 	private Boolean any(boolean[] array)
 	{
 		for(boolean n:array) if(n) return Boolean.TRUE;

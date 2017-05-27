@@ -7,17 +7,25 @@ public class EntityImpl implements Entity {
 	public String creationDate() {return "20150626";}
 
 
+	private Service writePid;
+	private Service initSysprop;
 	private Service initJar;
 	private Service initDll;
+	private Service initLog;
 	private Service modifyPath;
-	private Service writePid;
+	private Service exceptionHandler;
+	private Service initDebugGui;
 
 
 	public EntityImpl() throws Exception
 	{
+		writePid = Outside.service(this,"gus.app.init.writepid");
+		initSysprop = Outside.service(this,"gus.system.prop.init");
 		initJar = Outside.service(this,"gus.app.init.jar");
 		initDll = Outside.service(this,"gus.app.init.dll");
+		initLog = Outside.service(this,"gus.app.init.log");
 		modifyPath = Outside.service(this,"gus.system.javalibrarypath.modify.init");
-		writePid = Outside.service(this,"gus.app.init.writepid");
+		exceptionHandler = Outside.service(this,"gus.exception.uncaughtexceptionhandler.init");
+		initDebugGui = Outside.service(this,"gus.debug.init.displaygui");
 	}
 }

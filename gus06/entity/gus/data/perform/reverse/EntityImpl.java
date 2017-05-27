@@ -4,6 +4,12 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import java.awt.image.RenderedImage;
+import javax.swing.JTabbedPane;
+import javax.swing.text.JTextComponent;
+import java.util.Map;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -17,6 +23,12 @@ public class EntityImpl implements Entity, P, T {
 	private Service performFloatArray;
 	private Service performByteArray;
 	private Service performBooleanArray;
+	private Service performJPanel;
+	private Service performJSplitPane;
+	private Service performJTabbedPane;
+	private Service performJTextComp;
+	private Service performImage;
+	private Service performMap;
 	
 	
 	public EntityImpl() throws Exception
@@ -28,6 +40,12 @@ public class EntityImpl implements Entity, P, T {
 		performFloatArray = Outside.service(this,"gus.array.floatarray.reverse");
 		performByteArray = Outside.service(this,"gus.array.bytearray.reverse");
 		performBooleanArray = Outside.service(this,"gus.array.booleanarray.reverse");
+		performJPanel = Outside.service(this,"gus.swing.panel.reverse");
+		performJSplitPane = Outside.service(this,"gus.swing.splitpane.reverse");
+		performJTabbedPane = Outside.service(this,"gus.swing.tabbedpane.reverse");
+		performJTextComp = Outside.service(this,"gus.swing.textcomp.reverse");
+		performImage = Outside.service(this,"gus.awt.renderedimage.transform.flip.vertical");
+		performMap = Outside.service(this,"gus.map.reverse.map");
 	}
 
 	
@@ -44,6 +62,11 @@ public class EntityImpl implements Entity, P, T {
 		if(obj instanceof float[]) {performFloatArray.p(obj);return;}
 		if(obj instanceof byte[]) {performByteArray.p(obj);return;}
 		if(obj instanceof boolean[]) {performBooleanArray.p(obj);return;}
+		if(obj instanceof Map) {performMap.p(obj);return;}
+		if(obj instanceof JPanel) {performJPanel.p(obj);return;}
+		if(obj instanceof JSplitPane) {performJSplitPane.p(obj);return;}
+		if(obj instanceof JTabbedPane) {performJTabbedPane.p(obj);return;}
+		if(obj instanceof JTextComponent) {performJTextComp.p(obj);return;}
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -62,6 +85,13 @@ public class EntityImpl implements Entity, P, T {
 		if(obj instanceof float[]) return performFloatArray.t(obj);
 		if(obj instanceof byte[]) return performByteArray.t(obj);
 		if(obj instanceof boolean[]) return performBooleanArray.t(obj);
+		if(obj instanceof Map) return performMap.t(obj);
+		if(obj instanceof JPanel) return performJPanel.t(obj);
+		if(obj instanceof JSplitPane) return performJSplitPane.t(obj);
+		if(obj instanceof JTabbedPane) return performJTabbedPane.t(obj);
+		if(obj instanceof JTextComponent) return performJTextComp.t(obj);
+		
+		if(obj instanceof RenderedImage) return performImage.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

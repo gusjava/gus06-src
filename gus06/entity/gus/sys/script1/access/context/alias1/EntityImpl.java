@@ -15,6 +15,7 @@ public class EntityImpl implements Entity, T {
 	{
 		Map context = (Map) obj;
 		Map alias = (Map) get(context,C_ALIAS);
+		if(alias==null) throw new Exception("Alias map not found inside context");
 		return alias;
 	}
 	

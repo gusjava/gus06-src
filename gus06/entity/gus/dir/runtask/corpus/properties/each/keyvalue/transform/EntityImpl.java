@@ -18,7 +18,7 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		listing = Outside.service(this,"gus.dir.listing0.ext.properties");
-		chooser = Outside.service(this,"gus.string.transformfinder.chooser");
+		chooser = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_h.tool.perform.chooser");
 		op = Outside.service(this,"gus.file.properties.perform.each.keyvalue.transform");
 	}
 

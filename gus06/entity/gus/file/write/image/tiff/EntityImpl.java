@@ -26,10 +26,7 @@ public class EntityImpl implements Entity, P {
 		File file = (File) o[0];
 		BufferedImage im = (BufferedImage) toBufferedImage.t(o[1]);
 		
-		
 		file.createNewFile();
 		ImageIO.write(im,"tiff",file);
-		
-		System.out.println("Writing TIFF has failed: "+file);
 	}
 }

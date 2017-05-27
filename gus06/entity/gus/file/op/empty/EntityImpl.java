@@ -11,6 +11,7 @@ public class EntityImpl implements Entity, P {
 	public void p(Object obj) throws Exception
 	{
 		File file = (File) obj;
+		
 		boolean r = file.delete();
 		if(!r) throw new Exception("Failed to delete file: "+file);
 		

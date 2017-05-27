@@ -33,28 +33,16 @@ public class EntityImpl implements Entity, P {
 		Object input = o[0];
 		
 		if(input instanceof List)
-		{
-			performList.p(obj);
-			return;
-		}
+		{performList.p(obj);return;}
 		
 		if(input instanceof Set)
-		{
-			performSet.p(obj);
-			return;
-		}
+		{performSet.p(obj);return;}
 		
 		if(input instanceof Map)
-		{
-			performMap.p(obj);
-			return;
-		}
+		{performMap.p(obj);return;}
 		
 		if(input instanceof File)
-		{
-			performFile.p(obj);
-			return;
-		}
+		{performFile.p(obj);return;}
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}

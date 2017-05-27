@@ -1,6 +1,7 @@
 package gus06.entity.gus.sys.expression1.apply.op._tolong;
 
 import gus06.framework.*;
+import java.util.Date;
 
 public class EntityImpl implements Entity, T {
 
@@ -17,7 +18,7 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof Number) return new Long(((Number) obj).longValue());
 		if(obj instanceof String) return new Long((String) obj);
-		if(obj instanceof Integer) return new Long((Integer) obj);
+		if(obj instanceof Date) return new Long(((Date) obj).getTime());
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

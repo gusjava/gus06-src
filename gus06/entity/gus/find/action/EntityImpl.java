@@ -13,7 +13,7 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
-		if(obj instanceof Action) return (Action) obj;
+		if(obj instanceof Action) return obj;
 		if(obj instanceof E) return new Action0(obj);
 		if(obj instanceof Runnable) return new Action0(obj);
 		

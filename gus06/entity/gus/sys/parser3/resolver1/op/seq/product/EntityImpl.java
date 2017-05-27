@@ -32,7 +32,7 @@ public class EntityImpl implements Entity, T {
 		
 		toArray_h = Outside.service(this,"gus.convert.objarraytoharray.strict");
 		toArray_int = Outside.service(this,"gus.convert.objarraytointarray.strict");
-		toArray_double = Outside.service(this,"gus.convert.objarraytodoublearray.strict");
+		toArray_double = Outside.service(this,"gus.convert.objarraytodoublearray.number");
 		
 		product_tabInt = Outside.service(this,"gus.math.tabint.pair.product");
 		product_dabDouble = Outside.service(this,"gus.math.tabdouble.pair.product");

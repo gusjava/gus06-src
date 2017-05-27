@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.jdbcblob.perform.data.register.prepare;
 
 import gus06.framework.*;
 import java.io.File;
+import java.awt.image.BufferedImage;
 
 public class EntityImpl implements Entity, T {
 
@@ -13,14 +14,16 @@ public class EntityImpl implements Entity, T {
 
 	private Service getName0Ext;
 	private Service readFile;
-	private Service readPreview;
+	private Service readImage;
+	private Service imageToRawJpg;
 
 
 	public EntityImpl() throws Exception
 	{
 		getName0Ext = Outside.service(this,"gus.file.getname0ext");
 		readFile = Outside.service(this,"gus.file.read.raw");
-		readPreview = Outside.service(this,"gus.file.read.image.preview.raw");
+		readImage = Outside.service(this,"gus.file.read.image.preview");
+		imageToRawJpg = Outside.service(this,"gus.awt.bufferedimage.tojpg.raw");
 	}
 	
 	
@@ -38,14 +41,15 @@ public class EntityImpl implements Entity, T {
 		String type = n[1];
 		
 		byte[] content = (byte[]) readFile.t(file);
-		byte[] preview = (byte[]) readPreview.t(file);
-		
 		if(content.length > DATA_MAXLENGTH)
 			throw new Exception("Data is too big: "+content.length);
     	
+		BufferedImage previewImage = (BufferedImage) readImage.t(file);
+		
+		byte[] preview = (byte[])  imageToRawJpg.t(previewImage);
 		if(preview.length > PREVIEW_MAXLENGTH)
 			throw new Exception("Preview is too big: "+preview.length);
 
-		return new Object[]{name,type,preview,content};
+		return new Object[]{name,type,preview,content,previewImage};
 	}
 }

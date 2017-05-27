@@ -31,6 +31,7 @@ public class EntityImpl implements Entity, P {
 		Connection cx = (Connection) o[0];
 		String dbName = (String) o[1];
 		
+		if(dbName==null) throw new Exception("Db name is null");
 		if(protectedPath.f(dbName)) throw new Exception("Attempt to drop db: "+dbName);
 		
 		Set tables = (Set) tableSet.t(new Object[]{cx,dbName});

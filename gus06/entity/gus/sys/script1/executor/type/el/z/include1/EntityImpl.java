@@ -8,7 +8,6 @@ public class EntityImpl implements Entity, T {
 	
 	public String creationDate() {return "20160212";}
 	
-	public static final String C_EXECUTION = "execution";
 	public static final String X_PARENT = "parent";
 	public static final String K_INCLUDED = "included";
 
@@ -16,6 +15,7 @@ public class EntityImpl implements Entity, T {
 	private Service engine;
 	private Service wrapping1;
 	private Service evaluate;
+	private Service getExecution;
 
 
 	public EntityImpl() throws Exception
@@ -23,6 +23,7 @@ public class EntityImpl implements Entity, T {
 		engine = Outside.service(this,"gus.sys.script1.engine");
 		wrapping1 = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
 		evaluate = Outside.service(this,"gus.sys.script1.context.evaluate");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 	}
 	
 		
@@ -61,7 +62,7 @@ public class EntityImpl implements Entity, T {
 			T mapper = (T) evaluate.t(new Object[]{context,"script.file._mapper"});
 			File file = (File) mapper.t(id);
 			
-			Map execution = (Map) get(context,C_EXECUTION);
+			Map execution = (Map) getExecution.t(context);
 			execution.put(X_PARENT,tag);
 			
 			Map included = (Map) engine.t(new Object[]{file,context});

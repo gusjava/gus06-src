@@ -90,9 +90,13 @@ public class EntityImpl implements Entity, T {
 				{
 					Map m = new HashMap();
 					m.put("index",new Integer(i));
+					m.put("index1",new Integer(i+1));
 					m.put("times",new Integer(n));
 					m.put("first",new Boolean(i==0));
 					m.put("last",new Boolean(i==n-1));
+					m.put("even",new Boolean(i%2==0));
+					m.put("odd",new Boolean(i%2==1));
+					m.put("progress",(i+1)+"/"+times);
 					
 					pool1.put(mName1,new Integer(i));
 					pool1.put(mName2,m);
@@ -112,6 +116,8 @@ public class EntityImpl implements Entity, T {
 				m.put("times",new Integer(0));
 				m.put("first",Boolean.FALSE);
 				m.put("last",Boolean.FALSE);
+				m.put("even",Boolean.FALSE);
+				m.put("odd",Boolean.FALSE);
 				
 				pool1.put(mName1,new Integer(-1));
 				pool1.put(mName2,m);

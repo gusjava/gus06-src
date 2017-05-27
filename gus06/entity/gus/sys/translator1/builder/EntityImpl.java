@@ -93,6 +93,7 @@ public class EntityImpl implements Entity, T {
 	
 	private String translate2(String s, String locale, R r) throws Exception
 	{
+		if(r==null) return s;
 		String v = (String) r.r(s+"."+locale);
 		return v==null ? s : v;
 	}

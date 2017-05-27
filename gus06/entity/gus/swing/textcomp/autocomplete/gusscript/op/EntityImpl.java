@@ -26,8 +26,8 @@ public class EntityImpl implements Entity, P {
 	
 	public EntityImpl() throws Exception
 	{
-		findCaretWord = Outside.service(this,"gus.swing.textcomp.caretword.find");
-		replaceCaretWord = Outside.service(this,"gus.swing.textcomp.caretword.replace");
+		findCaretWord = Outside.service(this,"gus.swing.textcomp.caret.word.find");
+		replaceCaretWord = Outside.service(this,"gus.swing.textcomp.caret.word.replace");
 		dialog = Outside.service(this,"gus.input.choose.dialog");
 		getOpMap = Outside.service(this,"gus.sys.expression1.apply.opmap");
 		

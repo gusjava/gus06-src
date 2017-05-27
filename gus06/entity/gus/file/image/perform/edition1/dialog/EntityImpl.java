@@ -27,9 +27,8 @@ public class EntityImpl implements Entity, T {
 		
 		dialogOkCancel.v("width","400");
 		dialogOkCancel.v("height","400");
-		System.out.println("dialogOkCancel.f");
-		boolean ok = dialogOkCancel.f(imageEditor.i());
 		
+		boolean ok = dialogOkCancel.f(imageEditor.i());
 		return ok? imageEditor.g():null;
 	}
 }

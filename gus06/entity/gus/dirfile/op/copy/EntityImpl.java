@@ -11,7 +11,6 @@ public class EntityImpl implements Entity, P {
 	private Service copyDir;
 	private Service copyFile;
 
-
 	public EntityImpl() throws Exception
 	{
 		copyDir = Outside.service(this,"gus.dir.op.copy");

@@ -30,8 +30,9 @@ public class EntityImpl implements Entity, T, R, G {
 	
 	
 	public static final String KEY_EMAIL = "email";
-	public static final String REGEX_EMAIL = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}";
-	
+	//public static final String REGEX_EMAIL = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}";
+	public static final String REGEX_EMAIL = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
+
 	public static final String KEY_URL = "url";
 	public static final String REGEX_URL = "https?:\\/\\/[a-zA-Z0-9._%+-]+\\.[a-z]{2,4}(\\/[a-zA-Z0-9._%+-]+)*\\/?";
 	

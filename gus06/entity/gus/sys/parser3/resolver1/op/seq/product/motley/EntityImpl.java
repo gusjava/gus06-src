@@ -30,6 +30,7 @@ public class EntityImpl implements Entity, T {
 		Double scalar = (Double) objByScalar[0];
 		Object element = objByScalar[1];
 		
+		if(element==null) return null;
 		
 		if(element instanceof String)
 		return multString(scalar,(String) element);
@@ -39,6 +40,9 @@ public class EntityImpl implements Entity, T {
 		
 		if(element instanceof E)
 		return multE(scalar,(E) element);
+		
+		if(element instanceof F)
+		return multF(scalar,(F) element);
 		
 		if(element instanceof P)
 		return multP(scalar,(P) element);
@@ -59,7 +63,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private Object[] findByObjScalar(Object[] oo)
+	private Object[] findByObjScalar(Object[] oo) throws Exception
 	{
 		double factor = 1;
 		Object element = null;
@@ -68,10 +72,8 @@ public class EntityImpl implements Entity, T {
 		{
 			if(o instanceof Number) factor *= ((Number)o).doubleValue();
 			else if(element==null) element = o;
-			else return null;
+			else throw new Exception("Non scalar element found many times: "+element+" and "+o);
 		}
-		
-		if(element==null) return null;
 		return new Object[]{new Double(factor),element};
 	}
 	
@@ -93,6 +95,9 @@ public class EntityImpl implements Entity, T {
 	
 	private E multE(Double k, E e)
 	{return new E0(k.intValue(),e);}
+	
+	private F multF(Double k, F f)
+	{return new F0(k.intValue(),f);}
 	
 	private P multP(Double k, P p)
 	{return new P0(k.intValue(),p);}
@@ -132,6 +137,26 @@ public class EntityImpl implements Entity, T {
 		
 		public void e() throws Exception
 		{for(int i=0;i<k;i++) e.e();}
+	}
+	
+	
+	
+	private class F0 implements F
+	{
+		private int k;
+		private F f;
+		
+		public F0(int k, F f)
+		{
+			this.k = k;
+			this.f = f;
+		}
+		
+		public boolean f(Object obj) throws Exception
+		{
+			for(int i=0;i<k;i++) if(f.f(obj)) return true;
+			return false;
+		}
 	}
 	
 	

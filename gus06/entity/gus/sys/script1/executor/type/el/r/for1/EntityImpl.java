@@ -92,12 +92,15 @@ public class EntityImpl implements Entity, T {
 					Map m = new HashMap();
 					
 					m.put("index",new Integer(i));
+					m.put("index1",new Integer(i+1));
 					m.put("times",new Integer(times));
 					m.put("start",new Integer(start));
 					m.put("end",new Integer(end));
 					m.put("incr",new Integer(incr));
 					m.put("first",new Boolean(i==start));
 					m.put("last",new Boolean(i==end));
+					m.put("even",new Boolean(i%2==0));
+					m.put("odd",new Boolean(i%2==1));
 					
 					pool1.put(mName1,new Integer(i));
 					pool1.put(mName2,m);

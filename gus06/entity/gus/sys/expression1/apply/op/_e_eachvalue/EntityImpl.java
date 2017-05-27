@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._e_eachvalue;
 
 import gus06.framework.*;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -30,6 +31,7 @@ public class EntityImpl implements Entity, T {
 		if(value==null) return null;
 		
 		if(value instanceof Map) return new T1(value,opMap);
+		if(value instanceof File) return new T1(value,opMap);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class EntityImpl implements Entity, I, P, ActionListener, ListSelectionListener {
+public class EntityImpl implements Entity, I, P, G, ActionListener, ListSelectionListener {
 
 	public String creationDate() {return "20141024";}
 
@@ -37,7 +37,7 @@ public class EntityImpl implements Entity, I, P, ActionListener, ListSelectionLi
 	public EntityImpl() throws Exception
 	{
 		fieldHolder = Outside.service(this,"*gus.data.editor.string.textfield.editor1");
-		findEntries = Outside.service(this,"gus.file.zip.findentriesarray");
+		findEntries = Outside.service(this,"gus.file.zip.findentries");
 		listRenderer = Outside.service(this,"gus.file.editor.ext.jar.listrenderer");
 		entryViewer = Outside.service(this,"*gus.file.editor.ext.zip.entryviewer");
 		listFilter = Outside.service(this,"gus.list.filter.rule.one");
@@ -70,6 +70,10 @@ public class EntityImpl implements Entity, I, P, ActionListener, ListSelectionLi
 	
 	public Object i() throws Exception
 	{return split;}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	public void actionPerformed(ActionEvent e)

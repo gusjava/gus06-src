@@ -1,14 +1,25 @@
 package gus06.entity.gus.data.perform.mapkey;
 
 import gus06.framework.*;
-import java.util.Collection;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160316";}
+	
+	
+	private Service performList;
+	private Service performSet;
+	private Service performArray;
+	
+	
+	public EntityImpl() throws Exception
+	{
+		performList = Outside.service(this,"gus.list.mapkey");
+		performSet = Outside.service(this,"gus.set.mapkey");
+		performArray = Outside.service(this,"gus.array.objectarray.mapkey");
+	}	
 	
 	
 	public Object t(Object obj) throws Exception
@@ -16,23 +27,12 @@ public class EntityImpl implements Entity, T {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		Collection c = (Collection) o[0];
-		T trans = (T) o[1];
+		Object input = o[0];
 		
-		Map output = new HashMap();
+		if(input instanceof List) return performList.t(obj);
+		if(input instanceof Set) return performSet.t(obj);
+		if(input instanceof Object[]) return performArray.t(obj);
 		
-		Iterator it = c.iterator();
-		while(it.hasNext())
-		{
-			Object element = it.next();
-			
-			Object key = trans.t(element);
-			Object value = element;
-			
-			if(output.containsKey(key))
-				throw new Exception("Duplicated key found: "+key);
-			output.put(key,value);
-		}
-		return output;
+		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}
 }

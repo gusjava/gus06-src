@@ -16,17 +16,7 @@ public class EntityImpl implements Entity, P, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		Map input = (Map) o[0];
-		T t = (T) o[1];
-		
-		Map output = new HashMap();
-		Iterator it = input.keySet().iterator();
-		while(it.hasNext())
-		{
-			Object key = it.next();
-			Object value = input.get(key);
-			
-			output.put(key,t.t(value));
-		}
+		Map output = (Map) t(obj);
 		
 		input.clear();
 		input.putAll(output);

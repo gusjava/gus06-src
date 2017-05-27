@@ -9,13 +9,13 @@ public class EntityImpl implements Entity, P, T {
 	public String creationDate() {return "20160128";}
 	
 	
-	private Service performList;
 	private Service performSet;
+	private Service performList;
 	
 	public EntityImpl() throws Exception
 	{
-		performList = Outside.service(this,"gus.list.addall");
 		performSet = Outside.service(this,"gus.set.addall");
+		performList = Outside.service(this,"gus.list.addall");
 	}
 
 	
@@ -26,11 +26,8 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof List)
-		{performList.p(obj);return;}
-		
-		if(input instanceof Set)
-		{performSet.p(obj);return;}
+		if(input instanceof Set) {performSet.p(obj);return;}
+		if(input instanceof List) {performList.p(obj);return;}
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}
@@ -44,11 +41,8 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof List)
-			return performList.t(obj);
-		
-		if(input instanceof Set)
-			return performSet.t(obj);
+		if(input instanceof Set) return performSet.t(obj);
+		if(input instanceof List) return performList.t(obj);
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}

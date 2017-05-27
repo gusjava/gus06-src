@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
+import javax.swing.text.JTextComponent;
 
 public class EntityImpl implements Entity, P {
 
@@ -14,11 +15,15 @@ public class EntityImpl implements Entity, P {
 
 	private Service nextData;
 	private Service ruleToIndex;
+	private Service performAppend;
+	private Service performAppend0;
 
 	public EntityImpl() throws Exception
 	{
 		nextData = Outside.service(this,"gus.map.deep.nextdata1");
 		ruleToIndex = Outside.service(this,"gus.list.ruletoindex1");
+		performAppend = Outside.service(this,"gus.data.perform.append");
+		performAppend0 = Outside.service(this,"gus.data.perform.append0");
 	}
 
 
@@ -87,6 +92,19 @@ public class EntityImpl implements Entity, P {
 			while(index>=l.size()) l.add(null);
 			l.set(index,value);
 			return;
+		}
+		if(data instanceof JTextComponent)
+		{
+			if(k.equals("after"))
+			{
+				performAppend.p(new Object[]{data,value});
+				return;
+			}
+			if(k.equals("before"))
+			{
+				performAppend0.p(new Object[]{data,value});
+				return;
+			}
 		}
 		if(data instanceof Set)
 		{

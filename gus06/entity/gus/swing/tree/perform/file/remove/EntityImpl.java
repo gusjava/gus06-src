@@ -12,13 +12,12 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20140917";}
 
 
-	private Service askRemove;
+	private Service perform;
 	private Service selectionToList;
-
 
 	public EntityImpl() throws Exception
 	{
-		askRemove = Outside.service(this,"gus.dirfile.perform.removelist.ask");
+		perform = Outside.service(this,"gus.dirfile.perform.removelist.ask");
 		selectionToList = Outside.service(this,"gus.swing.tree.selection.tofileslist");
 	}
 	
@@ -28,7 +27,7 @@ public class EntityImpl implements Entity, P {
 		List files = treeToSelection((JTree) obj);
 		if(files.isEmpty()) return;
 		
-		boolean done = askRemove.f(files);
+		boolean done = perform.f(files);
 		if(!done) return;
 		
 		// BUG ...

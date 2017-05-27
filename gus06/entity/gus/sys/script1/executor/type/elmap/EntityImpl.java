@@ -20,6 +20,7 @@ public class EntityImpl implements Entity, G, T {
 		put("execute",		Outside.service(this,"gus.sys.script1.executor.type.el.op.execute"));
 		put("output",		Outside.service(this,"gus.sys.script1.executor.type.el.op.output"));
 		put("print",		Outside.service(this,"gus.sys.script1.executor.type.el.op.print"));
+		put("println",		Outside.service(this,"gus.sys.script1.executor.type.el.op.println"));
 		put("set",		Outside.service(this,"gus.sys.script1.executor.type.el.op.set"));
 		put("set0",		Outside.service(this,"gus.sys.script1.executor.type.el.op.set0"));
 		put("set1",		Outside.service(this,"gus.sys.script1.executor.type.el.op.set1"));
@@ -39,6 +40,7 @@ public class EntityImpl implements Entity, G, T {
 		put("try",		Outside.service(this,"gus.sys.script1.executor.type.el.r.try1"));
 		put("until",		Outside.service(this,"gus.sys.script1.executor.type.el.r.until"));
 		put("while",		Outside.service(this,"gus.sys.script1.executor.type.el.r.while1"));
+		put("clock",		Outside.service(this,"gus.sys.script1.executor.type.el.r.clock"));
 		
 		put("call",		Outside.service(this,"gus.sys.script1.executor.type.el.z.call"));
 		put("case",		Outside.service(this,"gus.sys.script1.executor.type.el.z.case1"));
@@ -53,6 +55,7 @@ public class EntityImpl implements Entity, G, T {
 		put("stop",		Outside.service(this,"gus.sys.script1.executor.type.el.z.stop"));
 		
 		put("p",		get("print"));
+		put("pp",		get("println"));
 		put("e",		get("execute"));
 		put("c",		get("comment"));
 		put("s",		get("set"));

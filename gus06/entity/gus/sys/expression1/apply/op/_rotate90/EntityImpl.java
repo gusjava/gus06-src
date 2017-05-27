@@ -1,6 +1,9 @@
 package gus06.entity.gus.sys.expression1.apply.op._rotate90;
 
 import gus06.framework.*;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JSplitPane;
 import java.awt.image.RenderedImage;
 
 public class EntityImpl implements Entity, T {
@@ -12,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		perform = Outside.service(this,"gus.awt.renderedimage.transform.rotate90");
+		perform = Outside.service(this,"gus.data.perform.rotate90");
 	}
 
 	
@@ -23,6 +26,10 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof JPanel) return perform.t(obj);
+		if(obj instanceof JTabbedPane) return perform.t(obj);
+		if(obj instanceof JSplitPane) return perform.t(obj);
 		if(obj instanceof RenderedImage) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());

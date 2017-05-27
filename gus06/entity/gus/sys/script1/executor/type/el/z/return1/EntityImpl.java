@@ -2,21 +2,20 @@ package gus06.entity.gus.sys.script1.executor.type.el.z.return1;
 
 import gus06.framework.*;
 import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
 
 public class EntityImpl implements Entity, T {
 	
 	public String creationDate() {return "20160415";}
 	
-	public static final String C_EXECUTION = "execution";
-	public static final String X_RETURN = "return";
-	
 	
 	private Service wrapping;
+	private Service registerReturn;
 	
 	public EntityImpl() throws Exception
-	{wrapping = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");}
+	{
+		wrapping = Outside.service(this,"gus.sys.script1.tool.execute.wrapping1");
+		registerReturn = Outside.service(this,"gus.sys.script1.tool.register.return1");
+	}
 	
 	
 	
@@ -52,11 +51,7 @@ public class EntityImpl implements Entity, T {
 			Object main = o[3];
 			Map data = (Map) o[4];
 			
-			Set returnSet = new HashSet();
-			returnSet.add(main);
-	 		
-			Map execution = (Map) context.get(C_EXECUTION);
-			execution.put(X_RETURN,returnSet);
+			registerReturn.p(new Object[]{context,main});
 		}
 	}
 }

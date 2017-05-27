@@ -8,6 +8,15 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20151029";}
 
+
+	private Service stringToDate;
+	
+	public EntityImpl() throws Exception
+	{
+		stringToDate = Outside.service(this,"gus.convert.stringtodate");
+	}
+
+
 	
 	
 	public Object t(Object obj) throws Exception
@@ -32,6 +41,12 @@ public class EntityImpl implements Entity, T {
 		if(o1 instanceof Date && o2 instanceof Date)
 			return new Boolean(dateToLong(o1) <= dateToLong(o2));
 		
+		if(o1 instanceof Date && o2 instanceof String)
+			return new Boolean(dateToLong(o1) <= strDateToLong(o2));
+		
+		if(o1 instanceof String && o2 instanceof Date)
+			return new Boolean(strDateToLong(o1) <= dateToLong(o2));
+		
 		if(o1 instanceof String && o2 instanceof String)
 			return new Boolean(((String) o1).compareTo((String) o2) <= 0);
 		
@@ -44,4 +59,7 @@ public class EntityImpl implements Entity, T {
 	
 	private long dateToLong(Object obj)
 	{return ((Date) obj).getTime();}
+	
+	private long strDateToLong(Object obj) throws Exception
+	{return ((Date) stringToDate.t(obj)).getTime();}
 }

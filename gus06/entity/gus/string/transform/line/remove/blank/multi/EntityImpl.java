@@ -20,7 +20,7 @@ public class EntityImpl implements Entity, T {
 		
 		for(int i=0;i<n.length;i++)
 		{
-			if(!valid(n[i])) count++;
+			if(valid(n[i])) count++;
 			else count = 0;
 			
 			if(count<2) b.append(n[i]+DELIM);
@@ -31,5 +31,5 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	private boolean valid(String n)
-	{return n.trim().equals("");}
+	{return !n.trim().equals("");}
 }

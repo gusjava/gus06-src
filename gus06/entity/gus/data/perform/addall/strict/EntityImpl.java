@@ -1,6 +1,7 @@
 package gus06.entity.gus.data.perform.addall.strict;
 
 import gus06.framework.*;
+import java.util.List;
 import java.util.Set;
 
 public class EntityImpl implements Entity, P, T {
@@ -9,10 +10,12 @@ public class EntityImpl implements Entity, P, T {
 	
 	
 	private Service performSet;
+	private Service performList;
 	
 	public EntityImpl() throws Exception
 	{
 		performSet = Outside.service(this,"gus.set.addall.strict");
+		performList = Outside.service(this,"gus.list.addall.strict");
 	}
 
 	
@@ -23,8 +26,8 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof Set)
-		{performSet.p(obj);return;}
+		if(input instanceof Set) {performSet.p(obj);return;}
+		if(input instanceof List) {performList.p(obj);return;}
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}
@@ -38,8 +41,8 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof Set)
-			return performSet.t(obj);
+		if(input instanceof Set) return performSet.t(obj);
+		if(input instanceof List) return performList.t(obj);
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}

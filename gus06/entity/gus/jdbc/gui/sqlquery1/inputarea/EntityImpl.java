@@ -24,7 +24,7 @@ public class EntityImpl extends S1 implements Entity, I, G, E {
 
 	private Service syntax;
 	private Service undo;
-	private Service initKey;
+	private Service putAction;
 	private Service persist;
 
 	private JPanel panel;
@@ -36,8 +36,8 @@ public class EntityImpl extends S1 implements Entity, I, G, E {
 	public EntityImpl() throws Exception
 	{
 		syntax = Outside.service(this,"gus.swing.textpane.cust.syntax.sql.ostermiller");
-		undo = Outside.service(this,"gus.swing.textcomp.cust.action.zy.undoredo");
-		initKey = Outside.service(this,"gus.swing.textcomp.cust2.keystroke.init.control.q");
+		undo = Outside.service(this,"gus.swing.textcomp.cust.action.ctrl_zy.undoredo");
+		putAction = Outside.service(this,"gus.swing.textcomp.cust.putaction.ctrl_q");
 		persist = Outside.service(this,"gus.swing.textcomp.persister.text");
 
 		area = new JTextPane();
@@ -47,7 +47,7 @@ public class EntityImpl extends S1 implements Entity, I, G, E {
 		syntax.p(area);
 		
 		persist.v(getClass().getName()+"_area",area);
-		initKey.p(new Object[]{area,this});
+		putAction.p(new Object[]{area,this});
 		
 		JLabel titleLabel = new JLabel(TITLE);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);

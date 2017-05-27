@@ -7,10 +7,14 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150624";}
 
 
-	private Service format;
+	private Service formatPriv;
+	private Service formatUser;
 
 	public EntityImpl() throws Exception
-	{format = Outside.service(this,"gus.jdbc.mysql.format.sql.sequence");}
+	{
+		formatPriv = Outside.service(this,"gus.jdbc.mysql.format.sql.sequence");
+		formatUser = Outside.service(this,"gus.jdbc.mysql.format.sql.username");
+	}
 
 
 
@@ -23,17 +27,12 @@ public class EntityImpl implements Entity, T {
 		String user = (String) o[1];
 		String host = (String) o[2];
 		
-		return "GRANT "+format(priv)+" ON *.* TO "+userHost(user,host);
+		return "GRANT "+formatPriv(priv)+" ON *.* TO "+userHost(user,host);
 	}
 	
-	private String format(Object priv) throws Exception
-	{return (String) format.t(priv);}
+	private String formatPriv(Object priv) throws Exception
+	{return (String) formatPriv.t(priv);}
 	
-	
-	private String userHost(String user, String host)
-	{
-		if(user==null || user.equals("")) user = "%";
-		if(host==null || host.equals("")) host = "%";
-		return "'"+user+"'@'"+host+"'";
-	}
+	private String userHost(String user, String host) throws Exception
+	{return (String) formatUser.t(new String[]{user,host});}
 }

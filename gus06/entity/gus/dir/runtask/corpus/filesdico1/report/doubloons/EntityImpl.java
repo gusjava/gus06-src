@@ -43,7 +43,6 @@ public class EntityImpl implements Entity, P {
 		if(progress!=null) ((V)progress).v("size",""+list.size());
 			
 		Map m_md5 = new HashMap();
-		List results = new ArrayList();
 		
 		for(Object f:list)
 		{
@@ -52,6 +51,8 @@ public class EntityImpl implements Entity, P {
 			if(progress!=null) ((E)progress).e();
 			if(interrupt!=null && !interrupt.isEmpty()) return;
 		}
+		
+		List results = new ArrayList();
 		
 		Iterator it = m_md5.keySet().iterator();
 		while(it.hasNext())
@@ -67,8 +68,8 @@ public class EntityImpl implements Entity, P {
 				String[] n1 = (String[]) ((Set)o1).iterator().next();
 				String[] n2 = (String[]) ((Set)o2).iterator().next();
 				
-				Integer size1 = new Integer(n1[2]);
-				Integer size2 = new Integer(n2[2]);
+				Long size1 = new Long(n1[2]);
+				Long size2 = new Long(n2[2]);
 				
 				return size2.compareTo(size1);
 			}
@@ -77,7 +78,8 @@ public class EntityImpl implements Entity, P {
 		
 		File repFile = new File(dir.getAbsolutePath()+"_"+now()+"_doubloons.txt");
 		if(repFile.exists()) repFile.delete();
-		PrintStream p = new PrintStream(repFile);
+		
+		PrintStream p = new PrintStream(repFile,charset.name());
 		
 		for(int i=0;i<results.size();i++)
 		{
@@ -88,7 +90,6 @@ public class EntityImpl implements Entity, P {
 		
 		p.close();
 	}
-	
 	
 	
 	
@@ -118,9 +119,8 @@ public class EntityImpl implements Entity, P {
 				
 				if(size.equals("0")) continue;
 				
-				if(!m.containsKey(md5))	m.put(md5,new HashSet());
-				Set set = (Set) m.get(md5);
-				set.add(new String[]{md5,date,size,fileName,location,name});
+				String[] data = new String[]{md5,date,size,fileName,location,name};
+				addToMap(m,md5,data);
 			}
 			fis.close();
 		}
@@ -130,9 +130,12 @@ public class EntityImpl implements Entity, P {
 	
 	
 	
-	
-	
-	
+	private void addToMap(Map map, String key, Object value)
+	{
+		if(!map.containsKey(key))
+			map.put(key,new HashSet());
+		((Set) map.get(key)).add(value);
+	}
 	
 	
 	

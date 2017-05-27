@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._ext;
 
 import gus06.framework.*;
 import java.io.File;
+import java.net.URL;
 
 public class EntityImpl implements Entity, T {
 
@@ -15,6 +16,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof URL) return ext((URL) obj);
 		if(obj instanceof File) return ext((File) obj);
 		if(obj instanceof String) return ext((String) obj);
 		
@@ -22,6 +25,9 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
+	
+	private String ext(URL url)
+	{return ext(url.getFile());}
 	
 	private String ext(File file)
 	{return ext(file.getName());}

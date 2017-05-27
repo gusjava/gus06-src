@@ -3,10 +3,7 @@ package gus06.entity.gus.sys.gusserver1.main;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import gus06.framework.Entity;
-import gus06.framework.Outside;
-import gus06.framework.Service;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, Runnable {
 

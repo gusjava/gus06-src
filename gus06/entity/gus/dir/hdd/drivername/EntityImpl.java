@@ -1,16 +1,13 @@
 package gus06.entity.gus.dir.hdd.drivername;
 
-import gus06.framework.*;
 import java.io.File;
 import javax.swing.filechooser.FileSystemView;
-
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20140910";}
 
-
-	
 	
 	public Object t(Object obj) throws Exception
 	{

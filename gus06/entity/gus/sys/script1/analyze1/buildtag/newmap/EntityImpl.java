@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 	
+	public String creationDate() {return "20150830";}
+	
+	
 	public static final String T_ROOT = "root";
 	public static final String T_ELEMENT = "element";
 	public static final String T_TEXT = "text";
@@ -15,9 +18,6 @@ public class EntityImpl implements Entity, T {
 	public static final String K_ID = "id";
 	
 	public static final int TRUNC_LIMIT = 40;
-	
-	
-	public String creationDate() {return "20150830";}
 
 
 	private Service buildMap;

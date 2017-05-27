@@ -18,6 +18,8 @@ public class EntityImpl implements Entity, I {
 	private Service reload;
 	private Service moveUp;
 	private Service runTask;
+	private Service toClipboard;
+	private Service browseParent;
 	
 	private JMenu menu;
 
@@ -26,12 +28,16 @@ public class EntityImpl implements Entity, I {
 		reload = Outside.service(this,"gus.appli.gusexplorer.action.tabs.selected.reload");
 		moveUp = Outside.service(this,"gus.appli.gusexplorer.action.tabs.selected.moveup");
 		runTask = Outside.service(this,"gus.appli.gusexplorer.action.tabs.selected.runtask");
+		toClipboard = Outside.service(this,"gus.appli.gusexplorer.action.tabs.selected.toclipboard");
+		browseParent = Outside.service(this,"gus.appli.gusexplorer.action.tabs.selected.browseparent");
 	
 		menu = new JMenu("Selected tab");
 		
 		add(reload);
 		add(moveUp);
 		add(runTask);
+		add(toClipboard);
+		add(browseParent);
 	}
 	
 	

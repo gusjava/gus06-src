@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.HashSet;
+import java.util.Set;
 
 public class EntityImpl implements Entity, T {
 
@@ -23,11 +24,12 @@ public class EntityImpl implements Entity, T {
 		if(obj==null) return null;
 		String[] lines = (String[]) toArray.t(obj);
 		
-		HashSet set = new HashSet();
-		for(String line:lines)
+		Set set = new HashSet();
+		for(String line:lines) if(line.trim().startsWith("import "))
 		{
-			if(line.startsWith("import "))
-			set.add(extract(line));
+			String value = extract(line).trim();
+			if(value.startsWith("static ")) value = value.substring(7);
+			set.add(value.trim());
 		}
 		return set;
 	}

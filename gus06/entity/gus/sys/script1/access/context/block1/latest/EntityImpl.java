@@ -7,13 +7,20 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160125";}
 	
+	
+	private Service getCurrent;
+
+	public EntityImpl() throws Exception
+	{
+		getCurrent = Outside.service(this,"gus.sys.script1.access.context.execution.current");
+	}
+	
 
 	public Object t(Object obj) throws Exception
 	{
 		Map context = (Map) obj;
+		Map currentTag = (Map) getCurrent.t(context);
 		
-		Map execution = (Map) get1(context,"execution");
-		Map currentTag = (Map) get1(execution,"current");
 		Map stack = (Map) get1(currentTag,"stack");
 		Map block1 = (Map) get1(stack,"block1");
 		

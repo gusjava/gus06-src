@@ -8,9 +8,16 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160212";}
 	
-	public static final String KEY_CONTEXT = "__context";
 	public static final String C_FILE_MAPPER = "file_mapper";
 
+
+	private Service getContext;
+
+	public EntityImpl() throws Exception
+	{
+		getContext = Outside.service(this,"gus.sys.script1.access.opmap.context");
+	}
+	
 
 	
 	public Object t(Object obj) throws Exception
@@ -31,8 +38,7 @@ public class EntityImpl implements Entity, T {
 	
 	private File findFile(String id, Map opMap) throws Exception
 	{
-		Map context = (Map) ((G) get(opMap,KEY_CONTEXT)).g();
-		if(context==null) throw new Exception("Context not found inside operators map");
+		Map context = (Map) getContext.t(opMap);
 		
 		T t = (T) get(context,C_FILE_MAPPER);
 		if(t==null) throw new Exception("File mapper not found inside context map");

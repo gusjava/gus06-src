@@ -28,6 +28,7 @@ public class EntityImpl implements Entity, T {
 		
 		public void e() throws Exception
 		{
+			if(f.isDirectory()) throw new Exception("Path already initialized as a directory: "+f);
 			if(f.isFile()) f.delete();
 			f.getParentFile().mkdirs();
 			f.createNewFile();

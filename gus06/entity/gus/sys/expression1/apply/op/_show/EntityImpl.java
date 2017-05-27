@@ -2,6 +2,8 @@ package gus06.entity.gus.sys.expression1.apply.op._show;
 
 import gus06.framework.*;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JDialog;
 
 public class EntityImpl implements Entity, T {
 
@@ -13,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		perform = Outside.service(this,"gus.swing.frame.show");
+		perform = Outside.service(this,"gus.data.perform.show");
 	}
 
 	
@@ -27,6 +29,8 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj instanceof I) return new E1(obj);
 		if(obj instanceof JComponent) return new E1(obj);
+		if(obj instanceof JFrame) return new E1(obj);
+		if(obj instanceof JDialog) return new E1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

@@ -16,6 +16,6 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		return obj.toString()+"\n\n\n\n\n";
+		return obj+"\n\n\n\n\n";
 	}
 }

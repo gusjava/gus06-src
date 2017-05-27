@@ -2,13 +2,11 @@ package gus06.entity.gus.dir.access.write.properties.randomid;
 
 import gus06.framework.*;
 import java.io.File;
-import java.util.Map;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20150702";}
 	
-	public static final String EXTENSION = "properties";
 
 
 	private Service write;

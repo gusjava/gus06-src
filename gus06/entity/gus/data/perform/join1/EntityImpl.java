@@ -21,8 +21,8 @@ public class EntityImpl implements Entity, T {
 		Object input = o[0];
 		String glue = (String) o[1];
 		
-		if(input instanceof String[])
-		return join((String[]) input,glue);
+		if(input instanceof Object[])
+		return join((Object[]) input,glue);
 		
 		if(input instanceof List)
 		return join((List) input,glue);
@@ -34,7 +34,7 @@ public class EntityImpl implements Entity, T {
 	}
 	
 	
-	private String join(String[] s, String glue)
+	private String join(Object[] s, String glue)
 	{
 		StringBuffer b = new StringBuffer();
 		int n = s.length;

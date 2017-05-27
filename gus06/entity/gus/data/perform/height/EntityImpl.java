@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Component;
 import java.awt.image.RenderedImage;
+import java.awt.Dimension;
 
 public class EntityImpl implements Entity, T {
 
@@ -29,6 +30,11 @@ public class EntityImpl implements Entity, T {
 		{
 			Rectangle rect = (Rectangle) obj;
 			return new Integer(rect.height);
+		}
+		if(obj instanceof Dimension)
+		{
+			Dimension dim = (Dimension) obj;
+			return new Integer(dim.height);
 		}
 		if(obj instanceof Component)
 		{

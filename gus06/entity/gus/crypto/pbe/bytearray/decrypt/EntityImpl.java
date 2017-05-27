@@ -32,7 +32,7 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		SecretKey key = buildKey(obj);
-		return new Decrypter(key);
+		return new Holder(key);
 	}
 	
 	
@@ -45,10 +45,10 @@ public class EntityImpl implements Entity, T {
 
 	
 	
-	private class Decrypter implements T
+	private class Holder implements T
 	{
 		private SecretKey key;
-		public Decrypter(SecretKey key) {this.key = key;}
+		public Holder(SecretKey key) {this.key = key;}
 		
 		public Object t(Object obj) throws Exception
 		{return decrypt(key,(byte[]) obj);}

@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.Component;
 import java.awt.image.RenderedImage;
 import java.util.List;
+import java.awt.Dimension;
 
 public class EntityImpl implements Entity, T {
 
@@ -42,11 +43,18 @@ public class EntityImpl implements Entity, T {
 			Rectangle rect = (Rectangle) obj;
 			return new Integer(rect.width);
 		}
+		if(obj instanceof Dimension)
+		{
+			Dimension dim = (Dimension) obj;
+			return new Integer(dim.width);
+		}
 		if(obj instanceof Component)
 		{
 			Component comp = (Component) obj;
 			return new Integer(comp.getWidth());
 		}
+		
+		
 		if(obj instanceof double[])
 		{
 			return performDoubleArray.t(obj);

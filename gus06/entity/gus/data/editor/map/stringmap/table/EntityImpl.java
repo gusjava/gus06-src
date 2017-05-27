@@ -128,8 +128,8 @@ public class EntityImpl implements Entity, I, P, ActionListener {
 		keys_[i] = (String) table.getValueAt(row[i],0);
 		SwingUtilities.invokeLater(new DeleteHolder(keys_));
 	}
-    
-    
+
+
 	private class DeleteHolder implements Runnable
 	{
 		private String[] keys_;

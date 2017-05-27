@@ -26,7 +26,7 @@ public class EntityImpl implements Entity, I, P, G, ActionListener {
 	public EntityImpl() throws Exception
 	{
 		viewer = Outside.service(this,"*gus.data.viewer.object.lazy");
-		getReturn = Outside.service(this,"gus.reflection.method.getstaticreturn");
+		getReturn = Outside.service(this,"gus.reflection.method.invoke.static1");
 		
 		button = new JButton("Show method's return value");
 		button.addActionListener(this);

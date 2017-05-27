@@ -3,7 +3,6 @@ package gus06.entity.gus.dir.accessbuilder.ini;
 import gus06.framework.*;
 import java.io.File;
 
-
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160309";}

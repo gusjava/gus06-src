@@ -8,9 +8,6 @@ public class EntityImpl implements Entity, F, P {
 	
 	public String creationDate() {return "20160328";}
 	
-	// context
-	public static final String C_EXECUTION = "execution";
-	
 	// execution
 	public static final String X_HISTORY = "history";
 	public static final String X_CURRENT = "current";
@@ -22,11 +19,13 @@ public class EntityImpl implements Entity, F, P {
 
 	private Service buildStack;
 	private Service buildStack0;
+	private Service getExecution;
 
 	public EntityImpl() throws Exception
 	{
 		buildStack = Outside.service(this,"gus.sys.script1.tool.execute.tag.prepare.stack");
 		buildStack0 = Outside.service(this,"gus.sys.script1.tool.execute.tag.prepare.stack0");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 	}
 	
 	
@@ -44,8 +43,7 @@ public class EntityImpl implements Entity, F, P {
 		Map tag = o[0];
 		Map context = o[1];
 		
-		Map execution = (Map) get(context,C_EXECUTION);
-		if(execution==null) throw new Exception("Execution not found inside context");
+		Map execution = (Map) getExecution.t(context);
 		
 		List history = (List) get(execution,X_HISTORY);
 		if(history==null) throw new Exception("History not found inside execution");

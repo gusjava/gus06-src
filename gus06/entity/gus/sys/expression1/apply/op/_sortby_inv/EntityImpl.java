@@ -18,7 +18,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		builder = Outside.service(this,"gus.sys.expression1.builder2.t");
-		perform = Outside.service(this,"gus.list.sortby.inv");
+		perform = Outside.service(this,"gus.data.perform.sortby.inv");
 		findList = Outside.service(this,"gus.find.list");
 	}
 

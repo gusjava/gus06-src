@@ -3,6 +3,10 @@ package gus06.entity.gus.data.perform.add;
 import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
+import java.awt.Rectangle;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.Document;
+import java.awt.Container;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -11,11 +15,15 @@ public class EntityImpl implements Entity, P, T {
 	
 	private Service performList;
 	private Service performSet;
+	private Service performRect;
+	private Service performContainer;
 	
 	public EntityImpl() throws Exception
 	{
 		performList = Outside.service(this,"gus.list.add");
 		performSet = Outside.service(this,"gus.set.add");
+		performRect = Outside.service(this,"gus.awt.rectangle.add");
+		performContainer = Outside.service(this,"gus.awt.container.add");
 	}
 
 	
@@ -26,9 +34,12 @@ public class EntityImpl implements Entity, P, T {
 		
 		Object input = o[0];
 		
-		if(input instanceof List)		{performList.p(obj);return;}
-		if(input instanceof Set)		{performSet.p(obj);return;}
+		if(input instanceof List)		{performList.p(o);return;}
+		if(input instanceof Set)		{performSet.p(o);return;}
+		if(input instanceof Rectangle)		{performRect.p(o);return;}
 		if(input instanceof StringBuffer)	{performSb(o);return;}
+		if(input instanceof JTextComponent)	{performTextComp(o);return;}
+		if(input instanceof Container)		{performContainer.p(o);return;}
 		
 		throw new Exception("Invalid data type: "+input.getClass().getName());
 	}
@@ -72,6 +83,18 @@ public class EntityImpl implements Entity, P, T {
 		
 		sb.append(s);
 	}
+	
+	
+	private void performTextComp(Object[] o) throws Exception
+	{
+		JTextComponent comp = (JTextComponent) o[0];
+		String s = (String) o[1];
+		
+		Document doc = comp.getDocument();
+		int len = doc.getLength();
+		doc.insertString(len,s,null);
+	}
+	
 	
 	
 	

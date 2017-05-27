@@ -35,6 +35,7 @@ public class EntityImpl implements Entity, T {
 		if(value instanceof F)		return builder.t(obj);
 		if(value instanceof H)		return builder.t(obj);
 		if(value instanceof G)		return builder.t(obj);
+		if(value instanceof P)		return builder.t(obj);
 			
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

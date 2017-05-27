@@ -38,6 +38,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof long[]) return ((long[]) obj).length;
 		if(obj instanceof double[]) return ((double[]) obj).length;
 		if(obj instanceof float[]) return ((float[]) obj).length;
+		if(obj instanceof short[]) return ((short[]) obj).length;
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

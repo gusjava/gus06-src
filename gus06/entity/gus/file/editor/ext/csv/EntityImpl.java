@@ -6,14 +6,13 @@ import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class EntityImpl implements Entity, I, P
+public class EntityImpl implements Entity, I, P, G
 {
 	public String creationDate() {return "20150702";}
 
-	private Service csvParser;
-	private Service csvGenerator;
-	private Service string2Editor;
 	private Service readFile;
+	private Service csvParser;
+	private Service string2Editor;
 	
 	private File file;
 	private JPanel panel;
@@ -22,10 +21,9 @@ public class EntityImpl implements Entity, I, P
 	
 	public EntityImpl() throws Exception
 	{
-		csvParser = Outside.service(this,"gus.file.convert.csv2.parser");
-		csvGenerator = Outside.service(this,"gus.file.convert.csv2.generator");
-		string2Editor = Outside.service(this,"gus.data.editor.string2.editor1");
 		readFile = Outside.service(this,"gus.file.read.string");
+		csvParser = Outside.service(this,"gus.file.convert.csv.parser");
+		string2Editor = Outside.service(this,"gus.data.editor.string2.editor1");
 		
 		panel = new JPanel(new BorderLayout());
 		panel.add((JComponent) string2Editor.i(),BorderLayout.CENTER);
@@ -33,6 +31,10 @@ public class EntityImpl implements Entity, I, P
 
 	public Object i() throws Exception
 	{return panel;}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 
 
 	

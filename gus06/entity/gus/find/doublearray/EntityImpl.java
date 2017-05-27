@@ -2,11 +2,21 @@ package gus06.entity.gus.find.doublearray;
 
 import gus06.framework.*;
 import java.util.*;
+import java.awt.geom.Point2D;
 
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20150516";}
+
+
+	private Service stringToArray;
+	
+	
+	public EntityImpl() throws Exception
+	{
+		stringToArray = Outside.service(this,"gus.convert.stringtodoublearray");
+	}
 
 	
 	public Object t(Object obj) throws Exception
@@ -21,20 +31,11 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Set) return handle((Set) obj);
 		if(obj instanceof List) return handle((List) obj);
 		if(obj instanceof Object[]) return handle((Object[]) obj);
+		if(obj instanceof String) return stringToArray.t(obj);
+		if(obj instanceof Point2D) return handle((Point2D) obj);
 		
-		if(obj instanceof double[][])
-		{
-			double[][] d = (double[][]) obj;
-			if(d.length==1) return d[0];
-			if(d.length>1 && d[0].length==1)
-			{
-				int l = d.length;
-				double[] r = new double[l];
-				for(int i=0;i<l;i++) r[i] = d[i][0];
-				return r;
-			}
-			throw new Exception("Invalid array length: "+d.length);
-		}
+		if(obj instanceof double[][]) return handle((double[][]) obj);
+		
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
@@ -80,6 +81,24 @@ public class EntityImpl implements Entity, T {
 	private double[] handle(Set set) throws Exception
 	{
 		return handle(new ArrayList(set));
+	}
+	
+	private double[] handle(Point2D p)
+	{
+		return new double[]{p.getX(),p.getY()};
+	}
+	
+	private double[] handle(double[][] d) throws Exception
+	{
+		if(d.length==1) return d[0];
+		if(d.length>1 && d[0].length==1)
+		{
+			int l = d.length;
+			double[] r = new double[l];
+			for(int i=0;i<l;i++) r[i] = d[i][0];
+			return r;
+		}
+		throw new Exception("Invalid array length: "+d.length);
 	}
 	
 	

@@ -4,9 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -28,7 +25,9 @@ public class EntityImpl implements Entity, G, MouseListener, MouseMotionListener
 	public String creationDate() {return "20151022";}
 	
 	public static final long WAIT = 1000;
-	
+
+
+	private Service getScreenRect;
 	
 	private JDialog dialog;
 	private JPanel1 panel;
@@ -47,7 +46,9 @@ public class EntityImpl implements Entity, G, MouseListener, MouseMotionListener
 
 	public EntityImpl() throws Exception
 	{
-		screenRect = getScreenRect();
+		getScreenRect = Outside.service(this,"gus.awt.screen.rect");
+		
+		screenRect = (Rectangle) getScreenRect.g();
 		robot = new Robot();
 		
 		panel = new JPanel1();
@@ -85,14 +86,6 @@ public class EntityImpl implements Entity, G, MouseListener, MouseMotionListener
 	}
 	
 	
-	
-	private Rectangle getScreenRect()
-	{
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice device = env.getDefaultScreenDevice();
-		GraphicsConfiguration gc = device.getDefaultConfiguration();
-		return gc.getBounds();
-	}
 	
 	
 	private Rectangle getSelectedRect(Point end)

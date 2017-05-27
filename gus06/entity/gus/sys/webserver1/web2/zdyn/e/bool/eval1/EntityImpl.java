@@ -11,7 +11,7 @@ public class EntityImpl implements Entity, T, F {
 
 
 	public EntityImpl() throws Exception
-	{evalInt = Outside.service(this,"gus.string.transform.math.integer.eval1");}
+	{evalInt = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval1.t");}
 	
 	
 	public Object t(Object obj) throws Exception

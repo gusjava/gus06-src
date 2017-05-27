@@ -8,11 +8,11 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20160316";}
 
 
-	private Service create;
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		create = Outside.service(this,"gus.jdbc.mysql.perform.db.create");
+		perform = Outside.service(this,"gus.jdbc.mysql.perform.db.create");
 	}
 
 	
@@ -53,6 +53,6 @@ public class EntityImpl implements Entity, T {
 		}
 		
 		public void e() throws Exception
-		{create.p(new Object[]{cx,dbName});}
+		{perform.p(new Object[]{cx,dbName});}
 	}
 }

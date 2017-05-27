@@ -7,6 +7,13 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20150624";}
 
 
+	private Service formatUser;
+
+	public EntityImpl() throws Exception
+	{
+		formatUser = Outside.service(this,"gus.jdbc.mysql.format.sql.username");
+	}
+		
 
 	public Object t(Object obj) throws Exception
 	{
@@ -18,11 +25,7 @@ public class EntityImpl implements Entity, T {
 		
 		return "REVOKE USAGE ON *.* FROM "+userHost(user,host);
 	}
-  
-	private String userHost(String user, String host)
-	{
-		if(user==null || user.equals("")) user = "%";
-		if(host==null || host.equals("")) host = "%";
-		return "'"+user+"'@'"+host+"'";
-	}
+	
+	private String userHost(String user, String host) throws Exception
+	{return (String) formatUser.t(new String[]{user,host});}
 }

@@ -31,6 +31,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof File[]) return obj;
 		if(obj instanceof Object[]) return fromArray.t(obj);
 		if(obj instanceof List) return fromList.t(obj);
+		if(obj instanceof File) return new File[]{(File) obj};
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

@@ -12,7 +12,11 @@ public class EntityImpl implements Entity, T {
 
 	public static final String VALUE = "value";
 	public static final String TYPE = "type";
-	public static final String ELEMENT = "element";
+	
+	public static final String TYPE_ELEMENT = "element";
+	public static final String TYPE_STRING = "string";
+	public static final String TYPE_DOUBLE = "double";
+	public static final String TYPE_INT = "int";
 	
 
 	
@@ -28,7 +32,7 @@ public class EntityImpl implements Entity, T {
 		int number = cut.size();
 		if(number<2) throw new Exception("Invalid operation: ENU");
 		
-		String key = null;
+		Object key = null;
 		List value = null;
 		
 		Map map = new HashMap();
@@ -41,7 +45,7 @@ public class EntityImpl implements Entity, T {
 			if(i==0)
 			{
 				if(number0!=1) throw new Exception("Invalid operation: ENU");
-				key = value((Map) l.get(0));
+				key = buildKey((Map) l.get(0),t);
 			}
 			else if(i<number-1)
 			{
@@ -49,7 +53,7 @@ public class EntityImpl implements Entity, T {
 				value = new ArrayList();
 				for(int j=0;j<number0-1;j++) value.add(l.get(j));
 				put(map,key,t.t(value));
-				key = value((Map) l.get(number0-1));
+				key = buildKey((Map) l.get(number0-1),t);
 			}
 			else
 			{
@@ -65,14 +69,17 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private String value(Map m) throws Exception
+	private Object buildKey(Map m, T t) throws Exception
 	{
-		if(!m.get(TYPE).equals(ELEMENT))
-			throw new Exception("Invalid operation: ENU");
-		return (String) m.get(VALUE);
+		if(m.get(TYPE).equals(TYPE_ELEMENT)) return ""+m.get(VALUE);
+		if(m.get(TYPE).equals(TYPE_INT)) return ""+m.get(VALUE);
+		if(m.get(TYPE).equals(TYPE_DOUBLE)) return ""+m.get(VALUE);
+		if(m.get(TYPE).equals(TYPE_STRING)) return ""+m.get(VALUE);
+		
+		return t.t(m);
 	}
 	
-	private void put(Map map, String key, Object value)
+	private void put(Map map, Object key, Object value)
 	{
 		if(key!=null && value!=null) map.put(key,value);
 	}

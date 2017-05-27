@@ -1,13 +1,8 @@
 package gus06.entity.gus.file.read.string.autodetect;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-
 import gus06.framework.*;
-
 
 public class EntityImpl implements Entity, T {
 
@@ -15,9 +10,13 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service findCharset;
+	private Service read;
 	
 	public EntityImpl() throws Exception
-	{findCharset = Outside.service(this,"gus.file.string.info.charset");}
+	{
+		findCharset = Outside.service(this,"gus.file.string.info.charset");
+		read = Outside.service(this,"gus.file.read.string.autodetect.read");
+	}
 
 
 	public Object t(Object obj) throws Exception
@@ -29,23 +28,7 @@ public class EntityImpl implements Entity, T {
 		if(file.length()==0) return "";
 		
 		Charset charset = charset(file);
-		return read(file,charset);
-	}
-	
-	
-	private String read(File file, Charset charset) throws Exception
-	{
-		FileInputStream fis = new FileInputStream(file);
-		InputStreamReader isr = new InputStreamReader(fis,charset);
-		BufferedReader br = new BufferedReader(isr);
-		StringBuffer b = new StringBuffer();
-		
-		String line;
-		while((line = br.readLine())!=null) b.append(line+"\n");
-		br.close();
-		
-		if(b.length()>0) b.deleteCharAt(b.length()-1);
-		return b.toString();
+		return read.t(new Object[]{file,charset});
 	}
 	
 	

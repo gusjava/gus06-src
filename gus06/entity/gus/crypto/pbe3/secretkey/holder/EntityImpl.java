@@ -8,15 +8,12 @@ public class EntityImpl implements Entity, G {
 
 
 	private Service keyBuilder;
-	private Service askPwd;
 	
 	public EntityImpl() throws Exception
 	{
-		keyBuilder = Outside.service(this,"gus.crypto.pbe.secretkey.builder");
-		askPwd = Outside.service(this,"gus.security.askinfo.password1");
+		keyBuilder = Outside.service(this,"gus.crypto.pbe.secretkey.builder.askpwd");
 	}
 	
-	
 	public Object g() throws Exception
-	{return keyBuilder.t(askPwd.g());}
+	{return keyBuilder.g();}
 }

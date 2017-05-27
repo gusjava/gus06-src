@@ -7,14 +7,14 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 
-public class EntityImpl implements Entity, I, P, R, E {
+public class EntityImpl implements Entity, I, P, G, R, E {
 
 	public String creationDate() {return "20150706";}
 
 	
 	private Service txtEditor;
 	private Service console;
-	private Service initKey;
+	private Service putAction;
 	
 	private JSplitPane split;
 	private JTextComponent comp;
@@ -27,10 +27,10 @@ public class EntityImpl implements Entity, I, P, R, E {
 	{
 		txtEditor = Outside.service(this,"*gus.file.editor.ext.txt");
 		console = Outside.service(this,"*gus.file.editor.ext.groovy.console");
-		initKey = Outside.service(this,"gus.swing.textcomp.cust2.keystroke.init");
+		putAction = Outside.service(this,"gus.swing.textcomp.cust.putaction.ctrl_q");
 		
 		comp = (JTextComponent) txtEditor.r("comp");
-		initKey.v("control Q",new Object[]{comp,this});
+		putAction.p(new Object[]{comp,this});
 		
 		split = new JSplitPane();
 		split.setDividerLocation(400);
@@ -41,6 +41,10 @@ public class EntityImpl implements Entity, I, P, R, E {
 	
 	public Object i() throws Exception
 	{return split;}
+	
+	
+	public Object g() throws Exception
+	{return file;}
 	
 	
 	

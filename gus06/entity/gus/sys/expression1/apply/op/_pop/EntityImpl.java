@@ -1,12 +1,20 @@
 package gus06.entity.gus.sys.expression1.apply.op._pop;
 
 import gus06.framework.*;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
-	public String creationDate() {return "20151119";}
+	public String creationDate() {return "20170419";}
 
+
+	private Service perform;
+	
+	public EntityImpl() throws Exception
+	{
+		perform = Outside.service(this,"gus.data.perform.pop");
+	}
 
 	
 	
@@ -18,15 +26,10 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof List) return pop((List) obj);
+		if(obj instanceof Map)		return perform.t(obj);
+		if(obj instanceof Collection)	return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
-	
-	private Object pop(List l)
-	{
-		if(l.isEmpty()) return null;
-		return l.remove(l.size()-1);
-	}
 }

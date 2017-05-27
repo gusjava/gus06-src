@@ -10,10 +10,14 @@ public class EntityImpl implements Entity, I {
 	public String creationDate() {return "20150526";}
 
 
+	private Service baseHolder;
+	
 	private JPanel panel;
 	
 	public EntityImpl() throws Exception
 	{
+		baseHolder = Outside.service(this,"gus.appli.entityanalyze.holder.base");
+		
 		panel = new JPanel(new BorderLayout());
 	}
 	

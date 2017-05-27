@@ -52,9 +52,10 @@ public class EntityImpl implements Entity, T, R, V, F {
 	
 	public boolean f(Object obj) throws Exception
 	{
-		File file = (File) obj;
-		String id = fileToId(file);
-		return id!=null;
+		if(obj instanceof File) return fileToId((File) obj)!=null;
+		if(obj instanceof String) return idToFile((String) obj)!=null;
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
@@ -77,7 +78,17 @@ public class EntityImpl implements Entity, T, R, V, F {
 	
 	
 	private String mapping(String id, String key) throws Exception
-	{return (String) mapping.t(new Object[]{map,id,key});}
+	{
+		try
+		{
+			return (String) mapping.t(new Object[]{map,id,key});
+		}
+		catch(Exception e)
+		{
+			String message = "failed to resolve mapping for id="+id+" and key="+key;
+			throw new Exception(message,e);
+		}
+	}
 	
 	
 	private String fileToId(File file) throws Exception

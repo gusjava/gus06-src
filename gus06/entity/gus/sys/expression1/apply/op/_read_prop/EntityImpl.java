@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._read_prop;
 
 import gus06.framework.*;
 import java.io.File;
+import java.util.Properties;
 
 public class EntityImpl implements Entity, T {
 
@@ -23,9 +24,21 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
 		if(obj instanceof File)
 			return readProperties.t(obj);
+		if(obj instanceof File[])
+			return readProperties((File[]) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private Properties[] readProperties(File[] ff) throws Exception
+	{
+		Properties[] pp = new Properties[ff.length];
+		for(int i=0;i<ff.length;i++)
+		pp[i] = (Properties) readProperties.t(ff[i]);
+		return pp;
 	}
 }

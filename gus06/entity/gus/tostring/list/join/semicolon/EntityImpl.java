@@ -21,7 +21,7 @@ public class EntityImpl implements Entity, T {
 		StringBuffer b = new StringBuffer();
 		for(int i=0;i<list.size();i++)
 		{
-			String el = (String) list.get(i);
+			String el = "" + list.get(i);
 			if(el.contains(DELIM)) throw new Exception("Invalid element syntax: "+el);
 			b.append(el+DELIM);
 		}

@@ -23,9 +23,17 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof String) return toInt(perform.r(getClass().getName()+"_"+obj));
+		if(obj instanceof String) return find(obj);
+		if(obj instanceof Number) return find(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	
+	private Integer find(Object obj) throws Exception
+	{
+		return toInt(perform.r(getClass().getName()+"_"+obj));
 	}
 	
 	

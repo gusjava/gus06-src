@@ -22,8 +22,8 @@ public class EntityImpl implements Entity, P {
 	public EntityImpl() throws Exception
 	{
 		runtask2 = Outside.service(this,"gus.dir.runtask2.report.filesdico1");
-		autoDetectDrive = Outside.service(this,"gus.dirfile.hdd.detectnewhdd");
-		driverName = Outside.service(this,"gus.dirfile.find.drivername");
+		autoDetectDrive = Outside.service(this,"gus.dir.hdd.detectnewhdd");
+		driverName = Outside.service(this,"gus.dir.hdd.drivername");
 	}
 
 	
@@ -38,7 +38,6 @@ public class EntityImpl implements Entity, P {
 		Set interrupt = (Set) o[2];
 		
 		File root = (File) autoDetectDrive.g();
-		System.out.println("Root detected: "+root);
 		if(root==null) return;
 		
 		File f = new File(dir,nameForRoot(root));

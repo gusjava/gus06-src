@@ -2,23 +2,24 @@ package gus06.entity.gus.swing.textcomp.cust.action.alt_down.gotodown;
 
 import gus06.framework.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.Event;
 import javax.swing.text.JTextComponent;
 import javax.swing.AbstractAction;
-import javax.swing.KeyStroke;
 
 public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20160512";}
 
-	public static final KeyStroke KEYSTROKE = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,Event.ALT_MASK);
+	public static final String DEFAULT_KEY = "alt down";
 	
 	
 	private Service perform;
+	private Service manageKeyStroke;
 	
 	public EntityImpl() throws Exception
-	{perform = Outside.service(this,"gus.swing.textcomp.cust.action.alt_down.gotodown.perform");}
+	{
+		perform = Outside.service(this,"gus.swing.textcomp.cust.action.alt_down.gotodown.perform");
+		manageKeyStroke = Outside.service(this,"gus.sys.keystroke1.manager");
+	}
 	
 	
 	public void p(Object obj) throws Exception
@@ -29,10 +30,10 @@ public class EntityImpl implements Entity, P {
 	private class Holder extends AbstractAction
 	{
 		private JTextComponent comp;
-		public Holder(JTextComponent comp)
+		public Holder(JTextComponent comp) throws Exception
 		{
 			this.comp = comp;
-			comp.getInputMap().put(KEYSTROKE,this);
+			manageKeyStroke.p(new Object[]{id(),DEFAULT_KEY,comp,this});
 		}
 		public void actionPerformed(ActionEvent e)
 		{perform(comp);}
@@ -45,4 +46,7 @@ public class EntityImpl implements Entity, P {
 		catch(Exception e)
 		{Outside.err(this,"perform(JTextComponent)",e);}
 	}
+	
+	private String id()
+	{return getClass().getName();}
 }

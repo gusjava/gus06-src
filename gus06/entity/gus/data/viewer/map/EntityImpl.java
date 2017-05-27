@@ -76,12 +76,15 @@ public class EntityImpl implements Entity, I, P, G, ListSelectionListener, Actio
 	{
 		try
 		{
-			Vector vec = new Vector(data.keySet());
-			Collections.sort(vec);
-			list.setListData(vec);
-        
-			label.setText(" "+data.size());
-			viewer.p(null);
+			synchronized(data)
+			{
+				Vector vec = new Vector(data.keySet());
+				Collections.sort(vec);
+				list.setListData(vec);
+	        
+				label.setText(" "+data.size());
+				viewer.p(null);
+			}
 		}
 		catch(Exception e)
 		{Outside.err(this,"updateGui()",e);}

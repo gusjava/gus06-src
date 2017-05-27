@@ -1,6 +1,7 @@
 package gus06.entity.gus.appli.entityanalyze.holder.base;
 
 import gus06.framework.*;
+import java.io.File;
 
 public class EntityImpl implements Entity, V, R, P, G, F {
 
@@ -25,9 +26,17 @@ public class EntityImpl implements Entity, V, R, P, G, F {
 		
 		g_dir = new G() {
 			public Object g() throws Exception
-			{return getFile.r(KEY_BASEDIR);}
+			{return initDir();}
 		};
 		holder = builder.t(g_dir);
+	}
+	
+	
+	private File initDir() throws Exception
+	{
+		File dir = (File) getFile.r(KEY_BASEDIR);
+		if(!dir.exists()) dir.mkdirs();
+		return dir;
 	}
 	
 	

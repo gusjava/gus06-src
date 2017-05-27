@@ -37,7 +37,7 @@ public class EntityImpl implements Entity, T {
 		s = s.trim();
 		if(s.endsWith(";")) s = s.substring(0,s.length()-1);
 		
-		String[] n = s.split(" +");
+		String[] n = s.split("\\s+");
 		
 		if(n.length==2) return n;
 		if(n.length==3)

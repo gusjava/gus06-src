@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class EntityImpl implements Entity, T {
+
+	public String creationDate() {return "20150829";}
 	
 	public static final String K_VALUE = "value";
 	public static final String K_CONTENT = "content";
@@ -14,8 +16,6 @@ public class EntityImpl implements Entity, T {
 	public static final String K_PARENT = "parent";
 	public static final String K_INDEX = "index";
 
-
-	public String creationDate() {return "20150829";}
 	
 
 

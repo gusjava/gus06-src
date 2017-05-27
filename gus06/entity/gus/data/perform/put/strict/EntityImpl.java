@@ -1,8 +1,8 @@
 package gus06.entity.gus.data.perform.put.strict;
 
 import gus06.framework.*;
-import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 public class EntityImpl implements Entity, P, T {
 
@@ -10,49 +10,32 @@ public class EntityImpl implements Entity, P, T {
 	
 	
 	private Service performMap;
+	private Service performFile;
 	
 	public EntityImpl() throws Exception
 	{
 		performMap = Outside.service(this,"gus.map.put.strict");
+		performFile = Outside.service(this,"gus.file.properties.perform.field.put.strict");
 	}
 
-	
+
 	public void p(Object obj) throws Exception
 	{
-		performMap.p(toArray(obj));
+		Object[] o = (Object[]) obj;
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
+		
+		if(o[0] instanceof Map) {performMap.p(o);return;}
+		if(o[0] instanceof File) {performFile.p(o);return;}
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
+	
 	
 	public Object t(Object obj) throws Exception
 	{
-		return performMap.t(toArray(obj));
-	}
-	
-	
-	
-	private Object[] toArray(Object obj) throws Exception
-	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
+		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
 		
-		Object input = o[0];
-		Object data = o[1];
-		
-		if(!(input instanceof Map))
-			throw new Exception("Invalid data type: "+input.getClass().getName());
-		
-		if(data instanceof Object[])
-		{
-			Object[] tt = (Object[]) data;
-			if(tt.length!=2) throw new Exception("Wrong data number: "+tt.length);
-			return new Object[]{input,tt[0],tt[1]};
-		}
-		if(data instanceof List)
-		{
-			List l = (List) data;
-			if(l.size()!=2) throw new Exception("Wrong data number: "+l.size());
-			return new Object[]{input,l.get(0),l.get(1)};
-		}
-			
-		throw new Exception("Invalid data type: "+data.getClass().getName());
+		if(o[0] instanceof Map) return performMap.t(o);
+		throw new Exception("Invalid data type: "+o[0].getClass().getName());
 	}
 }

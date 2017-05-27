@@ -30,7 +30,13 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		File file = (File) obj;
-		
+		return fileToEditor(file);
+	}
+	
+	
+	
+	private Object fileToEditor(File file) throws Exception
+	{
 		String name = fileToName(file);
 		if(name==null) return null;
 		

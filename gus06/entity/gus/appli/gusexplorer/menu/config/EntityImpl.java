@@ -1,22 +1,16 @@
 package gus06.entity.gus.appli.gusexplorer.menu.config;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import gus06.framework.*;
 
 import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.Action;
-import javax.swing.ButtonGroup;
 import java.util.List;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.SwingUtilities;
 import java.util.Map;
 import java.util.HashMap;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class EntityImpl implements Entity, ActionListener, I {
@@ -25,7 +19,10 @@ public class EntityImpl implements Entity, ActionListener, I {
 
 
 	private Service configManager;
-	private Service actionCreate;
+	private Service repaintButton;
+	private Service actionAdd;
+	private Service actionRemove;
+	private Service actionReplace;
 
 	
 	private JMenu1 menu;
@@ -35,9 +32,12 @@ public class EntityImpl implements Entity, ActionListener, I {
 	public EntityImpl() throws Exception
 	{
 		configManager = Outside.service(this,"gus.appli.gusexplorer.config.manager");
-		actionCreate = Outside.service(this,"gus.appli.gusexplorer.action.config.create");
+		repaintButton = Outside.service(this,"gus.swing.button.cust2.display");
+		actionAdd = Outside.service(this,"gus.appli.gusexplorer.action.config.add");
+		actionRemove = Outside.service(this,"gus.appli.gusexplorer.action.config.remove");
+		actionReplace = Outside.service(this,"gus.appli.gusexplorer.action.config.replace");
 		
-		menu = new JMenu1("Config");
+		menu = new JMenu1("Configs");
 		map = new HashMap();
 		
 		updateMenu();
@@ -60,26 +60,20 @@ public class EntityImpl implements Entity, ActionListener, I {
 		try
 		{
 			menu.removeAll();
+			
+			add(actionReplace);
+			add(actionRemove);
+			add(actionAdd);
+			
+			menu.addSeparator();
 		
-			List names = (List) configManager.r("names");
-			String name0 = (String) configManager.r("name");
-			
-			ButtonGroup group = new ButtonGroup();
-			
+			List names = (List) configManager.g();
 			for(int i=0;i<names.size();i++)
 			{
 				String name = (String) names.get(i);
-				boolean selected = name.equals(name0);
-				
-				JRadioButtonMenuItem1 item = findItem(name);
-				item.setSelected(selected);
-				
-				group.add(item);
+				JMenuItem1 item = findItem(name);
 				menu.add(item);
 			}
-			
-			menu.addSeparator();
-			add(actionCreate);
 			
 			menu.updateMenu();
 		}
@@ -89,10 +83,11 @@ public class EntityImpl implements Entity, ActionListener, I {
 	
 	
 	
-	private JRadioButtonMenuItem1 findItem(String name)
+	
+	private JMenuItem1 findItem(String name) throws Exception
 	{
-		if(!map.containsKey(name)) map.put(name,new JRadioButtonMenuItem1(name));
-		return (JRadioButtonMenuItem1) map.get(name);
+		if(!map.containsKey(name)) map.put(name,new JMenuItem1(name));
+		return (JMenuItem1) map.get(name);
 	}
 	
 	
@@ -106,31 +101,24 @@ public class EntityImpl implements Entity, ActionListener, I {
 	
 	private void changeConfig(String name)
 	{
-		//System.out.println("change config: "+name);
-		try{configManager.p(name);}
+		try{configManager.v("load",name);}
 		catch(Exception e)
 		{Outside.err(this,"changeConfig(String)",e);}
 	}
 	
 	
-	private class JRadioButtonMenuItem1 extends JRadioButtonMenuItem implements ChangeListener, Runnable
+	private class JMenuItem1 extends JMenuItem implements ActionListener
 	{
 		private String name;
-		public JRadioButtonMenuItem1(String name)
+		public JMenuItem1(String name) throws Exception
 		{
-			super(name);
+			super();
 			this.name = name;
-			addChangeListener(this);
+			repaintButton.v("CONFIG#"+name,this);
+			addActionListener(this);
 		}
 		
-		public void stateChanged(ChangeEvent e)
-		{
-			//System.out.println("stateChanged for item: "+name);
-			if(isSelected())
-			SwingUtilities.invokeLater(this);
-		}
-		
-		public void run()
+		public void actionPerformed(ActionEvent e)
 		{changeConfig(name);}
 	}
 	

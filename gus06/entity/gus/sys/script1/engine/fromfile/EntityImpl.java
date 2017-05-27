@@ -10,11 +10,11 @@ public class EntityImpl implements Entity, P, T {
 	public String creationDate() {return "20151103";}
 	
 	public static final String X_SCRIPT = "script";
-	public static final String C_EXECUTION = "execution";
 
 	private Service readText;
 	private Service retrieveBuilder;
 	private Service retrieveExecutor;
+	private Service getExecution;
 	
 	
 	
@@ -24,6 +24,7 @@ public class EntityImpl implements Entity, P, T {
 		readText = Outside.service(this,"gus.file.read.string.autodetect");
 		retrieveBuilder = Outside.service(this,"gus.sys.script1.access.context.builder");
 		retrieveExecutor = Outside.service(this,"gus.sys.script1.access.context.executor");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 	}
 
 	
@@ -42,7 +43,7 @@ public class EntityImpl implements Entity, P, T {
 		File file = (File) o[0];
 		Map context = (Map) o[1];
 		
-		Map execution = (Map) get(context,C_EXECUTION);
+		Map execution = (Map) getExecution.t(context);
 		execution.put(X_SCRIPT,file);
 		
 		Map tag = null;

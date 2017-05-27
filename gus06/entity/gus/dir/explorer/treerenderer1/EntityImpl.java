@@ -18,6 +18,7 @@ public class EntityImpl implements Entity, P {
 
 
 	public static final int NB_LIMIT = 1000;
+	public static final Color SELECTION_COLOR = new Color(210,235,235);
 	
 	
 	private Service custUI;
@@ -85,6 +86,13 @@ public class EntityImpl implements Entity, P {
 	}
 	
 	
+	private Color findBackground(boolean selected)
+	{
+		if(selected) return SELECTION_COLOR;
+		return Color.WHITE;
+	}
+	
+	
 	private String findText(File f)
 	{
 		if(isDriver(f)) return f.getAbsolutePath();
@@ -104,13 +112,16 @@ public class EntityImpl implements Entity, P {
 		{
 			super.getTreeCellRendererComponent(tree,value,sel,expanded,leaf,row,hasFocus);
 			
-			if(value==null)return this; 
+			if(value==null) return this; 
 			if(!(value instanceof File))return this;
-			File file = (File)value;
 			
+			File file = (File) value;
+			
+			setOpaque(true);
 			setIcon(findIcon(file));
 			setFont(findFont(getFont(),file));
 			setForeground(findForeground(file));
+			setBackground(findBackground(sel));
 			setText(findText(file));
 			 
 			return this;

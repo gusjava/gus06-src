@@ -2,7 +2,6 @@ package gus06.entity.gus.data.perform.permute.inv;
 
 import gus06.framework.*;
 import java.util.List;
-import java.util.Collections;
 
 public class EntityImpl implements Entity, P {
 

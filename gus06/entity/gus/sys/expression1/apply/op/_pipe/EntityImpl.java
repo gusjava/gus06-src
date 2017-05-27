@@ -9,18 +9,11 @@ public class EntityImpl implements Entity, T {
 	public String creationDate() {return "20151118";}
 
 
-	private Service pipe_t;
-	private Service pipe_h;
-	private Service pipe_map;
-	private Service pipe_list;
-	
+	private Service perform;
 	
 	public EntityImpl() throws Exception
 	{
-		pipe_t = Outside.service(this,"gus.feature.op.pipe.t");
-		pipe_h = Outside.service(this,"gus.feature.op.pipe.h");
-		pipe_map = Outside.service(this,"gus.feature.op.pipe.map");
-		pipe_list = Outside.service(this,"gus.feature.op.pipe.list");
+		perform = Outside.service(this,"gus.data.perform.pipe");
 	}
 
 	
@@ -32,11 +25,29 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof T[]) return pipe_t.t(obj);
-		if(obj instanceof H[]) return pipe_h.t(obj);
-		if(obj instanceof Map[]) return pipe_map.t(obj);
-		if(obj instanceof List[]) return pipe_list.t(obj);
+		if(obj instanceof T[]) return perform.t(obj);
+		if(obj instanceof H[]) return perform.t(obj);
+		if(obj instanceof Map[]) return perform.t(obj);
+		if(obj instanceof Object[]) return perform.t(obj);
+		if(obj instanceof List) return perform.t(obj);
+		
+		if(obj instanceof G) return new T1(obj);
+		if(obj instanceof I) return new T1(obj);
+		if(obj instanceof T) return new T1(obj);
+		if(obj instanceof F) return new T1(obj);
+		if(obj instanceof H) return new T1(obj);
+		if(obj instanceof Map) return new T1(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	
+	private class T1 implements T
+	{
+		private Object value;
+		public T1(Object value) {this.value = value;}
+		
+		public Object t(Object obj) throws Exception
+		{return perform.t(new Object[]{value,obj});}
 	}
 }

@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T, V {
 	
 	public EntityImpl() throws Exception
 	{
-		decrypt = Outside.service(this,"gus.crypto.pbe.stringcol.decrypt");
+		decrypt = Outside.service(this,"gus.crypto.pbe.object.decrypt");
 		readProp = Outside.service(this,"gus.file.read.properties");
 	}
 

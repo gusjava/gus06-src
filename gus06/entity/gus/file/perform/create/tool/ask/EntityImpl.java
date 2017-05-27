@@ -7,6 +7,8 @@ import java.util.Properties;
 public class EntityImpl implements Entity, P, F, T {
 
 	public String creationDate() {return "20150524";}
+	
+	public static final String PATH_ROOT = "path.root";
 
 
 	private Service input;
@@ -49,7 +51,7 @@ public class EntityImpl implements Entity, P, F, T {
 		if(root!=null)
 		{
 			Properties p = new Properties();
-			p.setProperty("root",root.getAbsolutePath());
+			p.setProperty(PATH_ROOT,root.getAbsolutePath());
 			writeProp.p(new Object[]{file,p});
 		}
 		

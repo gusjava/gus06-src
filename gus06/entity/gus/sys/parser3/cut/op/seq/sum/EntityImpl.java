@@ -45,8 +45,7 @@ public class EntityImpl implements Entity, T {
 					kk.add(k);
 					k = new ArrayList();
 				}
-				if(minus==null) minus = m;
-				else minus = null;
+				minus = minus==null ? m : null;
 			}
 			else
 			{

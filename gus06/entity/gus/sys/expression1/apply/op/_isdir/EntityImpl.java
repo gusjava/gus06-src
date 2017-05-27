@@ -15,12 +15,10 @@ public class EntityImpl implements Entity, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		obj = o[0];
 		
-		if(obj==null) return null;
-		if(obj instanceof File)
-		{
-			File file = (File) obj;
-			return new Boolean(file.isDirectory());
-		}
-		throw new Exception("Invalid data type: "+obj.getClass().getName());
+		if(obj==null) return Boolean.FALSE;
+		if(!(obj instanceof File)) return Boolean.FALSE;
+		
+		File file = (File) obj;
+		return new Boolean(file.isDirectory());
 	}
 }

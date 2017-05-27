@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.Map;
 import java.util.List;
 import java.util.Set;
+import java.io.File;
 
 public class EntityImpl implements Entity, T {
 
@@ -33,10 +34,12 @@ public class EntityImpl implements Entity, T {
 		
 		if(value==null) return null;
 		
+		if(value instanceof File) return new T1(value,opMap);
 		if(value instanceof List) return new T1(value,opMap);
 		if(value instanceof Set) return new T1(value,opMap);
 		if(value instanceof Map) return new T1(value,opMap);
 		if(value instanceof Object[]) return new T1(value,opMap);
+		if(value instanceof StringBuffer) return new T1(value,opMap);
 		
 		if(value instanceof double[]) return new T2(value,opMap);
 		if(value instanceof float[]) return new T2(value,opMap);

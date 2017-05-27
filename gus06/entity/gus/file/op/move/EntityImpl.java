@@ -1,10 +1,6 @@
 package gus06.entity.gus.file.op.move;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
-
 import gus06.framework.*;
 
 public class EntityImpl implements Entity, P {
@@ -14,8 +10,6 @@ public class EntityImpl implements Entity, P {
 
 	private Service copy;
 	private Service delete;
-
-
 
 	public EntityImpl() throws Exception
 	{

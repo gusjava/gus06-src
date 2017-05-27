@@ -11,12 +11,11 @@ public class EntityImpl implements Entity, P {
 	public String creationDate() {return "20151004";}
 
 
-	private Service rename;
-
+	private Service perform;
 
 	public EntityImpl() throws Exception
 	{
-		rename = Outside.service(this,"gus.file.perform.rename.timestamped");
+		perform = Outside.service(this,"gus.dirfile.perform.rename.timestamped");
 	}
 	
 	
@@ -28,7 +27,7 @@ public class EntityImpl implements Entity, P {
 		if(file==null) return;
 		if(!file.exists()) return;
 		
-		boolean done = rename.f(file);
+		boolean done = perform.f(file);
 		if(!done) return;
 		
 		// BUG ...

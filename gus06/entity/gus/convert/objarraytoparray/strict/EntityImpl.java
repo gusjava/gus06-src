@@ -18,7 +18,7 @@ public class EntityImpl implements Entity, T {
 		P[] yy = new P[length];
 		for(int i=0;i<length;i++)
 		{
-			if(!(yy[i] instanceof P)) return null;
+			if(!(oo[i] instanceof P)) return null;
 			yy[i] = (P) oo[i];
 		}
 		return yy;

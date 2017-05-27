@@ -1,6 +1,12 @@
 package gus06.entity.gus.sys.expression1.apply.op._width;
 
 import gus06.framework.*;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.RenderedImage;
+import java.awt.Rectangle;
+import java.awt.Component;
+import java.util.List;
 
 public class EntityImpl implements Entity, T {
 
@@ -23,6 +29,17 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		return perform.t(obj);
+		
+		if(obj instanceof Image) 		return perform.t(obj);
+		if(obj instanceof RenderedImage) 	return perform.t(obj);
+		if(obj instanceof Rectangle) 		return perform.t(obj);
+		if(obj instanceof Dimension) 		return perform.t(obj);
+		if(obj instanceof Component) 		return perform.t(obj);
+		
+		if(obj instanceof double[]) 		return perform.t(obj);
+		if(obj instanceof int[]) 		return perform.t(obj);
+		if(obj instanceof List) 		return perform.t(obj);
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 }

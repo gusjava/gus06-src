@@ -9,8 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
-public class EntityImpl implements Entity, P {
+public class EntityImpl implements Entity, P, T, F {
 
 	public String creationDate() {return "20160409";}
 
@@ -21,6 +23,15 @@ public class EntityImpl implements Entity, P {
 
 
 	public void p(Object obj) throws Exception
+	{t(obj);}
+	
+	
+	public boolean f(Object obj) throws Exception
+	{return t(obj)!=null;}
+	
+	
+	
+	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
 		if(o.length!=3) throw new Exception("Wrong data number: "+o.length);
@@ -57,7 +68,7 @@ public class EntityImpl implements Entity, P {
 		
 		sql.append(")");
 		
-		PreparedStatement st = cx.prepareStatement(sql.toString());
+		PreparedStatement st = cx.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 		
 		for(int i=0;i<params.size();i++)
 		{
@@ -65,8 +76,18 @@ public class EntityImpl implements Entity, P {
 			st.setObject(i+1,param);
 		}
 		
-		st.executeUpdate();
+		int result = st.executeUpdate();
+		if(result==0) return null;
+		
+		if(result>1) throw new Exception("Many row were affected when executing insert query: "+result+" (sql="+sql+")");
+		
+		ResultSet rs = st.getGeneratedKeys();
+		if(!rs.next()) return null;
+		
+		return rs.getObject(1);
 	}
+	
+	
 	
 	private String format(String s) throws Exception
 	{return (String) format.t(s);}

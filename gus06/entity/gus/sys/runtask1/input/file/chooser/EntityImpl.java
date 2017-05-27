@@ -2,99 +2,53 @@ package gus06.entity.gus.sys.runtask1.input.file.chooser;
 
 import gus06.framework.*;
 import java.util.List;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Map;
 
-public class EntityImpl implements Entity, R, G {
+public class EntityImpl implements Entity, G {
 
 	public String creationDate() {return "20150602";}
 
-	public static final String ENTITYSTART = "gus.file.runtask.";
-	public static final String MESSAGE = "Please, choose task:";
-	public static final String TITLE = "Task chooser";
+	public static final String TITLE = "File Task Chooser";
+	public static final int WIDTH = 1200;
+	public static final int HEIGHT = 800;
 	
 	
-	private Service dialog;
-	private Service entityListing;
-	private Service entityunique;
+	
+	private Service listChooser;
+	private Service annexe;
+	private Service findEntityMap;
 	private Service persister;
 	
-	private List list;
-	private String[] values;
-	private int nb;
-	
-	private String result;
+	private Map map;
+	private List keys;
 
 
 
 	public EntityImpl() throws Exception
 	{
-		dialog = Outside.service(this,"gus.input.choose.dialog");
-		entityListing = Outside.service(this,"gus.app.jarfile.listing.entities.filter.st");
-		entityunique = Outside.service(this,"entityunique");
+		listChooser = Outside.service(this,"*gus.sys.listchooser1.dialog2");
+		annexe = Outside.service(this,"*gus.sys.runtask1.input.file.chooser.annexe");
 		persister = Outside.service(this,"gus.app.persister1");
+		findEntityMap = Outside.service(this,"gus.sys.runtask1.input.file.chooser.names");
 		
-		list = (List) entityListing.t(ENTITYSTART);
-		nb = list.size();
-		
-		values = new String[nb];
-		for(int i=0;i<nb;i++)
-		values[i] = formatName(name(i));
-		
-		result = getPersist();
+		map = (Map) findEntityMap.g();
+		keys = new ArrayList(map.keySet());
+		Collections.sort(keys);
 	}
-	
-	
-	
-	private String name(int i)
-	{return (String) list.get(i);}
-	
-	private String formatName(String name)
-	{return name.substring(ENTITYSTART.length()).replace(".","_");}
 	
 	
 	
 	public Object g() throws Exception
 	{
-		if(nb==0) return null;
+		listChooser.v("title",TITLE);
+		listChooser.v("width",""+WIDTH);
+		listChooser.v("height",""+HEIGHT);
+		listChooser.v("annexe",annexe);
+		listChooser.v("persistKey",getClass().getName());
 		
-		String selected = result!=null?result:values[0];
-		String r = (String) dialog.t(new Object[]{MESSAGE,TITLE,values,selected});
-		if(r==null) return null;
-		
-		Object entity = getEntity(r);
-		if(entity==null) return null;
-		
-		result = r;
-		setPersist(r);
-		
-		return entity;
+		String key = (String) listChooser.t(keys);
+		return key!=null ? map.get(key) : null;
 	}
-	
-	
-	public Object r(String key) throws Exception
-	{
-		if(key.equals("previous")) return getEntity(result);
-		if(key.equals("keys")) return new String[]{"previous"};
-		
-		throw new Exception("Unknown key: "+key);
-	}
-	
-	
-	
-	
-	private Object getEntity(String s) throws Exception
-	{
-		for(int i=0;i<values.length;i++)
-		if(s.equals(values[i])) return entityunique.t(name(i));
-		return null;
-	}
-	
-	
-	
-	
-	
-	private void setPersist(String s) throws Exception
-	{persister.v(getClass().getName(),s);}
-	
-	private String getPersist() throws Exception
-	{return (String) persister.r(getClass().getName());}
 }

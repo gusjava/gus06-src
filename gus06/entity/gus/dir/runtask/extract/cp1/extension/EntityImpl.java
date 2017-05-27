@@ -21,7 +21,7 @@ public class EntityImpl implements Entity, P {
 		listing = Outside.service(this,"gus.dir.listing.dirtofiles");
 		getInput = Outside.service(this,"gus.input.text.dialog");
 		copyInsideDir = Outside.service(this,"gus.dir.perform.copyfile");
-		isZip = Outside.service(this,"gus.file.filter.istype.archive.zip");
+		isZip = Outside.service(this,"gus.file.filter.ext.istype.archive.zip");
 		handleZip = Outside.service(this,"gus.file.zip.extracttodir.extension");
 	}
 

@@ -33,7 +33,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private class Holder extends S1 implements P, G, I
+	private class Holder extends S1 implements P, G, I, R
 	{
 		private Object editor;
 		private Object data;
@@ -53,6 +53,16 @@ public class EntityImpl implements Entity, T {
 		
 		public synchronized Object g() throws Exception
 		{return data;}
+		
+		
+		public Object r(String key) throws Exception
+		{
+			if(key.equals("editor")) return editor;
+			if(key.equals("data")) return data;
+			
+			if(key.equals("keys")) return new String[]{"editor","data"};
+			throw new Exception("Unknown key: "+key);
+		}
 		
 		
 		public synchronized void p(Object obj) throws Exception

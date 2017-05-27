@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, G {
 	
 	
 	
-	private class PrintStream1 extends PrintStream implements P
+	private class PrintStream1 extends PrintStream implements P, V
 	{
 		private List<PrintStream> l = new ArrayList<>();
 		private StringBuffer b = new StringBuffer();
@@ -27,9 +27,19 @@ public class EntityImpl implements Entity, G {
 			b = new StringBuffer();
 		}
 	
-		public void p(Object obj)throws Exception
+		public void p(Object obj) throws Exception
 		{
-			PrintStream p = (PrintStream) obj; 
+			print(obj);
+		}
+		
+		public void v(String key, Object obj) throws Exception
+		{
+			if(key.equals("add")) {addPrintStream((PrintStream) obj);return;}
+			throw new Exception("Unknown key: "+key);
+		}
+		
+		private void addPrintStream(PrintStream p) throws Exception
+		{
 			if(b.length()>0) p.print(b);
 			l.add(p);
 		}

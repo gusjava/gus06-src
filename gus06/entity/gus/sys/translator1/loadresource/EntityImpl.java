@@ -23,6 +23,7 @@ public class EntityImpl implements Entity, T {
 	
 	public Object t(Object obj) throws Exception
 	{
+		if(obj==null) return null;
 		if(obj instanceof R) return (R) obj;
 		if(obj instanceof T) return (R) tToR.t(obj);
 		if(obj instanceof Map) return (R) mapToR.t(obj);

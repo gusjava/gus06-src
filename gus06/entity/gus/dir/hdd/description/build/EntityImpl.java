@@ -15,7 +15,7 @@ public class EntityImpl implements Entity, T {
 	public EntityImpl() throws Exception
 	{
 		driverName = Outside.service(this,"gus.dir.hdd.drivername");
-		formatSize = Outside.service(this,"gus.dir.hdd.space.total.formatted");
+		formatSize = Outside.service(this,"gus.dir.hdd.space.total.formatted.en");
 	}
 	
 	

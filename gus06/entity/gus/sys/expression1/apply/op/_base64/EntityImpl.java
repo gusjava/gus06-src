@@ -21,6 +21,7 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
 		if(obj instanceof byte[]) return byteToBase64.t(obj);
 		if(obj instanceof String) return byteToBase64.t(((String) obj).getBytes("UTF8"));
 		

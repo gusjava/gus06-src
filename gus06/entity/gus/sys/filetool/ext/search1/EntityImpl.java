@@ -1,20 +1,23 @@
 package gus06.entity.gus.sys.filetool.ext.search1;
 
 import gus06.framework.*;
-import javax.swing.JPanel;
-import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20150324";}
 	
+	
+	
+	private Service factory;
+	
 	public EntityImpl() throws Exception
-	{
-	}
+	{factory = Outside.service(this,"factory#gus.sys.filetool.ext.search1.holder");}
+	
 	
 	public Object t(Object obj) throws Exception
 	{
-		Map map = (Map) obj;
-		return new JPanel();
+		Object holder = factory.g();
+		((P)holder).p(obj);
+		return ((I)holder).i();
 	}
 }

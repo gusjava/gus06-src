@@ -32,13 +32,14 @@ public class EntityImpl implements Entity, I {
 
 
 
-	private class JTextArea1 extends JTextArea implements P, V
+	private class JTextArea1 extends JTextArea implements P, V, R
 	{
 		private PlainDocument doc;
 		private E undoable;
 		
 		private List<P> l1 = new ArrayList<P>();
 		private List<T> l2 = new ArrayList<T>();
+		private Map data = new HashMap();
 		
         	public JTextArea1(PlainDocument doc)
 		{
@@ -57,6 +58,14 @@ public class EntityImpl implements Entity, I {
 			if(key.equals("painter")) {l1.add((P) obj);return;}
 			if(key.equals("formater")) {l2.add((T) obj);return;}
 			if(key.equals("undoable")) {initUndoable(toBool(obj));return;}
+			
+			throw new Exception("Unknown key: "+key);
+		}
+		
+		public Object r(String key) throws Exception
+		{
+			if(key.equals("data")) return data;
+			if(key.equals("keys")) return new String[]{"data"};
 			
 			throw new Exception("Unknown key: "+key);
 		}

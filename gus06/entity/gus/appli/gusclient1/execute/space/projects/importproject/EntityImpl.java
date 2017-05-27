@@ -39,9 +39,11 @@ public class EntityImpl implements Entity, E {
 		
 		String title = "App chooser";
 		String message = "Please choose an ID:";
-		String[] values = (String[]) findArray.t(appMap);
 		
-		String id0 = (String) input.t(new Object[]{message,title,values});
+		Set keys = appMap.keySet();
+		String[] keys_ = (String[]) findArray.t(keys);
+		
+		String id0 = (String) input.t(new Object[]{message,title,keys_});
 		List paths = (List) appMap.get(id0);
 		Map fileMap = buildFileMap(paths,dir,id0);
 		

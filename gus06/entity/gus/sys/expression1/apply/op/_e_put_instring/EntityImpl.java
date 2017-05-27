@@ -33,21 +33,47 @@ public class EntityImpl implements Entity, T {
 	
 	private class T1 implements T
 	{
-		private Object value;
-		public T1(Object value)
-		{this.value = value;}
+		private Object data;
+		
+		public T1(Object data)
+		{
+			this.data = data;
+		}
 		
 		public Object t(Object obj) throws Exception
-		{return new E1(new Object[]{value,obj});}
+		{return new T2(data,obj);}
+	}
+	
+	private class T2 implements T
+	{
+		private Object data;
+		private Object key;
+		
+		public T2(Object data, Object key)
+		{
+			this.data = data;
+			this.key = key;
+		}
+		
+		public Object t(Object obj) throws Exception
+		{return new E1(data,key,obj);}
 	}
 	
 	
 	private class E1 implements E
 	{
-		private Object o;
-		public E1(Object o){this.o = o;}
+		private Object data;
+		private Object key;
+		private Object value;
+		
+		public E1(Object data, Object key, Object value)
+		{
+			this.data = data;
+			this.key = key;
+			this.value = value;
+		}
 		
 		public void e() throws Exception
-		{perform.p(o);}
+		{perform.p(new Object[]{data,key,value});}
 	}
 }

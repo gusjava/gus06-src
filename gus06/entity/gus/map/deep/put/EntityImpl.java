@@ -78,44 +78,38 @@ public class EntityImpl implements Entity, P {
 	
 	private void handleReplace(Object data, String key, Object value) throws Exception
 	{
-		if(value==null)
-			remove.p(new Object[]{data,key});
+		if(value==null) remove.p(new Object[]{data,key});
 		else replace.p(new Object[]{data,key,value});
 	}
 	
 	
 	private void handleReplace0(Object data, String key, Object value) throws Exception
 	{
-		if(value==null) return;
 		replace0.p(new Object[]{data,key,value});
 	}
 	
 	
 	private void handleChange(Object data, String key, Object value) throws Exception
 	{
-		if(value==null)
-			empty.p(new Object[]{data,key});
+		if(value==null) empty.p(new Object[]{data,key});
 		else change.p(new Object[]{data,key,value});
 	}
 	
 	
 	private void handleChange0(Object data, String key, Object value) throws Exception
 	{
-		if(value==null) return;
 		change0.p(new Object[]{data,key,value});
 	}
 	
 	
 	private void handleAppend(Object data, String key, Object value) throws Exception
 	{
-		if(value==null) return;
 		append.p(new Object[]{data,key,value});
 	}
 	
 	
 	private void handleAppend0(Object data, String key, Object value) throws Exception
 	{
-		if(value==null) return;
 		append0.p(new Object[]{data,key,value});
 	}
 }

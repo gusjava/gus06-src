@@ -13,8 +13,8 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		buildHotmail = Outside.service(this,"gus.mail.store.builder.hotmail");
-		buildGmail = Outside.service(this,"gus.mail.store.builder.gmail");
+		buildHotmail = Outside.service(this,"gus.mail.store.builder.hotmail.pop3");
+		buildGmail = Outside.service(this,"gus.mail.store.builder.gmail.pop3");
 	}
 	
 	

@@ -8,22 +8,19 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityImpl extends S1 implements Entity, ActionListener, G, F {
+public class EntityImpl extends S1 implements Entity, ActionListener, G, R, F {
 
 	public String creationDate() {return "20141217";}
 
 
 	private Service keyboard;
-	private Service getDisplay;
-	
 	private List list;
+	private String lastKey;
 
 
 	public EntityImpl() throws Exception
 	{
-		keyboard = Outside.service(this,"gus.jna.keyboard");
-		getDisplay = Outside.service(this,"gus.jna.keyboard.display");
-		
+		keyboard = Outside.service(this,"gus.jna.keyboard.display");
 		list = new ArrayList();
 		keyboard.addActionListener(this);
 	}
@@ -35,6 +32,17 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G, F {
 		for(int i=0;i<list.size();i++) b.append(list.get(i)+" ");
 		if(b.length()>0) b.deleteCharAt(b.length()-1);
 		return b.toString();
+	}
+	
+	
+	public Object r(String key) throws Exception
+	{
+		if(key.equals("list")) return list;
+		if(key.equals("lastKey")) return lastKey;
+		
+		if(key.equals("keys")) return new String[]{"list","lastKey"};
+		
+		throw new Exception("Unknown key: "+key);
 	}
 	
 	
@@ -53,15 +61,13 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G, F {
 	
 	
 	
-	
-	
-	
 	private void keyPressed()
 	{
 		try
 		{
-			String display = display();
+			String display = (String) keyboard.g();
 			if(!list.contains(display)) list.add(display);
+			lastKey = "+"+display;
 			modified();
 		}
 		catch(Exception e)
@@ -73,22 +79,14 @@ public class EntityImpl extends S1 implements Entity, ActionListener, G, F {
 	{
 		try
 		{
-			String display = display();
+			String display = (String) keyboard.g();
 			list.remove(display);
+			lastKey = "-"+display;
 			modified();
 		}
 		catch(Exception e)
 		{Outside.err(this,"keyReleased()",e);}
 	}
-	
-	
-	
-	private String display() throws Exception
-	{
-		String code = (String) keyboard.g();
-		return (String) getDisplay.t(code);
-	}
-	
 	
 	
 	private void modified()

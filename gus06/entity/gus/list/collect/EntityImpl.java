@@ -15,16 +15,7 @@ public class EntityImpl implements Entity, P, T {
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
 		List input = (List) o[0];
-		T t = (T) o[1];
-		
-		List output = new ArrayList();
-		int nb = input.size();
-		
-		for(int i=0;i<nb;i++)
-		{
-			Object element = input.get(i);
-			output.add(t.t(element));
-		}
+		List output = (List) t(obj);
 		
 		input.clear();
 		input.addAll(output);

@@ -4,7 +4,7 @@ import gus06.framework.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class EntityImpl implements Entity, P {
+public class EntityImpl implements Entity, V, P {
 
 	public String creationDate() {return "20150831";}
 
@@ -27,6 +27,31 @@ public class EntityImpl implements Entity, P {
 	}
 	
 	
+	
+	public void v(String key, Object obj) throws Exception
+	{
+		if(key.equals("position")) {position(obj);return;}
+		if(key.equals("move")) {move(obj);return;}
+		if(key.equals("wait")) {wait(obj);return;}
+		
+		if(key.equals("press")) {pressright();return;}
+		if(key.equals("release")) {releaseright();return;}
+		if(key.equals("click")) {clickright();return;}
+		
+		if(key.equals("pressright")) {pressright();return;}
+		if(key.equals("releaseright")) {releaseright();return;}
+		if(key.equals("clickright")) {clickright();return;}
+		if(key.equals("clickright2")) {clickright2();return;}
+		
+		if(key.equals("pressleft")) {pressleft();return;}
+		if(key.equals("releaseleft")) {releaseleft();return;}
+		if(key.equals("clickleft")) {clickleft();return;}
+		
+		throw new Exception("Unknown key: "+key);
+	}
+	
+	
+	
 	private void handle(String s) throws Exception
 	{
 		s = s.trim();
@@ -46,7 +71,6 @@ public class EntityImpl implements Entity, P {
 		if(s.equals("clickleft")) {clickleft();return;}
 		
 		
-		
 		String t0 = t(0,s);
 		
 		if(t0.equals("position")) {position(t(1,s));return;}
@@ -61,23 +85,23 @@ public class EntityImpl implements Entity, P {
 	
 	
 	
-	private void position(String s) throws Exception
+	private void position(Object obj) throws Exception
 	{
-		int[] a = toPos(s);
+		int[] a = toPos(obj);
 		robot.mouseMove(a[0],a[1]);
 	}
 	
 	
-	private void move(String s) throws Exception
+	private void move(Object obj) throws Exception
 	{
-		int[] a = toPos(s);
+		int[] a = toPos(obj);
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		robot.mouseMove(p.x+a[0],p.y+a[1]);
 	}
 	
-	private void wait(String s) throws Exception
+	private void wait(Object obj) throws Exception
 	{
-		long lapse = Long.parseLong(s);
+		long lapse = toLong(obj);
 		Thread.sleep(lapse);
 	}
 	
@@ -121,12 +145,29 @@ public class EntityImpl implements Entity, P {
 		return n[i];
 	}
 	
-	private int[] toPos(String s) throws Exception
+	private int[] toPos(Object obj) throws Exception
+	{
+		if(obj instanceof int[]) return (int[]) obj;
+		if(obj instanceof String) return stringToPos((String) obj);
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
+	private int[] stringToPos(String s) throws Exception
 	{
 		String[] n = s.split(":");
 		if(n.length!=2)  throw new Exception("Invalid position: "+s);
 		return new int[]{int_(n[0]),int_(n[1])};
 	}
+	
+	private long toLong(Object obj) throws Exception
+	{
+		if(obj instanceof Long) return ((Long) obj).longValue();
+		if(obj instanceof String) return Long.parseLong((String) obj);
+		
+		throw new Exception("Invalid data type: "+obj.getClass().getName());
+	}
+	
 	
 	private int int_(String s)
 	{return Integer.parseInt(s);}

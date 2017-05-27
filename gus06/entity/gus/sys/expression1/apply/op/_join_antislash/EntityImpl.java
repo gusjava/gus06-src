@@ -29,7 +29,8 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
-		if(obj instanceof String[]) return join(obj);
+		if(obj instanceof int[]) return join(obj);
+		if(obj instanceof Object[]) return join(obj);
 		if(obj instanceof List) return join(obj);
 		if(obj instanceof Set) return join(obj);
 		if(obj instanceof Map) return join(obj);

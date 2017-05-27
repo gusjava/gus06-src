@@ -8,8 +8,8 @@ public class EntityImpl implements Entity, F, P {
 	public String creationDate() {return "20150625";}
 	
 	
-	public final static String F_EL1 = "el1";
-	public final static String F_EL2 = "el2";
+	public final static String F_EL1 = "EL1";
+	public final static String F_EL2 = "EL2";
 	
 	public final static String T_EL1 = "CHAR(100)";
 	public final static String T_EL2 = "CHAR(100)";
@@ -39,7 +39,7 @@ public class EntityImpl implements Entity, F, P {
 		String[] type = new String[]{T_EL1,T_EL2};
 		String[] primary = new String[]{F_EL1,F_EL2};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
 }

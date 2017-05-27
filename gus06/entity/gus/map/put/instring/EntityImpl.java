@@ -22,7 +22,7 @@ public class EntityImpl implements Entity, P, T {
 		
 		if(!map.containsKey(key))
 			map.put(key,"");
-			
+		
 		String s = (String) map.get(key);
 		map.put(key,s+value);
 	}
@@ -41,7 +41,7 @@ public class EntityImpl implements Entity, P, T {
 		
 		if(!map1.containsKey(key))
 			map1.put(key,"");
-			
+		
 		String s = (String) map1.get(key);
 		map1.put(key,s+value);
 		

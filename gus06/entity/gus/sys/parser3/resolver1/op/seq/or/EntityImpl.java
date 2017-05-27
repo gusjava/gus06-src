@@ -37,14 +37,31 @@ public class EntityImpl implements Entity, T {
 		T t = (T) o[1];
 		
 		Object[] oo = new Object[cut.size()];
-		for(int i=0;i<cut.size();i++) oo[i] = t.t(cut.get(i));
+		oo[0] = t.t(cut.get(0));
 		
+		if(oo[0] instanceof F)
+		{
+			for(int i=1;i<cut.size();i++)
+			oo[i] = t.t(cut.get(i));
+			
+			F[] ff = (F[]) toArray_f.t(oo);
+			if(ff==null) throw new Exception("Invalid operation: OR");
+			return or_f.t(ff);
+		}
 		
-		F[] ff = (F[]) toArray_f.t(oo);
-		if(ff!=null) return or_f.t(ff);
-		
-		boolean[] bb = (boolean[]) toArray_bool.t(oo);
-		if(bb!=null) return or_bool.t(bb);
+		if(oo[0] instanceof Boolean)
+		{
+			if(oo[0].equals(Boolean.TRUE)) return Boolean.TRUE;
+			for(int i=1;i<cut.size();i++)
+			{
+				oo[i] = t.t(cut.get(i));
+				if(oo[i].equals(Boolean.TRUE)) return Boolean.TRUE;
+			}
+			
+			boolean[] bb = (boolean[]) toArray_bool.t(oo);
+			if(bb==null) throw new Exception("Invalid operation: OR");
+			return or_bool.t(bb);
+		}
 		
 		throw new Exception("Invalid operation: OR");
 	}

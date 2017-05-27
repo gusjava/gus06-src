@@ -33,6 +33,8 @@ class ExplorerTreeModel implements TreeModel {
 	public Object getChild(Object node, int index)
 	{
 		File f = clone(node);
+		if(f==null) return null;
+		
 		File[] children = f.listFiles();
 		return children[index];
 	}
@@ -56,6 +58,8 @@ class ExplorerTreeModel implements TreeModel {
 	public boolean isLeaf(Object node)
 	{
 		File f = clone(node);
+		if(f==null) return false;
+		
 		return f.isFile() || isEmptyDir(f);
 	}
 
@@ -65,6 +69,8 @@ class ExplorerTreeModel implements TreeModel {
 		if(child instanceof String) return 0;
 	    
 		File f = clone(node);
+		if(f==null) return 0;
+		
 		File[] children = f.listFiles();
 		return Arrays.binarySearch(children,child);
 	}
@@ -111,7 +117,5 @@ class ExplorerTreeModel implements TreeModel {
 	        ((TreeModelListener)listeners[i+1]).treeStructureChanged(e);
 	    }          
 	}
-	
-	
 	
 }

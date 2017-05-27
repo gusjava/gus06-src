@@ -8,9 +8,9 @@ public class EntityImpl implements Entity, F, P {
 	public String creationDate() {return "20150625";}
 	
 	
-	public final static String F_ID = "id";
-	public final static String F_KEY = "key";
-	public final static String F_VALUE = "value";
+	public final static String F_ID = "ID";
+	public final static String F_KEY = "KEY";
+	public final static String F_VALUE = "VALUE";
 	
 	public final static String T_ID = "CHAR(100)";
 	public final static String T_KEY = "CHAR(100)";
@@ -41,7 +41,7 @@ public class EntityImpl implements Entity, F, P {
 		String[] type = new String[]{T_ID,T_KEY,T_VALUE};
 		String[] primary = new String[]{F_ID,F_KEY};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
 }

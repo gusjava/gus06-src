@@ -9,12 +9,14 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service perform;
+	private Service findPrimaryKey;
 	private Service rsTo;
 
 
 	public EntityImpl() throws Exception
 	{
 		perform = Outside.service(this,"gus.jdbc.mysql.perform.select.all");
+		findPrimaryKey = Outside.service(this,"gus.jdbc.mysql.perform.table.findprimarykey.strict");
 		rsTo = Outside.service(this,"gus.jdbc.resultset.toobjectmapmap");
 	}
 	
@@ -22,6 +24,7 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		ResultSet rs = (ResultSet) perform.t(obj);
-		return rsTo.t(rs);
+		String idCol = (String) findPrimaryKey.t(obj);
+		return rsTo.t(new Object[]{rs,idCol});
 	}
 }

@@ -1,7 +1,6 @@
 package gus06.entity.gus.sys.expression1.apply.op._distance_str2;
 
 import gus06.framework.*;
-import java.util.List;
 
 public class EntityImpl implements Entity, T {
 

@@ -4,27 +4,37 @@ import gus06.framework.*;
 import java.io.File;
 import java.io.PrintStream;
 
-public class EntityImpl implements Entity {
+public class EntityImpl implements Entity, Runnable {
 
 	public String creationDate() {return "20160602";}
 
 
 	private Service main;
-	private Service argsLine;
+	private Service findInput;
 	
-	private String line;
+	private String input;
 	private PrintStream out;
-
+	private Thread t;
+	
 
 	public EntityImpl() throws Exception
 	{
 		main = Outside.service(this,"gus.sys.script1.main.main1");
-		argsLine = Outside.service(this,"gus.app.argsline");
-		out = (PrintStream) Outside.resource(this,"sysout0");
+		findInput = Outside.service(this,"gus.sys.script1.main.fromargs.init.find");
+		out = (PrintStream) Outside.resource(this,"sysout");
 		
-		line = (String) argsLine.g();
-		if(line==null) return;
+		input = (String) findInput.g();
+		if(input==null) return;
 		
+		t = new Thread(this,"THREAD_"+getClass().getName());
+		t.start();
+	}
+	
+	
+	
+	
+	public void run()
+	{
 		perform();
 		System.exit(0);
 	}
@@ -35,12 +45,7 @@ public class EntityImpl implements Entity {
 	{
 		try
 		{
-			File file = new File(line);
-			if(!file.isFile()) throw new Exception("Script file not found: " + file);
-			file = file.getCanonicalFile();
-			
-			out.println("Executing gus script: "+file);
-			main.p(new Object[]{file,out});
+			main.p(new Object[]{input,out});
 		}
 		catch(Exception e)
 		{e.printStackTrace();}

@@ -3,6 +3,7 @@ package gus06.entity.gus.map.containsall.key.maptof;
 import gus06.framework.*;
 import java.util.Map;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class EntityImpl implements Entity, T {
 
@@ -20,8 +21,28 @@ public class EntityImpl implements Entity, T {
 		
 		public boolean f(Object obj) throws Exception
 		{
-			Collection c0 = (Collection) obj;
-			return m.keySet().containsAll(c0);
+			if(obj instanceof Collection)
+				return m.keySet().containsAll((Collection) obj);
+			if(obj instanceof Map)
+				return hasAll(m,(Map) obj);
+				
+			throw new Exception("Invalid data type: "+obj.getClass().getName());
 		}
+	}
+	
+	
+	private boolean hasAll(Map map1, Map map2)
+	{
+		Iterator it = map2.keySet().iterator();
+		while(it.hasNext())
+		{
+			Object key = it.next();
+			if(!map1.containsKey(key)) return false;
+			
+			Object value1 = map1.get(key);
+			Object value2 = map2.get(key);
+			if(!value1.equals(value2)) return false;
+		}
+		return true;
 	}
 }

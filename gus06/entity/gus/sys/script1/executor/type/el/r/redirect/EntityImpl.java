@@ -49,8 +49,9 @@ public class EntityImpl implements Entity, T {
 			
 			String params = (String) getParams.t(tag);
 			Map pool = (Map) getPool.t(context);
+			
 			Object redirect = evalAsObject.t(new Object[]{context,params});
-			Object redirectObj = prepare.t(new Object[]{redirect,pool});
+			Object redirectObj = prepare.t(new Object[]{context,pool,redirect});
 			
 			Object p0 = ((R) output).r("p0");
 			output.v("redirect",redirectObj);

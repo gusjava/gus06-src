@@ -1,36 +1,40 @@
 package gus06.entity.gus.jna.keyboard.display;
 
 import gus06.framework.*;
-import java.lang.reflect.Field;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
-public class EntityImpl implements Entity, T {
+public class EntityImpl implements Entity, G, S {
 
-	public String creationDate() {return "20160418";}
+	public String creationDate() {return "20161127";}
 
+	private Service keyboard;
+	private Service find;
 	
-	
-	public Object t(Object obj) throws Exception
+	private List list;
+
+
+	public EntityImpl() throws Exception
 	{
-		return display((String) obj);
+		keyboard = Outside.service(this,"gus.jna.keyboard");
+		find = Outside.service(this,"gus.jna.keyboard.display.find");
 	}
 	
 	
-	private String display(String code) throws Exception
-	{
-		String d = display_(code);
-		if(d==null) return null;
-		return d.replace("CONTROL","CTRL");
-	}
 	
-	private String display_(String code) throws Exception
+	public Object g() throws Exception
 	{
-		Field[] f = KeyEvent.class.getFields();
-		
-		for(int i=0;i<f.length;i++)
-		if(f[i].get(null).toString().equals(code))
-			return f[i].getName().replace("VK_","");
-			
-		return null;
+		String code = (String) keyboard.g();
+		return (String) find.t(code);
 	}
+
+	public void addActionListener(ActionListener l)
+	{keyboard.addActionListener(l);}
+
+	public void removeActionListener(ActionListener l)
+	{keyboard.removeActionListener(l);}
+	
+	public List listeners()
+	{return keyboard.listeners();}
 }

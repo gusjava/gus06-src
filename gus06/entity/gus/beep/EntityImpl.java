@@ -1,9 +1,7 @@
 package gus06.entity.gus.beep;
 
 import java.awt.Toolkit;
-
-import gus06.framework.E;
-import gus06.framework.Entity;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity, E {
 

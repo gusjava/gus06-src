@@ -3,8 +3,6 @@ package gus06.entity.gus.file.read.image.preview.raw;
 import gus06.framework.*;
 import java.io.File;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.io.ByteArrayOutputStream;
 
 public class EntityImpl implements Entity, T {
 
@@ -12,11 +10,12 @@ public class EntityImpl implements Entity, T {
 
 
 	private Service readImage;
-
+	private Service imageToRawJpg;
 
 	public EntityImpl() throws Exception
 	{
 		readImage = Outside.service(this,"gus.file.read.image.preview");
+		imageToRawJpg = Outside.service(this,"gus.awt.bufferedimage.tojpg.raw");
 	}
 	
 	
@@ -24,20 +23,6 @@ public class EntityImpl implements Entity, T {
 	{
 		File file = (File) obj;
 		BufferedImage image = (BufferedImage) readImage.t(file);
-		
-		ByteArrayOutputStream baos = null;
-		byte[] raw = null;
-		
-		try
-		{
-			baos = new ByteArrayOutputStream();
-			ImageIO.write(image,"jpg",baos);
-			baos.flush();
-			raw = baos.toByteArray();
-		}
-		finally
-		{if(baos!=null) baos.close();}
-		
-		return raw;
+		return imageToRawJpg.t(image);
 	}
 }

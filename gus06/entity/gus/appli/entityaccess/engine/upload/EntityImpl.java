@@ -71,7 +71,6 @@ public class EntityImpl implements Entity, R, E, P {
 		Object res1 = getRemoteList.g();
 		if(res1 instanceof String)
 		{
-			System.out.println("getRemote: "+res1);
 			size=-1;
 			line = (String) res1;
 			return;

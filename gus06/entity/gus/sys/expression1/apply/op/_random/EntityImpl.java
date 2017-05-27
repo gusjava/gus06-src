@@ -4,7 +4,6 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
 
 public class EntityImpl implements Entity, T {
 
@@ -28,13 +27,18 @@ public class EntityImpl implements Entity, T {
 		
 		if(obj==null) return null;
 		
+		if(obj instanceof Double) return perform.t(obj);
+		if(obj instanceof Long) return perform.t(obj);
 		if(obj instanceof Integer) return perform.t(obj);
 		if(obj instanceof Boolean) return perform.t(obj);
 		if(obj instanceof String) return perform.t(obj);
 		if(obj instanceof List) return perform.t(obj);
 		if(obj instanceof Set) return perform.t(obj);
 		if(obj instanceof Map) return perform.t(obj);
-		if(obj instanceof Object[]) perform.t(obj);
+		if(obj instanceof Object[]) return perform.t(obj);
+		if(obj instanceof double[]) return perform.t(obj);
+		if(obj instanceof long[]) return perform.t(obj);
+		if(obj instanceof int[]) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

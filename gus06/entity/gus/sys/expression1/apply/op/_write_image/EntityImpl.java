@@ -24,19 +24,35 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
-		if(obj instanceof File) return new Writer((File) obj);
+		if(obj instanceof File) return new T1((File) obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}
 	
 	
 	
-	private class Writer implements P
+	private class T1 implements T
 	{
 		private File file;
-		public Writer(File file) {this.file = file;}
+		public T1(File file) {this.file = file;}
 		
-		public void p(Object obj) throws Exception
-		{writeFile.p(new Object[]{file,obj});}
+		public Object t(Object obj) throws Exception
+		{return new E1(file,obj);}
+	}
+	
+	
+	private class E1 implements E
+	{
+		private File file;
+		private Object data;
+		
+		public E1(File file, Object data)
+		{
+			this.file = file;
+			this.data = data;
+		}
+		
+		public void e() throws Exception
+		{writeFile.p(new Object[]{file,data});}
 	}
 }

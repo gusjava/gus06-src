@@ -13,6 +13,7 @@ public class EntityImpl implements Entity, I, P {
 
 	private Service shift;
 	private Service mapToGui;
+	private Service exceptionViewer;
 	
 	private Map map;
 
@@ -22,6 +23,7 @@ public class EntityImpl implements Entity, I, P {
 	{
 		shift = Outside.service(this,"*gus.swing.panel.shiftpanel");
 		mapToGui = Outside.service(this,"gus.sys.filetool.main.maptogui");
+		exceptionViewer = Outside.service(this,"*gus.data.viewer.exception");
 	}
 	
 	
@@ -33,7 +35,16 @@ public class EntityImpl implements Entity, I, P {
 	public void p(Object obj) throws Exception
 	{
 		map = (Map) obj;
-		shift.p(comp());
+		
+		try
+		{
+			shift.p(comp());
+		}
+		catch(Exception e)
+		{
+			exceptionViewer.p(e);
+			shift.p(exceptionViewer.i());
+		}
 	}
 	
 	

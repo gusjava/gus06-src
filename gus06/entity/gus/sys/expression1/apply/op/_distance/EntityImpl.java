@@ -32,6 +32,7 @@ public class EntityImpl implements Entity, T {
 		if(obj instanceof Date) return new T1(obj);
 		if(obj instanceof Color) return new T1(obj);
 		if(obj instanceof double[]) return new T1(obj);
+		if(obj instanceof List) return perform.t(obj);
 		
 		throw new Exception("Invalid data type: "+obj.getClass().getName());
 	}

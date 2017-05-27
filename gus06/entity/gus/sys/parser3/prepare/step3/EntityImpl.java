@@ -31,7 +31,8 @@ public class EntityImpl implements Entity, T {
 			if(!isElement(m)) continue;
 			
 			Object value = value(m);
-			Integer n = toInt(value);
+			Object n = toInt(value);
+			if(n==null) n = toLong(value);
 			if(n!=null)
 			{
 				m.put(TYPE,TYPE_INT);
@@ -85,8 +86,8 @@ public class EntityImpl implements Entity, T {
 	
 	private void addDouble(Map m1, Map m2, List output)
 	{
-		Integer n1 = (Integer) m1.get(VALUE);
-		Integer n2 = (Integer) m2.get(VALUE);
+		Number n1 = (Number) m1.get(VALUE);
+		Number n2 = (Number) m2.get(VALUE);
 		Double d = new Double(n1+"."+n2);
 		
 		Map m = new HashMap();
@@ -121,10 +122,16 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	
 	private Integer toInt(Object n)
 	{
 		try{return new Integer(""+n);}
+		catch(NumberFormatException e){}
+		return null;
+	}
+	
+	private Long toLong(Object n)
+	{
+		try{return new Long(""+n);}
 		catch(NumberFormatException e){}
 		return null;
 	}

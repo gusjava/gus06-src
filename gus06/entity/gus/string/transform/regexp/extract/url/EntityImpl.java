@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, T {
 
 	public EntityImpl() throws Exception
 	{
-		p = Pattern.compile(REGEX,Pattern.DOTALL);
+		p = Pattern.compile(REGEX,Pattern.CASE_INSENSITIVE);
 	}
 
 

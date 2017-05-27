@@ -4,6 +4,7 @@ import gus06.framework.*;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.awt.Container;
 
 public class EntityImpl implements Entity, T {
 
@@ -15,7 +16,7 @@ public class EntityImpl implements Entity, T {
 	
 	public EntityImpl() throws Exception
 	{
-		perform = Outside.service(this,"gus.data.perform.removeat");
+		perform = Outside.service(this,"gus.data.perform.remove");
 	}
 
 	
@@ -32,6 +33,7 @@ public class EntityImpl implements Entity, T {
 		if(value instanceof List) return new T1(value);
 		if(value instanceof Set) return new T1(value);
 		if(value instanceof Map) return new T1(value);
+		if(value instanceof Container) return new T1(value);
 		
 		throw new Exception("Invalid data type: "+value.getClass().getName());
 	}

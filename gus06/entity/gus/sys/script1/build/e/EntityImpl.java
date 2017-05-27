@@ -21,12 +21,11 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		Object[] o = (Object[]) obj;
-		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		Object src = o[0];
-		Map opMap = (Map) o[1];
+		if(o.length==2) return new E1(o[0],(Map) o[1],null);
+		if(o.length==3) return new E1(o[0],(Map) o[1],(Map) o[2]);
 		
-		return new E1(src,opMap);
+		throw new Exception("Wrong data number: "+o.length);
 	}
 	
 	
@@ -36,16 +35,18 @@ public class EntityImpl implements Entity, T {
 	{
 		private Object src;
 		private Map opMap;
+		private Map data;
 		
-		public E1(Object src, Map opMap)
+		public E1(Object src, Map opMap, Map data)
 		{
 			this.src = src;
 			this.opMap = opMap;
+			this.data = data;
 		}
 		
 		public void e() throws Exception
 		{
-			Map context1 = (Map) contextBuilder.t(new Object[]{null,null,opMap});
+			Map context1 = (Map) contextBuilder.t(new Object[]{data,null,opMap});
 			engine.p(new Object[]{src,context1});
 		}
 	}

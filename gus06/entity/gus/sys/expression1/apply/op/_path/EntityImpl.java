@@ -2,6 +2,7 @@ package gus06.entity.gus.sys.expression1.apply.op._path;
 
 import gus06.framework.*;
 import java.io.File;
+import java.net.URL;
 
 public class EntityImpl implements Entity, T {
 
@@ -15,6 +16,8 @@ public class EntityImpl implements Entity, T {
 		obj = o[0];
 		
 		if(obj==null) return null;
+		
+		if(obj instanceof URL) return ((URL) obj).getPath();
 		if(obj instanceof File) return ((File) obj).getAbsolutePath();
 		if(obj instanceof Class) return ((Class) obj).getName();
 		

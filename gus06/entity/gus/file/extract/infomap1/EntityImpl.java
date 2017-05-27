@@ -45,12 +45,12 @@ public class EntityImpl implements Entity, T {
 	{
 		getMimeType = Outside.service(this,"gus.file.mime.tika.detect.asstring");
 		getMimeHier = Outside.service(this,"gus.file.mime.tika.hierarchy.description");
-		getCharset = Outside.service(this,"gus.file.info.string.charset");
-		getPageNumber = Outside.service(this,"gus.file.info.pagenumber");
+		getCharset = Outside.service(this,"gus.file.info.string.charset.asstring.s");
+		getPageNumber = Outside.service(this,"gus.file.info.pagenumber.asstring.s");
 		getRwx = Outside.service(this,"gus.file.rwx.tostring");
 		
-		getMD5 = Outside.service(this,"gus.crypto.hash.md5.hexa");
-		getSHA1 = Outside.service(this,"gus.crypto.hash.sha1.hexa");
+		getMD5 = Outside.service(this,"gus.crypto.hash.md5.hexa.s");
+		getSHA1 = Outside.service(this,"gus.crypto.hash.sha1.hexa.s");
 		
 		getCreationTime = Outside.service(this,"gus.file.creationtime.timestamp");
 		getLastModifiedTime = Outside.service(this,"gus.file.lastmodifiedtime.timestamp");
@@ -72,15 +72,13 @@ public class EntityImpl implements Entity, T {
 		String sha1 = (String) getSHA1.t(file);
 		String mimeType = (String) getMimeType.t(file);
 		String mimeHier = (String) getMimeHier.t(file);
-		Charset charset = (Charset) getCharset.t(file);
+		String charset = (String) getCharset.t(file);
 		String pageNumber = (String) getPageNumber.t(file);
 		
 		String creationTime = (String) getCreationTime.t(file);
 		String lastModifiedTime = (String) getLastModifiedTime.t(file);
 		String lastAccessTime = (String) getLastAccessTime.t(file);
 		
-		
-		String charset_ = charset!=null?charset.name():"";
 		
 		
 		put(map,KEY_RWX,rwx);
@@ -91,7 +89,7 @@ public class EntityImpl implements Entity, T {
 		put(map,KEY_SIZE,size);
 		put(map,KEY_MIMETYPE,mimeType);
 		put(map,KEY_MIMEHIER,mimeHier);
-		put(map,KEY_CHARSET,charset_);
+		put(map,KEY_CHARSET,charset);
 		put(map,KEY_PAGENUMBER,pageNumber);
 		
 		put(map,KEY_CREATIONTIME,creationTime);

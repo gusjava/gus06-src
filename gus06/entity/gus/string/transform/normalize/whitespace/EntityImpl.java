@@ -10,11 +10,7 @@ public class EntityImpl implements Entity, T {
 	public Object t(Object obj) throws Exception
 	{
 		String s = (String) obj;
-		
-		s = s.replaceAll("[\n\r]+","\n").replaceAll("[ \t\f]+"," ");
-		
-		if(s.startsWith(" ")) s = s.substring(1);
-		if(s.endsWith(" ")) s = s.substring(0,s.length()-1);
-		return s;
+		s = s.replaceAll("[ \t\f\n\r]+"," ");
+		return s.trim();
 	}
 }

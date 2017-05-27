@@ -12,13 +12,11 @@ public class EntityImpl implements Entity, T {
 	
 	private Service buildTrans;
 	private Service parser;
-	private Service stringVal;
 
 	public EntityImpl() throws Exception
 	{
 		buildTrans = Outside.service(this,"gus.string.transformfinder.fromsequence");
 		parser = Outside.service(this,"gus.sys.parser1.engine1.impl.brackets.curly");
-		stringVal = Outside.service(this,"gus.sys.expression1.val.string");
 	}
 	
 	
@@ -62,7 +60,7 @@ public class EntityImpl implements Entity, T {
 	
 	private String handleTag2(String tag, Map values) throws Exception
 	{
-		String strVal = (String) stringVal.t(tag);
+		String strVal = extractStrValue(tag);
 		if(strVal!=null) return strVal;
 		
 		String[] n = tag.split(":",2);
@@ -75,5 +73,16 @@ public class EntityImpl implements Entity, T {
 		if(!defaultTag.contains(":")) return defaultTag;
 		
 		return handleTag2(defaultTag,values);
+	}
+	
+	
+	
+	private String extractStrValue(String s) throws Exception
+	{
+		if(s.startsWith("\"") && s.endsWith("\""))
+			return s.substring(1,s.length()-1).replace("\\\"","\"").replace("\\\\","\\");
+		if(s.startsWith("'") && s.endsWith("'"))
+			return s.substring(1,s.length()-1).replace("\\'","'").replace("\\\\","\\");
+		return null;
 	}
 }

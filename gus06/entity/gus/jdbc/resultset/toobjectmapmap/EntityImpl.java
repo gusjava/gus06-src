@@ -11,15 +11,10 @@ public class EntityImpl implements Entity, T {
 
 	public String creationDate() {return "20160229";}
 	
-	public static final String DEFAULT_ID = "id";
-	
 
 
 	public Object t(Object obj) throws Exception
 	{
-		if(obj instanceof ResultSet)
-			return buildRs((ResultSet) obj,DEFAULT_ID);
-		
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		

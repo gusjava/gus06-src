@@ -19,7 +19,7 @@ public class EntityImpl implements Entity, P {
 	{
 		formatInfo = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.template.span.formatinfo");
 		handleContent = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.template.span.handlecontent");
-		evalInt = Outside.service(this,"gus.string.transform.math.integer.eval1");
+		evalInt = Outside.service(this,"gus.sys.webserver1.web2.zdyn.e.bool.eval1.t");
 	}
 	
 	

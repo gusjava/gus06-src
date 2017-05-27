@@ -10,14 +10,10 @@ public class EntityImpl implements Entity, P {
 
 
 	private Service perform;
-	private Service loader1;
-	
-	
 
 	public EntityImpl() throws Exception
 	{
 		perform = Outside.service(this,"gus.file.string.perform.execute.script1");
-		loader1 = Outside.service(this,"gus.load.entities1");
 	}
 
 	

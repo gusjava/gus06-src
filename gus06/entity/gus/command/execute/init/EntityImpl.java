@@ -5,10 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
-
-import gus06.framework.Entity;
-import gus06.framework.Outside;
-import gus06.framework.Service;
+import gus06.framework.*;
 
 public class EntityImpl implements Entity {
 

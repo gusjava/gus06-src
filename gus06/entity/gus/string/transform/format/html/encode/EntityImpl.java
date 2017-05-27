@@ -65,7 +65,8 @@ public class EntityImpl implements Entity, T {
 		if(c == 'ı') return "&yacute;";
 		if(c == 'ÿ') return "&yuml;";
 		
-		if(c == '\n') return "<br>";
+		if(c == '\n') return "<br/>";
+		if(c == '\r') return "";
 		
 		return "" + c;
 	}

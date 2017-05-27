@@ -8,20 +8,20 @@ import gus06.framework.*;
 
 public class EntityImpl implements Entity, G {
 
-	public String creationDate() {return "20140705";}
+	public String creationDate() {return "20150626";}
 
 
-	public static final String KEY_STARTTIME = "a1:start time";
-	public static final String KEY_JARPATH = "a2:jar path";
-	public static final String KEY_ARGSLINE = "a3:args line";
-	public static final String KEY_PID = "a4:runtime pid";
-	public static final String KEY_JAVA = "a5:java version";
+	public static final String KEY_STARTTIME = "start_time";
+	public static final String KEY_JARPATH = "jar_path";
+	public static final String KEY_ARGSLINE = "args_line";
+	public static final String KEY_PID = "runtime_pid";
+	public static final String KEY_JAVA = "java_version";
 	
-	public static final String KEY_MANAGERID = "b1:manager id";
-	public static final String KEY_BUILDID = "b2:build id";
-	public static final String KEY_BUILDTIME = "b3:build time";
-	public static final String KEY_JARTIME = "b4:jar time";
-	public static final String KEY_JARMD5 = "b5:jar md5";
+	public static final String KEY_MANAGERID = "manager_id";
+	public static final String KEY_BUILDID = "build_id";
+	public static final String KEY_BUILDTIME = "build_time";
+	public static final String KEY_JARTIME = "jar_time";
+	public static final String KEY_JARMD5 = "jar_md5";
 	
 	public static final String PROP_BUILDID = "jar.buildid";
 	public static final String PROP_BUILDTIME = "jar.buildtime";
@@ -49,7 +49,7 @@ public class EntityImpl implements Entity, G {
 		getArgsLine = Outside.service(this,"gus.app.argsline");
 		getStartTime = Outside.service(this,"gus.app.starttime");
 		getPid = Outside.service(this,"gus.app.pid");
-		getJarTime = Outside.service(this,"gus.app.outside.lastmodified");
+		getJarTime = Outside.service(this,"gus.app.outside.lastmodified.timestamp");
 		
 		prop = (Map) Outside.resource(this,"prop");
 		managerId = (String) Outside.resource(this,"main.managerid");

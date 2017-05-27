@@ -2,7 +2,6 @@ package gus06.entity.gus.dir.access.getfile.properties.randomid;
 
 import gus06.framework.*;
 import java.io.File;
-import java.util.Map;
 
 public class EntityImpl implements Entity, T {
 

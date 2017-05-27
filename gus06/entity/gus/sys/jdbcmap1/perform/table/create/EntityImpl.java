@@ -7,7 +7,7 @@ public class EntityImpl implements Entity, F, P {
 
 	public String creationDate() {return "20150625";}
 	
-	public static final String FIELD_ID = "id";
+	public static final String FIELD_ID = "ID";
 	public static final String CHAR32 = "CHAR(32)";
 	public static final String TEXT = "TEXT";
 	
@@ -38,9 +38,11 @@ public class EntityImpl implements Entity, F, P {
 		String[] type = buildType(fields);
 		String[] primary = new String[]{FIELD_ID};
 		
-		create.p(new Object[]{cx,path,col,type,primary});
+		create.p(new Object[]{cx,path,col,type,primary,null,null});
 		return true;
 	}
+	
+	
 	
 	private String[] toArray(Object obj) throws Exception
 	{

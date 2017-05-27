@@ -63,25 +63,41 @@ public class EntityImpl implements Entity, T {
 		
 		public void v(String key, Object obj) throws Exception
 		{
-			if(obj==null)
-			{
-				delete(fileProp(key));
-				delete(fileTxt(key));
-			}
+			if(obj==null) deleteKey(key);
 			else if(obj instanceof String)
-			{
-				if(!dir.exists()) dir.mkdirs();
-				writeString.p(new Object[]{fileTxt(key),obj});
-				delete(fileProp(key));
-			}
+				persistString(key,""+obj);
+			else if(obj instanceof Number)
+				persistString(key,""+obj);
+			else if(obj instanceof Boolean)
+				persistString(key,""+obj);
 			else if(obj instanceof Map)
-			{
-				if(!dir.exists()) dir.mkdirs();
-				writeProp.p(new Object[]{fileProp(key),obj});
-				delete(fileTxt(key));
-			}
+				persistMap(key,(Map) obj);
+				
 			else throw new Exception("Invalid data type: "+obj.getClass().getName());
 		}
+		
+		
+		
+		private void deleteKey(String key) throws Exception
+		{
+			deleteFile(fileProp(key));
+			deleteFile(fileTxt(key));
+		}
+		
+		private void persistString(String key, String s) throws Exception
+		{
+			if(!dir.exists()) dir.mkdirs();
+			writeString.p(new Object[]{fileTxt(key),s});
+			deleteFile(fileProp(key));
+		}
+		
+		private void persistMap(String key, Map m) throws Exception
+		{
+			if(!dir.exists()) dir.mkdirs();
+			writeProp.p(new Object[]{fileProp(key),m});
+			deleteFile(fileTxt(key));
+		}
+		
 		
 		
 		public boolean f(Object obj) throws Exception
@@ -109,7 +125,7 @@ public class EntityImpl implements Entity, T {
 	
 	
 	
-	private void delete(File f) throws Exception
+	private void deleteFile(File f) throws Exception
 	{
 		if(!f.exists()) return;
 		boolean r = f.delete();

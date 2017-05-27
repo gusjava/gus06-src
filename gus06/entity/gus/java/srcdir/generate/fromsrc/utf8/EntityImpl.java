@@ -25,8 +25,8 @@ public class EntityImpl implements Entity, P {
 		Object[] o = (Object[]) obj;
 		if(o.length!=2) throw new Exception("Wrong data number: "+o.length);
 		
-		File dir = (File) o[0];
-		String src = (String) o[1];
+		String src = (String) o[0];
+		File dir = (File) o[1];
 		
 		String classPath = (String) findClassPath.t(src);
 		if(invalid(classPath)) throw new Exception("Invalid java classpath: "+classPath);
@@ -35,7 +35,7 @@ public class EntityImpl implements Entity, P {
 		file.getParentFile().mkdirs();
 		
 		PrintStream p = new PrintStream(file,"UTF-8");
-		p.print(src);
+		p.print(src.trim());
 		p.close();
 	}
 	

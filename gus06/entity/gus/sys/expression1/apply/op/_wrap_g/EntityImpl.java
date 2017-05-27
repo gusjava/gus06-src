@@ -16,7 +16,7 @@ public class EntityImpl implements Entity, T {
 		return new Wrap(obj);
 	}
 	
-	private class Wrap implements G
+	public class Wrap implements G
 	{
 		private Object data;
 		public Wrap(Object data) {this.data = data;}

@@ -8,16 +8,17 @@ public class EntityImpl implements Entity, P {
 
 	public String creationDate() {return "20160415";}
 	
-	public static final String C_EXECUTION = "execution";
 	public static final String X_RETURN = "return";
 	
 
 
 	private Service getParentPool;
+	private Service getExecution;
 
 	public EntityImpl() throws Exception
 	{
 		getParentPool = Outside.service(this,"gus.sys.script1.access.tag.parent0.stack1.pool1");
+		getExecution = Outside.service(this,"gus.sys.script1.access.context.execution");
 	}
 	
 	
@@ -33,13 +34,13 @@ public class EntityImpl implements Entity, P {
 		Map pool = (Map) getParentPool.t(tag);
 		if(pool==null) return;
 		
-		Map execution = (Map) context.get(C_EXECUTION);
+		Map execution = (Map) getExecution.t(context);
 		if(!execution.containsKey(X_RETURN)) return;
 		
 		Set returnSet = (Set) execution.remove(X_RETURN);
 		if(returnSet.isEmpty()) return;
 		
 		Object returnValue = returnSet.iterator().next();
-		pool.put("return",returnValue);
+		pool.put(X_RETURN,returnValue);
 	}
 }

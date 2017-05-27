@@ -27,6 +27,7 @@ public class EntityImpl implements Entity, P {
 	{
 		String s0 = comp.getText();
 		String s1 = (String) t.t(s0);
+		if(s1==null) return;
 		
 		int p = comp.getCaretPosition();
 		int l = s1.length();

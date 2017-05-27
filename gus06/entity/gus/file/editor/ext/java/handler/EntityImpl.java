@@ -36,7 +36,7 @@ public class EntityImpl implements Entity, T {
 		writeFile = Outside.service(this,"gus.file.write.string");
 		textChanged = Outside.service(this,"gus.swing.textcomp.textchanged.delayed");
 		fileChanged = Outside.service(this,"gus.file.watcher.filechanged.delayed");
-		putAction = Outside.service(this,"gus.swing.textcomp.cust.action.put");
+		putAction = Outside.service(this,"gus.swing.textcomp.cust.putaction");
 		compileFile = Outside.service(this,"gus.java.compiler.file");
 		buildAction = Outside.service(this,"gus.convert.executetoaction2");
 		boolprop = Outside.service(this,"propbool_df");
