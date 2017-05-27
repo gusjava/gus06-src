@@ -32,21 +32,17 @@ public class Module extends GyemSystem implements T {
 	
 	
 	
-	
-	
-	
-	
 	private String formatRule(String s)
-    {
-    	if(!s.contains("-")) return s;
-    	String[] n = s.split("-",2);
-    	if(!isInteger(n[1])) return s;
-    	return n[0];	
-    }
-    
-    private boolean isInteger(String s)
-    {
-    	try{Integer.parseInt(s);return true;}
-    	catch(Exception e){return false;}
-    }
+	{
+		if(!s.contains("-")) return s;
+		String[] n = s.split("-",2);
+		if(!isInteger(n[1])) return s;
+		return n[0];	
+	}
+	
+	private boolean isInteger(String s)
+	{
+		try{Integer.parseInt(s);return true;}
+		catch(Exception e){return false;}
+	}
 }

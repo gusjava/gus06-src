@@ -4,9 +4,7 @@ import gus06.framework.E;
 import gus06.framework.G;
 import gus06.framework.P;
 import gus06.manager.gus.gyem.GyemSystem;
-import javax.swing.JFrame;
 import java.util.Map;
-
 
 public class Module extends GyemSystem implements G {
 

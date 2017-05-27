@@ -3,6 +3,7 @@ package gus06.manager.gus.gyem;
 public class GyemConst {
 
 	public static final String KEY_MANAGERID		= "main.managerid";
+	public static final String KEY_MANAGERNAME		= "main.managername";
 	public static final String KEY_MANAGERBUILD		= "main.managerbuild";
 	public static final String KEY_STARTTIME    		= "main.starttime";
 	public static final String KEY_APPARGS         		= "main.appargs";
@@ -38,6 +39,7 @@ public class GyemConst {
 	public static final String PROP_APPSTYLE		= "app.style";
 	public static final String PROP_APPGUIDISABLED		= "app.guidisabled";
 	public static final String PROP_APPLOADDISABLED		= "app.loaddisabled";
+	public static final String PROP_APPDYNAMICCALL		= "app.dynamiccall";
 	public static final String PROP_APPCLURLS		= "app.clurls";
 	public static final String PROP_SEQ_PROP		= "sequence.prop";
 	public static final String PROP_SEQ_MAPPING		= "sequence.mapping";
@@ -177,7 +179,8 @@ public class GyemConst {
 	public static final Class M119_G_JAVAFX_SCENE_BUILDER2			= gus06.manager.gus.gyem.m119.g.javafx.scene.builder2.Module.class;
 	public static final Class M120_G_JAVAFX_SCENE_DEFAULTGUI		= gus06.manager.gus.gyem.m120.g.javafx.scene.defaultgui.Module.class;
 	public static final Class M121_G_DEFAULTGUI_EMPTYTEXT			= gus06.manager.gus.gyem.m121.g.defaultgui.emptytext.Module.class;
+	public static final Class M122_T_GUSLINK				= gus06.manager.gus.gyem.m122.t.guslink.Module.class;
+	public static final Class M123_T_SERVICE_WRAPPER_DYN			= gus06.manager.gus.gyem.m123.t.service.wrapper.dyn.Module.class;
+	public static final Class M124_T_MODULE_BUILDER				= gus06.manager.gus.gyem.m124.t.module.builder.Module.class;
 	
-    
-    
 }

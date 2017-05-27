@@ -18,6 +18,5 @@ public class Module extends GyemSystem implements P {
 		if(c!=null) frame.setContentPane(c);
 		
 		((P) module(M092_G_CUSTOMIZEFRAME)).p(frame);
-		frame.setVisible(true);
 	}
 }

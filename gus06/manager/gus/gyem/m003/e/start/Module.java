@@ -1,6 +1,5 @@
 package gus06.manager.gus.gyem.m003.e.start;
 
-import java.util.Map;
 import gus06.framework.E;
 import gus06.framework.F;
 import gus06.manager.gus.gyem.GyemSystem;

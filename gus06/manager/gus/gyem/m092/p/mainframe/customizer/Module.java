@@ -21,6 +21,7 @@ public class Module extends GyemSystem implements P {
 		frame.setTitle(title);
 		frame.setSize(dim(size));
 		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 	
 	

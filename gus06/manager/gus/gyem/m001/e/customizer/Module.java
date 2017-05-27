@@ -14,7 +14,7 @@ public class Module extends GyemSystem implements E {
 	
 	public void e() throws Exception
 	{
-		Map cust = buildCustomizedMap();
+		Map cust = buildCust();
 		Iterator it = cust.keySet().iterator();
 		while(it.hasNext())
 		{
@@ -25,13 +25,10 @@ public class Module extends GyemSystem implements E {
 	
 	
 	
-	
-	
-	private Map buildCustomizedMap() throws Exception
+	private Map buildCust() throws Exception
 	{
 		Map prop = (Map) ((G) module(M012_G_PROP)).g();
-		T unique = (T) module(M026_T_ENTITY_UNIQUE);
-		G empty = (G) module(M060_G_SERVICE_WRAPPER_EMPTY);
+		T builder = (T) module(M124_T_MODULE_BUILDER);
 		
 		Map map = new HashMap();
 		Iterator it = prop.keySet().iterator();
@@ -41,8 +38,10 @@ public class Module extends GyemSystem implements E {
 			if(key.startsWith("cust."))
 			{
 				String value = (String) prop.get(key);
-				Object newModule = value.equals("null")?empty.g():unique.t(value);
-				map.put(key.substring(5),newModule);
+				
+				String name = key.substring(5);
+				Object newModule = builder.t(value);
+				map.put(name,newModule);
 			}
 		}
 		return map;

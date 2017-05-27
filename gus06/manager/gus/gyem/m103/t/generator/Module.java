@@ -13,6 +13,20 @@ public class Module extends GyemSystem implements T, F {
 		String value = getValue(key);
 		
 		if(value==null) return null;
+		if(value.equals("null")) return null;
+		
+		if(value.startsWith("g:"))
+		{
+			G result = (G) uniqueEntity(value.substring(2));
+			return result.g();
+		}
+		
+		if(value.startsWith("i:"))
+		{
+			I result = (I) uniqueEntity(value.substring(2));
+			return result.i();
+		}
+		
 		return uniqueEntity(value);
 	}
 	
@@ -24,6 +38,7 @@ public class Module extends GyemSystem implements T, F {
 		String value = getValue(key);
 		
 		if(value==null) return false;
+		if(value.equals("null")) return false;
 		
 		if(value.startsWith(":"))
 		{
@@ -41,6 +56,7 @@ public class Module extends GyemSystem implements T, F {
 			result.run();
 			return true;
 		}
+		
 		uniqueEntity(value);
 		return true;
 	}

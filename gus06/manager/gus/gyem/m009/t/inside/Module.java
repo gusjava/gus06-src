@@ -1,6 +1,9 @@
 package gus06.manager.gus.gyem.m009.t.inside;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.nio.charset.Charset;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +15,7 @@ import gus06.framework.G;
 import gus06.manager.gus.gyem.GyemSystem;
 
 public class Module extends GyemSystem implements T, R, G {
+	
 
 
 	public Object g() throws Exception
@@ -44,6 +48,7 @@ public class Module extends GyemSystem implements T, R, G {
 		if(type.equals("stream"))	return stream(path);
 		if(type.equals("prop"))		return prop(path);
 		if(type.equals("txt"))		return txt(path);
+		if(type.equals("utf8"))		return utf8(path);
 		if(type.equals("list"))		return list(path);
         
 		throw new Exception("Unknown inside type: ["+type+"]");
@@ -76,12 +81,31 @@ public class Module extends GyemSystem implements T, R, G {
 		InputStream is = stream(path);
 		if(is==null) return null;
         
-		StringBuffer b = new StringBuffer();
-		int c;
-		while((c=is.read())!=-1)
-		b.append((char)c);
-		is.close();
-		return b.toString();
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		StringBuilder sb = new StringBuilder();
+		
+		String line;
+		while((line=br.readLine()) != null) sb.append(line+"\n");   
+
+		br.close();
+		return sb.toString();
+	}
+	
+	private String utf8(String path) throws Exception
+	{
+		InputStream is = stream(path);
+		if(is==null) return null;
+        
+		InputStreamReader isr = new InputStreamReader(is,Charset.forName("UTF-8"));
+		BufferedReader br = new BufferedReader(isr);
+		StringBuilder sb = new StringBuilder();
+		
+		String line;
+		while((line=br.readLine()) != null) sb.append(line+"\n");   
+
+		br.close();
+		return sb.toString();
 	}
     
 	private List list(String path) throws Exception

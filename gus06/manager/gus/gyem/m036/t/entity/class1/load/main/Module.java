@@ -1,6 +1,5 @@
 package gus06.manager.gus.gyem.m036.t.entity.class1.load.main;
 
-import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import gus06.framework.*;

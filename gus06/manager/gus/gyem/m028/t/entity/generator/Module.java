@@ -11,7 +11,7 @@ public class Module extends GyemSystem implements T, R {
 	{
 		String entityName = (String) obj;
 		Class entityClass = (Class) ((T) module(M029_T_ENTITY_CLASSFINDER)).t(entityName);
-		return Tool_Entity.createEntity(entityClass);
+		return Tool_Entity.createEntity(entityClass,apiMode);
 	}
 	
 	

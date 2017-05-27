@@ -10,10 +10,12 @@ public class Module extends GyemSystem implements T, R {
 	public Object t(Object obj) throws Exception
 	{
 		String entityName = (String) obj;
-		URL url = findClassURL(entityName);
+		
 		ClassLoader main = mainClassLoader();
+		URL url = findClassURL(entityName);
 		return new EntityClassLoader(new URL[]{url},main);
 	}
+	
 	
 	public Object r(String key) throws Exception
 	{return t(key);}

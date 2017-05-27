@@ -26,9 +26,9 @@ public class Tool_Entity {
 	
 	
 	
-	public static Entity createEntity(Class c) throws Exception
+	public static Entity createEntity(Class c, boolean direct) throws Exception
 	{
-		if(t!=null) return (Entity) c.newInstance();
+		if(t!=null || direct) return (Entity) c.newInstance();
 		
 		Entity entity = null;
 		
@@ -51,7 +51,7 @@ public class Tool_Entity {
 	
 	private static class EntityThread extends Thread implements UncaughtExceptionHandler
 	{
-		public static final long TIMEOUT = 10000L;
+		public static final long TIMEOUT = 60000L;
 	
 		private Class c;
 		private Object result;
@@ -74,16 +74,19 @@ public class Tool_Entity {
 			start();
 			
 			long t1 = System.currentTimeMillis();
-			while(isAlive() && System.currentTimeMillis()-t1 < TIMEOUT)
-			{Thread.sleep(1);}
+			long dt = System.currentTimeMillis()-t1;
 			
-			//join(TIMEOUT);
-			
+			while(isAlive() && dt < TIMEOUT)
+			{
+				Thread.sleep(5);
+				dt = System.currentTimeMillis()-t1;
+			}
 		
 			Thread.setDefaultUncaughtExceptionHandler(ueh);
 		
 			if(result==null)
 				throw new Exception("Class instantiation takes too long: "+c.getName()+"\n"+
+						"wait time:"+dt+"ms\n"+
 						"state:"+getState()+"\n"+
 						"BLOCKING STACK:\n"+
 						steToString());

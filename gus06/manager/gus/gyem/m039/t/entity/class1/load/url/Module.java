@@ -13,7 +13,7 @@ public class Module extends GyemSystem implements T, R {
 	public Object t(Object obj) throws Exception
 	{
 		String entityName = (String) obj;
-		if(loadDisabled()) return mainURL();
+		if(loadDisabled() || apiMode) return mainURL();
 		
 		File jar = entityJarFile(entityName);
 		if(jar!=null) return jar.toURI().toURL();
